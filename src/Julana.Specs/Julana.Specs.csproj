@@ -81,6 +81,7 @@
   <ItemGroup>
     <Compile Include="Class1.cs" />
     <Compile Include="DomainModel\KeySpecifications.cs" />
+    <Compile Include="DomainModel\MixingStrategies\Copy of SameKeySpecifications.cs" />
     <Compile Include="DomainModel\MixingStrategies\OneSemitoneEnergyBoostSpecifications.cs" />
     <Compile Include="DomainModel\MixingStrategies\SameKeySpecifications.cs" />
     <Compile Include="DomainModel\MixingStrategies\TwoSemitoneEnergyBoostSpecifications.cs" />
