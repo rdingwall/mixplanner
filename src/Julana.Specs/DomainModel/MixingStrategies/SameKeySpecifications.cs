@@ -32,8 +32,8 @@ namespace Julana.Specs.DomainModel.MixingStrategies
             static IEnumerable<Track> unplayedTracks;
             static IEnumerable<Track> suggestedTracks;
 
-            It should_suggest_tracks_that_are_one_semitone_up_from_the_current =
-                () => ShouldExtensionMethods.ShouldContainOnly(suggestedTracks.Select(t => t.Name), "E");
+            It should_suggest_tracks_that_are_in_the_same_key =
+                () => suggestedTracks.Select(t => t.Name).ShouldContainOnly("E");
         }
     }
 }

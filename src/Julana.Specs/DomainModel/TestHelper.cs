@@ -7,17 +7,20 @@ namespace Julana.Specs.DomainModel
     {
         public static IEnumerable<Track> GetDummyTracks()
         {
-            yield return new Track("A - A", Key.RandomKey());
-            yield return new Track("B - B", Key.RandomKey());
-            yield return new Track("C - C", Key.RandomKey());
-            yield return new Track("D - D", Key.RandomKey());
-            yield return new Track("E - E", Key.RandomKey());
-            yield return new Track("F - F", Key.RandomKey());
-            yield return new Track("G - G", Key.RandomKey());
-            yield return new Track("H - H", Key.RandomKey());
-            yield return new Track("I - I", Key.RandomKey());
-            yield return new Track("J - J", Key.RandomKey());
-            yield return new Track("K - K", Key.RandomKey());
+            return new List<Track>
+                       {
+                           new Track("A - A", Key.RandomKey()),
+                           new Track("B - B", Key.RandomKey()),
+                           new Track("C - C", Key.RandomKey()),
+                           new Track("D - D", Key.RandomKey()),
+                           new Track("E - E", Key.RandomKey()),
+                           new Track("F - F", Key.RandomKey()),
+                           new Track("G - G", Key.RandomKey()),
+                           new Track("H - H", Key.RandomKey()),
+                           new Track("I - I", Key.RandomKey()),
+                           new Track("J - J", Key.RandomKey()),
+                           new Track("K - K", Key.RandomKey())
+                       };
         }
     }
 }

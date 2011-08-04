@@ -72,6 +72,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DomainModel\INextTrackAdvisor.cs" />
     <Compile Include="DomainModel\InvalidPitchException.cs" />
     <Compile Include="DomainModel\InvalidScaleException.cs" />
     <Compile Include="DomainModel\Key.cs" />
@@ -80,10 +81,12 @@
     <Compile Include="DomainModel\MixingStrategies\ManualOutOfKeyMix.cs" />
     <Compile Include="DomainModel\MixingStrategies\IncreasePitchStrategyBase.cs" />
     <Compile Include="DomainModel\MixingStrategies\OneSemitoneEnergyBoost.cs" />
+    <Compile Include="DomainModel\MixingStrategies\OpeningTrack.cs" />
     <Compile Include="DomainModel\MixingStrategies\SameKey.cs" />
     <Compile Include="DomainModel\MixingStrategies\SwitchToMajorScale.cs" />
     <Compile Include="DomainModel\MixingStrategies\SwitchToMinorScale.cs" />
     <Compile Include="DomainModel\MixingStrategies\TwoSemitoneEnergyBoost.cs" />
+    <Compile Include="DomainModel\NextTrackAdvisor.cs" />
     <Compile Include="DomainModel\Scale.cs" />
     <Compile Include="DomainModel\Set.cs" />
     <Compile Include="DomainModel\Track.cs" />
