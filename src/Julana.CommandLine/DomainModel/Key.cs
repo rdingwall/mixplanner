@@ -55,6 +55,17 @@ namespace Julana.CommandLine.DomainModel
                 throw new InvalidScaleException("Invalid scale (must be A or B).");
         }
 
+        public bool HasSamePitchAs(Key other)
+        {
+            if (other == null) throw new ArgumentNullException("other");
+            return Pitch.Equals(other.Pitch);
+        }
+
+        public bool HasSameScaleAs(Key other)
+        {
+            if (other == null) throw new ArgumentNullException("other");
+            return Scale.Equals(other.Scale);
+        }
 
         public bool IsMajor()
         {
@@ -129,6 +140,16 @@ namespace Julana.CommandLine.DomainModel
             {
                 return (Scale.GetHashCode()*397) ^ Pitch;
             }
+        }
+
+        public Key IncreasePitch(int value)
+        {
+            var newPitch = (Pitch + value) % 12;
+
+            if (newPitch == 0)
+                newPitch = 12;
+
+            return new Key(newPitch, Scale);
         }
     }
 }

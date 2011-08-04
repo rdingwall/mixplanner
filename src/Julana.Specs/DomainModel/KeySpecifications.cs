@@ -115,5 +115,17 @@ namespace Julana.Specs.DomainModel
             It should_provide_a_constant_for_11B = () => Key.Key11B.ToString().ShouldEqual("11B");
             It should_provide_a_constant_for_12B = () => Key.Key12B.ToString().ShouldEqual("12B");
         }
+
+        public class when_increasing_the_pitch
+        {
+            It should_add_the_pitch =
+                () => Key.Key5A.IncreasePitch(7).ShouldEqual(Key.Key12A);
+        }
+
+        public class when_increasing_the_pitch_past_twelve
+        {
+            It should_go_around_again =
+                () => Key.Key12A.IncreasePitch(7).ShouldEqual(Key.Key7A);
+        }
     }
 }
