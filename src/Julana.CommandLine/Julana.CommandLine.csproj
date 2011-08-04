@@ -81,6 +81,7 @@
     <Compile Include="DomainModel\MixingStrategies\IncreasePitchStrategyBase.cs" />
     <Compile Include="DomainModel\MixingStrategies\OneSemitoneEnergyBoost.cs" />
     <Compile Include="DomainModel\MixingStrategies\SameKey.cs" />
+    <Compile Include="DomainModel\MixingStrategies\SwitchToMinorScale.cs" />
     <Compile Include="DomainModel\MixingStrategies\TwoSemitoneEnergyBoost.cs" />
     <Compile Include="DomainModel\Scale.cs" />
     <Compile Include="DomainModel\Set.cs" />

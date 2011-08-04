@@ -151,5 +151,15 @@ namespace Julana.CommandLine.DomainModel
 
             return new Key(newPitch, Scale);
         }
+
+        public Key ToMinor()
+        {
+            return new Key(Pitch, Scale.Minor);
+        }
+
+        public Key ToMajor()
+        {
+            return new Key(Pitch, Scale.Minor);
+        }
     }
 }

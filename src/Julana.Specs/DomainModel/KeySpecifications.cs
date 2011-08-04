@@ -127,5 +127,29 @@ namespace Julana.Specs.DomainModel
             It should_go_around_again =
                 () => Key.Key12A.IncreasePitch(7).ShouldEqual(Key.Key7A);
         }
+
+        public class when_switching_to_minor
+        {
+            It should_change_the_scale =
+                () => new Key("12B").ToMinor().ShouldEqual(new Key("12A"));
+        }
+
+        public class when_switching_to_major
+        {
+            It should_change_the_scale =
+                () => new Key("12A").ToMajor().ShouldEqual(new Key("12B"));
+        }
+
+        public class when_switching_to_major_but_was_already_major
+        {
+            It should_keep_the_same_scale =
+                () => new Key("12B").ToMajor().ShouldEqual(new Key("12B"));
+        }
+
+        public class when_switching_to_minor_but_was_already_minor
+        {
+            It should_keep_the_same_scale =
+                () => new Key("12A").ToMajor().ShouldEqual(new Key("12A"));
+        }
     }
 }
