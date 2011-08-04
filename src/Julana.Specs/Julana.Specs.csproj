@@ -79,7 +79,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="DomainModel\KeySpecifications.cs" />
     <Compile Include="DomainModel\MixingStrategies\SwitchToMajorScaleSpecifications.cs" />
     <Compile Include="DomainModel\MixingStrategies\IncrementOneSpecifications.cs" />
