@@ -149,7 +149,7 @@ namespace Julana.Specs.DomainModel
         public class when_switching_to_minor_but_was_already_minor
         {
             It should_keep_the_same_scale =
-                () => new Key("12A").ToMajor().ShouldEqual(new Key("12A"));
+                () => new Key("12A").ToMinor().ShouldEqual(new Key("12A"));
         }
     }
 }

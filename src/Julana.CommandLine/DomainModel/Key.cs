@@ -159,7 +159,7 @@ namespace Julana.CommandLine.DomainModel
 
         public Key ToMajor()
         {
-            return new Key(Pitch, Scale.Minor);
+            return new Key(Pitch, Scale.Major);
         }
     }
 }
