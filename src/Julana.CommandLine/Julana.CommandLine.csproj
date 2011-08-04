@@ -76,8 +76,9 @@
     <Compile Include="DomainModel\InvalidScaleException.cs" />
     <Compile Include="DomainModel\Key.cs" />
     <Compile Include="DomainModel\IMixingStrategy.cs" />
-    <Compile Include="DomainModel\MixingStrategies\IncreasePitchStrategy.cs" />
+    <Compile Include="DomainModel\MixingStrategies\IncreasePitchStrategyBase.cs" />
     <Compile Include="DomainModel\MixingStrategies\OneSemitoneEnergyBoost.cs" />
+    <Compile Include="DomainModel\MixingStrategies\SameKey.cs" />
     <Compile Include="DomainModel\MixingStrategies\TwoSemitoneEnergyBoost.cs" />
     <Compile Include="DomainModel\Scale.cs" />
     <Compile Include="DomainModel\Set.cs" />

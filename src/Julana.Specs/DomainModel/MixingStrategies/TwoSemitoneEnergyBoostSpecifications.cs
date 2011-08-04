@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Julana.CommandLine.DomainModel;
 using Julana.CommandLine.DomainModel.MixingStrategies;
@@ -6,21 +6,21 @@ using Machine.Specifications;
 
 namespace Julana.Specs.DomainModel.MixingStrategies
 {
-    [Subject(typeof(OneSemitoneEnergyBoost))]
-    public class OneSemitoneEnergyBoostSpecifications
+    [Subject(typeof(TwoSemitoneEnergyBoost))]
+    public class TwoSemitoneEnergyBoostSpecifications
     {
         public class when_deciding_which_track_to_play_next
         {
             Establish context = () =>
                                     {
                                         currentTrack = new Track("A", Key.Key9A);
-                                        strategy = new OneSemitoneEnergyBoost();
+                                        strategy = new TwoSemitoneEnergyBoost();
                                         unplayedTracks = new[]
                                                              {
                                                                  new Track("B", Key.Key8B), 
-                                                                 new Track("C", Key.Key4A),
-                                                                 new Track("D", Key.Key4B),
-                                                                 new Track("E", Key.Key4A),
+                                                                 new Track("C", Key.Key11A),
+                                                                 new Track("D", Key.Key11B),
+                                                                 new Track("E", Key.Key11A),
                                                                  new Track("E", Key.Key8A),
                                                              };
                                     };

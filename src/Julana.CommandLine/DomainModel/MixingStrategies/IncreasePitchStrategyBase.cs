@@ -4,11 +4,11 @@ using System.Linq;
 
 namespace Julana.CommandLine.DomainModel.MixingStrategies
 {
-    public abstract class IncreasePitchStrategy : IMixingStrategy
+    public abstract class IncreasePitchStrategyBase : IMixingStrategy
     {
         readonly int increaseAmount;
 
-        protected IncreasePitchStrategy(int increaseAmount)
+        protected IncreasePitchStrategyBase(int increaseAmount)
         {
             this.increaseAmount = increaseAmount;
         }
