@@ -89,6 +89,7 @@
     <Compile Include="DomainModel\MixingStrategies\SwitchToMinorScaleSpecifications.cs" />
     <Compile Include="DomainModel\MixingStrategies\TwoSemitoneEnergyBoostSpecifications.cs" />
     <Compile Include="DomainModel\SetSpecifications.cs" />
+    <Compile Include="DomainModel\TestHelper.cs" />
     <Compile Include="DomainModel\TrackSpecifications.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
