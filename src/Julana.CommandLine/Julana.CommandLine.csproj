@@ -93,7 +93,9 @@
     <Compile Include="DomainModel\Scale.cs" />
     <Compile Include="DomainModel\Set.cs" />
     <Compile Include="DomainModel\Track.cs" />
-    <Compile Include="Mp3\InitialKeyId3Reader.cs" />
+    <Compile Include="Mp3\DirectoryScanner.cs" />
+    <Compile Include="Mp3\Id3Reader.cs" />
+    <Compile Include="Mp3\IId3Reader.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

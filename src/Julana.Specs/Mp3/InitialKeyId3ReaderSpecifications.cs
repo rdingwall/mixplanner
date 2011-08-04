@@ -4,26 +4,30 @@ using Machine.Specifications;
 
 namespace Julana.Specs.Mp3
 {
-    [Subject(typeof(InitialKeyId3Reader))]
-    public class InitialKeyId3ReaderSpecifications
+    [Subject(typeof(Id3Reader))]
+    public class Id3ReaderSpecifications
     {
         public class when_reading_the_initial_key_from_an_mp3_file
         {
             Establish context =
                 () =>
                     {
-                        reader = new InitialKeyId3Reader();
+                        reader = new Id3Reader();
                     };
 
             Because of =
                 () => 
-                reader.TryGetInitialKey(
-                    @"C:\Users\Richard\Desktop\CDJs\10A - 133.9 - 2005934_All We Have Is Now_Original Mix.mp3", out key);
+                reader.TryRead(
+                    @"C:\Users\Richard\Desktop\CDJs\10A - 133.9 - 2005934_All We Have Is Now_Original Mix.mp3", out track);
 
-            It should_get_the_correct_key = () => key.ShouldEqual(Key.Key10A);
+            It should_parse_the_track_without_error = () => track.ShouldNotBeNull();
 
-            static InitialKeyId3Reader reader;
-            static Key key;
+            It should_get_the_correct_key = () => track.Key.ShouldEqual(Key.Key10A);
+
+            It should_get_the_correct_name = () => track.Name.ShouldEqual("10A - 133.9 - Super8, Tab, Betsie Larkin - All We Have Is Now - Original Mix");
+
+            static Id3Reader reader;
+            static Track track;
         }
     }
 }

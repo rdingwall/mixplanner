@@ -16,7 +16,7 @@ namespace Julana.CommandLine.DomainModel
             this.advisor = advisor;
             if (unplayedTracks == null) throw new ArgumentNullException("unplayedTracks");
             if (advisor == null) throw new ArgumentNullException("advisor");
-            this.unplayedTracks = new List<Track>(unplayedTracks);
+            this.unplayedTracks = new List<Track>(unplayedTracks.Distinct());
             trackList = new List<Track>();
         }
 
