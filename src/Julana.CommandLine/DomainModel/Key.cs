@@ -8,8 +8,14 @@ namespace Julana.CommandLine.DomainModel
         // e.g. 12A
         private readonly ushort key;
 
+        public Key(int pitch, Scale scale) : this (String.Format("{0}{1:X}", pitch, (int)scale))
+        {
+        }
+
         public Key(string key)
         {
+            if (key == null) throw new ArgumentNullException("key");
+
             this.key = ushort.Parse(key, NumberStyles.HexNumber);
 
             Scale = ExtractScale(this.key);
@@ -22,10 +28,15 @@ namespace Julana.CommandLine.DomainModel
             var hexPitchAsDec = key >> 4;
             var pitch = Convert.ToInt32(hexPitchAsDec.ToString("X"));
 
-            if (!IsValidPitch(pitch))
-                throw new InvalidPitchException(String.Format("{0} is not a valid pitch (must be 0-12).", pitch));
+            ThrowIfInvalidPitch(pitch);
 
             return pitch;
+        }
+
+        static void ThrowIfInvalidPitch(int pitch)
+        {
+            if (!(pitch <= 12))
+                throw new InvalidPitchException(String.Format("{0} is not a valid pitch (must be 0-12).", pitch));
         }
 
         static Scale ExtractScale(ushort key)
@@ -33,21 +44,15 @@ namespace Julana.CommandLine.DomainModel
             // Isolate the scale e.g. 12B -> B
             var scale = key & 0xF;
 
-            if (!IsValidScale(scale))
-                throw new InvalidScaleException("Invalid scale (must be A or B).");
+            ThrowIfInvalidScale(scale);
 
             return (Scale)scale;
         }
 
-        private static bool IsValidPitch(int pitch)
+        static void ThrowIfInvalidScale(int scale)
         {
-            return pitch <= 12;
-        }
-
-        private static bool IsValidScale(int scale)
-        {
-            return scale == (ushort)Scale.Major 
-                   || scale == (ushort)Scale.Minor;
+            if (!(scale == (ushort)Scale.Major || scale == (ushort)Scale.Minor))
+                throw new InvalidScaleException("Invalid scale (must be A or B).");
         }
 
 
@@ -94,6 +99,14 @@ namespace Julana.CommandLine.DomainModel
         public static Key Key10B { get { return new Key("10B"); } }
         public static Key Key11B { get { return new Key("11B"); } }
         public static Key Key12B { get { return new Key("12B"); } }
+
+        public static Key RandomKey()
+        {
+            var random = new Random();
+            var pitch = random.Next(1, 12);
+            var scale = random.Next(0, 1) == 1 ? Scale.Major : Scale.Minor;
+            return new Key(pitch, scale);
+        }
 
         public bool Equals(Key other)
         {

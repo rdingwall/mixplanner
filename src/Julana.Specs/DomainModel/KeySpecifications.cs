@@ -46,6 +46,25 @@ namespace Julana.Specs.DomainModel
             static Key key;
         }
 
+        public class when_constructing_from_split_scale_and_pitch
+        {
+            Because of = () => key = new Key(8, Scale.Minor);
+
+            It should_be_the_correct_scale =
+                () => key.Scale.ShouldEqual(Scale.Minor);
+
+            It should_be_minor =
+                () => key.IsMinor().ShouldBeTrue();
+
+            It should_not_be_major =
+                () => key.IsMajor().ShouldBeFalse();
+
+            It should_be_in_the_correct_pitch =
+                () => key.Pitch.ShouldEqual(8);
+
+            static Key key;
+        }
+
         public class when_comparing_two_instances_of_the_same_key
         {
             It should_consider_them_equal =
