@@ -100,7 +100,6 @@
     <Compile Include="DomainModel\MixingStrategies\TwoSemitoneEnergyBoost.cs" />
     <Compile Include="DomainModel\NextTrackAdvisor.cs" />
     <Compile Include="DomainModel\Scale.cs" />
-    <Compile Include="DomainModel\Set.cs" />
     <Compile Include="DomainModel\Track.cs" />
     <Compile Include="Mp3\DirectoryScanner.cs" />
     <Compile Include="Mp3\Id3Reader.cs" />
