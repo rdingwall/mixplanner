@@ -26,7 +26,7 @@ namespace MixPlanner.CommandLine.DomainModel
         {
             this.hexValue = hexValue;
             Scale = scale;
-            pitch = pitch;
+            Pitch = pitch;
         }
 
         static int ExtractPitch(ushort key)
