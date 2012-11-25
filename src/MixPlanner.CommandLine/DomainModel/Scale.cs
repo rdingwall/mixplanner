@@ -3,6 +3,7 @@
     public enum Scale
     {
         Major = 0xB,
-        Minor = 0xA
+        Minor = 0xA,
+        Unknown
     }
 }

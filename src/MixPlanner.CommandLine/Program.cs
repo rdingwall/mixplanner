@@ -9,7 +9,7 @@ namespace MixPlanner.CommandLine
     {
         static void Main(string[] args)
         {
-            var tracks = new DirectoryScanner().GetTracks(Environment.CurrentDirectory);
+            var tracks = new DirectoryScanner(new TrackLoader(new Id3Reader())).GetTracks(Environment.CurrentDirectory);
 
             var set = new Set(tracks, new NextTrackAdvisor());
 

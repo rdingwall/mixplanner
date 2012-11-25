@@ -84,7 +84,9 @@
     <Compile Include="DomainModel\InvalidScaleException.cs" />
     <Compile Include="DomainModel\Key.cs" />
     <Compile Include="DomainModel\IMixingStrategy.cs" />
+    <Compile Include="DomainModel\UnknownKey.cs" />
     <Compile Include="ImportExport\IPlaylistWriter.cs" />
+    <Compile Include="ImportExport\M3uReader.cs" />
     <Compile Include="ImportExport\M3uWriter.cs" />
     <Compile Include="DomainModel\Mix.cs" />
     <Compile Include="DomainModel\MixingStrategies\IncrementOne.cs" />
@@ -103,6 +105,7 @@
     <Compile Include="Mp3\DirectoryScanner.cs" />
     <Compile Include="Mp3\Id3Reader.cs" />
     <Compile Include="Mp3\IId3Reader.cs" />
+    <Compile Include="Mp3\TrackLoader.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

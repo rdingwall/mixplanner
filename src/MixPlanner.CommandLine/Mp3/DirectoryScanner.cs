@@ -7,14 +7,12 @@ namespace MixPlanner.CommandLine.Mp3
 {
     public class DirectoryScanner
     {
-        readonly IId3Reader id3Reader;
+        readonly ITrackLoader loader;
         
-        public DirectoryScanner() : this(new Id3Reader()) {}
-
-        public DirectoryScanner(IId3Reader id3Reader)
+        public DirectoryScanner(ITrackLoader loader)
         {
-            if (id3Reader == null) throw new ArgumentNullException("id3Reader");
-            this.id3Reader = id3Reader;
+            if (loader == null) throw new ArgumentNullException("loader");
+            this.loader = loader;
         }
 
         public IEnumerable<Track> GetTracks(string directoryName)
@@ -22,11 +20,10 @@ namespace MixPlanner.CommandLine.Mp3
             var files = Directory.GetFiles(directoryName, "*.mp3", SearchOption.AllDirectories);
 
             IList<Track> tracks = new List<Track>();
-            foreach (string filename in files)
+            foreach (var filename in files)
             {
-                Track track;
-                if (id3Reader.TryRead(filename, out track))
-                    tracks.Add(track);
+                var track = loader.Load(filename);
+                tracks.Add(track);
             }
 
             return tracks;

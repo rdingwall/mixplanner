@@ -100,6 +100,10 @@
     <Compile Include="DomainModel\NextTrackAdvisorSpecifications.cs" />
     <Compile Include="DomainModel\SetSpecifications.cs" />
     <Compile Include="DomainModel\TrackSpecifications.cs" />
+    <Content Include="DummyPlaylist.m3u">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Compile Include="ImportExport\M3uReaderSpecs.cs" />
     <Compile Include="ImportExport\M3uWriterSpecs.cs" />
     <Compile Include="Mp3\InitialKeyId3ReaderSpecifications.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

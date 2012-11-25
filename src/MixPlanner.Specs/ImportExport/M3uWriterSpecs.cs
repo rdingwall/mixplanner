@@ -24,6 +24,12 @@ namespace MixPlanner.Specs.ImportExport
              It should_write_a_file = 
                  () => File.ReadAllLines(path).ShouldContainOnly(mix.Select(t => t.File.FullName));
 
+             Cleanup after = () =>
+                                 {
+                                     if (File.Exists(path))
+                                         File.Delete(path);
+                                 };
+
              static M3uWriter writer;
              static string path;
              static Mix mix;

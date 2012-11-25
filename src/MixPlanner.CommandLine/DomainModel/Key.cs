@@ -16,10 +16,17 @@ namespace MixPlanner.CommandLine.DomainModel
         {
             if (key == null) throw new ArgumentNullException("key");
 
-            this.hexValue = ushort.Parse(key, NumberStyles.HexNumber);
+            hexValue = ushort.Parse(key, NumberStyles.HexNumber);
 
-            Scale = ExtractScale(this.hexValue);
-            Pitch = ExtractPitch(this.hexValue);
+            Scale = ExtractScale(hexValue);
+            Pitch = ExtractPitch(hexValue);
+        }
+
+        protected Key(ushort hexValue, Scale scale, int pitch)
+        {
+            this.hexValue = hexValue;
+            Scale = scale;
+            pitch = pitch;
         }
 
         static int ExtractPitch(ushort key)
@@ -110,6 +117,8 @@ namespace MixPlanner.CommandLine.DomainModel
         public static Key Key10B { get { return new Key("10B"); } }
         public static Key Key11B { get { return new Key("11B"); } }
         public static Key Key12B { get { return new Key("12B"); } }
+
+        public static Key Unknown { get { return new UnknownKey();} }
 
         public static Key RandomKey()
         {
