@@ -70,6 +70,9 @@
     <Reference Include="ID3">
       <HintPath>..\..\lib\ID3\ID3.dll</HintPath>
     </Reference>
+    <Reference Include="MoreLinq">
+      <HintPath>..\..\packages\morelinq.1.0\lib\net35\MoreLinq.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -80,8 +83,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DomainModel\INextTrackAdvisor.cs" />
+    <Compile Include="Storage\InMemoryTrackLibrary.cs" />
     <Compile Include="DomainModel\InvalidPitchException.cs" />
     <Compile Include="DomainModel\InvalidScaleException.cs" />
+    <Compile Include="DomainModel\ITrackLibrary.cs" />
     <Compile Include="DomainModel\Key.cs" />
     <Compile Include="DomainModel\IMixingStrategy.cs" />
     <Compile Include="DomainModel\UnknownKey.cs" />
@@ -110,6 +115,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
