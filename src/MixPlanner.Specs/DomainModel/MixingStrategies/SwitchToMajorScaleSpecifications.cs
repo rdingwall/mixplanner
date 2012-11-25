@@ -13,15 +13,15 @@ namespace MixPlanner.Specs.DomainModel.MixingStrategies
         {
             Establish context = () =>
                                     {
-                                        currentTrack = new Track("A", Key.Key9A);
+                                        currentTrack = TestTracks.Get(Key.Key9A);
                                         strategy = new SwitchToMajorScale();
                                         unplayedTracks = new[]
                                                              {
-                                                                 new Track("B", Key.Key9B), 
-                                                                 new Track("C", Key.Key4A),
-                                                                 new Track("D", Key.Key4B),
-                                                                 new Track("E", Key.Key4A),
-                                                                 new Track("E", Key.Key9B),
+                                                                 TestTracks.Get(Key.Key9B), 
+                                                                 TestTracks.Get(Key.Key4A),
+                                                                 TestTracks.Get(Key.Key4B),
+                                                                 TestTracks.Get(Key.Key4A),
+                                                                 TestTracks.Get(Key.Key9B),
                                                              };
                                     };
 
@@ -33,7 +33,7 @@ namespace MixPlanner.Specs.DomainModel.MixingStrategies
             static IEnumerable<Track> suggestedTracks;
 
             It should_suggest_tracks_that_are_the_same_pitch_but_major =
-                () => suggestedTracks.Select(t => t.Name).ShouldContainOnly("B", "E");
+                () => suggestedTracks.Select(t => t.Key).ShouldContainOnly(Key.Key9B, Key.Key9B);
         }
     }
 }

@@ -59,8 +59,8 @@ namespace MixPlanner.Specs.DomainModel
             Establish context =
                 () =>
                     {
-                        allTracks = TestHelper.GetDummyTracks();
-                        currentTrack = new Track("XX", Key.RandomKey());
+                        allTracks = TestMixes.GetRandomMix();
+                        currentTrack = TestTracks.Get(Key.RandomKey());
 
                         strategyA = new DummyMixingStrategy(allTracks.Last());
                         strategyB = new DummyMixingStrategy(allTracks.First());

@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using ID3;
 using MixPlanner.CommandLine.DomainModel;
 
@@ -16,7 +17,8 @@ namespace MixPlanner.CommandLine.Mp3
                 var artist = id3.ID3v2Info.GetTextFrame("TPE1");
                 var title = id3.ID3v2Info.GetTextFrame("TIT2");
 
-                track = new Track(String.Format("{0} - {1}", TrimBogusChar(artist), TrimBogusChar(title)), key);
+                var displayName = String.Format("{0} - {1}", TrimBogusChar(artist), TrimBogusChar(title));
+                track = new Track(displayName, key, filename);
                 return true;
             }
             catch (Exception)

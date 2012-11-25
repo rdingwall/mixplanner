@@ -84,6 +84,9 @@
     <Compile Include="DomainModel\InvalidScaleException.cs" />
     <Compile Include="DomainModel\Key.cs" />
     <Compile Include="DomainModel\IMixingStrategy.cs" />
+    <Compile Include="ImportExport\IPlaylistWriter.cs" />
+    <Compile Include="ImportExport\M3uWriter.cs" />
+    <Compile Include="DomainModel\Mix.cs" />
     <Compile Include="DomainModel\MixingStrategies\IncrementOne.cs" />
     <Compile Include="DomainModel\MixingStrategies\ManualOutOfKeyMix.cs" />
     <Compile Include="DomainModel\MixingStrategies\IncreasePitchStrategyBase.cs" />

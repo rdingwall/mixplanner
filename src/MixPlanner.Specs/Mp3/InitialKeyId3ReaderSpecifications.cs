@@ -25,7 +25,7 @@ namespace MixPlanner.Specs.Mp3
 
             It should_get_the_correct_key = () => track.Key.ShouldEqual(Key.Key10A);
 
-            It should_get_the_correct_name = () => track.Name.ShouldEqual("10A - 133.9 - Super8, Tab, Betsie Larkin - All We Have Is Now - Original Mix");
+            It should_get_the_correct_name = () => track.DisplayName.ShouldEqual("10A - 133.9 - Super8, Tab, Betsie Larkin - All We Have Is Now - Original Mix");
 
             static Id3Reader reader;
             static Track track;

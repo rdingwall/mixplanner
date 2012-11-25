@@ -20,7 +20,7 @@ namespace MixPlanner.Specs.DomainModel
         {
             Establish context = () =>
                                     {
-                                        allTracks = TestHelper.GetDummyTracks();
+                                        allTracks = TestMixes.GetRandomMix();
                                     };
 
             Because of = () => set = new Set(allTracks, MockRepository.GenerateStub<INextTrackAdvisor>());
@@ -36,7 +36,7 @@ namespace MixPlanner.Specs.DomainModel
         {
             Establish context = () =>
             {
-                allTracks = TestHelper.GetDummyTracks();
+                allTracks = TestMixes.GetRandomMix();
                 set = new Set(allTracks, MockRepository.GenerateStub<INextTrackAdvisor>());
                 trackToPlay = set.UnplayedTracks.First();
             };
@@ -56,9 +56,9 @@ namespace MixPlanner.Specs.DomainModel
         {
             Establish context = () =>
             {
-                allTracks = TestHelper.GetDummyTracks();
+                allTracks = TestMixes.GetRandomMix();
                 set = new Set(allTracks, MockRepository.GenerateStub<INextTrackAdvisor>());
-                trackToPlay = new Track("dummy xxX", Key.RandomKey());
+                trackToPlay = TestTracks.Get(Key.RandomKey());
             };
 
             Because of = () => set.Play(trackToPlay);
@@ -76,7 +76,7 @@ namespace MixPlanner.Specs.DomainModel
             Establish context = () =>
                                     {
                                         advisor = MockRepository.GenerateStub<INextTrackAdvisor>();
-                                        tracks = TestHelper.GetDummyTracks()
+                                        tracks = TestMixes.GetRandomMix()
                                             .ToDictionary(k => k, v => MockRepository.GenerateStub<IMixingStrategy>());
                                         set = new Set(tracks.Keys, advisor);
                                         set.Play(tracks.Keys.First());
@@ -97,7 +97,7 @@ namespace MixPlanner.Specs.DomainModel
         {
             Establish context = () =>
             {
-                allTracks = TestHelper.GetDummyTracks();
+                allTracks = TestMixes.GetRandomMix();
                 set = new Set(allTracks, MockRepository.GenerateStub<INextTrackAdvisor>());
             };
 

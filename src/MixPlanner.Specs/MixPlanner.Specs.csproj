@@ -99,10 +99,12 @@
     <Compile Include="DomainModel\MixingStrategies\TwoSemitoneEnergyBoostSpecifications.cs" />
     <Compile Include="DomainModel\NextTrackAdvisorSpecifications.cs" />
     <Compile Include="DomainModel\SetSpecifications.cs" />
-    <Compile Include="DomainModel\TestHelper.cs" />
     <Compile Include="DomainModel\TrackSpecifications.cs" />
+    <Compile Include="ImportExport\M3uWriterSpecs.cs" />
     <Compile Include="Mp3\InitialKeyId3ReaderSpecifications.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestMixes.cs" />
+    <Compile Include="TestTracks.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

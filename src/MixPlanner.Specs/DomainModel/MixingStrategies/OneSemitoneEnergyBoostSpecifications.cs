@@ -13,15 +13,15 @@ namespace MixPlanner.Specs.DomainModel.MixingStrategies
         {
             Establish context = () =>
                                     {
-                                        currentTrack = new Track("A", Key.Key9A);
+                                        currentTrack = TestTracks.Get(Key.Key9A);
                                         strategy = new OneSemitoneEnergyBoost();
                                         unplayedTracks = new[]
                                                              {
-                                                                 new Track("B", Key.Key8B), 
-                                                                 new Track("C", Key.Key4A),
-                                                                 new Track("D", Key.Key4B),
-                                                                 new Track("E", Key.Key4A),
-                                                                 new Track("E", Key.Key8A),
+                                                                 TestTracks.Get(Key.Key8B), 
+                                                                 TestTracks.Get(Key.Key4A),
+                                                                 TestTracks.Get(Key.Key4B),
+                                                                 TestTracks.Get(Key.Key4A),
+                                                                 TestTracks.Get(Key.Key8A),
                                                              };
                                     };
 
@@ -33,7 +33,7 @@ namespace MixPlanner.Specs.DomainModel.MixingStrategies
             static IEnumerable<Track> suggestedTracks;
 
             It should_suggest_tracks_that_are_one_semitone_up_from_the_current =
-                () => suggestedTracks.Select(t => t.Name).ShouldContainOnly("C", "E");
+                () => suggestedTracks.Select(t => t.Key).ShouldContainOnly(Key.Key4A, Key.Key4A);
         }
     }
 }

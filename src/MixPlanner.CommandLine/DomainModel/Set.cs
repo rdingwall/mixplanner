@@ -5,6 +5,7 @@ using MixPlanner.CommandLine.DomainModel.MixingStrategies;
 
 namespace MixPlanner.CommandLine.DomainModel
 {
+    [Obsolete]
     public class Set
     {
         readonly INextTrackAdvisor advisor;
