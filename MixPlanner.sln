@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MixPlanner.CommandLine", "s
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MixPlanner.Specs", "src\MixPlanner.Specs\MixPlanner.Specs.csproj", "{F24E7535-DAB0-4DCD-881A-0B5991B99573}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MixPlanner.App", "src\MixPlanner.App\MixPlanner.App.csproj", "{CCD674AC-FA87-436B-A642-4E465EAC1ECD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +31,12 @@ Global
 		{F24E7535-DAB0-4DCD-881A-0B5991B99573}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F24E7535-DAB0-4DCD-881A-0B5991B99573}.Release|x86.ActiveCfg = Release|x86
 		{F24E7535-DAB0-4DCD-881A-0B5991B99573}.Release|x86.Build.0 = Release|x86
+		{CCD674AC-FA87-436B-A642-4E465EAC1ECD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CCD674AC-FA87-436B-A642-4E465EAC1ECD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CCD674AC-FA87-436B-A642-4E465EAC1ECD}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{CCD674AC-FA87-436B-A642-4E465EAC1ECD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CCD674AC-FA87-436B-A642-4E465EAC1ECD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CCD674AC-FA87-436B-A642-4E465EAC1ECD}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
