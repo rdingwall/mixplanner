@@ -83,6 +83,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DomainModel\INextTrackAdvisor.cs" />
+    <Compile Include="DomainModel\Strategies.cs" />
+    <Compile Include="DomainModel\Transition.cs" />
+    <Compile Include="DomainModel\TransitionTypeDetector.cs" />
     <Compile Include="Storage\InMemoryTrackLibrary.cs" />
     <Compile Include="DomainModel\InvalidPitchException.cs" />
     <Compile Include="DomainModel\InvalidScaleException.cs" />

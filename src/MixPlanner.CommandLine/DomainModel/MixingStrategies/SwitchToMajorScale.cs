@@ -6,6 +6,17 @@ namespace MixPlanner.CommandLine.DomainModel.MixingStrategies
 {
     public class SwitchToMajorScale : IMixingStrategy
     {
+        public bool IsCompatible(Track firstTrack, Track secondTrack)
+        {
+            if (firstTrack == null) throw new ArgumentNullException("firstTrack");
+            if (secondTrack == null) throw new ArgumentNullException("secondTrack");
+
+            if (firstTrack.Key.IsMajor())
+                return false; // already in major scale
+
+            return secondTrack.Key.IsMajor();
+        }
+
         public IEnumerable<Track> NextSuggestedTracks(Track currentTrack, IEnumerable<Track> unplayedTracks)
         {
             if (currentTrack == null) throw new ArgumentNullException("currentTrack");
@@ -16,5 +27,7 @@ namespace MixPlanner.CommandLine.DomainModel.MixingStrategies
 
             return unplayedTracks.Where(t => t.Key.Equals(currentTrack.Key.ToMajor()));
         }
+
+        public string Description { get { return "Switch to major scale"; } }
     }
 }

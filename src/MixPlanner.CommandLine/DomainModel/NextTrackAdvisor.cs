@@ -1,22 +1,16 @@
 using System;
 using System.Collections.Generic;
-using MixPlanner.CommandLine.DomainModel.MixingStrategies;
 
 namespace MixPlanner.CommandLine.DomainModel
 {
     public class NextTrackAdvisor : INextTrackAdvisor
     {
-        public NextTrackAdvisor()
+        readonly IEnumerable<IMixingStrategy> strategies;
+
+        public NextTrackAdvisor(IEnumerable<IMixingStrategy> strategies)
         {
-            PreferredStrategies = new List<IMixingStrategy>
-                                      {
-                                          new TwoSemitoneEnergyBoost(),
-                                          new SameKey(),
-                                          new OneSemitoneEnergyBoost(),
-                                          new IncrementOne(),
-                                          new SwitchToMajorScale(),
-                                          new SwitchToMinorScale()
-                                      };
+            if (strategies == null) throw new ArgumentNullException("strategies");
+            this.strategies = strategies;
         }
 
         public IDictionary<Track, IMixingStrategy> GetSuggestionsForNextTrack(Track currentTrack, IEnumerable<Track> unplayedTracks)
@@ -25,7 +19,7 @@ namespace MixPlanner.CommandLine.DomainModel
             if (unplayedTracks == null) throw new ArgumentNullException("unplayedTracks");
 
             var suggestions = new Dictionary<Track, IMixingStrategy>();
-            foreach (var strategy in PreferredStrategies)
+            foreach (var strategy in strategies)
             {
                 foreach (var track in strategy.NextSuggestedTracks(currentTrack, unplayedTracks))
                 {
@@ -35,7 +29,5 @@ namespace MixPlanner.CommandLine.DomainModel
 
             return suggestions;
         }
-
-        public IList<IMixingStrategy> PreferredStrategies { get; private set; }
     }
 }

@@ -10,32 +10,6 @@ namespace MixPlanner.Specs.DomainModel
     [Subject(typeof(NextTrackAdvisor))]
     public class NextTrackAdvisorSpecifications
     {
-        public class when_constructing
-        {
-            static Type[] expectedOrderOfStrategies;
-
-            Establish context =
-                () =>
-                    {
-                        expectedOrderOfStrategies = new[]
-                                                        {
-                                                            typeof (TwoSemitoneEnergyBoost),
-                                                            typeof (SameKey),
-                                                            typeof (OneSemitoneEnergyBoost),
-                                                            typeof (IncrementOne),
-                                                            typeof (SwitchToMajorScale),
-                                                            typeof (SwitchToMinorScale)
-                                                        };
-                    };
-
-            Because of = () => actualOrder = new NextTrackAdvisor().PreferredStrategies.Select(s => s.GetType());
-
-            It should_prefer_the_best_strategies_first =
-                () => actualOrder.ShouldEqual(expectedOrderOfStrategies);
-
-            static IEnumerable<Type> actualOrder; 
-        }
-
         public class DummyMixingStrategy : IMixingStrategy
         {
             public Track Track;
@@ -46,10 +20,17 @@ namespace MixPlanner.Specs.DomainModel
                 Track = track;
             }
 
+            public bool IsCompatible(Track firstTrack, Track secondTrack)
+            {
+                return secondTrack.Equals(Track);
+            }
+
             public IEnumerable<Track> NextSuggestedTracks(Track currentTrack, IEnumerable<Track> unplayedTracks)
             {
                 yield return Track;
             }
+
+            public string Description { get; private set; }
         }
 
         public class when_advising_the_next_track
@@ -65,11 +46,7 @@ namespace MixPlanner.Specs.DomainModel
                         strategyA = new DummyMixingStrategy(allTracks.Last());
                         strategyB = new DummyMixingStrategy(allTracks.First());
 
-                        advisor = new NextTrackAdvisor();
-
-                        advisor.PreferredStrategies.Clear();
-                        advisor.PreferredStrategies.Add(strategyA);
-                        advisor.PreferredStrategies.Add(strategyB);
+                        advisor = new NextTrackAdvisor(new[] { strategyA, strategyB});
                     };
 
             Because of = () => suggestions = advisor.GetSuggestionsForNextTrack(currentTrack, allTracks);
