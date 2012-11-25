@@ -7,6 +7,7 @@ namespace Julana.Specs.Mp3
     [Subject(typeof(Id3Reader))]
     public class Id3ReaderSpecifications
     {
+        [Ignore("Requires local MP3 file")]
         public class when_reading_the_initial_key_from_an_mp3_file
         {
             Establish context =
