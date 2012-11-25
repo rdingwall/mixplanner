@@ -2,6 +2,6 @@
 {
     public class TwoSemitoneEnergyBoost : IncreasePitchStrategyBase
     {
-        public TwoSemitoneEnergyBoost() : base(7 * 2) { }
+        public TwoSemitoneEnergyBoost() : base(increaseAmount: 7 * 2) { }
     }
 }

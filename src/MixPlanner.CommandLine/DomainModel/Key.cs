@@ -6,7 +6,7 @@ namespace MixPlanner.CommandLine.DomainModel
     public class Key : IEquatable<Key>
     {
         // e.g. 12A
-        private readonly ushort key;
+        private readonly ushort hexValue;
 
         public Key(int pitch, Scale scale) : this (String.Format("{0}{1:X}", pitch, (int)scale))
         {
@@ -16,10 +16,10 @@ namespace MixPlanner.CommandLine.DomainModel
         {
             if (key == null) throw new ArgumentNullException("key");
 
-            this.key = ushort.Parse(key, NumberStyles.HexNumber);
+            this.hexValue = ushort.Parse(key, NumberStyles.HexNumber);
 
-            Scale = ExtractScale(this.key);
-            Pitch = ExtractPitch(this.key);
+            Scale = ExtractScale(this.hexValue);
+            Pitch = ExtractPitch(this.hexValue);
         }
 
         static int ExtractPitch(ushort key)
@@ -80,9 +80,9 @@ namespace MixPlanner.CommandLine.DomainModel
         public Scale Scale { get; private set; }
         public int Pitch { get; private set; }
 
-        public override string  ToString()
+        public override string ToString()
         {
-            return key.ToString("X");
+            return hexValue.ToString("X");
         }
 
         public static Key Key1A { get { return new Key("1A"); } }
