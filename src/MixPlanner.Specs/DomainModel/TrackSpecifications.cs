@@ -1,5 +1,5 @@
 using Machine.Specifications;
-using MixPlanner.CommandLine.DomainModel;
+using MixPlanner.App.DomainModel;
 
 namespace MixPlanner.Specs.DomainModel
 {

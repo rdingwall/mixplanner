@@ -1,6 +1,6 @@
 ﻿using Machine.Specifications;
-using MixPlanner.CommandLine.DomainModel;
-using MixPlanner.CommandLine.DomainModel.MixingStrategies;
+using MixPlanner.App.DomainModel;
+using MixPlanner.App.DomainModel.MixingStrategies;
 
 namespace MixPlanner.Specs.DomainModel
 {

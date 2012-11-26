@@ -1,5 +1,5 @@
 using Machine.Specifications;
-using MixPlanner.CommandLine.Mp3;
+using MixPlanner.App.Mp3;
 
 namespace MixPlanner.Specs.Mp3
 {

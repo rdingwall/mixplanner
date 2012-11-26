@@ -2,8 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Machine.Specifications;
-using MixPlanner.CommandLine.DomainModel;
-using MixPlanner.CommandLine.DomainModel.MixingStrategies;
+using MixPlanner.App.DomainModel;
 
 namespace MixPlanner.Specs.DomainModel
 {

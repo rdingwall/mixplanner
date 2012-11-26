@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Input;
+using MixPlanner.App.Mp3;
 using MixPlanner.App.ViewModels;
-using MixPlanner.CommandLine.Mp3;
 
 namespace MixPlanner.App.Commands
 {

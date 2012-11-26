@@ -125,9 +125,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MixPlanner.CommandLine\MixPlanner.CommandLine.csproj">
-      <Project>{0d42a9c2-4465-494f-8b19-4c1cadeff55e}</Project>
-      <Name>MixPlanner.CommandLine</Name>
+    <ProjectReference Include="..\MixPlanner.App\MixPlanner.App.csproj">
+      <Project>{ccd674ac-fa87-436b-a642-4e465eac1ecd}</Project>
+      <Name>MixPlanner.App</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

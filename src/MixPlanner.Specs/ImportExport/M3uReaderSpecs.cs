@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Machine.Specifications;
-using MixPlanner.CommandLine.DomainModel;
-using MixPlanner.CommandLine.ImportExport;
-using MixPlanner.CommandLine.Mp3;
+using MixPlanner.App.DomainModel;
+using MixPlanner.App.ImportExport;
+using MixPlanner.App.Mp3;
 
 namespace MixPlanner.Specs.ImportExport
 {

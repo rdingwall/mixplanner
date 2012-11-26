@@ -41,11 +41,19 @@
     <Reference Include="GalaSoft.MvvmLight.WPF4">
       <HintPath>..\..\packages\MvvmLight.4.1.23.0\lib\net40\GalaSoft.MvvmLight.WPF4.dll</HintPath>
     </Reference>
+    <Reference Include="log4net, Version=1.2.11.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\log4net.2.0.0\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Expression.Interactions, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Unofficial.Blend.Interactivity.1.0.0\lib\net45\Microsoft.Expression.Interactions.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation">
       <HintPath>..\..\packages\MvvmLight.4.1.23.0\lib\net40\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="MoreLinq, Version=1.0.11522.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\morelinq.1.0\lib\net35\MoreLinq.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -60,6 +68,10 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="Tags, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\Tags.dll</HintPath>
+    </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -70,6 +82,37 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Commands\DropFilesCommand.cs" />
+    <Compile Include="DomainModel\IMixingStrategy.cs" />
+    <Compile Include="DomainModel\INextTrackAdvisor.cs" />
+    <Compile Include="DomainModel\InvalidPitchException.cs" />
+    <Compile Include="DomainModel\InvalidScaleException.cs" />
+    <Compile Include="DomainModel\ITrackLibrary.cs" />
+    <Compile Include="DomainModel\Key.cs" />
+    <Compile Include="DomainModel\Mix.cs" />
+    <Compile Include="DomainModel\MixingStrategies\IncreasePitchStrategyBase.cs" />
+    <Compile Include="DomainModel\MixingStrategies\IncrementOne.cs" />
+    <Compile Include="DomainModel\MixingStrategies\ManualOutOfKeyMix.cs" />
+    <Compile Include="DomainModel\MixingStrategies\OneSemitoneEnergyBoost.cs" />
+    <Compile Include="DomainModel\MixingStrategies\OpeningTrack.cs" />
+    <Compile Include="DomainModel\MixingStrategies\SameKey.cs" />
+    <Compile Include="DomainModel\MixingStrategies\SwitchToMajorScale.cs" />
+    <Compile Include="DomainModel\MixingStrategies\SwitchToMinorScale.cs" />
+    <Compile Include="DomainModel\MixingStrategies\TwoSemitoneEnergyBoost.cs" />
+    <Compile Include="DomainModel\NextTrackAdvisor.cs" />
+    <Compile Include="DomainModel\Scale.cs" />
+    <Compile Include="DomainModel\Strategies.cs" />
+    <Compile Include="DomainModel\Track.cs" />
+    <Compile Include="DomainModel\Transition.cs" />
+    <Compile Include="DomainModel\TransitionTypeDetector.cs" />
+    <Compile Include="DomainModel\UnknownKey.cs" />
+    <Compile Include="ImportExport\IPlaylistWriter.cs" />
+    <Compile Include="ImportExport\M3uReader.cs" />
+    <Compile Include="ImportExport\M3uWriter.cs" />
+    <Compile Include="Mp3\DirectoryScanner.cs" />
+    <Compile Include="Mp3\Id3Reader.cs" />
+    <Compile Include="Mp3\Id3Tag.cs" />
+    <Compile Include="Mp3\TrackLoader.cs" />
+    <Compile Include="Storage\InMemoryTrackLibrary.cs" />
     <Compile Include="ViewModels\LibraryItemViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
@@ -118,12 +161,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\MixPlanner.CommandLine\MixPlanner.CommandLine.csproj">
-      <Project>{0D42A9C2-4465-494F-8B19-4C1CADEFF55E}</Project>
-      <Name>MixPlanner.CommandLine</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
