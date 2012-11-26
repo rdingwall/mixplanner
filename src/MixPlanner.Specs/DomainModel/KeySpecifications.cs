@@ -1,6 +1,6 @@
 ﻿using System;
 using Machine.Specifications;
-using MixPlanner.App.DomainModel;
+using MixPlanner.DomainModel;
 
 namespace MixPlanner.Specs.DomainModel
 {

@@ -1,8 +1,8 @@
 ﻿using System.IO;
 using System.Linq;
 using Machine.Specifications;
-using MixPlanner.App.DomainModel;
-using MixPlanner.App.ImportExport;
+using MixPlanner.DomainModel;
+using MixPlanner.ImportExport;
 
 namespace MixPlanner.Specs.ImportExport
 {

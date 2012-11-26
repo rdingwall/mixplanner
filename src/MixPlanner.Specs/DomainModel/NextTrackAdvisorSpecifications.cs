@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Machine.Specifications;
-using MixPlanner.App.DomainModel;
+using MixPlanner.DomainModel;
 
 namespace MixPlanner.Specs.DomainModel
 {

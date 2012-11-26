@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MixPlanner.Specs", "src\MixPlanner.Specs\MixPlanner.Specs.csproj", "{F24E7535-DAB0-4DCD-881A-0B5991B99573}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MixPlanner.App", "src\MixPlanner.App\MixPlanner.App.csproj", "{CCD674AC-FA87-436B-A642-4E465EAC1ECD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MixPlanner", "src\MixPlanner\MixPlanner.csproj", "{CCD674AC-FA87-436B-A642-4E465EAC1ECD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
