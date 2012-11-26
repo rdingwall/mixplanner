@@ -5,7 +5,7 @@ using MixPlanner.DomainModel;
 namespace MixPlanner.Specs.DomainModel
 {
     [Subject(typeof(Key))]
-    class KeySpecifications
+    class KeySpecs
     {
         public class when_constructing_with_an_invalid_scale
         {

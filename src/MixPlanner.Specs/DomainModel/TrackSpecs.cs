@@ -4,7 +4,7 @@ using MixPlanner.DomainModel;
 namespace MixPlanner.Specs.DomainModel
 {
     [Subject(typeof(Track))]
-    public class TrackSpecifications
+    public class TrackSpecs
     {
         
     }

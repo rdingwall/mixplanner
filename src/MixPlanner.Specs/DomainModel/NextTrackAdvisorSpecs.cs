@@ -7,7 +7,7 @@ using MixPlanner.DomainModel;
 namespace MixPlanner.Specs.DomainModel
 {
     [Subject(typeof(NextTrackAdvisor))]
-    public class NextTrackAdvisorSpecifications
+    public class NextTrackAdvisorSpecs
     {
         public class DummyMixingStrategy : IMixingStrategy
         {

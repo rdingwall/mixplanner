@@ -6,7 +6,7 @@ using MixPlanner.DomainModel.MixingStrategies;
 namespace MixPlanner.Specs.DomainModel.MixingStrategies
 {
     [Subject(typeof(ManualOutOfKeyMix))]
-    public class ManualOutOfKeyMixSpecifications
+    public class ManualOutOfKeyMixSpecs
     {
         public class when_deciding_which_track_to_play_next
         {

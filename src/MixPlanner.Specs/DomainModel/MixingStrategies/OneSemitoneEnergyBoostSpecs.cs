@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using Machine.Specifications;
 using MixPlanner.DomainModel;
@@ -6,22 +6,22 @@ using MixPlanner.DomainModel.MixingStrategies;
 
 namespace MixPlanner.Specs.DomainModel.MixingStrategies
 {
-    [Subject(typeof(SwitchToMinorScale))]
-    public class SwitchToMinorScaleSpecifications
+    [Subject(typeof(OneSemitoneEnergyBoost))]
+    public class OneSemitoneEnergyBoostSpecs
     {
         public class when_deciding_which_track_to_play_next
         {
             Establish context = () =>
                                     {
-                                        currentTrack = TestTracks.Get(Key.Key9B);
-                                        strategy = new SwitchToMinorScale();
+                                        currentTrack = TestTracks.Get(Key.Key9A);
+                                        strategy = new OneSemitoneEnergyBoost();
                                         unplayedTracks = new[]
                                                              {
-                                                                 TestTracks.Get(Key.Key9A), 
+                                                                 TestTracks.Get(Key.Key8B), 
                                                                  TestTracks.Get(Key.Key4A),
                                                                  TestTracks.Get(Key.Key4B),
                                                                  TestTracks.Get(Key.Key4A),
-                                                                 TestTracks.Get(Key.Key9A)
+                                                                 TestTracks.Get(Key.Key8A),
                                                              };
                                     };
 
@@ -32,8 +32,8 @@ namespace MixPlanner.Specs.DomainModel.MixingStrategies
             static IEnumerable<Track> unplayedTracks;
             static IEnumerable<Track> suggestedTracks;
 
-            It should_suggest_tracks_that_are_the_same_pitch_but_minor =
-                () => suggestedTracks.Select(t => t.Key).ShouldContainOnly(Key.Key9A, Key.Key9A);
+            It should_suggest_tracks_that_are_one_semitone_up_from_the_current =
+                () => suggestedTracks.Select(t => t.Key).ShouldContainOnly(Key.Key4A, Key.Key4A);
         }
     }
 }

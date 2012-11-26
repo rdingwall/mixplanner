@@ -4,7 +4,7 @@ using MixPlanner.Mp3;
 namespace MixPlanner.Specs.Mp3
 {
     [Subject(typeof(Id3Reader))]
-    public class Id3ReaderSpecifications
+    public class Id3ReaderSpecs
     {
         public class when_reading_id3_tags_from_an_mp3_file_from_audacity
         {

@@ -93,16 +93,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DomainModel\KeySpecifications.cs" />
-    <Compile Include="DomainModel\MixingStrategies\SwitchToMajorScaleSpecifications.cs" />
-    <Compile Include="DomainModel\MixingStrategies\IncrementOneSpecifications.cs" />
-    <Compile Include="DomainModel\MixingStrategies\ManualOutOfKeyMixSpecifications.cs" />
-    <Compile Include="DomainModel\MixingStrategies\OneSemitoneEnergyBoostSpecifications.cs" />
-    <Compile Include="DomainModel\MixingStrategies\SameKeySpecifications.cs" />
-    <Compile Include="DomainModel\MixingStrategies\SwitchToMinorScaleSpecifications.cs" />
-    <Compile Include="DomainModel\MixingStrategies\TwoSemitoneEnergyBoostSpecifications.cs" />
-    <Compile Include="DomainModel\NextTrackAdvisorSpecifications.cs" />
-    <Compile Include="DomainModel\TrackSpecifications.cs" />
+    <Compile Include="DomainModel\KeySpecs.cs" />
+    <Compile Include="DomainModel\MixingStrategies\SwitchToMajorScaleSpecs.cs" />
+    <Compile Include="DomainModel\MixingStrategies\IncrementOneSpecs.cs" />
+    <Compile Include="DomainModel\MixingStrategies\ManualOutOfKeyMixSpecs.cs" />
+    <Compile Include="DomainModel\MixingStrategies\OneSemitoneEnergyBoostSpecs.cs" />
+    <Compile Include="DomainModel\MixingStrategies\SameKeySpecs.cs" />
+    <Compile Include="DomainModel\MixingStrategies\SwitchToMinorScaleSpecs.cs" />
+    <Compile Include="DomainModel\MixingStrategies\TwoSemitoneEnergyBoostSpecs.cs" />
+    <Compile Include="DomainModel\NextTrackAdvisorSpecs.cs" />
+    <Compile Include="DomainModel\TrackSpecs.cs" />
     <Content Include="DummyPlaylist.m3u">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -110,7 +110,7 @@
     <Compile Include="AssemblyContext.cs" />
     <Compile Include="ImportExport\M3uReaderSpecs.cs" />
     <Compile Include="ImportExport\M3uWriterSpecs.cs" />
-    <Compile Include="Mp3\InitialKeyId3ReaderSpecifications.cs" />
+    <Compile Include="Mp3\Id3ReaderSpecs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestMixes.cs" />
     <Compile Include="TestTracks.cs" />
