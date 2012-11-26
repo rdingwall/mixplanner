@@ -151,5 +151,27 @@ namespace MixPlanner.Specs.DomainModel
             It should_keep_the_same_scale =
                 () => new Key("12A").ToMinor().ShouldEqual(new Key("12A"));
         }
+
+        public class when_try_parsing_a_valid_key
+        {
+            Because of = () => result = Key.TryParse("12A", out key);
+            static Key key;
+            static bool result;
+
+            It should_return_true = () => result.ShouldBeTrue();
+
+            It should_return_the_key = () => key.ShouldEqual(Key.Key12A);
+        }
+
+        public class when_try_parsing_an_invalid_key
+        {
+            Because of = () => result = Key.TryParse("xyz", out key);
+            static Key key;
+            static bool result;
+
+            It should_return_true = () => result.ShouldBeFalse();
+
+            It should_return_null = () => key.ShouldBeNull();
+        }
     }
 }

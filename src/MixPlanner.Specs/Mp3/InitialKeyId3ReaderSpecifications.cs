@@ -1,5 +1,4 @@
 using Machine.Specifications;
-using MixPlanner.CommandLine.DomainModel;
 using MixPlanner.CommandLine.Mp3;
 
 namespace MixPlanner.Specs.Mp3
@@ -7,28 +6,72 @@ namespace MixPlanner.Specs.Mp3
     [Subject(typeof(Id3Reader))]
     public class Id3ReaderSpecifications
     {
-        [Ignore("Requires local MP3 file")]
-        public class when_reading_the_initial_key_from_an_mp3_file
+        public class when_reading_id3_tags_from_an_mp3_file_from_audacity
         {
-            Establish context =
-                () =>
-                    {
-                        reader = new Id3Reader();
-                    };
+            Establish context = () => reader = new Id3Reader();
 
-            Because of =
-                () => 
-                reader.TryRead(
-                    @"C:\Users\Richard\Desktop\CDJs\10A - 133.9 - 2005934_All We Have Is Now_Original Mix.mp3", out track);
+            Because of = () => result = reader.TryRead(@"audacity.mp3", out id3Tag);
 
-            It should_parse_the_track_without_error = () => track.ShouldNotBeNull();
+            It should_return_true = () => result.ShouldBeTrue();
 
-            It should_get_the_correct_key = () => track.Key.ShouldEqual(Key.Key10A);
+            It should_get_the_correct_key = 
+                () => id3Tag.InitialKey.ShouldEqual("7A");
 
-            It should_get_the_correct_name = () => track.DisplayName.ShouldEqual("10A - 133.9 - Super8, Tab, Betsie Larkin - All We Have Is Now - Original Mix");
+            It should_get_the_correct_artist = 
+                () => id3Tag.Artist.ShouldEqual("Hardwell");
+
+            It should_get_the_correct_title = 
+                () => id3Tag.Title.ShouldEqual("Three Triangles (Original Club Mix)");
+
+            It should_get_the_correct_bpm = 
+                () => id3Tag.Bpm.ShouldEqual("128");
+
+            It should_get_the_correct_publisher = 
+                () => id3Tag.Publisher.ShouldEqual("Toolroom Records");
+
+            It should_get_the_correct_year = 
+                () => id3Tag.Year.ShouldEqual("2012");
+
+            It should_get_the_correct_genre = 
+                () => id3Tag.Genre.ShouldEqual("Progressive House");
 
             static Id3Reader reader;
-            static Track track;
+            static Id3Tag id3Tag;
+            static bool result;
+        }
+
+        public class when_reading_id3_tags_from_an_mp3_file_from_mixed_in_key_4
+        {
+            Establish context = () => reader = new Id3Reader();
+
+            Because of = () => result = reader.TryRead(@"mixed_in_key_4.mp3", out id3Tag);
+
+            It should_return_true = () => result.ShouldBeTrue();
+
+            It should_get_the_correct_key =
+                () => id3Tag.InitialKey.ShouldEqual("7A");
+
+            It should_get_the_correct_artist =
+                () => id3Tag.Artist.ShouldEqual("7A - 128 - Hardwell");
+
+            It should_get_the_correct_title =
+                () => id3Tag.Title.ShouldEqual("Three Triangles (Original Club Mix)");
+
+            It should_get_the_correct_bpm =
+                () => id3Tag.Bpm.ShouldEqual("128");
+
+            It should_get_the_correct_publisher =
+                () => id3Tag.Publisher.ShouldEqual("Toolroom Records");
+
+            It should_get_the_correct_year =
+                () => id3Tag.Year.ShouldEqual("2012");
+
+            It should_get_the_correct_genre =
+                () => id3Tag.Genre.ShouldEqual("Progressive House");
+
+            static Id3Reader reader;
+            static Id3Tag id3Tag;
+            static bool result;
         }
     }
 }

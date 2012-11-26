@@ -170,5 +170,19 @@ namespace MixPlanner.CommandLine.DomainModel
         {
             return new Key(Pitch, Scale.Major);
         }
+
+        public static bool TryParse(string str, out Key key)
+        {
+            try
+            {
+                key = new Key(str);
+                return true;
+            }
+            catch
+            {
+                key = null;
+                return false;
+            }
+        }
     }
 }

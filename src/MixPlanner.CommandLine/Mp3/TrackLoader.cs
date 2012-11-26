@@ -23,9 +23,16 @@ namespace MixPlanner.CommandLine.Mp3
         {
             if (filename == null) throw new ArgumentNullException("filename");
 
-            Track track;
-            if (id3Reader.TryRead(filename, out track))
-                return track;
+            Id3Tag id3Tag;
+            if (id3Reader.TryRead(filename, out id3Tag))
+            {
+                var displayName = String.Format("{0} - {1}", id3Tag.Artist, id3Tag.Title);
+                Key key;
+                if (!Key.TryParse(id3Tag.InitialKey, out key))
+                    key = Key.Unknown;
+
+                return new Track(displayName, key, filename);
+            }
 
             return LoadTrackWithoutId3Tags(filename);
         }

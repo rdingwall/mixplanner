@@ -67,8 +67,8 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ID3">
-      <HintPath>..\..\lib\ID3\ID3.dll</HintPath>
+    <Reference Include="log4net">
+      <HintPath>..\..\packages\log4net.2.0.0\lib\net40-full\log4net.dll</HintPath>
     </Reference>
     <Reference Include="MoreLinq">
       <HintPath>..\..\packages\morelinq.1.0\lib\net35\MoreLinq.dll</HintPath>
@@ -80,12 +80,16 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="Tags">
+      <HintPath>..\..\lib\Tags.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DomainModel\INextTrackAdvisor.cs" />
     <Compile Include="DomainModel\Strategies.cs" />
     <Compile Include="DomainModel\Transition.cs" />
     <Compile Include="DomainModel\TransitionTypeDetector.cs" />
+    <Compile Include="Mp3\Id3Tag.cs" />
     <Compile Include="Storage\InMemoryTrackLibrary.cs" />
     <Compile Include="DomainModel\InvalidPitchException.cs" />
     <Compile Include="DomainModel\InvalidScaleException.cs" />
@@ -111,7 +115,6 @@
     <Compile Include="DomainModel\Track.cs" />
     <Compile Include="Mp3\DirectoryScanner.cs" />
     <Compile Include="Mp3\Id3Reader.cs" />
-    <Compile Include="Mp3\IId3Reader.cs" />
     <Compile Include="Mp3\TrackLoader.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1,0 +1,4268 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Tags</name>
+    </assembly>
+    <members>
+        <member name="T:Tags.Objects.ImageTypes">
+            <summary>
+            Indicates diffrent types of Images for ASF tags
+            </summary>
+        </member>
+        <member name="F:Tags.Objects.ImageTypes.none">
+            <summary>
+            none
+            </summary>
+        </member>
+        <member name="F:Tags.Objects.ImageTypes.bmp">
+            <summary>
+            bitmap image
+            </summary>
+        </member>
+        <member name="F:Tags.Objects.ImageTypes.jpeg">
+            <summary>
+            jpeg image
+            </summary>
+        </member>
+        <member name="F:Tags.Objects.ImageTypes.gif">
+            <summary>
+            gif image
+            </summary>
+        </member>
+        <member name="T:Tags.Objects.ContentBrandingOb">
+            <summary>
+            Provide a class for content branding object of ASF
+            </summary>
+        </member>
+        <member name="T:Tags.ASFObject">
+            <summary>
+            Base object for ASF objects
+            </summary>
+        </member>
+        <member name="M:Tags.ASFObject.WriteData(System.IO.TagStream)">
+            <summary>
+            Write current object data to specific TagStream
+            </summary>
+            <param name="wr">TagStream to write data to</param>
+        </member>
+        <member name="M:Tags.ASFObject.Read(System.IO.TagStream,System.Int64)">
+            <summary>
+            Read object from specific TagStream
+            </summary>
+            <param name="rd">TagStream to read data from</param>
+            <param name="ObjectSize">Maximum size of object</param>
+        </member>
+        <member name="M:Tags.ASFObject.AddException(System.Exception)">
+            <summary>
+            Add specific exception to list of occured exceptions
+            </summary>
+            <param name="Ex">Exception to add</param>
+        </member>
+        <member name="M:Tags.ASFObject.OnWritingData(System.IO.TagStream)">
+            <summary>
+            Call when frame need to write it's data to stream
+            </summary>
+            <param name="wr">TagStream to write data</param>
+        </member>
+        <member name="M:Tags.ASFObject.OnReadingData(System.IO.TagStream,System.Int64)">
+            <summary>
+            Read data from specific TagStream
+            </summary>
+            <param name="rd">TagStream to read data from</param>
+            <param name="ObjectSize">Object size in tag stream</param>
+            <returns>true if readed successfully otherwise false</returns>
+        </member>
+        <member name="M:Tags.ASFObject.OnGetGUID">
+            <summary>
+            Gets GUID of current frame 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Tags.ASFObject.OnGetLength">
+            <summary>
+            Gets length of current frame in byte
+            </summary>
+            <returns>int contain length of current frame</returns>
+        </member>
+        <member name="P:Tags.ASFObject.GUID">
+            <summary>
+            Get GUID of current Object
+            </summary>
+        </member>
+        <member name="P:Tags.ASFObject.Length">
+            <summary>
+            Get Length of current object
+            </summary>
+        </member>
+        <member name="P:Tags.ASFObject.Exceptions">
+            <summary>
+            Exceptions that occured while reading this object
+            </summary>
+        </member>
+        <member name="F:Tags.Objects.ContentBrandingOb.GUIDst">
+            <summary>
+            GUID of Content branding object
+            </summary>
+        </member>
+        <member name="M:Tags.Objects.ContentBrandingOb.#ctor(System.IO.TagStream,System.Int64)">
+            <summary>
+            Create new content branding object
+            </summary>
+            <param name="rd">TagStream to read data from</param>
+            <param name="BlockSize">Block Size of Branding object</param>
+        </member>
+        <member name="M:Tags.Objects.ContentBrandingOb.#ctor(System.String,System.String,System.IO.MemoryStream,Tags.Objects.ImageTypes)">
+            <summary>
+            Create new content branding object
+            </summary>
+            <param name="CopyrightURL">Copyright URL</param>
+            <param name="ImageURL">Image URL</param>
+            <param name="Image">Image data</param>
+            <param name="ImageType">Type of image</param>
+        </member>
+        <member name="M:Tags.Objects.ContentBrandingOb.GetImage">
+            <summary>
+            Get System.Drawing.Image from Image stream
+            </summary>
+            <returns>System.Drawing.Image</returns>
+        </member>
+        <member name="M:Tags.Objects.ContentBrandingOb.OnGetGUID">
+            <summary>
+            Get GUID of current ASF object
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Tags.Objects.ContentBrandingOb.OnReadingData(System.IO.TagStream,System.Int64)">
+            <summary>
+            Read data of current frame from specific TagStream
+            </summary>
+            <param name="rd">TagStream to read data from</param>
+            <param name="ObjectSize">Maximum size of tag to read</param>
+            <returns>true if read successfull otherwise false</returns>
+        </member>
+        <member name="M:Tags.Objects.ContentBrandingOb.OnWritingData(System.IO.TagStream)">
+            <summary>
+            Call when frame need to write it's data to stream
+            </summary>
+            <param name="writer">TagStream to write data</param>
+        </member>
+        <member name="M:Tags.Objects.ContentBrandingOb.OnGetLength">
+            <summary>
+            Gets length of current frame in byte
+            </summary>
+            <returns>int contain length of current frame</returns>
+        </member>
+        <member name="P:Tags.Objects.ContentBrandingOb.ImageType">
+            <summary>
+            Gets or sets ImageType of current Branding object
+            </summary>
+        </member>
+        <member name="P:Tags.Objects.ContentBrandingOb.CopyrightURL">
+            <summary>
+            CopyrightURL for current Branding Object
+            </summary>
+        </member>
+        <member name="P:Tags.Objects.ContentBrandingOb.ImageURL">
+            <summary>
+            Image URL that provide more information about image
+            </summary>
+        </member>
+        <member name="P:Tags.Objects.ContentBrandingOb.Image">
+            <summary>
+            Image of current Branding Object
+            </summary>
+        </member>
+        <member name="T:Tags.Objects.ContentDescriptionOb">
+            <summary>
+            Provide a class to read and write ASF Content Description object
+            75B22633-668E-11CF-A6D9-00AA0062CE6C
+            </summary>
+        </member>
+        <member name="F:Tags.Objects.ContentDescriptionOb.GUIDst">
+            <summary>
+            GUID of content descriptor
+            </summary>
+        </member>
+        <member name="M:Tags.Objects.ContentDescriptionOb.#ctor(System.IO.TagStream,System.Int64)">
+            <summary>
+            Create new content descriptor from TagStream
+            </summary>
+            <param name="rd">TagStream to read frame</param>
+            <param name="ObjectSize">Object size</param>
+        </member>
+        <member name="M:Tags.Objects.ContentDescriptionOb.#ctor(System.String,System.String,System.String,System.String)">
+            <summary>
+            Create new Content Description object from specific information
+            </summary>
+            <param name="Title">Title of current file</param>
+            <param name="Author">Author of current file</param>
+            <param name="Copyright">Copyright notice of current file</param>
+            <param name="Description">Description of current file</param>
+        </member>
+        <member name="M:Tags.Objects.ContentDescriptionOb.OnGetGUID">
+            <summary>
+            Get Guid of current class
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Tags.Objects.ContentDescriptionOb.OnWritingData(System.IO.TagStream)">
+            <summary>
+            Write this tag to specific TagStream
+            </summary>
+            <param name="wr">TagStream to write data</param>
+            <returns>true if write successfull otherwise false</returns>
+        </member>
+        <member name="M:Tags.Objects.ContentDescriptionOb.OnReadingData(System.IO.TagStream,System.Int64)">
+            <summary>
+            Read tag dat afrom specific TagStream
+            </summary>
+            <param name="rd">TagStream to read data from</param>
+            <param name="ObjectSize">Maximum size of object</param>
+            <returns>true if read successfull otherwise false</returns>
+        </member>
+        <member name="M:Tags.Objects.ContentDescriptionOb.OnGetLength">
+            <summary>
+            Gets length of current frame
+            </summary>
+            <returns>long contains current frame size</returns>
+        </member>
+        <member name="P:Tags.Objects.ContentDescriptionOb.Title">
+            <summary>
+            Title of current file
+            </summary>
+        </member>
+        <member name="P:Tags.Objects.ContentDescriptionOb.Author">
+            <summary>
+            Author of current file
+            </summary>
+        </member>
+        <member name="P:Tags.Objects.ContentDescriptionOb.Copyright">
+            <summary>
+            Copyright notice for this file
+            </summary>
+        </member>
+        <member name="P:Tags.Objects.ContentDescriptionOb.Description">
+            <summary>
+            Description of current file
+            </summary>
+        </member>
+        <member name="P:Tags.Objects.ContentDescriptionOb.Ratings">
+            <summary>
+            Gets or sets list of ratings
+            </summary>
+        </member>
+        <member name="T:Tags.Objects.ExContentDescriptionOb">
+            <summary>
+            Provide a class to read and write ExContent obejct of ASF tags
+            </summary>
+        </member>
+        <member name="F:Tags.Objects.ExContentDescriptionOb.GUIDst">
+            <summary>
+            GUID of Extended content description
+            </summary>
+        </member>
+        <member name="M:Tags.Objects.ExContentDescriptionOb.#ctor(System.IO.TagStream,System.Int64)">
+            <summary>
+            Create new ExContentDescription from specific TagStream
+            </summary>
+            <param name="rd">TagStream to read data from</param>
+            <param name="BlockSize">Size of object to read</param>
+        </member>
+        <member name="M:Tags.Objects.ExContentDescriptionOb.#ctor">
+            <summary>
+            Create new ExContentDescription class
+            </summary>
+        </member>
+        <member name="M:Tags.Objects.ExContentDescriptionOb.OnGetGUID">
+            <summary>
+            return GUID value for Extended content description
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Tags.Objects.ExContentDescriptionOb.OnReadingData(System.IO.TagStream,System.Int64)">
+            <summary>
+            Read data from specific TagStream
+            </summary>
+            <param name="rd">TagStream to read data from</param>
+            <param name="ObjectSize">Maximum size of object to read</param>
+            <returns>true if read successfull otherwise false</returns>
+        </member>
+        <member name="M:Tags.Objects.ExContentDescriptionOb.OnWritingData(System.IO.TagStream)">
+            <summary>
+            Write current tag to specific TagStream
+            </summary>
+            <param name="wr">Tag Stream to write</param>
+            <returns>true if write successfull</returns>
+        </member>
+        <member name="M:Tags.Objects.ExContentDescriptionOb.OnGetLength">
+            <summary>
+            Gets length of current frame
+            </summary>
+            <returns>System.Long contains length of current tag</returns>
+        </member>
+        <member name="M:Tags.Objects.ExContentDescriptionOb.Add(Tags.Objects.Descriptor)">
+            <summary>
+            Add new descriptor to list
+            </summary>
+            <param name="Des">Descriptor to add</param>
+        </member>
+        <member name="M:Tags.Objects.ExContentDescriptionOb.Remove(System.String)">
+            <summary>
+            Remove specific descriptor from list
+            </summary>
+            <param name="Name">Name of descriptor to remove</param>
+        </member>
+        <member name="M:Tags.Objects.ExContentDescriptionOb.RemoveNonArray">
+            <summary>
+            Remove all descriptors except byte arrays
+            </summary>
+        </member>
+        <member name="M:Tags.Objects.ExContentDescriptionOb.GetValue(System.String)">
+            <summary>
+            Get value of descriptor according to it's name
+            </summary>
+            <param name="Name">Name of descriptor to return</param>
+            <returns>Value of specific descriptor or null if name not found</returns>
+        </member>
+        <member name="M:Tags.Objects.ExContentDescriptionOb.SetValue(System.String,System.Object)">
+            <summary>
+            Set value of specific descriptor
+            </summary>
+            <param name="Name">Name of descriptor to set</param>
+            <param name="Value">value of descriptor to set</param>
+        </member>
+        <member name="M:Tags.Objects.ExContentDescriptionOb.GetEnumerator">
+            <summary>
+            Get Enumerator for descriptors
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Tags.Objects.ExContentDescriptionOb.Count">
+            <summary>
+            Number of descriptor that current object contains
+            </summary>
+        </member>
+        <member name="P:Tags.Objects.ExContentDescriptionOb.Item(System.String)">
+            <summary>
+            Gets or sets value of specific descriptor
+            </summary>
+            <param name="Name">Name of descriptor</param>
+            <returns>Object contains descriptor value</returns>
+        </member>
+        <member name="T:Tags.Objects.Descriptor">
+            <summary>
+            Provide descriptor class for reading and writing descriptors of ExContentDescription object
+            </summary>
+        </member>
+        <member name="M:Tags.Objects.Descriptor.#ctor(System.IO.TagStream)">
+            <summary>
+            Read new Descriptor from specific TagStream
+            </summary>
+            <param name="rd"></param>
+        </member>
+        <member name="M:Tags.Objects.Descriptor.#ctor(System.String,System.Object)">
+            <summary>
+            Create new descriptor from specific values
+            </summary>
+            <param name="Name">Name of descriptor</param>
+            <param name="Value">Value of descriptor</param>
+        </member>
+        <member name="M:Tags.Objects.Descriptor.Read(System.IO.TagStream)">
+            <summary>
+            Read Descriptor data from specific TagStream
+            </summary>
+            <param name="rd">TagStream to read data from</param>
+        </member>
+        <member name="M:Tags.Objects.Descriptor.Write(System.IO.TagStream)">
+            <summary>
+            Write current descriptor to specific TagStream
+            </summary>
+            <param name="wr">TagStream to write data to</param>
+        </member>
+        <member name="P:Tags.Objects.Descriptor.Name">
+            <summary>
+            Get or set name of current descriptor
+            </summary>
+        </member>
+        <member name="P:Tags.Objects.Descriptor.DataType">
+            <summary>
+            Get or set DataType of current descriptor
+            </summary>
+        </member>
+        <member name="P:Tags.Objects.Descriptor.Value">
+            <summary>
+            Get or set value of current descriptor
+            </summary>
+        </member>
+        <member name="P:Tags.Objects.Descriptor.ExceptionMessage">
+            <summary>
+            Get Exception message of current descriptor
+            </summary>
+        </member>
+        <member name="P:Tags.Objects.Descriptor.Length">
+            <summary>
+            Get Length of current descriptor
+            </summary>
+        </member>
+        <member name="T:Tags.Objects.GeneralObject">
+            <summary>
+            Provide an object to read and write unknown objects of ASF
+            </summary>
+        </member>
+        <member name="M:Tags.Objects.GeneralObject.#ctor(System.IO.TagStream,System.Int64,System.String)">
+            <summary>
+            Create new GeneralObject from specific TagStream
+            </summary>
+            <param name="rd">TagStream to read data from</param>
+            <param name="ObjectSize">Object size to read from TagStream</param>
+            <param name="GUID">GUID of object</param>
+        </member>
+        <member name="M:Tags.Objects.GeneralObject.OnReadingData(System.IO.TagStream,System.Int64)">
+            <summary>
+            Read data from specific TagStream
+            </summary>
+            <param name="rd">TagStream to read data from</param>
+            <param name="ObjectSize">Object size in tag stream</param>
+            <returns>true if readed successfully otherwise false</returns>
+        </member>
+        <member name="M:Tags.Objects.GeneralObject.OnWritingData(System.IO.TagStream)">
+            <summary>
+            Call when frame need to write it's data to stream
+            </summary>
+            <param name="wr">TagStream to write data</param>
+        </member>
+        <member name="M:Tags.Objects.GeneralObject.OnGetLength">
+            <summary>
+            Gets length of current frame in byte
+            </summary>
+            <returns>int contain length of current frame</returns>
+        </member>
+        <member name="M:Tags.Objects.GeneralObject.OnGetGUID">
+            <summary>
+            Gets GUID of current object
+            </summary>
+            <returns>String contain GUID of current object</returns>
+        </member>
+        <member name="T:Tags.ITagInfo">
+            <summary>
+            Provide an interface for Tag streams
+            </summary>
+        </member>
+        <member name="M:Tags.ITagInfo.Save">
+            <summary>
+            Saves Tag information to file
+            </summary>
+            <returns>True if save successfully otherwise false</returns>
+        </member>
+        <member name="M:Tags.ITagInfo.Load">
+            <summary>
+            Load information from file
+            </summary>
+            <returns>true if loads successfully otherwise false</returns>
+        </member>
+        <member name="M:Tags.ITagInfo.Save(System.String)">
+            <summary>
+            Save file with specific formula
+            </summary>
+            <param name="Formula">Formula to save file</param>
+        </member>
+        <member name="M:Tags.ITagInfo.SaveAs(System.String)">
+            <summary>
+            Save file at specific location
+            </summary>
+        </member>
+        <member name="M:Tags.ITagInfo.MakeFileName(System.String)">
+            <summary>
+            Make filename with specific formula
+            </summary>
+            <param name="Formula">Formula for rename</param>
+            <returns>System.String Contains filename</returns>
+        </member>
+        <member name="P:Tags.ITagInfo.FilePath">
+            <summary>
+            Gets file path for reading and writing data
+            </summary>
+        </member>
+        <member name="P:Tags.ITagInfo.FileName">
+            <summary>
+            Gets file name part of file path
+            </summary>
+        </member>
+        <member name="P:Tags.ITagInfo.HaveException">
+            <summary>
+            Indicate if file contained exception while loading
+            </summary>
+        </member>
+        <member name="P:Tags.ITagInfo.IsTemplate">
+            <summary>
+            Indicate if current ITagInfo is template
+            </summary>
+        </member>
+        <member name="T:Tags.TagListTypes">
+            <summary>
+            Indicates diffrent type of tags list
+            </summary>
+        </member>
+        <member name="F:Tags.TagListTypes.ID3">
+            <summary>
+            List contains ID3
+            </summary>
+        </member>
+        <member name="F:Tags.TagListTypes.ASF">
+            <summary>
+            List Contains ASF
+            </summary>
+        </member>
+        <member name="F:Tags.TagListTypes.Both">
+            <summary>
+            List Contains both ID3 and ASF
+            </summary>
+        </member>
+        <member name="T:Tags.TagTypes">
+            <summary>
+            Indicates diffrent types of tags system
+            </summary>
+        </member>
+        <member name="F:Tags.TagTypes.ID3">
+            <summary>
+            ID3 tag
+            </summary>
+        </member>
+        <member name="F:Tags.TagTypes.ASF">
+            <summary>
+            WMA tag
+            </summary>
+        </member>
+        <member name="T:Tags.StaticMethods">
+            <summary>
+            Static methods to use in application
+            </summary>
+        </member>
+        <member name="M:Tags.StaticMethods.GetEncoding(Tags.ID3.TextEncodings)">
+            <summary>
+            Get System.Text.Encoding according to specified TextEncoding argument
+            </summary>
+            <param name="TEncoding">TextEncoding to indicate</param>
+            <returns>System.Text.Encoding</returns>
+        </member>
+        <member name="M:Tags.StaticMethods.IsAscii(System.String)">
+            <summary>
+            Indicate if specified text is Ascii
+            </summary>
+            <param name="Text">Text to detect</param>
+            <returns>true if Text was ascii otherwise false</returns>
+        </member>
+        <member name="T:System.IO.TagStream">
+            <summary>
+            Provide a stream inherited from FileStream to read and write tags
+            </summary>
+        </member>
+        <member name="M:System.IO.TagStream.#ctor(System.String,System.IO.FileMode)">
+            <summary>
+            Create new TagStream
+            </summary>
+            <param name="path">Path of file to create tag on it</param>
+            <param name="mode">FileMode for opening stream</param>
+        </member>
+        <member name="M:System.IO.TagStream.ReadText(System.Int32,Tags.ID3.TextEncodings,System.Int32@,System.Boolean)">
+            <summary>
+            Read string from current TagStream
+            </summary>
+            <param name="MaxLength">Maximum length that can read from stream</param>
+            <param name="TEncoding">TextEcoding to read from Stream</param>
+            <param name="DetectEncoding">Determines wether the method must indicate encoding or not</param>
+            <param name="ReadedLength">Indicate number of bytes readed from current stream</param>
+            <returns>System.String contains readed string from current TagStream</returns>
+        </member>
+        <member name="M:System.IO.TagStream.ReadText(System.Int32,Tags.ID3.TextEncodings)">
+            <summary>
+            Read string from current TagStream with automatic Encoding detection
+            </summary>
+            <param name="MaxLength">Maximum length that can read from stream</param>
+            <param name="TEncoding">TextEcoding to read from Stream</param>
+            <returns>System.String contains readed string from current TagStream</returns>
+        </member>
+        <member name="M:System.IO.TagStream.ReadText(System.Int32,Tags.ID3.TextEncodings,System.Boolean)">
+            <summary>
+            Read string from current TagStream
+            </summary>
+            <param name="MaxLength">Maximum length that can read from stream</param>
+            <param name="TEncoding">TextEcoding to read from Stream</param>
+            <param name="DetectEncoding">Determines wether the method must indicate encoding or not</param>
+            <returns>System.String contains readed string from current TagStream</returns>
+        </member>
+        <member name="M:System.IO.TagStream.ReadByte">
+            <summary>
+            Read a byte from current TagStream
+            </summary>
+            <returns>Readed byte</returns>
+        </member>
+        <member name="M:System.IO.TagStream.ReadUInt(System.Int32)">
+            <summary>
+            Read specified length of byte from current TagStream and returns it as UInt
+            </summary>
+            <param name="Length">Length of bytes to read</param>
+            <returns>UInt represent readed number</returns>
+        </member>
+        <member name="M:System.IO.TagStream.ReadData(System.Int32)">
+            <summary>
+            Read data from current TagStream and returns it as MemoryStream
+            </summary>
+            <param name="Length">Length to read</param>
+            <returns>MemoryStream contains data readed</returns>
+        </member>
+        <member name="M:System.IO.TagStream.ReadGuid">
+            <summary>
+            Read a Guid from current TagStream
+            </summary>
+            <returns>Readed guid or Guid.Empty for not valid Guids</returns>
+        </member>
+        <member name="M:System.IO.TagStream.WriteText(System.String,Tags.ID3.TextEncodings,System.Boolean)">
+            <summary>
+            Write specified string to current TagStream
+            </summary>
+            <param name="Text">Text to write in TagStream</param>
+            <param name="TEncoding">TextEncoding use for writing</param>
+            <param name="AddNullCharacter">Indicate if need to add null character at end of string</param>
+        </member>
+        <member name="M:System.IO.TagStream.WriteText(System.String,System.Int32)">
+            <summary>
+            Writes size of text then write text use UTF_16
+            </summary>
+            <param name="Text">Text to write</param>
+            <param name="Length">Length of size in byte(2, 4 or 8)</param>
+        </member>
+        <member name="M:System.IO.TagStream.WriteGUID(System.Guid)">
+            <summary>
+            Write specified GUID to current TagStream
+            </summary>
+            <param name="GUID">GUID to write</param>
+        </member>
+        <member name="M:System.IO.TagStream.WriteGUID(System.String)">
+            <summary>
+            Write Specific GUID to current TagStream
+            </summary>
+            <param name="GUID">GUID to write to TagStream</param>
+        </member>
+        <member name="M:System.IO.TagStream.HaveID3v1">
+            <summary>
+            Indicate if current TagStream contains ID3v1 Information
+            </summary>
+        </member>
+        <member name="M:System.IO.TagStream.StringLength(System.String)">
+            <summary>
+            Get Length of specified string in byte and use Unicode encoding
+            </summary>
+            <param name="st">String to get length</param>
+            <returns>0 if string length be zero otherwise calculated length</returns>
+        </member>
+        <member name="M:System.IO.TagStream.DeleteRename(System.String,System.String,System.String)">
+            <summary>
+            Delete original file and rename temporary file
+            </summary>
+            <param name="OriginalPath">Original file path</param>
+            <param name="TempPath">Address of temp file</param>
+            <param name="NewPath">Name of file after saving</param>
+        </member>
+        <member name="P:System.IO.TagStream.AsBinaryReader">
+            <summary>
+            Gets Current TagStream as Binary Reader
+            </summary>
+        </member>
+        <member name="P:System.IO.TagStream.AsBinaryWriter">
+            <summary>
+            Gets Current TagStream as Binary Writer
+            </summary>
+        </member>
+        <member name="T:Tags.ID3.ID3v2Frames.ArrayFrames.SynchronisedText">
+            <summary>
+            A Class for frames that includes TextEncoding, Language, TimeStampFormat, ContentType and ContentDescriptor
+            </summary>
+        </member>
+        <member name="T:Tags.ID3.ID3v2Frames.TextFrames.TermOfUseFrame">
+            <summary>
+            A Class for frames that include Text, Encoding and Language
+            </summary>
+        </member>
+        <member name="T:Tags.ID3.ID3v2Frames.TextFrames.TextFrame">
+            <summary>
+            A Class for frames that include Text with TextEncoding
+            </summary>
+        </member>
+        <member name="T:Tags.ID3.ID3v2Frames.TextFrames.TextOnlyFrame">
+            <summary>
+            A class for frame that only include Text member
+            </summary> 
+        </member>
+        <member name="T:Tags.ID3.Frame">
+            <summary>
+            The main class for any type of frame to inherit
+            </summary>
+        </member>
+        <member name="T:Tags.ID3.ID3v2Frames.ILengthable">
+            <summary>
+            Provide a interface for Lenghtable Frames
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.ILengthable.Length">
+            <summary>
+            Length of current object
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.Frame.#ctor(System.String,Tags.ID3.FrameFlags)">
+            <summary>
+            Create a new Frame class
+            </summary>
+            <param name="FrameID">4 Characters tag identifier</param>
+            <param name="Flags">Frame Falgs</param>
+        </member>
+        <member name="M:Tags.ID3.Frame.ExceptionOccured(Tags.ID3Exception)">
+            <summary>
+            Exception Occured while reading file
+            </summary>
+            <param name="Ex">Exception to add to list</param>
+        </member>
+        <member name="M:Tags.ID3.Frame.GetTextLength(System.String,Tags.ID3.TextEncodings,System.Boolean)">
+            <summary>
+            Get length of Specific string according to Encoding
+            </summary>
+            <param name="Text">Text to get length</param>
+            <param name="TEncoding">TextEncoding to use for Length calculation</param>
+            <param name="AddNullCharacter">Indicate Add null character at the end of string or not</param>
+            <returns>Length of text</returns>
+        </member>
+        <member name="M:Tags.ID3.Frame.IsValidEnumValue(System.Enum,Tags.ExceptionLevels,System.String)">
+            <summary>
+            Indicate is value of Enumeration valid for that enum
+            </summary>
+            <param name="Enumeration">Enumeration to control value for</param>
+            <param name="ErrorType">if not valid how error occur</param>
+            <param name="FrameID">FrameID just for using in Exception message</param>
+            <returns>true if valid otherwise false</returns>
+        </member>
+        <member name="M:Tags.ID3.Frame.IsValidEnumValue(System.Enum)">
+            <summary>
+            Indicate if value of enumeration is valid
+            </summary>
+            <param name="Enumeration">Enum to check</param>
+            <returns>true if valid otherwise false</returns>
+        </member>
+        <member name="M:Tags.ID3.Frame.ValidatingFrameID(System.String,Tags.ExceptionLevels)">
+            <summary>
+            Indicate is specific FrameID valid or not
+            </summary>
+            <param name="FrameIdentifier">FrameID to check</param>
+            <param name="ErrorType">Error type that must occur if frame identifier was not valid</param>
+            <returns>true if frame identifer was valid otherwise false</returns>
+        </member>
+        <member name="M:Tags.ID3.Frame.WriteData(System.IO.TagStream,System.Int32)">
+            <summary>
+            Write data of current frame to specific TagStream
+            </summary>
+            <param name="writer">TagStream to write data to</param>
+            <param name="MinorVersion">MinorVersion of ID3</param>
+        </member>
+        <member name="M:Tags.ID3.Frame.OnWritingData(System.IO.TagStream,System.Int32)">
+            <summary>
+            Call when frame need to write it's data to stream
+            </summary>
+            <param name="writer">TagStream to write data</param>
+            <param name="MinorVersion">ID3 minor version</param>
+        </member>
+        <member name="M:Tags.ID3.Frame.OnValidating">
+            <summary>
+            Occur when want to validate frame information
+            </summary>
+            <returns>true if was valid frame otherwise false</returns>
+        </member>
+        <member name="M:Tags.ID3.Frame.OnGetLength">
+            <summary>
+            Gets length of current frame in byte
+            </summary>
+            <returns>int contain length of current frame</returns>
+        </member>
+        <member name="M:Tags.ID3.Frame.ToString">
+            <summary>
+            Retrun a string that represent FrameID of current Frame
+            </summary>
+            <returns>FrameID of current Frame</returns>
+        </member>
+        <member name="P:Tags.ID3.Frame.FrameFlag">
+            <summary>
+            Get or Set flags of current frame
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.Frame.IsValid">
+            <summary>
+            Indicate if current frame isvalid according to ExceptionLevel and validating data
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.Frame.FrameID">
+            <summary>
+            Get FrameID of current frame
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.Frame.ReadOnly">
+            <summary>
+            Gets or sets if current frame is ReadOnly
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.Frame.Encryption">
+            <summary>
+            Gets or sets if current frame is Encrypted
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.Frame.GroupIdentity">
+            <summary>
+            Gets or sets whether or not frame belongs in a group with other frames
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.Frame.Compression">
+            <summary>
+            Gets or sets whether or not this frame was compressed
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.Frame.TagAlterPreservation">
+            <summary>
+            Gets or sets if it's unknown frame it should be preserved or discared
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.Frame.FileAlterPreservation">
+            <summary>
+            Gets or sets what to do if file excluding frame, Preseved or discared
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.Frame.IsLinked">
+            <summary>
+            Gets or sets is current frame a linked frame
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.Frame.Exception">
+            <summary>
+            Exception that occured in reading frame
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.Frame.Length">
+            <summary>
+            Get Length of current frame
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.TextFrames.TextOnlyFrame.#ctor(System.String,Tags.ID3.FrameFlags)">
+            <summary>
+            Create new TextOnlyFrame
+            </summary>
+            <param name="FrameID">4 Characters tag identifier</param>
+            <param name="Flags">Flags of current frame</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.TextFrames.TextOnlyFrame.OnValidating">
+            <summary>
+            Indicate if current frame data is valid
+            </summary>
+            <returns>true if was valid frame otherwise false</returns>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.TextFrames.TextOnlyFrame.OnWritingData(System.IO.TagStream,System.Int32)">
+            <summary>
+            Call when frame need to write it's data to stream
+            </summary>
+            <param name="writer">TagStream to write data</param>
+            <param name="MinorVersion">ID3 minor version</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.TextFrames.TextOnlyFrame.OnGetLength">
+            <summary>
+            Gets length of current frame in byte
+            </summary>
+            <returns>int contain length of current frame</returns>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.TextFrames.TextOnlyFrame.Text">
+            <summary>
+            Get or Set current TextOnlyFrame text
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.TextFrames.TextFrame.#ctor(System.String,Tags.ID3.FrameFlags,System.IO.TagStream,System.Int32)">
+            <summary>
+            Create new TextFrame Class
+            </summary>
+            <param name="FrameID">4 Characters frame identifier</param>
+            <param name="Flags">Flag of frame</param>
+            <param name="Data">FileStream to read frame data from</param>
+            <param name="Length">Maximum length of frame</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.TextFrames.TextFrame.#ctor(System.String,Tags.ID3.FrameFlags,System.String,Tags.ID3.TextEncodings,System.Int32)">
+            <summary>
+            Create new TextFrame with specific information
+            </summary>
+            <param name="Text">Text of TextFrame</param>
+            <param name="TextEncoding">TextEncoding of TextFrame</param>
+            <param name="FrameID">FrameID of TextFrame</param>
+            <param name="Flags">Flags of Frame</param>
+            <param name="Ver">Minor version of ID3v2</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.TextFrames.TextFrame.#ctor(System.String,Tags.ID3.FrameFlags)">
+            <summary>
+            Create new TextFrame for inherited classes
+            </summary>
+            <param name="FrameID">4 Characters tag identifier</param>
+            <param name="Flags">Frame Falgs</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.TextFrames.TextFrame.OnWritingData(System.IO.TagStream,System.Int32)">
+            <summary>
+            Writing Data to specific TagStream
+            </summary>
+            <param name="writer">TagStream to write data</param>
+            <param name="MinorVersion">ID3 minor version</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.TextFrames.TextFrame.OnGetLength">
+            <summary>
+            Gets length of current frame in byte
+            </summary>
+            <returns>int contain length of current frame</returns>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.TextFrames.TextFrame.OnValidating">
+            <summary>
+            Indicate if current frame data is valid
+            </summary>
+            <returns>true if was valid frame otherwise false</returns>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.TextFrames.TextFrame.SetEncoding">
+            <summary>
+            Set TextEncoding according to Data of current frame
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.TextFrames.TextFrame.Equals(System.Object)">
+            <summary>
+            Determined if specific object is equal to current frame
+            </summary>
+            <param name="obj">Object to compare with current object</param>
+            <returns>true if objects be equal otherwise false</returns>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.TextFrames.TextFrame.GetHashCode">
+            <summary>
+            Serves as hash function for particular type
+            </summary>
+            <returns>Hash for current frame</returns>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.TextFrames.TextFrame.TextEncoding">
+            <summary>
+            Get or Set current frame TextEncoding
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.TextFrames.TextFrame.IsUrl">
+            <summary>
+            Indicate if current frame contain URL information
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.TextFrames.TermOfUseFrame.#ctor(System.String,Tags.ID3.FrameFlags,System.IO.TagStream,System.Int32)">
+            <summary>
+            Create new TermOfUseFrame class
+            </summary>
+            <param name="FrameID">4 Characters tag identifier</param>
+            <param name="Flags">2 Bytes flags identifier</param>
+            <param name="Data">TagStream to read data from</param>
+            <param name="Length">Maximum available length for current frame is TagStream</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.TextFrames.TermOfUseFrame.#ctor(Tags.ID3.FrameFlags,System.String,Tags.ID3.TextEncodings,System.String)">
+            <summary>
+            Create new TermOfUseFrame with specific information
+            </summary>
+            <param name="Flags">Frame Flags</param>
+            <param name="Text">Text of current frame</param>
+            <param name="TextEncoding">Encoding of text</param>
+            <param name="Lang">Language that text wrote in</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.TextFrames.TermOfUseFrame.#ctor(System.String,Tags.ID3.FrameFlags)">
+            <summary>
+            Create new empty TermOfUseFrame
+            </summary>
+            <param name="FrameID">4 character frame identifier</param>
+            <param name="Flags">Frame Flags</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.TextFrames.TermOfUseFrame.OnGetLength">
+            <summary>
+            Gets length of current frame in byte
+            </summary>
+            <returns>int contain length of current frame</returns>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.TextFrames.TermOfUseFrame.OnWritingData(System.IO.TagStream,System.Int32)">
+            <summary>
+            Writing Data to specific TagStream
+            </summary>
+            <param name="writer">TagStream to write data</param>
+            <param name="MinorVersion">ID3 minor version</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.TextFrames.TermOfUseFrame.OnValidating">
+            <summary>
+            Indicate if current frame data is valid
+            </summary>
+            <returns>true if was valid frame otherwise false</returns>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.TextFrames.TermOfUseFrame.Equals(System.Object)">
+            <summary>
+            Determines wheter the specified object is equal to current object
+            </summary>
+            <param name="obj">object to compare with current object</param>
+            <returns>true if they were equal otherwise false</returns>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.TextFrames.TermOfUseFrame.GetHashCode">
+            <summary>
+            Serves Hash function for particular types
+            </summary>
+            <returns>HashCode for current object</returns>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.TextFrames.TermOfUseFrame.ToString">
+            <summary>
+            Convert current object to string
+            </summary>
+            <returns>String contain converted of current object</returns>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.TextFrames.TermOfUseFrame.Language">
+            <summary>
+            Gets or sets language of current frame
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.ArrayFrames.SynchronisedText.#ctor(System.String,Tags.ID3.FrameFlags,System.IO.TagStream,System.Int32)">
+            <summary>
+            New SynchronisedText
+            </summary>
+            <param name="FrameID">FrameID</param>
+            <param name="Flags">Frame Flag</param>
+            <param name="Data">FileStream contain current frame data</param>
+            <param name="Length">Maximum availabel length for this frame</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.ArrayFrames.SynchronisedText.#ctor(Tags.ID3.FrameFlags,Tags.ID3.TextEncodings,System.String,Tags.ID3.TimeStamps,Tags.ID3.ID3v2Frames.ArrayFrames.SynchronisedText.ContentTypes,System.String)">
+            <summary>
+            New Synchronised Text
+            </summary>
+            <param name="Flags">Frame Flags</param>
+            <param name="TextEncoding">TextEncoding use for texts</param>
+            <param name="Lang">Language of texts</param>
+            <param name="TimeStamp">TimeStamps that use for times</param>
+            <param name="ContentType">ContentType</param>
+            <param name="ContentDescriptor">Descriptor of Contents</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.ArrayFrames.SynchronisedText.OnGetLength">
+            <summary>
+            Get length of current frame
+            </summary>
+            <returns>int contains current frame length</returns>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.ArrayFrames.SynchronisedText.OnWritingData(System.IO.TagStream,System.Int32)">
+            <summary>
+            Writing Data to specific TagStream
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.ArrayFrames.SynchronisedText.OnValidating">
+            <summary>
+            Validate frame data
+            </summary>
+            <returns>true if valid otherwise false</returns>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.ArrayFrames.SynchronisedText.SetEncoding">
+            <summary>
+            Indicate and set Encoding of current frame automatically
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.ArrayFrames.SynchronisedText.GetText(System.UInt32)">
+            <summary>
+            Get a syllable for specific time of lyric
+            </summary>
+            <param name="Time">Time to get syllable</param>
+            <returns>System.String contain syllable for specific time or Null if syllable not available in that time</returns>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.ArrayFrames.SynchronisedText.Equals(System.Object)">
+            <summary>
+            Indicate if current object equals to specific object
+            </summary>
+            <param name="obj">Object to compare</param>
+            <returns>true if euals otherwise false</returns>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.ArrayFrames.SynchronisedText.GetHashCode">
+            <summary>
+            Get Hashcode for current frame
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.ArrayFrames.SynchronisedText.ToString">
+            <summary>
+            Convert current frame to string
+            </summary>
+            <returns>System.String contains current frame</returns>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.ArrayFrames.SynchronisedText.TimeStamp">
+            <summary>
+            Gets or Sets TimeStamp of current frame
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.ArrayFrames.SynchronisedText.ContentType">
+            <summary>
+            Gets or sets ContentType of current frame
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.ArrayFrames.SynchronisedText.Syllables">
+            <summary>
+            Gets Syllables of current frame
+            </summary>
+        </member>
+        <member name="T:Tags.ID3.ID3v2Frames.ArrayFrames.SynchronisedText.ContentTypes">
+            <summary>
+            Indicates diffrent types of Synchronized text
+            </summary>
+        </member>
+        <member name="F:Tags.ID3.ID3v2Frames.ArrayFrames.SynchronisedText.ContentTypes.Other">
+            <summary>
+            Other type
+            </summary>
+        </member>
+        <member name="F:Tags.ID3.ID3v2Frames.ArrayFrames.SynchronisedText.ContentTypes.Lyric">
+            <summary>
+            Lyric
+            </summary>
+        </member>
+        <member name="F:Tags.ID3.ID3v2Frames.ArrayFrames.SynchronisedText.ContentTypes.TextTranscription">
+            <summary>
+            Transcription text
+            </summary>
+        </member>
+        <member name="F:Tags.ID3.ID3v2Frames.ArrayFrames.SynchronisedText.ContentTypes.MovementOrPartName">
+            <summary>
+            Movement or part name
+            </summary>
+        </member>
+        <member name="F:Tags.ID3.ID3v2Frames.ArrayFrames.SynchronisedText.ContentTypes.Event">
+            <summary>
+            Events text
+            </summary>
+        </member>
+        <member name="F:Tags.ID3.ID3v2Frames.ArrayFrames.SynchronisedText.ContentTypes.Chord">
+            <summary>
+            Chord texts
+            </summary>
+        </member>
+        <member name="F:Tags.ID3.ID3v2Frames.ArrayFrames.SynchronisedText.ContentTypes.Trivia_PopupInfo">
+            <summary>
+            Popup info
+            </summary>
+        </member>
+        <member name="T:Tags.ID3.ID3v2Frames.ArrayFrames.Syllable">
+            <summary>
+            Provide a class with Text and Time this class used SynchronisedText class and don't have any other usage
+            </summary>
+        </member>
+        <member name="F:Tags.ID3.ID3v2Frames.ArrayFrames.Syllable._Text">
+            <summary>
+            Text of syllable
+            </summary>
+        </member>
+        <member name="F:Tags.ID3.ID3v2Frames.ArrayFrames.Syllable._Time">
+            <summary>
+            Time of syllable
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.ArrayFrames.Syllable.#ctor(System.UInt32,System.String)">
+            <summary>
+            Create ne Syllable class
+            </summary>
+            <param name="Time">Absoulute Time for Syllable</param>
+            <param name="Text">Text of Syllable</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.ArrayFrames.Syllable.#ctor">
+            <summary>
+            Create new Syllable with 0 as time and string.empty as text
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.ArrayFrames.Syllable.CompareTo(System.Object)">
+            <summary>
+            Compare current syllable to specific one
+            </summary>
+            <returns>Positive number if current is greater otherwise false</returns>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.ArrayFrames.Syllable.ToString">
+            <summary>
+            Convert current syllable to string
+            </summary>
+            <returns>System.String contains current syllable</returns>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.ArrayFrames.Syllable.Text">
+            <summary>
+            Gets or sets Text of current syllable
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.ArrayFrames.Syllable.Time">
+            <summary>
+            Gets or sets absolute time of current Syllable
+            </summary>
+        </member>
+        <member name="T:Tags.ID3.ID3v2Frames.ArrayFrames.SynchronisedTempoFrame">
+            <summary>
+            A class for frame that include TempCodes, TimeStampFormat
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.ArrayFrames.SynchronisedTempoFrame.#ctor(System.String,Tags.ID3.FrameFlags,System.IO.TagStream,System.Int32)">
+            <summary>
+            Create new STempoCodes
+            </summary>
+            <param name="FrameID">4 Characters tag identifier</param>
+            <param name="Flags">2 Bytes flags identifier</param>
+            <param name="Data">Contain Data for this frame</param>
+            <param name="Length"></param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.ArrayFrames.SynchronisedTempoFrame.#ctor(Tags.ID3.FrameFlags,Tags.ID3.TimeStamps)">
+            <summary>
+            Create new SynchronisedTempoFrame from TimeStamps
+            </summary>
+            <param name="Flags">FrameFlags</param>
+            <param name="TimeStamp">TimeStamps for current SynchronisedTempoFrame</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.ArrayFrames.SynchronisedTempoFrame.OnGetLength">
+            <summary>
+            Gets length of current frame in byte
+            </summary>
+            <returns>int contain length of current frame</returns>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.ArrayFrames.SynchronisedTempoFrame.OnValidating">
+            <summary>
+            Indicate if current frame data is valid
+            </summary>
+            <returns>int contain length of current frame</returns>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.ArrayFrames.SynchronisedTempoFrame.OnWritingData(System.IO.TagStream,System.Int32)">
+            <summary>
+            Writing Data to specific TagStream
+            </summary>
+            <param name="wr">TagStream to write data</param>
+            <param name="MinorVersion">ID3 minor version</param>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.ArrayFrames.SynchronisedTempoFrame.TimeStampFormat">
+            <summary>
+            Get/Set TimeStamp for current frame
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.ArrayFrames.SynchronisedTempoFrame.TempoCodes">
+            <summary>
+            Gets Collection of TempoCode for current frame
+            </summary>
+        </member>
+        <member name="T:Tags.ID3.ID3v2Frames.ArrayFrames.TempoCode">
+            <summary>
+            Provide Tempo for STempoCodes
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.ArrayFrames.TempoCode.#ctor(System.Int32,System.UInt32)">
+            <summary>
+            Create new TempoCode
+            </summary>
+            <param name="Tempo">Tempo for current frame</param>
+            <param name="Time">Time for current frame</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.ArrayFrames.TempoCode.Data">
+            <summary>
+            Get byte of information for current TempoCode
+            </summary>
+            <returns>byte array contain TempoCode data</returns>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.ArrayFrames.TempoCode.Equals(System.Object)">
+            <summary>
+            Determines wheter the specified object is equal to current object
+            </summary>
+            <param name="obj">object to compare with current object</param>
+            <returns>true if they were equal otherwise false</returns>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.ArrayFrames.TempoCode.GetHashCode">
+            <summary>
+            Serves Hash function for particular types
+            </summary>
+            <returns>HashCode for current object</returns>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.ArrayFrames.TempoCode.CompareTo(System.Object)">
+            <summary>
+            Compare current TempoCode to specific object
+            </summary>
+            <param name="obj">Object to comapre current TempoCode</param>
+            <returns>0 if equal, 1 if current frame be greater than object otherwise -1</returns>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.ArrayFrames.TempoCode.ToString">
+            <summary>
+            Gets value of current TempoCode converted to string
+            </summary>
+            <returns>System.String contain value of current TempoCode</returns>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.ArrayFrames.TempoCode.Tempo">
+            <summary>
+            Get/Set current Tempo
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.ArrayFrames.TempoCode.Time">
+            <summary>
+            Get/Set Current frame time
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.ArrayFrames.TempoCode.Length">
+            <summary>
+            Gets length of current frame
+            </summary>
+        </member>
+        <member name="T:Tags.ID3.ID3v2Frames.ArrayFrames.Equalisation">
+            <summary>
+            Provide a class for Equalisation frame
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.ArrayFrames.Equalisation.#ctor(System.String,Tags.ID3.FrameFlags,System.IO.TagStream,System.Int32)">
+            <summary>
+            Create new Equalisation frame
+            </summary>
+            <param name="FrameID">4 characters frame identifer of current Frame class</param>
+            <param name="Flags">Frame Flags</param>
+            <param name="Data">TagStream to read frame from</param>
+            <param name="Length">Maximum length to read frame</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.ArrayFrames.Equalisation.#ctor(Tags.ID3.FrameFlags,System.Byte)">
+            <summary>
+            Create new Equalisation Frame
+            </summary>
+            <param name="Flags">Frame Flags</param>
+            <param name="AdjustmentBits">AdjustmentBit of current </param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.ArrayFrames.Equalisation.OnGetLength">
+            <summary>
+            Gets length of current frame in byte
+            </summary>
+            <returns>int contain length of current frame</returns>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.ArrayFrames.Equalisation.OnWritingData(System.IO.TagStream,System.Int32)">
+            <summary>
+            Writing Data to specific TagStream
+            </summary>
+            <param name="writer">TagStream to write data</param>
+            <param name="MinorVersion">ID3 minor version</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.ArrayFrames.Equalisation.OnValidating">
+            <summary>
+            Indicate if current frame data is valid
+            </summary>
+            <returns>true if was valid frame otherwise false</returns>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.ArrayFrames.Equalisation.AdjustmentLength">
+            <summary>
+            Gets or Sets Adjustment length in bit
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.ArrayFrames.Equalisation.Frequencies">
+            <summary>
+            Get All frequencis
+            </summary>
+            <returns>frequencis array</returns>
+        </member>
+        <member name="T:Tags.ID3.ID3v2Frames.ArrayFrames.FrequencyAdjustmentFrame">
+            <summary>
+            Provide a class for frequency frames. containing Inc/Dec, Frequency, Adjustment
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.ArrayFrames.FrequencyAdjustmentFrame.#ctor(System.Int32,System.UInt32)">
+            <summary>
+            Create new FrequencyAdjustment Frame
+            </summary>
+            <param name="Frequency">Frequency with inc/dec bit</param>
+            <param name="Adjustment">Adjustment</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.ArrayFrames.FrequencyAdjustmentFrame.#ctor(Tags.ID3.IncrementDecrement,System.Int32,System.UInt32)">
+            <summary>
+            Create new FrequencyAdjustment frame
+            </summary>
+            <param name="IncDec">Increment/Decrement</param>
+            <param name="Frequency">Frequency</param>
+            <param name="Adjustment">Adjustment</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.ArrayFrames.FrequencyAdjustmentFrame.GetBytes(System.Int32)">
+            <summary>
+            Convert current Frequency adjustment to byte array
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.ArrayFrames.FrequencyAdjustmentFrame.CompareTo(System.Object)">
+            <summary>
+            Compare current Frame with specific object
+            </summary>
+            <param name="obj">Object to compare with current frame</param>
+            <returns>A number greater than zero if Current frame be greater that object or zero if they're equal otherwise returns negative number</returns>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.ArrayFrames.FrequencyAdjustmentFrame.Frequency">
+            <summary>
+            Get/Set Frequency of current FrequencyAdjustmentFrame
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.ArrayFrames.FrequencyAdjustmentFrame.Adjustment">
+            <summary>
+            Get/Set Adjustment for current Frequency frame
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.ArrayFrames.FrequencyAdjustmentFrame.Length">
+            <summary>
+            Gets length of current frame
+            </summary>
+        </member>
+        <member name="T:Tags.ID3.ID3v2Frames.ArrayFrames.EventTimingCodeFrame">
+            <summary>
+            A class for EventTimingCode frame
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.ArrayFrames.EventTimingCodeFrame.#ctor(System.String,Tags.ID3.FrameFlags,System.IO.TagStream,System.Int32)">
+            <summary>
+            Create new EventTimingCodeFrame
+            </summary>
+            <param name="FrameID">FrameID</param>
+            <param name="Flags">Flags of frame</param>
+            <param name="Data">TagStream to read data from</param>
+            <param name="Length">Maximum available length</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.ArrayFrames.EventTimingCodeFrame.#ctor(Tags.ID3.FrameFlags,Tags.ID3.TimeStamps)">
+            <summary>
+            Create new EventTimingCode frame
+            </summary>
+            <param name="Flags">Flags of frame</param>
+            <param name="TimeStamp">TimeStamp use for times</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.ArrayFrames.EventTimingCodeFrame.OnValidating">
+            <summary>
+            Indicate if current frame data is valid
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.ArrayFrames.EventTimingCodeFrame.OnWritingData(System.IO.TagStream,System.Int32)">
+            <summary>
+            Writing Data to specific TagStream
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.ArrayFrames.EventTimingCodeFrame.OnGetLength">
+            <summary>
+            Gets length of current frame in byte
+            </summary>
+            <returns>int contain length of current frame</returns>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.ArrayFrames.EventTimingCodeFrame.TimeStamp">
+            <summary>
+            Gets or sets TimeStamp of current EventTimeCodeFrame
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.ArrayFrames.EventTimingCodeFrame.Events">
+            <summary>
+            Gets all Events for current frame
+            </summary>
+        </member>
+        <member name="T:Tags.ID3.ID3v2Frames.ArrayFrames.EventCode">
+            <summary>
+            A class for Event Codes
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.ArrayFrames.EventCode.#ctor(System.Byte,System.UInt32)">
+            <summary>
+            Create new EventCode
+            </summary>
+            <param name="EventType">Event Type</param>
+            <param name="Time">Time of Event</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.ArrayFrames.EventCode.ToString">
+            <summary>
+            Convert current EventCode to System.String
+            </summary>
+            <returns>System.String contain converted of current EventCode</returns>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.ArrayFrames.EventCode.EventType">
+            <summary>
+            Gets or sets Event type
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.ArrayFrames.EventCode.Time">
+            <summary>
+            Gets or set Time of event
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.ArrayFrames.EventCode.Length">
+            <summary>
+            Gets length of EventCode
+            </summary>
+        </member>
+        <member name="T:Tags.ID3.ID3v2Frames.BinaryFrames.BinaryFrame">
+            <summary>
+            A class for frame that only include Data(binary)
+            </summary>
+        </member>
+        <member name="F:Tags.ID3.ID3v2Frames.BinaryFrames.BinaryFrame._Data">
+            <summary>
+            Contains data of current frame
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.BinaryFrames.BinaryFrame.#ctor(System.String,Tags.ID3.FrameFlags,System.IO.TagStream,System.Int32)">
+            <summary>
+            New BinaryFrame
+            </summary>
+            <param name="FrameID">FrameID</param>
+            <param name="Flags">Frame Flag</param>
+            <param name="Data">FileStream contain frame data</param>
+            <param name="Length">Maximum available length for this frame</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.BinaryFrames.BinaryFrame.#ctor(System.String,Tags.ID3.FrameFlags,System.IO.MemoryStream)">
+            <summary>
+            New BinaryFrame from specific information
+            </summary>
+            <param name="FrameID">FrameID</param>
+            <param name="Flags">Frame Flags</param>
+            <param name="Data">Data of BinaryFrame</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.BinaryFrames.BinaryFrame.#ctor(System.String,Tags.ID3.FrameFlags)">
+            <summary>
+            New BinaryFrame for inherited classes
+            </summary>
+            <param name="FrameID">FrameID</param>
+            <param name="Flags">Frame Flags</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.BinaryFrames.BinaryFrame.OnGetLength">
+            <summary>
+            Gets length of current frame
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.BinaryFrames.BinaryFrame.OnWritingData(System.IO.TagStream,System.Int32)">
+            <summary>
+            Writing Data to specific TagStream
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.BinaryFrames.BinaryFrame.OnValidating">
+            <summary>
+            Indicate if current frame data is valid
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.BinaryFrames.BinaryFrame.Data">
+            <summary>
+            Get or Set Data of current frame
+            </summary>
+        </member>
+        <member name="T:Tags.ID3.ID3v2Frames.BinaryFrames.PrivateFrame">
+            <summary>
+            A class for frame that include Data, Owner
+            </summary>
+        </member>
+        <member name="F:Tags.ID3.ID3v2Frames.BinaryFrames.PrivateFrame._Owner">
+            <summary>
+            Contains Owner name
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.BinaryFrames.PrivateFrame.#ctor(System.String,Tags.ID3.FrameFlags,System.IO.TagStream,System.Int32)">
+            <summary>
+            New PrivateFrame
+            </summary>
+            <param name="FrameID">FrameID</param>
+            <param name="Flags">Frame Flags</param>
+            <param name="Data">FileStream to read frame data from</param>
+            <param name="Length">Maximum available length for this frame</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.BinaryFrames.PrivateFrame.#ctor(System.String,Tags.ID3.FrameFlags,System.String,System.IO.MemoryStream)">
+            <summary>
+            New Private Frame
+            </summary>
+            <param name="FrameID">FrameID</param>
+            <param name="Flags">Frame Flags</param>
+            <param name="Owner">Owner of data</param>
+            <param name="Data">Data</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.BinaryFrames.PrivateFrame.#ctor(System.String,Tags.ID3.FrameFlags)">
+            <summary>
+            Create new PrivateFrame for inherited classes
+            </summary>
+            <param name="FrameID">4 Characters tag identifier</param>
+            <param name="Flags">2 Bytes flags identifier</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.BinaryFrames.PrivateFrame.OnGetLength">
+            <summary>
+            Gets length of current frame
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.BinaryFrames.PrivateFrame.OnWritingData(System.IO.TagStream,System.Int32)">
+            <summary>
+            Writing Data to specific TagStream
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.BinaryFrames.PrivateFrame.OnValidating">
+            <summary>
+            Indicate if current frame data is valid
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.BinaryFrames.PrivateFrame.ToString">
+            <summary>
+            Convert current PrivateFrame to System.String
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.BinaryFrames.PrivateFrame.OwnerIdentifier">
+            <summary>
+            Get/Set OwnerIdentifier of current frame in ascii encoding
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.BinaryFrames.PrivateFrame.Data">
+            <summary>
+            Get or Set Data of current frame
+            </summary>
+        </member>
+        <member name="T:Tags.ID3.ID3v2Frames.BinaryFrames.DataWithSymbolFrame">
+            <summary>
+            A class for frame that include Data, Owner, Symbol
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.BinaryFrames.DataWithSymbolFrame.#ctor(System.String,Tags.ID3.FrameFlags,System.IO.TagStream,System.Int32)">
+            <summary>
+            New DataWithSymbolFrame
+            </summary>
+            <param name="FrameID">FrameID</param>
+            <param name="Flags">Frame Flags</param>
+            <param name="Data">FileStream to read frame data from</param>
+            <param name="Length">Maximum available length for this frame</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.BinaryFrames.DataWithSymbolFrame.#ctor(System.String,Tags.ID3.FrameFlags,System.String,System.Byte,System.IO.MemoryStream)">
+            <summary>
+            New DataWithSymbol from specific information
+            </summary>
+            <param name="FrameID">FrameID</param>
+            <param name="Flags">Frame Flags</param>
+            <param name="Owner">Owner identifier</param>
+            <param name="Symbol">Symbol of owner</param>
+            <param name="Data">Data of frame</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.BinaryFrames.DataWithSymbolFrame.OnGetLength">
+            <summary>
+            Gets length of current frame
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.BinaryFrames.DataWithSymbolFrame.OnWritingData(System.IO.TagStream,System.Int32)">
+            <summary>
+            Writing Data to specific TagStream
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.BinaryFrames.DataWithSymbolFrame.OnValidating">
+            <summary>
+            Indicate if current frame data is valid
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.BinaryFrames.DataWithSymbolFrame.Equals(System.Object)">
+            <summary>
+            Indicate if specific object is equal to this frame
+            </summary>
+            <returns>True if equal otherwise false</returns>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.BinaryFrames.DataWithSymbolFrame.GetHashCode">
+            <summary>
+            Get hashcode for current frame
+            </summary>
+            <returns>int contains hash</returns>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.BinaryFrames.DataWithSymbolFrame.Symbol">
+            <summary>
+            Gets or Sets Symbol of current frame
+            </summary>
+        </member>
+        <member name="T:Tags.ID3.ID3v2Frames.BinaryFrames.AudioEncryptionFrame">
+            <summary>
+            A class for frame that include Data, Owner, PreviewStart, PreviewLength
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.BinaryFrames.AudioEncryptionFrame.#ctor(System.String,Tags.ID3.FrameFlags,System.IO.TagStream,System.Int32)">
+            <summary>
+            Create new AudioEncryptionFrame
+            </summary>
+            <param name="FrameID">4 Characters tag identifier</param>
+            <param name="Flags">2 Bytes flags identifier</param>
+            <param name="Data">Contain Data for this frame</param>
+            <param name="Length">Maximum available length for this frame</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.BinaryFrames.AudioEncryptionFrame.#ctor(Tags.ID3.FrameFlags,System.String,System.Int32,System.Int32,System.IO.MemoryStream)">
+            <summary>
+            Create new AudioEncryptionFrame
+            </summary>
+            <param name="Flags">Flags of frame</param>
+            <param name="Owner">Owner identifier</param>
+            <param name="PreviewStart">PreviewStart time</param>
+            <param name="PreviewLength">PreviewLength time</param>
+            <param name="Data">Data that this frame must contain</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.BinaryFrames.AudioEncryptionFrame.OnGetLength">
+            <summary>
+            Gets length of current frame
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.BinaryFrames.AudioEncryptionFrame.OnWritingData(System.IO.TagStream,System.Int32)">
+            <summary>
+            Writing Data to specific TagStream
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.BinaryFrames.AudioEncryptionFrame.OnValidating">
+            <summary>
+            Indicate if current frame data is valid
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.BinaryFrames.AudioEncryptionFrame.Equals(System.Object)">
+            <summary>
+            Indicate if specific object is equal to this frame
+            </summary>
+            <returns>True if equal otherwise false</returns>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.BinaryFrames.AudioEncryptionFrame.GetHashCode">
+            <summary>
+            Get hashcode for current frame
+            </summary>
+            <returns>int contains hash</returns>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.BinaryFrames.AudioEncryptionFrame.PreviewStart">
+            <summary>
+            Gets or Sets PreviewStart of current frame
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.BinaryFrames.AudioEncryptionFrame.PreviewLength">
+            <summary>
+            Gets or Sets PreviewLength of current frame
+            </summary>
+        </member>
+        <member name="T:Tags.ID3.ID3v2Frames.BinaryFrames.BaseFileFrame">
+            <summary>
+            A class for frame that include TextEncoding, Description, MIMEType, Data
+            </summary>
+        </member>
+        <member name="F:Tags.ID3.ID3v2Frames.BinaryFrames.BaseFileFrame._TextEncoding">
+            <summary>
+            TextEncoding value
+            </summary>
+        </member>
+        <member name="F:Tags.ID3.ID3v2Frames.BinaryFrames.BaseFileFrame._MIMEType">
+            <summary>
+            MimeType value
+            </summary>
+        </member>
+        <member name="F:Tags.ID3.ID3v2Frames.BinaryFrames.BaseFileFrame._Description">
+            <summary>
+            Description value
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.BinaryFrames.BaseFileFrame.#ctor(System.String,Tags.ID3.FrameFlags)">
+            <summary>
+            New BaseFileFrame
+            </summary>
+            <param name="FrameID">FrameID</param>
+            <param name="Flags">Frame Flags</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.BinaryFrames.BaseFileFrame.#ctor(System.String,Tags.ID3.FrameFlags,System.String,System.String,Tags.ID3.TextEncodings,System.IO.MemoryStream)">
+            <summary>
+            New BaseFileFrame
+            </summary>
+            <param name="FrameID">FrameID</param>
+            <param name="Flags">Frame Flags</param>
+            <param name="Description">Description</param>
+            <param name="MIMEType">MimeType of Data</param>
+            <param name="TextEncoding">TextEncoding for texts</param>
+            <param name="Data">Data of frame</param>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.BinaryFrames.BaseFileFrame.TextEncoding">
+            <summary>
+            Gets or Sets current frame TextEncoding
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.BinaryFrames.BaseFileFrame.MIMEType">
+            <summary>
+            Gets or Sets current frame MIMEType
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.BinaryFrames.BaseFileFrame.Description">
+            <summary>
+            Gets or sets Description of current frame
+            </summary>
+        </member>
+        <member name="T:Tags.ID3.ID3v2Frames.BinaryFrames.GeneralFileFrame">
+            <summary>
+            A class for frame that include TextEncoding, Description, FileName, MIMEType, Data
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.BinaryFrames.GeneralFileFrame.#ctor(System.String,Tags.ID3.FrameFlags,System.IO.TagStream,System.Int32)">
+            <summary>
+            Create new GeneralFileFrame
+            </summary>
+            <param name="FrameID">4 Characters tag identifier</param>
+            <param name="Flags">2 Bytes flags identifier</param>
+            <param name="Data">Contain Data for this frame</param>
+            <param name="Length">Maximum available length for this frame</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.BinaryFrames.GeneralFileFrame.#ctor(Tags.ID3.FrameFlags,System.String,System.String,Tags.ID3.TextEncodings,System.String,System.IO.MemoryStream)">
+            <summary>
+            Create new GeneralFile frame
+            </summary>
+            <param name="Flags">Flags of frame</param>
+            <param name="Description">Description of frame</param>
+            <param name="MIMEType">MimeType of file</param>
+            <param name="TextEncoding">TextEncoding for storing texts</param>
+            <param name="FileName">Filename</param>
+            <param name="Data">Data contain file</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.BinaryFrames.GeneralFileFrame.OnGetLength">
+            <summary>
+            Gets length of current frame
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.BinaryFrames.GeneralFileFrame.OnWritingData(System.IO.TagStream,System.Int32)">
+            <summary>
+            Writing Data to specific TagStream
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.BinaryFrames.GeneralFileFrame.OnValidating">
+            <summary>
+            Indicate if current frame data is valid
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.BinaryFrames.GeneralFileFrame.Equals(System.Object)">
+            <summary>
+            Indicate if specific object is equal to this frame
+            </summary>
+            <returns>True if equal otherwise false</returns>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.BinaryFrames.GeneralFileFrame.GetHashCode">
+            <summary>
+            Get hashcode for current frame
+            </summary>
+            <returns>int contains hash</returns>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.BinaryFrames.GeneralFileFrame.ToString">
+            <summary>
+            Convert current GeneralFileFrame to String
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.BinaryFrames.GeneralFileFrame.FileName">
+            <summary>
+            Get/Set FileName of current frame
+            </summary>
+        </member>
+        <member name="T:Tags.ID3.ID3v2Frames.BinaryFrames.AttachedPictureFrame">
+            <summary>
+            A class for frame that include Text, Encoding, MIMEType, PictureType, Data
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.BinaryFrames.AttachedPictureFrame.#ctor(System.String,Tags.ID3.FrameFlags,System.IO.TagStream,System.Int32)">
+            <summary>
+            Create new AttachedPictureFrame
+            </summary>
+            <param name="FrameID">4 Characters tag identifier</param>
+            <param name="Flags">2 Bytes flags identifier</param>
+            <param name="Data">Contain Data for this frame</param>
+            <param name="Length">MaxLength of frame</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.BinaryFrames.AttachedPictureFrame.#ctor(Tags.ID3.FrameFlags,System.String,Tags.ID3.TextEncodings,System.String,Tags.ID3.ID3v2Frames.BinaryFrames.AttachedPictureFrame.PictureTypes,System.IO.MemoryStream)">
+            <summary>
+            Create new AttachedPicture frame
+            </summary>
+            <param name="Flags">Flags of frame</param>
+            <param name="Description">Description of picture</param>
+            <param name="TextEncoding">TextEncoding use for texts</param>
+            <param name="MIMEType">MimeType of picture</param>
+            <param name="PictureType">Picture type</param>
+            <param name="Data">Data Contain picture</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.BinaryFrames.AttachedPictureFrame.OnGetLength">
+            <summary>
+            Gets length of current frame
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.BinaryFrames.AttachedPictureFrame.OnWritingData(System.IO.TagStream,System.Int32)">
+            <summary>
+            Writing Data to specific TagStream
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.BinaryFrames.AttachedPictureFrame.OnValidating">
+            <summary>
+            Indicate if current frame data is valid
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.BinaryFrames.AttachedPictureFrame.Equals(System.Object)">
+            <summary>
+            Indicate if specific object is equal to this frame
+            </summary>
+            <returns>True if equal otherwise false</returns>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.BinaryFrames.AttachedPictureFrame.GetHashCode">
+            <summary>
+            Get hashcode for current frame
+            </summary>
+            <returns>int contains hash</returns>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.BinaryFrames.AttachedPictureFrame.ToString">
+            <summary>
+            Convert current Attached Picture to String in format of Description [PictureType]
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.BinaryFrames.AttachedPictureFrame.PictureType">
+            <summary>
+            Get/Set PictureType of current frame
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.BinaryFrames.AttachedPictureFrame.Description">
+            <summary>
+            Gets or Sets current frame Description
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.BinaryFrames.AttachedPictureFrame.Picture">
+            <summary>
+            Contain Data of current PictureFrame as Image
+            </summary>
+        </member>
+        <member name="T:Tags.ID3.ID3v2Frames.BinaryFrames.AttachedPictureFrame.PictureTypes">
+            <summary>
+            Indicates diffrent types of attached pictures
+            </summary>
+        </member>
+        <member name="F:Tags.ID3.ID3v2Frames.BinaryFrames.AttachedPictureFrame.PictureTypes.Other">
+            <summary>
+            Unknown image type
+            </summary>
+        </member>
+        <member name="F:Tags.ID3.ID3v2Frames.BinaryFrames.AttachedPictureFrame.PictureTypes.FileIcon">
+            <summary>
+            The icon of file
+            </summary>
+        </member>
+        <member name="F:Tags.ID3.ID3v2Frames.BinaryFrames.AttachedPictureFrame.PictureTypes.OtherFileIcon">
+            <summary>
+            If file contains more than one icon this can use
+            </summary>
+        </member>
+        <member name="F:Tags.ID3.ID3v2Frames.BinaryFrames.AttachedPictureFrame.PictureTypes.Cover_Front">
+            <summary>
+            Front cover image
+            </summary>
+        </member>
+        <member name="F:Tags.ID3.ID3v2Frames.BinaryFrames.AttachedPictureFrame.PictureTypes.Cover_Back">
+            <summary>
+            Back cover image
+            </summary>
+        </member>
+        <member name="F:Tags.ID3.ID3v2Frames.BinaryFrames.AttachedPictureFrame.PictureTypes.LeafletPage">
+            <summary>
+            Picture of Leaflet
+            </summary>
+        </member>
+        <member name="F:Tags.ID3.ID3v2Frames.BinaryFrames.AttachedPictureFrame.PictureTypes.Media">
+            <summary>
+            Picture of media
+            </summary>
+        </member>
+        <member name="F:Tags.ID3.ID3v2Frames.BinaryFrames.AttachedPictureFrame.PictureTypes.Soloist">
+            <summary>
+            Picture of soloist
+            </summary>
+        </member>
+        <member name="F:Tags.ID3.ID3v2Frames.BinaryFrames.AttachedPictureFrame.PictureTypes.Artist">
+            <summary>
+            Picture of band artist
+            </summary>
+        </member>
+        <member name="F:Tags.ID3.ID3v2Frames.BinaryFrames.AttachedPictureFrame.PictureTypes.Conductor">
+            <summary>
+            Picture of conductor
+            </summary>
+        </member>
+        <member name="F:Tags.ID3.ID3v2Frames.BinaryFrames.AttachedPictureFrame.PictureTypes.Band">
+            <summary>
+            Picture of band
+            </summary>
+        </member>
+        <member name="F:Tags.ID3.ID3v2Frames.BinaryFrames.AttachedPictureFrame.PictureTypes.Composer">
+            <summary>
+            Picture of composer
+            </summary>
+        </member>
+        <member name="F:Tags.ID3.ID3v2Frames.BinaryFrames.AttachedPictureFrame.PictureTypes.Lyricist_TextWriter">
+            <summary>
+            Picture of Lyricist
+            </summary>
+        </member>
+        <member name="F:Tags.ID3.ID3v2Frames.BinaryFrames.AttachedPictureFrame.PictureTypes.RecordingLocation">
+            <summary>
+            Picture of recording location
+            </summary>
+        </member>
+        <member name="F:Tags.ID3.ID3v2Frames.BinaryFrames.AttachedPictureFrame.PictureTypes.DuringRecording">
+            <summary>
+            Picture taken while recording
+            </summary>
+        </member>
+        <member name="F:Tags.ID3.ID3v2Frames.BinaryFrames.AttachedPictureFrame.PictureTypes.DuringPerformance">
+            <summary>
+            Picture taken while performance
+            </summary>
+        </member>
+        <member name="F:Tags.ID3.ID3v2Frames.BinaryFrames.AttachedPictureFrame.PictureTypes.Movie">
+            <summary>
+            Picture taken from movie, clip
+            </summary>
+        </member>
+        <member name="F:Tags.ID3.ID3v2Frames.BinaryFrames.AttachedPictureFrame.PictureTypes.ABrightColouredFish">
+            <summary>
+            A Bright Coloued Fish
+            </summary>
+        </member>
+        <member name="F:Tags.ID3.ID3v2Frames.BinaryFrames.AttachedPictureFrame.PictureTypes.Illustration">
+            <summary>
+            Illustration picture
+            </summary>
+        </member>
+        <member name="F:Tags.ID3.ID3v2Frames.BinaryFrames.AttachedPictureFrame.PictureTypes.BandLogo">
+            <summary>
+            Logo of band
+            </summary>
+        </member>
+        <member name="F:Tags.ID3.ID3v2Frames.BinaryFrames.AttachedPictureFrame.PictureTypes.PublisherLogo">
+            <summary>
+            Logo of publisher
+            </summary>
+        </member>
+        <member name="T:Tags.ID3.ID3v2Frames.BinaryFrames.CommercialFrame">
+            <summary>
+            A class for frame that include TextEncoding, Price, ValidUntil, ContactUrl,
+            RecievedAs, Seller, Description, MIMEType, Logo
+            </summary>
+        </member>
+        <member name="F:Tags.ID3.ID3v2Frames.BinaryFrames.CommercialFrame._Price">
+            <summary>
+            Price Value
+            </summary>
+        </member>
+        <member name="F:Tags.ID3.ID3v2Frames.BinaryFrames.CommercialFrame._ValidUntil">
+            <summary>
+            Valid Until value
+            </summary>
+        </member>
+        <member name="F:Tags.ID3.ID3v2Frames.BinaryFrames.CommercialFrame._ContactUrl">
+            <summary>
+            Contact URL value
+            </summary>
+        </member>
+        <member name="F:Tags.ID3.ID3v2Frames.BinaryFrames.CommercialFrame._RecievedAs">
+            <summary>
+            Recieve as value
+            </summary>
+        </member>
+        <member name="F:Tags.ID3.ID3v2Frames.BinaryFrames.CommercialFrame._SellerName">
+            <summary>
+            Seller Name value
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.BinaryFrames.CommercialFrame.#ctor(System.String,Tags.ID3.FrameFlags,System.IO.TagStream,System.Int32)">
+            <summary>
+            New CommercialFrame
+            </summary>
+            <param name="FrameID">FrameID</param>
+            <param name="Flags">Frame Flags</param>
+            <param name="Data">Data of frame</param>
+            <param name="Length">MaxLength of frame</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.BinaryFrames.CommercialFrame.#ctor(Tags.ID3.FrameFlags,System.String,Tags.ID3.TextEncodings,Tags.ID3.ID3v2Frames.Price,Tags.ID3.ID3v2Frames.SDate,System.String,Tags.ID3.ID3v2Frames.BinaryFrames.CommercialFrame.RecievedAsEnum,System.String,System.String,System.IO.MemoryStream)">
+            <summary>
+            Create new Commercial frame
+            </summary>
+            <param name="Flags">Flags of frame</param>
+            <param name="Description">Description for current frame</param>
+            <param name="TextEncoding">TextEncoding use for texts</param>
+            <param name="Price">Price that payed for song</param>
+            <param name="ValidUntil">Validation date</param>
+            <param name="ContactURL">Contact URL to seller</param>
+            <param name="RecievedAs">RecievedAd type</param>
+            <param name="SellerName">SellerName</param>
+            <param name="MIMEType">MimeType for seller Logo</param>
+            <param name="Logo">Data Contain Seller Logo</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.BinaryFrames.CommercialFrame.OnGetLength">
+            <summary>
+            Gets length of current frame
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.BinaryFrames.CommercialFrame.OnWritingData(System.IO.TagStream,System.Int32)">
+            <summary>
+            Writing Data to specific TagStream
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.BinaryFrames.CommercialFrame.OnValidating">
+            <summary>
+            Indicate if current frame data is valid
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.BinaryFrames.CommercialFrame.Price">
+            <summary>
+            Gets or sets Price payed
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.BinaryFrames.CommercialFrame.ValidUntil">
+            <summary>
+            Gets or sets Validation date
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.BinaryFrames.CommercialFrame.ContactUrl">
+            <summary>
+            Gets or sets Contact URL of seller
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.BinaryFrames.CommercialFrame.RecievedAs">
+            <summary>
+            Gets or sets Recieved As type
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.BinaryFrames.CommercialFrame.SellerName">
+            <summary>
+            Gets or sets seller name
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.BinaryFrames.CommercialFrame.LogoExists">
+            <summary>
+            Indicate if logo exists for this frame
+            </summary>
+        </member>
+        <member name="T:Tags.ID3.ID3v2Frames.BinaryFrames.CommercialFrame.RecievedAsEnum">
+            <summary>
+            Indicates diffrent types of recieving file
+            </summary>
+        </member>
+        <member name="F:Tags.ID3.ID3v2Frames.BinaryFrames.CommercialFrame.RecievedAsEnum.Other">
+            <summary>
+            Other types of recieving
+            </summary>
+        </member>
+        <member name="F:Tags.ID3.ID3v2Frames.BinaryFrames.CommercialFrame.RecievedAsEnum.StandardCdAlbum">
+            <summary>
+            Recieved as CD
+            </summary>
+        </member>
+        <member name="F:Tags.ID3.ID3v2Frames.BinaryFrames.CommercialFrame.RecievedAsEnum.CompressedAudio">
+            <summary>
+            Recieved as Compressed Audio like mp3
+            </summary>
+        </member>
+        <member name="F:Tags.ID3.ID3v2Frames.BinaryFrames.CommercialFrame.RecievedAsEnum.FileOverInternet">
+            <summary>
+            Downloaded from internet
+            </summary>
+        </member>
+        <member name="F:Tags.ID3.ID3v2Frames.BinaryFrames.CommercialFrame.RecievedAsEnum.StreamOverInternet">
+            <summary>
+            Recieved as stream over internet
+            </summary>
+        </member>
+        <member name="F:Tags.ID3.ID3v2Frames.BinaryFrames.CommercialFrame.RecievedAsEnum.AsNoteSheet">
+            <summary>
+            Recieved as note sheet
+            </summary>
+        </member>
+        <member name="F:Tags.ID3.ID3v2Frames.BinaryFrames.CommercialFrame.RecievedAsEnum.AsNoteSheetInBook">
+            <summary>
+            Recieved as note sheet in book
+            </summary>
+        </member>
+        <member name="F:Tags.ID3.ID3v2Frames.BinaryFrames.CommercialFrame.RecievedAsEnum.MusicOnOtherMedia">
+            <summary>
+            Recieved as music on other media type such as tape
+            </summary>
+        </member>
+        <member name="F:Tags.ID3.ID3v2Frames.BinaryFrames.CommercialFrame.RecievedAsEnum.NonMusicalMerchandise">
+            <summary>
+            Not buyed
+            </summary>
+        </member>
+        <member name="F:Tags.ID3.ID3v2Frames.BinaryFrames.CommercialFrame.RecievedAsEnum.Unknown">
+            <summary>
+            Unknown recieving type
+            </summary>
+        </member>
+        <member name="T:Tags.ID3.TextEncodings">
+            <summary>
+            Indicates diffrent types of text encoding use for texts
+            </summary>
+        </member>
+        <member name="F:Tags.ID3.TextEncodings.Ascii">
+            <summary>
+            Use Asccii as text encoding
+            </summary>
+        </member>
+        <member name="F:Tags.ID3.TextEncodings.UTF_16">
+            <summary>
+            Use UTF16 (little endian) as text encoding
+            </summary>
+        </member>
+        <member name="F:Tags.ID3.TextEncodings.UTF_16BE">
+            <summary>
+            Use UTF16 (big endian) as text encoding
+            </summary>
+        </member>
+        <member name="F:Tags.ID3.TextEncodings.UTF8">
+            <summary>
+            Use UTF8 as text encoding
+            </summary>
+        </member>
+        <member name="T:Tags.ID3.FrameFlags">
+            <summary>
+            Provide frame flags for all frames
+            </summary>
+        </member>
+        <member name="F:Tags.ID3.FrameFlags.TagAlterPreservation">
+            <summary>
+            Tag Alter if not valid
+            </summary>
+        </member>
+        <member name="F:Tags.ID3.FrameFlags.FileAlterPreservation">
+            <summary>
+            File Alter if not valid
+            </summary>
+        </member>
+        <member name="F:Tags.ID3.FrameFlags.ReadOnly">
+            <summary>
+            Readonly
+            </summary>
+        </member>
+        <member name="F:Tags.ID3.FrameFlags.Compression">
+            <summary>
+            Compressed
+            </summary>
+        </member>
+        <member name="F:Tags.ID3.FrameFlags.Encryption">
+            <summary>
+            Encrypted
+            </summary>
+        </member>
+        <member name="F:Tags.ID3.FrameFlags.GroupingIdentity">
+            <summary>
+            Grouped by another tags
+            </summary>
+        </member>
+        <member name="T:Tags.ID3.TimeStamps">
+            <summary>
+            Specifies types of time stamps
+            </summary>
+        </member>
+        <member name="F:Tags.ID3.TimeStamps.MpegFrame">
+            <summary>
+            Use mpeg frame as timestamp
+            </summary>
+        </member>
+        <member name="F:Tags.ID3.TimeStamps.Milliseconds">
+            <summary>
+            using millisecond as timestamp
+            </summary>
+        </member>
+        <member name="T:Tags.ID3.IncrementDecrement">
+            <summary>
+            Specifies incrementing or dcrementing must use for relative volume
+            </summary>
+        </member>
+        <member name="F:Tags.ID3.IncrementDecrement.Dcrement">
+            <summary>
+            To decrement value
+            </summary>
+        </member>
+        <member name="F:Tags.ID3.IncrementDecrement.Increment">
+            <summary>
+            To increment value
+            </summary>
+        </member>
+        <member name="T:Tags.ID3.ID3v2HeaderFlags">
+            <summary>
+            Enum for ID3v2 header flags
+            </summary>
+        </member>
+        <member name="F:Tags.ID3.ID3v2HeaderFlags.Unsynchronisation">
+            <summary>
+            Indicates whether or not unsynchronisation is used 
+            </summary>
+        </member>
+        <member name="F:Tags.ID3.ID3v2HeaderFlags.ExtendedHeader">
+            <summary>
+            Indicate ID3v2 contains exnted header data
+            </summary>
+        </member>
+        <member name="F:Tags.ID3.ID3v2HeaderFlags.Experimental">
+            <summary>
+            Means ID3v2 tag is experimental
+            </summary>
+        </member>
+        <member name="T:Tags.ID3.FilterTypes">
+            <summary>
+            Diffrent types of frame filter usage
+            </summary>
+        </member>
+        <member name="F:Tags.ID3.FilterTypes.NoFilter">
+            <summary>
+            No filter
+            </summary>
+        </member>
+        <member name="F:Tags.ID3.FilterTypes.LoadFiltersOnly">
+            <summary>
+            Load filtered frames only
+            </summary>
+        </member>
+        <member name="F:Tags.ID3.FilterTypes.NotLoadFilters">
+            <summary>
+            Do not load filtered frames
+            </summary>
+        </member>
+        <member name="T:Tags.ID3.ID3Versions">
+            <summary>
+            Indicates diffrent versions of ID3
+            </summary>
+        </member>
+        <member name="F:Tags.ID3.ID3Versions.ID3v1">
+            <summary>
+            ID3 version 1
+            </summary>
+        </member>
+        <member name="F:Tags.ID3.ID3Versions.ID3v2">
+            <summary>
+            ID3 version 2
+            </summary>
+        </member>
+        <member name="T:Tags.ID3.ID3v2Frames.FilterCollection">
+            <summary>
+            Provide collection for frames to use for filtering
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.FilterCollection.#ctor">
+            <summary>
+            Create new cleared filter collection
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.FilterCollection.Add(System.String)">
+            <summary>
+            Add FrameID to FrameList if not exists
+            </summary>
+            <param name="FrameID">FrameID to add to list</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.FilterCollection.Remove(System.String)">
+            <summary>
+            Remove Specific frame from list
+            </summary>
+            <param name="FrameID">FrameID to remove from list</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.FilterCollection.Clear">
+            <summary>
+            Remove all frames from frame list
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.FilterCollection.IsExists(System.String)">
+            <summary>
+            Indicate is specific frame in the list
+            </summary>
+            <param name="FrameID">FrameID to search</param>
+            <returns>true if exists false if not</returns>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.FilterCollection.Frames">
+            <summary>
+            Get list of frames
+            </summary>
+        </member>
+        <member name="T:Tags.ID3.ID3v2Frames.FrameCollection`1">
+            <summary>
+            A class for frames collection
+            </summary>
+            <typeparam name="FrameType"></typeparam>
+        </member>
+        <member name="T:Tags.ID3.ID3v2Frames.FrameCollectionBase">
+            <summary>
+            A base class for frame collection class
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.FrameCollectionBase.#ctor(System.String)">
+            <summary>
+            Create new FrameCollectionBase class
+            </summary>
+            <param name="Name">Name of collection</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.FrameCollectionBase.Sort">
+            <summary>
+            Sort Items
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.FrameCollectionBase.ToFrameArray">
+            <summary>
+            Convert current collection to Frame array
+            </summary>
+            <returns>Frame array</returns>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.FrameCollectionBase.OnGetType">
+            <summary>
+            Gets type of current frame 
+            </summary>
+            <returns>System.Type</returns>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.FrameCollectionBase.Add(Tags.ID3.Frame)">
+            <summary>
+            Add specific frame to collection
+            </summary>
+            <param name="item">Frame to add to collection</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.FrameCollectionBase.Remove(Tags.ID3.Frame)">
+            <summary>
+            Remove specific frame from list
+            </summary>
+            <param name="item">Frame to remove from list</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.FrameCollectionBase.Contains(Tags.ID3.Frame)">
+            <summary>
+            Indicate if list contains specific frame
+            </summary>
+            <param name="item">Frame to search for</param>
+            <returns>true if exists otherwise false</returns>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.FrameCollectionBase.Name">
+            <summary>
+            Name of current collection
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.FrameCollectionBase.Length">
+            <summary>
+            Get sum of lengths of items
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.FrameCollectionBase.CollectionType">
+            <summary>
+            Get type of items in collection
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.FrameCollection`1.#ctor(System.String)">
+            <summary>
+            Create a new FrameCollection class
+            </summary>
+            <param name="Name">Name of collection</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.FrameCollection`1.Add(`0)">
+            <summary>
+            Add new Item to current FrameCollection
+            </summary>
+            <param name="item">item to add to collection</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.FrameCollection`1.Remove(`0)">
+            <summary>
+            remove specific item from current FrameCollection
+            </summary>
+            <param name="item">item to remove from collection</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.FrameCollection`1.ToArray">
+            <summary>
+            Convert current collection to FrameType array
+            </summary>
+            <returns>FrameType array</returns>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.FrameCollection`1.OnGetType">
+            <summary>
+            Gets type of current frame 
+            </summary>
+            <returns>System.Type</returns>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.FrameCollection`1.Item(System.Int32)">
+            <summary>
+            Gets specific frame from list
+            </summary>
+            <param name="index">index of frame in list</param>
+            <returns>Frame</returns>
+        </member>
+        <member name="T:Tags.ID3.ID3v2Frames.StreamFrames.PositionSynchronisedFrame">
+            <summary>
+            A class for PositionSynchronised frame
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.StreamFrames.PositionSynchronisedFrame.#ctor(System.String,Tags.ID3.FrameFlags,System.IO.TagStream,System.Int32)">
+            <summary>
+            Create new PositionSynchronisedFrame
+            </summary>
+            <param name="FrameID">FrameID for this frame</param>
+            <param name="Flags">Frame Flags</param>
+            <param name="Data">TagStream to read data from</param>
+            <param name="Length">Maximum available length for this frame</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.StreamFrames.PositionSynchronisedFrame.#ctor(Tags.ID3.FrameFlags,Tags.ID3.TimeStamps,System.Int64)">
+            <summary>
+            create new PositionSynchronised frame
+            </summary>
+            <param name="Flags">Flags of frame</param>
+            <param name="TimeStamp">TimeStamp to use for frame</param>
+            <param name="Position">Position of frame</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.StreamFrames.PositionSynchronisedFrame.OnValidating">
+            <summary>
+            Indicate if current frame data is valid
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.StreamFrames.PositionSynchronisedFrame.OnWritingData(System.IO.TagStream,System.Int32)">
+            <summary>
+            Writing Data to specific TagStream
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.StreamFrames.PositionSynchronisedFrame.OnGetLength">
+            <summary>
+            Gets lenght of current frame
+            </summary>
+            <returns>int contains current frame length</returns>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.StreamFrames.PositionSynchronisedFrame.TimeStamp">
+            <summary>
+            Gets or sets current frame TimeStamp
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.StreamFrames.PositionSynchronisedFrame.Position">
+            <summary>
+            Gets or sets current frame Position
+            </summary>
+        </member>
+        <member name="T:Tags.ID3.ID3v2Frames.StreamFrames.RecomendedBufferSizeFrame">
+            <summary>
+            A class for RecomendedBufferSize Frame
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.StreamFrames.RecomendedBufferSizeFrame.#ctor(System.String,Tags.ID3.FrameFlags,System.IO.TagStream,System.Int32)">
+            <summary>
+            Create new RecomendedBufferSize
+            </summary>
+            <param name="FrameID">Characters tag identifier</param>
+            <param name="Flags">2 Bytes flags identifier</param>
+            <param name="Data">Contain Data for this frame</param>
+            <param name="Length">Length to read from FileStream</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.StreamFrames.RecomendedBufferSizeFrame.#ctor(Tags.ID3.FrameFlags,System.UInt32,System.Boolean,System.UInt32)">
+            <summary>
+            Create new RecomendedBufferSize
+            </summary>
+            <param name="Flags">Flags of frame</param>
+            <param name="BufferSize">Recommended Buffer size</param>
+            <param name="EmbededInfoFlag">EmbededInfoFlag</param>
+            <param name="OffsetToNextTag">Offset to next tag</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.StreamFrames.RecomendedBufferSizeFrame.OnGetLength">
+            <summary>
+            Gets length of current frame
+            </summary>
+            <returns>int contains length of current frame</returns>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.StreamFrames.RecomendedBufferSizeFrame.OnWritingData(System.IO.TagStream,System.Int32)">
+            <summary>
+            Writing Data to specific TagStream
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.StreamFrames.RecomendedBufferSizeFrame.OnValidating">
+            <summary>
+            Indicate if current frame data is valid
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.StreamFrames.RecomendedBufferSizeFrame.BufferSize">
+            <summary>
+            Gets or Sets Buffer size for current frame
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.StreamFrames.RecomendedBufferSizeFrame.EmbededInfoFlag">
+            <summary>
+            Gets or Sets current frame EmbeddedInfoFlag
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.StreamFrames.RecomendedBufferSizeFrame.OffsetToNextTag">
+            <summary>
+            Gets or Sets Offset to next tag
+            </summary>
+        </member>
+        <member name="T:Tags.ID3.ID3v2Frames.FramesInfo">
+            <summary>
+            Static class that represent informaion about ID3v2 frames
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.FramesInfo.InitializeFrameDictionary">
+            <summary>
+            Initialize All FrameID infos
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.FramesInfo.GetFrame(System.String)">
+            <summary>
+            Get FrameInfo from 4 chacarter FrameID
+            </summary>
+            <param name="FrameID">4 character FrameID to get FrameInfo</param>
+            <returns>FrameInfo contain Specific frame information</returns>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.FramesInfo.Get4CharID(System.String)">
+            <summary>
+            Get 4 Character FrameID for specific 3 Character FrameID
+            </summary>
+            <param name="FrameID3">3 character FrameID</param>
+            <returns>System.String contain 4 Character FrameID or null if not found</returns>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.FramesInfo.Get3CharID(System.String)">
+            <summary>
+            Get 3 character FrameID from specific 4 Character FrameID
+            </summary>
+            <param name="FrameID">4 character FrameID</param>
+            <returns>3 Chacater FrameID</returns>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.FramesInfo.IsTextFrame(System.String,System.Int32)">
+            <summary>
+            Indicate if specific FrameID is TextFrame(1), UserTextFrame(2) or non of them(0)
+            </summary>
+            <param name="FrameID">FrameID to control</param>
+            <param name="Ver">minor version of ID3v2</param>
+            <returns>int that indicate FrameID type</returns>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.FramesInfo.IsCompatible(System.String,System.Int32)">
+            <summary>
+            Indicate if specific FrameID is compatible with specific minor version of ID3v2
+            </summary>
+            <remarks>This method return false for UserTextFrames</remarks>
+            <param name="FrameID">FrameID to check</param>
+            <param name="Ver">minor version of ID3v2</param>
+            <returns>true if it's compatible otherwise false</returns>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.FramesInfo.IsValidFrameID(System.String)">
+            <summary>
+            Indicate if specific string is a valid FrameID
+            </summary>
+            <param name="FrameID">FrameID to check</param>
+            <returns>true if valid otherwise false</returns>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.FramesInfo.FramesDictionary">
+            <summary>
+            Gets Dictionary of frames information
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.FramesInfo.TextFrames">
+            <summary>
+            Gets all textframes
+            </summary>
+        </member>
+        <member name="T:Tags.ID3.ID3v2Frames.FrameInfo">
+            <summary>
+            Provide information for one Frame
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.FrameInfo.#ctor(System.String,System.String,System.String,System.Boolean[],System.Boolean,System.Type)">
+            <summary>
+            Create new FrameInfo class
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.FrameInfo.FrameID(System.Int32)">
+            <summary>
+            Get FrameID of current FrameIDInfo for specific version of ID3v2
+            </summary>
+            <param name="Version">minor version of ID3v2 to compatible with FrameID</param>
+            <returns>System.String retrieve FrameID of current FrameIDInfo</returns>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.FrameInfo.IsValid(System.Int32)">
+            <summary>
+            Indicate if current FrameID is valid for specific Version of ID3v2
+            </summary>
+            <param name="Version">Version of ID3v2</param>
+            <returns>true if it's valid otherwise false</returns>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.FrameInfo.Constuctor(System.String,Tags.ID3.FrameFlags,System.IO.TagStream,System.Int32)">
+            <summary>
+            Get construtor for a frame
+            </summary>
+            <param name="FrameID">FrameId to get consctructor</param>
+            <param name="Flags">Flags of frame</param>
+            <param name="reader">TagStream to read frame from</param>
+            <param name="Length">Maximum available length for frame</param>
+            <returns>Constructor</returns>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.FrameInfo.ToString">
+            <summary>
+            Convert current FrameInfo to string
+            </summary>
+            <returns>System.String contain current FrameInfo Name</returns>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.FrameInfo.Name">
+            <summary>
+            Get Name of current FrameIDInfo
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.FrameInfo.FrameID3Char">
+            <summary>
+            Get 3 character FrameID
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.FrameInfo.FrameID4Char">
+            <summary>
+            Get 4 character FrameID
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.FrameInfo.IsSingle">
+            <summary>
+            Indicate if current Frame can occur maximum one time
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.FrameInfo.ClassType">
+            <summary>
+            Get Type that integrated with current Frame
+            </summary>
+        </member>
+        <member name="T:Tags.ExceptionCollection">
+            <summary>
+            Static class contain error occured
+            </summary>
+        </member>
+        <member name="M:Tags.ExceptionCollection.#ctor">
+            <summary>
+            Create new Exception collection class
+            </summary>
+        </member>
+        <member name="M:Tags.ExceptionCollection.Add(System.Exception)">
+            <summary>
+            Add new exception to current collection
+            </summary>
+            <param name="item"></param>
+        </member>
+        <member name="M:Tags.ExceptionCollection.ToArray">
+            <summary>
+            Get list of Errors
+            </summary>
+        </member>
+        <member name="T:Tags.ASFException">
+            <summary>
+            Exception class for ASF reading and writing
+            </summary>
+        </member>
+        <member name="M:Tags.ASFException.#ctor(System.String,System.String,Tags.ExceptionLevels)">
+            <summary>
+            Create new ASFException
+            </summary>
+            <param name="message">message of exception</param>
+            <param name="GUID">GUID</param>
+            <param name="Level">Level of exception</param>
+        </member>
+        <member name="P:Tags.ASFException.Level">
+            <summary>
+            Level of exception that occured
+            </summary>
+        </member>
+        <member name="P:Tags.ASFException.GUID">
+            <summary>
+            GUID that exception occured in
+            </summary>
+        </member>
+        <member name="T:Tags.ID3Exception">
+            <summary>
+            Exception class for exceptions that occur in frames
+            </summary>
+        </member>
+        <member name="M:Tags.ID3Exception.#ctor(System.String,System.String,Tags.ExceptionLevels)">
+            <summary>
+            Create new TagException
+            </summary>
+            <param name="message">message of exception</param>
+            <param name="FrameID">FrameID that exception occured in</param>
+            <param name="ExceptionLevel">Exception Level for current exception</param>
+        </member>
+        <member name="M:Tags.ID3Exception.#ctor(System.String,Tags.ExceptionLevels)">
+            <summary>
+            Create ne tag exception
+            </summary>
+            <param name="message">Message of exception</param>
+            <param name="ExceptionLevel">Exception level</param>
+        </member>
+        <member name="P:Tags.ID3Exception.FrameID">
+            <summary>
+            FrameID that current exception occured in
+            </summary>
+        </member>
+        <member name="P:Tags.ID3Exception.Level">
+            <summary>
+            Get Exception level for current exception
+            </summary>
+        </member>
+        <member name="T:Tags.ExceptionLevels">
+            <summary>
+            Handle mode of exceptions
+            </summary>
+        </member>
+        <member name="F:Tags.ExceptionLevels.Warning">
+            <summary>
+            Show MessageBox
+            </summary>
+        </member>
+        <member name="F:Tags.ExceptionLevels.Repaired">
+            <summary>
+            Try to repair
+            </summary>
+        </member>
+        <member name="F:Tags.ExceptionLevels.Error">
+            <summary>
+            Throw exception
+            </summary>
+        </member>
+        <member name="T:Tags.ID3.ID3Info">
+            <summary>
+            Provide ID3 Information for a file
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3Info.#ctor(System.String,System.Boolean)">
+            <summary>
+            Create new ID3 Info class
+            </summary>
+            <param name="FilePath">Path to read file</param>
+            <param name="LoadData">Indicate load data in constructor or not</param>
+        </member>
+        <member name="M:Tags.ID3.ID3Info.Load">
+            <summary>
+            Load both ID3v1 and ID3v2 information from file
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3Info.Save">
+            <summary>
+            Save both ID3v2 and ID3v1
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3Info.Save(System.String)">
+            <summary>
+            Save both ID3v2 and ID3v1
+            </summary>
+            <param name="Formula">Formula to rename file while saving</param>
+        </member>
+        <member name="M:Tags.ID3.ID3Info.SaveAs(System.String)">
+            <summary>
+            Save current ID3Info in specific location
+            </summary>
+            <param name="path">Path to save</param>
+            <returns>True if save successfull</returns>
+        </member>
+        <member name="M:Tags.ID3.ID3Info.MakeFileName(System.String)">
+            <summary>
+            Get filename according to specific formula
+            </summary>
+            <param name="Formula">Formula to make filename</param>
+            <returns>System.String Contains filename</returns>
+        </member>
+        <member name="M:Tags.ID3.ID3Info.Equals(System.Object)">
+            <summary>
+            Indicate if current ID3Info is ezual to specific one
+            </summary>
+            <param name="obj">Object to check equality</param>
+            <returns>True if equal otherwise false</returns>
+        </member>
+        <member name="M:Tags.ID3.ID3Info.GetHashCode">
+            <summary>
+            Get hash code for current ID3Info
+            </summary>
+            <returns>int contains hashcode</returns>
+        </member>
+        <member name="P:Tags.ID3.ID3Info.ID3v2Info">
+            <summary>
+            Get ID3 version 2 Tags
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3Info.ID3v1Info">
+            <summary>
+            Gets ID3 version Tag
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3Info.HaveException">
+            <summary>
+            Return true if file had error while reading
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3Info.FilePath">
+            <summary>
+            Get FilePath current ID3Info
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3Info.FileName">
+            <summary>
+            Get FileName of current ID3Info file
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3Info.IsTemplate">
+            <summary>
+            Indicate if current ID3Info is template
+            </summary>
+        </member>
+        <member name="T:Tags.ID3.ID3v1">
+            <summary>
+            Provide a class to read and write ID3v1
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v1.#ctor(System.String,System.Boolean)">
+            <summary>
+            Create new ID3v1 class
+            </summary>
+            <param name="FilePath">Path of file</param>
+            <param name="LoadData">Indicate load data in constructor or not</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v1.Load">
+            <summary>
+            Load ID3v1 information from file
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v1.Save">
+            <summary>
+            Save ID3v1 information to file
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v1.ClearAll">
+            <summary>
+            Clear all values
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v1.IsTemplate">
+            <summary>
+            Indicate if current ID3v1 is template
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v1.FilePath">
+            <summary>
+            Get file path of current ID3v1
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v1.FileName">
+            <summary>
+            Get file name of current ID3v1
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v1.Title">
+            <summary>
+            Get or set Title of current ID3v1
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v1.Artist">
+            <summary>
+            Get or set Artist of current ID3v1
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v1.Album">
+            <summary>
+            Get or set Album of current ID3v1
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v1.Year">
+            <summary>
+            Get or set Year of current ID3v1
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v1.Comment">
+            <summary>
+            Get or set Comment of current ID3v1
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v1.TrackNumber">
+            <summary>
+            Get or set TrackNumber of current ID3v1
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v1.Genre">
+            <summary>
+            Get or set Genre of current ID3v1
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v1.HaveTag">
+            <summary>
+            Indicate if current File contain ID3v1 Information
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v1.GetTagBytes">
+            <summary>
+            Convert data tot Byte Array to write to file
+            </summary>
+        </member>
+        <member name="T:Tags.ID3.ID3v2">
+            <summary>
+            Provide a class to read and write ID3v2 information of files
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2.#ctor(System.String,System.Boolean)">
+            <summary>
+            Create new ID3v2 class for specific file
+            </summary>
+            <param name="FilePath">FileAddress to read ID3 information from</param>
+            <param name="LoadData">Indicate load ID3 in constructor or not</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2.MakeFileName(System.String)">
+            <summary>
+            Get FileName according to specific formula
+            </summary>
+            <param name="Formula">Formula to make FileName</param>
+            <returns>System.String contain FileName according to formula or String.Empty</returns>
+        </member>
+        <member name="M:Tags.ID3.ID3v2.MakeTempFilePath(System.String)">
+            <summary>
+            Make a temp file name for specific filename
+            </summary>
+            <param name="FileName">Filename to make temp name</param>
+            <returns>string contain Temp FileName</returns>
+        </member>
+        <member name="M:Tags.ID3.ID3v2.AddError(System.Exception)">
+            <summary>
+            Add specific ID3Error to ErrorCollection
+            </summary>
+            <param name="Error">Error to add</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2.Load">
+            <summary>
+            Load ID3 information from file
+            </summary>
+            <exception cref="T:System.IO.FileNotFoundException">File Not Found</exception>
+        </member>
+        <member name="M:Tags.ID3.ID3v2.LoadAllLinkedFrames">
+            <summary>
+            Load all linked information frames
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2.LoadFrameFromFile(System.String,System.String)">
+            <summary>
+            Load spefic frame information
+            </summary>
+            <param name="FrameID">FrameID to load</param>
+            <param name="FileAddress">FileAddress to read tag from</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2.Save">
+            <summary>
+            Save ID3v2 data without renaming file with minor version of 3
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2.Save(System.String)">
+            <summary>
+            Save ID3 info to file
+            </summary>
+            <param name="Formula">Formula to renaming file</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2.SaveAs(System.String)">
+            <summary>
+            Save Current ID3v2 to specific location
+            </summary>
+            <param name="NewFilePath">Path to save file</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2.WriteFrames(System.IO.TagStream,System.Int32)">
+            <summary>
+            Write all frames to specific TagStream
+            </summary>
+            <param name="writer">TagStream to write data to</param>
+            <param name="Ver">Minor Version of ID3</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2.AppendFromOriginalFile(System.IO.FileStream)">
+            <summary>
+            Append a file to another from start position
+            </summary>
+            <param name="writer">File that data must append to it</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2.GetTextFrame(System.String)">
+            <summary>
+            Search TextFrames for specific FrameID
+            </summary>
+            <param name="FrameID">FrameID to search in TextFrames</param>
+            <returns>TextFrame according to FrameID</returns>
+        </member>
+        <member name="M:Tags.ID3.ID3v2.SetTextFrame(System.String,System.String)">
+            <summary>
+            Set text of specific TextFrame
+            </summary>
+            <param name="FrameID">FrameID</param>
+            <param name="Text">Text to set</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2.ClearAll">
+            <summary>
+            Clear all ID3 Tag information
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2.ReadFrames(System.IO.TagStream,System.Int32)">
+            <summary>
+            Read all frames from specific FileStream
+            </summary>
+            <param name="Data">FileStream to read data from</param>
+            <param name="Length">Length of data to read from FileStream</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2.IsAddable(System.String)">
+            <summary>
+            Indicate is specific FrameID filtered or not
+            </summary>
+            <param name="FrameID">FrameID to check</param>
+            <returns>true if can add otherwise false</returns>
+        </member>
+        <member name="M:Tags.ID3.ID3v2.AddFrame(System.IO.TagStream,System.String,System.Int32,Tags.ID3.FrameFlags)">
+            <summary>
+            Add Frame information to where it must store
+            </summary>
+            <param name="Data">FileStream contain Frame</param>
+            <param name="FrameID">FrameID of frame</param>
+            <param name="Length">Maximum available length to read</param>
+            <param name="Flags">Flags of frame</param>
+        </member>
+        <member name="P:Tags.ID3.ID3v2.TrackNumber">
+            <summary>
+            Get TrackNumber for renaming
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2.IsTemplate">
+            <summary>
+            Indicate if current ID3v2 is template not a real file
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2.Errors">
+            <summary>
+            Gets Collection of Errors that occured
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2.FilePath">
+            <summary>
+            Gets FileAddress of current ID3v2
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2.FileName">
+            <summary>
+            Get FileName of current ID3v2
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2.Filter">
+            <summary>
+            Get Filter of current frame
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2.FilterType">
+            <summary>
+            Gets or Sets current Tag filter type
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2.LoadLinkedFrames">
+            <summary>
+            Indicate load Linked frames info while loading Tag
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2.DropUnknowFrames">
+            <summary>
+            Indicate drop unknown frame while saving ID3 or not
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2.Version">
+            <summary>
+            Get or Set version of current ID3 Tag
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2.HaveTag">
+            <summary>
+            Indicate if current file have ID3v2 Information
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2.Length">
+            <summary>
+            Get length of current ID3 Tag
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2.HaveError">
+            <summary>
+            Indicate if current ID3Info had error while openning
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2.DefaultUnicodeEncoding">
+            <summary>
+            Gets or sets unicode encoding of AutoTextEncoding
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2.AutoTextEncoding">
+            <summary>
+            Indicate while saving automatically detect encoding of texts of not
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2.Experimental">
+            <summary>
+            Indicate if current ID3v2 is experimental
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2.Unsynchronisation">
+            <summary>
+            Indicate if current ID3v2 is Unsychronized
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2.ExtendedHeader">
+            <summary>
+            Indicate if current ID3v2 contains Extended header
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2.MusicCDIdentifier">
+            <summary>
+            Get MusicCDIdentifier of current ID3
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2.SynchronisedTempoCodes">
+            <summary>
+            Get SynchronisedTempoCodes of current ID3
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2.PlayCounter">
+            <summary>
+            Get PlayCounter of current ID3
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2.RecomendedBuffer">
+            <summary>
+            Get RecomendedBuffer of current ID3
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2.OwnerShip">
+            <summary>
+            Get OwnerShip of current ID3
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2.Commercial">
+            <summary>
+            Get Commercial of current ID3
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2.Reverb">
+            <summary>
+            Get Reverb of current ID3
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2.Equalisations">
+            <summary>
+            Get Equalisations of current ID3
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2.RelativeVolume">
+            <summary>
+            Get RelativeVolume of current ID3
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2.EventTimingCode">
+            <summary>
+            Get EventTimingCode of current ID3
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2.PositionSynchronised">
+            <summary>
+            Get PositionSynchronised of current ID3
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2.TextFrames">
+            <summary>
+            Get TextFrame Collection of current ID3
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2.UserTextFrames">
+            <summary>
+            Get UserTextFrame Collection of current ID3
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2.PrivateFrames">
+            <summary>
+            Get PrivateFrame Collection of current ID3
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2.TextWithLanguageFrames">
+            <summary>
+            Get TextWithLanguageFrame Collection of current ID3
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2.SynchronisedTextFrames">
+            <summary>
+            Get SynchronisedText Collection of current ID3
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2.AttachedPictureFrames">
+            <summary>
+            Get AttachedPictureFrame Collection of current ID3
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2.EncapsulatedObjectFrames">
+            <summary>
+            Get GeneralFileFrame Collection of current ID3
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2.PopularimeterFrames">
+            <summary>
+            Get PopularimeterFrame Collection of current ID3
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2.AudioEncryptionFrames">
+            <summary>
+            Get AudioEncryptionFrame Collection of current ID3
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2.LinkFrames">
+            <summary>
+            Get LinkFrame Collection of current ID3
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2.TermOfUseFrames">
+            <summary>
+            Get TermOfUseFrame Collection of current ID3
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2.DataWithSymbolFrames">
+            <summary>
+            Get DataWithSymbolFrame Collection of current ID3
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2.UnKnownFrames">
+            <summary>
+            Get BinaryFrame Collection of current ID3
+            </summary>
+        </member>
+        <member name="T:Tags.ID3.ID3v2Frames.Price">
+            <summary>
+            Provide a class for Price values
+            </summary>
+        </member>
+        <member name="F:Tags.ID3.ID3v2Frames.Price._Value">
+            <summary>
+            Value of current Price
+            </summary>
+        </member>
+        <member name="F:Tags.ID3.ID3v2Frames.Price._Currency">
+            <summary>
+            Currency of current Price
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.Price.#ctor(System.String,System.String)">
+            <summary>
+            Create new Price class
+            </summary>
+            <param name="Currency">Currency of price</param>
+            <param name="Value">value of price</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.Price.#ctor(System.IO.TagStream,System.Int32)">
+            <summary>
+            Create new price class
+            </summary>
+            <param name="Data">Data to read price from</param>
+            <param name="Length">maximum length of data</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.Price.ToString">
+            <summary>
+            Returns a System.String that represent current Price
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.Price.IsValidCurrency(System.String)">
+            <summary>
+            Indicate if specific string is valid currency value
+            </summary>
+            <param name="Currency">String to validate</param>
+            <returns>True if valid otherwise false</returns>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.Price.IsValidValue(System.String)">
+            <summary>
+            Indicate if specific string contains valid Price value
+            </summary>
+            <param name="Value">String to validate</param>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.Price.Value">
+            <summary>
+            Gets or sets value of current price
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.Price.Currency">
+            <summary>
+            Gets or sets currency of current price
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.Price.Length">
+            <summary>
+            Gets Length of current frame
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.Price.IsValid">
+            <summary>
+            Indicate if current price is valid
+            </summary>
+        </member>
+        <member name="T:Tags.ID3.ID3v2Frames.SDate">
+            <summary>
+            Provide a class to store date as string
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.SDate.#ctor(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            New SDate
+            </summary>
+            <param name="Year">The Year (1-9999)</param>
+            <param name="Month">The Month (1-12)</param>
+            <param name="Day">The Day (1-31)</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.SDate.#ctor(System.String)">
+            <summary>
+            New SDate
+            </summary>
+            <param name="DateString">String contain Date in format of yyyy/MM/dd</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.SDate.#ctor(System.IO.TagStream)">
+            <summary>
+            New SDate from specific FileStream
+            </summary>
+            <param name="Data">FileStream represent SDate data</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.SDate.ToString">
+            <summary>
+            Get Current SDate in format of yyyy/MM/dd
+            </summary>
+            <returns>System.String represent current SDate</returns>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.SDate.ToDateTime">
+            <summary>
+            Convert current SDate to DateTime
+            </summary>
+            <returns>DateTime represent current SDate</returns>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.SDate.Year">
+            <summary>
+            The Year (1-9999)
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.SDate.Month">
+            <summary>
+            The Month (1-12)
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.SDate.Day">
+            <summary>
+            The Day (1-31)
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.SDate.String">
+            <summary>
+            Get Date in format of yyyyMMdd
+            </summary>
+        </member>
+        <member name="T:Tags.ID3.ID3v2Frames.Language">
+            <summary>
+            Provide a class to read/write Languages
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.Language.#ctor(System.String)">
+            <summary>
+            Create new language
+            </summary>
+            <param name="LanguageID">3 character LanguageID or string.empty</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.Language.#ctor">
+            <summary>
+            Create new language
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.Language.#ctor(System.IO.TagStream)">
+            <summary>
+            Create new language from specific Sream
+            </summary>
+            <param name="Data">Stream to read language from</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.Language.Read(System.IO.TagStream)">
+            <summary>
+            Read language from specific FileStream
+            </summary>
+            <param name="Data">FileStream to read language from</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.Language.Write(System.IO.Stream)">
+            <summary>
+            Write LanguageID of current language to specific Stream
+            </summary>
+            <param name="Data"></param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.Language.IsValidLanguageID(System.String)">
+            <summary>
+            Indicate if specific string is valid LanguageID
+            </summary>
+            <param name="Language">LanguageID to control</param>
+            <returns>true if valid otherwise false</returns>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.Language.InitializeLanguages">
+            <summary>
+            Add languages specification to _Languages Dictionary
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.Language.LanguagesArray(System.String)">
+            <summary>
+            Gets list of Languages according to Format
+            </summary>
+            <param name="Format">Use LName and LID to make your format</param>
+            <returns>string array contain all languages</returns>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.Language.Equals(System.Object)">
+            <summary>
+            Indicate if current language is ezual to specific one
+            </summary>
+            <param name="obj">Object to check equality</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.Language.GetHashCode">
+            <summary>
+            Get hashcode for current language
+            </summary>
+            <returns>int contains hash</returns>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.Language.ToString">
+            <summary>
+            Convert current language to string
+            </summary>
+            <returns>system.String contains current language</returns>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.Language.ToString(System.String)">
+            <summary>
+            Converto current language to string according to specific format
+            </summary>
+            <param name="Format">format to convert language to string. LName, LID</param>
+            <returns>System.String contains current language</returns>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.Language.LanguageID">
+            <summary>
+            Gets or sets LanguageID of current language
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.Language.Name">
+            <summary>
+            Gets lanuguage name according to LanguageID
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.Language.IsValidLanguage">
+            <summary>
+            Indicate is current language a valid language
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.Language.LanguagesDictionary">
+            <summary>
+            Gets dictionary of languages
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.Language.LanguagesList">
+            <summary>
+            Gets languages list with format of "Name [ID]"
+            </summary>
+        </member>
+        <member name="T:Tags.ID3.ID3v2Frames.OtherFrames.ReverbFrame">
+            <summary>
+            Provide a class for Reverb frame
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.OtherFrames.ReverbFrame.#ctor(System.String,Tags.ID3.FrameFlags,System.IO.TagStream,System.Int32)">
+            <summary>
+            Create new reveb frame
+            </summary>
+            <param name="FrameID">FrameID</param>
+            <param name="Flags">Flags of frame</param>
+            <param name="Data">Data for frame to read from</param>
+            <param name="Length">Maximum length of frame</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.OtherFrames.ReverbFrame.#ctor(Tags.ID3.FrameFlags)">
+            <summary>
+            Create new Reverb frame and set all values to zero
+            </summary>
+            <param name="Flags">Frame Flags</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.OtherFrames.ReverbFrame.OnWritingData(System.IO.TagStream,System.Int32)">
+            <summary>
+            Writing Data to specific TagStream
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.OtherFrames.ReverbFrame.OnValidating">
+            <summary>
+            Validate current frame data
+            </summary>
+            <returns>True if valid otherwise false</returns>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.OtherFrames.ReverbFrame.OnGetLength">
+            <summary>
+            Gets length of current frame
+            </summary>
+            <returns>int contains lenght of current frame</returns>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.OtherFrames.ReverbFrame.ReverbLeft">
+            <summary>
+            ReverbLeft of current Reveb frame
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.OtherFrames.ReverbFrame.ReverbRight">
+            <summary>
+            ReverbRight of current reverb frame
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.OtherFrames.ReverbFrame.ReverbBouncesLeft">
+            <summary>
+            ReverbBouncesLeft of current reverb frame
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.OtherFrames.ReverbFrame.ReverbBouncesRight">
+            <summary>
+            ReverbBouncesRight of current reverb frame
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.OtherFrames.ReverbFrame.ReverbFeedbackLeftToRight">
+            <summary>
+            ReverbFeedbackLeftToRight of current reverb frame
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.OtherFrames.ReverbFrame.ReverbFeedbackRightToLeft">
+            <summary>
+            ReverbFeedbackRightToLeft of current reverb frame
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.OtherFrames.ReverbFrame.ReverbFeedbackRightToRight">
+            <summary>
+            ReverbFeedbackRightToRight of current reverb frame
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.OtherFrames.ReverbFrame.ReverbFeedbackLeftToLeft">
+            <summary>
+            ReverbFeedbackLeftToLeft of current reverb frame
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.OtherFrames.ReverbFrame.PremixLeftToRight">
+            <summary>
+            PremixLeftToRight of current reverb frame
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.OtherFrames.ReverbFrame.PremixRightToLeft">
+            <summary>
+            PremixRightToLeft of current reverb frame
+            </summary>
+        </member>
+        <member name="T:Tags.ID3.ID3v2Frames.OtherFrames.PlayCounterFrame">
+            <summary>
+            A Class for frames that include Counter
+            </summary>
+        </member>
+        <member name="F:Tags.ID3.ID3v2Frames.OtherFrames.PlayCounterFrame._Counter">
+            <summary>
+            Time that file played
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.OtherFrames.PlayCounterFrame.#ctor(System.String,Tags.ID3.FrameFlags,System.IO.TagStream,System.Int32)">
+            <summary>
+            Create new PlayCounter
+            </summary>
+            <param name="FrameID">4 Characters tag identifier</param>
+            <param name="Flags">2 Bytes flags identifier</param>
+            <param name="Data">Contain Data for this frame</param>
+            <param name="Length">Maximum length of frame</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.OtherFrames.PlayCounterFrame.#ctor(Tags.ID3.FrameFlags)">
+            <summary>
+            Create new PlayCounter
+            </summary>
+            <param name="Flags">Flags of frame</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.OtherFrames.PlayCounterFrame.AddOne">
+            <summary>
+            Add one to counter
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.OtherFrames.PlayCounterFrame.OnGetLength">
+            <summary>
+            Gets Length of current play counter
+            </summary>
+            <returns>int contains length of current PlayCounter</returns>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.OtherFrames.PlayCounterFrame.OnWritingData(System.IO.TagStream,System.Int32)">
+            <summary>
+            Writing Data to specific TagStream
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.OtherFrames.PlayCounterFrame.OnValidating">
+            <summary>
+            Indicate if current frame data is valid
+            </summary>
+            <returns>True if valid otherwise false</returns>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.OtherFrames.PlayCounterFrame.Counter">
+            <summary>
+            Gets or Sets Counter of current PlayCounter
+            </summary>
+        </member>
+        <member name="T:Tags.ID3.ID3v2Frames.OtherFrames.RelativeVolumeFrame">
+            <summary>
+            A class for RelativeVolumeAdjustment
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.OtherFrames.RelativeVolumeFrame.#ctor(System.String,Tags.ID3.FrameFlags,System.IO.TagStream,System.Int32)">
+            <summary>
+            Create new RaltiveVolumeFrame
+            </summary>
+            <param name="FrameID">4 Characters tag identifier</param>
+            <param name="Flags">2 Bytes flags identifier</param>
+            <param name="Data">Contain Data for this frame</param>
+            <param name="Length">Length to read from FileStream</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.OtherFrames.RelativeVolumeFrame.#ctor(Tags.ID3.FrameFlags,System.Byte,System.Byte)">
+            <summary>
+            Create new RelativeVolumeInformation class
+            </summary>
+            <param name="Flags">Flags of Frame</param>
+            <param name="IncDec">Increment Decrement for each channel</param>
+            <param name="BitForVolumeDescription">Length of volume description</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.OtherFrames.RelativeVolumeFrame.CanContinue(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Indicate if reading data can continue
+            </summary>
+            <param name="MaxLength">Maximum available length</param>
+            <param name="DesLen">Length of each Volume Descriptor</param>
+            <param name="BlockToRead">How many descriptors want to read</param>
+            <returns>true if data is availabe otherwise false</returns>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.OtherFrames.RelativeVolumeFrame.ToByteArray(System.UInt32,System.Int32)">
+            <summary>
+            Convert a uint to byte array
+            </summary>
+            <param name="Num">number to convert</param>
+            <param name="ArrayLength">length of return array</param>
+            <returns>byte array contain information of num</returns>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.OtherFrames.RelativeVolumeFrame.OnGetLength">
+            <summary>
+            Gets length of current frame
+            </summary>
+            <returns>int contains length of current frame</returns>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.OtherFrames.RelativeVolumeFrame.OnWritingData(System.IO.TagStream,System.Int32)">
+            <summary>
+            Writing Data to specific TagStream
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.OtherFrames.RelativeVolumeFrame.OnValidating">
+            <summary>
+            Indicate if current frame data is valid
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.OtherFrames.RelativeVolumeFrame.Right">
+            <summary>
+            Indicate is it increment or decrement for right
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.OtherFrames.RelativeVolumeFrame.Left">
+            <summary>
+            Indicate is it increment or decrement for left
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.OtherFrames.RelativeVolumeFrame.RightBack">
+            <summary>
+            Indicate is it increment or decrement for rear right
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.OtherFrames.RelativeVolumeFrame.LeftBack">
+            <summary>
+            Indicate is it increment or decrement for rear left
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.OtherFrames.RelativeVolumeFrame.Center">
+            <summary>
+            Indicate is it increment or decrement for center
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.OtherFrames.RelativeVolumeFrame.Bass">
+            <summary>
+            Indicate is it increment or decrement for bass
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.OtherFrames.RelativeVolumeFrame.RelativeVolumeChangeRight">
+            <summary>
+            Change volume for right (relative value)
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.OtherFrames.RelativeVolumeFrame.RelativeVolumeChangeLeft">
+            <summary>
+            Change volume for left (relative value)
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.OtherFrames.RelativeVolumeFrame.PeakVolumeRight">
+            <summary>
+            Peak volume of right
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.OtherFrames.RelativeVolumeFrame.PeakVolumeLeft">
+            <summary>
+            Peak volume of left
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.OtherFrames.RelativeVolumeFrame.RelativeVolumeChangeRightBack">
+            <summary>
+            Change volume for rear right (relative value)
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.OtherFrames.RelativeVolumeFrame.RelativeVolumeChangeLeftBack">
+            <summary>
+            Change volume for rear left (relative value)
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.OtherFrames.RelativeVolumeFrame.PeakVolumeRightBack">
+            <summary>
+            Peak volume of rear right
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.OtherFrames.RelativeVolumeFrame.PeakVolumeLeftBack">
+            <summary>
+            Peak volume of rear left
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.OtherFrames.RelativeVolumeFrame.RelativeVolumeChangeCenter">
+            <summary>
+            Change volume for center (relative value)
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.OtherFrames.RelativeVolumeFrame.PeakVolumeCenter">
+            <summary>
+            Peak volume of center
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.OtherFrames.RelativeVolumeFrame.RelativeVolumeChangeBass">
+            <summary>
+            Change volume for bass (relative value)
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.OtherFrames.RelativeVolumeFrame.PeakVolumeBass">
+            <summary>
+            Peak volume of bass
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.OtherFrames.RelativeVolumeFrame.BitsForVolumeDescription">
+            <summary>
+            Indicate how many bits used for volume descripting (usually 16)
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.OtherFrames.RelativeVolumeFrame.ByteFotVoulmeDescription">
+            <summary>
+            Indicate how many bytes need to descripting volume
+            </summary>
+        </member>
+        <member name="T:Tags.ID3.ID3v2Frames.TextFrames.PopularimeterFrame">
+            <summary>
+            A Class for frames that include Rating, Counter, Email
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.TextFrames.PopularimeterFrame.#ctor(System.String,Tags.ID3.FrameFlags,System.IO.TagStream,System.Int32)">
+            <summary>
+            New PopularimeterFrame
+            </summary>
+            <param name="FrameID">4 Characters tag identifier</param>
+            <param name="Flags">4 Characters tag identifier</param>
+            <param name="Data">TagStream contain frame data</param>
+            <param name="Length">Maximum available length for current frame in TagStream</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.TextFrames.PopularimeterFrame.#ctor(Tags.ID3.FrameFlags,System.String,System.Byte,System.Int64)">
+            <summary>
+            New PopulariMeter frame from specific information
+            </summary>
+            <param name="Flags">Frame Flags</param>
+            <param name="EMail">Email of user</param>
+            <param name="Rating">User Rated value</param>
+            <param name="Counter">How many times user listened to audio</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.TextFrames.PopularimeterFrame.OnGetLength">
+            <summary>
+            Gets length of current frame in byte
+            </summary>
+            <returns>int contain length of current frame</returns>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.TextFrames.PopularimeterFrame.OnWritingData(System.IO.TagStream,System.Int32)">
+            <summary>
+            Writing Data to specific TagStream
+            </summary>
+            <param name="writer">TagStream to write data</param>
+            <param name="MinorVersion">ID3 minor version</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.TextFrames.PopularimeterFrame.OnValidating">
+            <summary>
+            Indicate if current frame data is valid
+            </summary>
+            <returns>true if was valid frame otherwise false</returns>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.TextFrames.PopularimeterFrame.Equals(System.Object)">
+            <summary>
+            Determines wheter the specified object is equal to current object
+            </summary>
+            <param name="obj">object to compare with current object</param>
+            <returns>true if they were equal otherwise false</returns>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.TextFrames.PopularimeterFrame.GetHashCode">
+            <summary>
+            Serves Hash function for particular types
+            </summary>
+            <returns>HashCode for current object</returns>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.TextFrames.PopularimeterFrame.Rating">
+            <summary>
+            Get or Set Rating value for current Email Address
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.TextFrames.PopularimeterFrame.Counter">
+            <summary>
+            Get or Set Counter for current User (Mail Address)
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.TextFrames.PopularimeterFrame.EMail">
+            <summary>
+            Gets or sets Email for current User
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.TextFrames.PopularimeterFrame.Text">
+            <summary>
+            This property is not usable for this class
+            </summary>
+        </member>
+        <member name="T:Tags.ID3.ID3v2Frames.TextFrames.UserTextFrame">
+            <summary>
+            A Class for frames that include Text, Encoding and Description
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.TextFrames.UserTextFrame.#ctor(System.String,Tags.ID3.FrameFlags,System.IO.TagStream,System.Int32)">
+            <summary>
+            Create new UserTextFrameClass
+            </summary>
+            <param name="FrameID">4 Characters tag identifier</param>
+            <param name="Flags">Frame Flagsr</param>
+            <param name="Data">TagStream to read information from</param>
+            <param name="Length">Maximum available length of data for current frame in TagStream</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.TextFrames.UserTextFrame.#ctor(System.String,Tags.ID3.FrameFlags,System.String,System.String,Tags.ID3.TextEncodings,System.Int32)">
+            <summary>
+            Create new UserTextFrame from specific information
+            </summary>
+            <param name="FrameID">FrameID of frame</param>
+            <param name="Flags">Frame flags</param>
+            <param name="Text">Frame text</param>
+            <param name="Description">Frame description</param>
+            <param name="TextEncoding">TextEncoding of texts</param>
+            <param name="Ver">Minor version of ID3v2</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.TextFrames.UserTextFrame.#ctor(System.String,Tags.ID3.FrameFlags)">
+            <summary>
+            Create new UserTextFrame without set any default value
+            </summary>
+            <param name="FrameID">4 character frame identifier for current frame</param>
+            <param name="Flags">Frame Flags</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.TextFrames.UserTextFrame.OnGetLength">
+            <summary>
+            Gets length of current frame in byte
+            </summary>
+            <returns>int contain length of current frame</returns>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.TextFrames.UserTextFrame.OnWritingData(System.IO.TagStream,System.Int32)">
+            <summary>
+            Writing Data to specific TagStream
+            </summary>
+            <param name="writer">TagStream to write data</param>
+            <param name="MinorVersion">ID3 minor version</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.TextFrames.UserTextFrame.OnValidating">
+            <summary>
+            Indicate if current frame data is valid
+            </summary>
+            <returns>true if was valid frame otherwise false</returns>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.TextFrames.UserTextFrame.Equals(System.Object)">
+            <summary>
+            Determines wheter the specified object is equal to current object
+            </summary>
+            <param name="obj">object to compare with current object</param>
+            <returns>true if they were equal otherwise false</returns>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.TextFrames.UserTextFrame.GetHashCode">
+            <summary>
+            Serves Hash function for particular types
+            </summary>
+            <returns>HashCode for current object</returns>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.TextFrames.UserTextFrame.Description">
+            <summary>
+            Get/Set current frame Description
+            </summary>
+        </member>
+        <member name="T:Tags.ID3.ID3v2Frames.TextFrames.OwnershipFrame">
+            <summary>
+            A Class for frames that include PricePayed, DateOfPurch, TextEncoding, Text(Seller)
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.TextFrames.OwnershipFrame.#ctor(System.String,Tags.ID3.FrameFlags,System.IO.TagStream,System.Int32)">
+            <summary>
+            Create new OwnershipFrame
+            </summary>
+            <param name="FrameID">4 Characters tag identifier</param>
+            <param name="Flags">2 Bytes flags identifier</param>
+            <param name="Data">TagStream to read data from</param>
+            <param name="Length">Maximum available length for current frame is TagStream</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.TextFrames.OwnershipFrame.#ctor(Tags.ID3.FrameFlags,Tags.ID3.ID3v2Frames.Price,Tags.ID3.ID3v2Frames.SDate,System.String,Tags.ID3.TextEncodings)">
+            <summary>
+            Create new Ownership from specific information
+            </summary>
+            <param name="Flags">Frame Flags</param>
+            <param name="PricePayed">Price payed for file</param>
+            <param name="PurchDate">Purch date of file</param>
+            <param name="Seller">Name of seller</param>
+            <param name="TEncoding">Tex Encoding to use for text</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.TextFrames.OwnershipFrame.OnGetLength">
+            <summary>
+            Gets length of current frame in byte
+            </summary>
+            <returns>int contain length of current frame</returns>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.TextFrames.OwnershipFrame.OnWritingData(System.IO.TagStream,System.Int32)">
+            <summary>
+            Writing Data to specific TagStream
+            </summary>
+            <param name="writer">TagStream to write data</param>
+            <param name="MinorVersion">ID3 minor version</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.TextFrames.OwnershipFrame.OnValidating">
+            <summary>
+            Indicate if current frame data is valid
+            </summary>
+            <returns>true if was valid frame otherwise false</returns>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.TextFrames.OwnershipFrame.DateOfPurch">
+            <summary>
+            Get/Set DateOfPurch for current frame
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.TextFrames.OwnershipFrame.Price">
+            <summary>
+            Get price of current frame
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.TextFrames.OwnershipFrame.Text">
+            <summary>
+            This property is not available for Ownership
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.TextFrames.OwnershipFrame.Seller">
+            <summary>
+            Get/Set Current frame seller
+            </summary>
+        </member>
+        <member name="T:Tags.ID3.ID3v2Frames.TextFrames.LinkFrame">
+            <summary>
+            A Class for frames that include FrameIdentifier, URL, AdditionalData
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.TextFrames.LinkFrame.#ctor(System.String,Tags.ID3.FrameFlags,System.IO.TagStream,System.Int32)">
+            <summary>
+            Create new LinkFrame
+            </summary>
+            <param name="FrameID">4 Characters tag identifier</param>
+            <param name="Flags">2 Bytes flags identifier</param>
+            <param name="Data">Contain Data for this frame</param>
+            <param name="Length"></param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.TextFrames.LinkFrame.#ctor(Tags.ID3.FrameFlags,System.String,System.String,System.String)">
+            <summary>
+            New LinkedFrame from specific information
+            </summary>
+            <param name="Flags">Frame Flags</param>
+            <param name="FrameIdentifier">FrameIdentifier of frame that linked</param>
+            <param name="URL">URL address of Linked Frame</param>
+            <param name="AdditionalData">Additional data of Linked Frame</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.TextFrames.LinkFrame.OnGetLength">
+            <summary>
+            Gets length of current frame in byte
+            </summary>
+            <returns>int contain length of current frame</returns>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.TextFrames.LinkFrame.OnWritingData(System.IO.TagStream,System.Int32)">
+            <summary>
+            Writing Data to specific TagStream
+            </summary>
+            <param name="writer">TagStream to write data</param>
+            <param name="MinorVersion">ID3 minor version</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.TextFrames.LinkFrame.OnValidating">
+            <summary>
+            Indicate if current frame data is valid
+            </summary>
+            <returns>true if was valid frame otherwise false</returns>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.TextFrames.LinkFrame.Equals(System.Object)">
+            <summary>
+            Determines wheter the specified object is equal to current object
+            </summary>
+            <param name="obj">object to compare with current object</param>
+            <returns>true if they were equal otherwise false</returns>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.TextFrames.LinkFrame.GetHashCode">
+            <summary>
+            Serves Hash function for particular types
+            </summary>
+            <returns>HashCode for current object</returns>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.TextFrames.LinkFrame.URL">
+            <summary>
+            URL of current Link Frame
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.TextFrames.LinkFrame.AdditionalData">
+            <summary>
+            Get/Set Additional Data of Current Frame
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.TextFrames.LinkFrame.FrameIdentifier">
+            <summary>
+            Frame Identifier of Linked Frame
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.TextFrames.LinkFrame.TextEncoding">
+            <summary>
+            This property is not Available for current class
+            </summary>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.TextFrames.LinkFrame.Text">
+            <summary>
+            This property is not Available for current class
+            </summary>
+        </member>
+        <member name="T:Tags.ID3.ID3v2Frames.TextFrames.TextWithLanguageFrame">
+            <summary>
+            A Class for frames that include Text, Description, Encoding and Language
+            </summary>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.TextFrames.TextWithLanguageFrame.#ctor(System.String,Tags.ID3.FrameFlags,System.IO.TagStream,System.Int32)">
+            <summary>
+            Create new TextWithLanguageFrame
+            </summary>
+            <param name="FrameID">4 Characters tag identifier</param>
+            <param name="Flags">2 Bytes flags identifier</param>
+            <param name="Data">TagStream contains frame data</param>
+            <param name="Length">Maximum available length for current frame is TagStream</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.TextFrames.TextWithLanguageFrame.#ctor(System.String,Tags.ID3.FrameFlags,System.String,System.String,Tags.ID3.TextEncodings,System.String)">
+            <summary>
+            Create new TextWithLanguageFrame from specific information
+            </summary>
+            <param name="FrameID">4 character frame identifer for current frame</param>
+            <param name="Flags">Frame Flags</param>
+            <param name="Text">Text of current frame</param>
+            <param name="Description">Description of current frame</param>
+            <param name="TextEncoding">Text Encoding used for current frame</param>
+            <param name="Lang">Language used for text of current frame</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.TextFrames.TextWithLanguageFrame.OnGetLength">
+            <summary>
+            Gets length of current frame in byte
+            </summary>
+            <returns>int contain length of current frame</returns>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.TextFrames.TextWithLanguageFrame.OnWritingData(System.IO.TagStream,System.Int32)">
+            <summary>
+            Writing Data to specific TagStream
+            </summary>
+            <param name="writer">TagStream to write data</param>
+            <param name="MinorVersion">ID3 minor version</param>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.TextFrames.TextWithLanguageFrame.OnValidating">
+            <summary>
+            Occur when want to validate frame information
+            </summary>
+            <returns>true if was valid frame otherwise false</returns>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.TextFrames.TextWithLanguageFrame.Equals(System.Object)">
+            <summary>
+            Determines wheter the specified object is equal to current object
+            </summary>
+            <param name="obj">object to compare with current object</param>
+            <returns>true if they were equal otherwise false</returns>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.TextFrames.TextWithLanguageFrame.GetHashCode">
+            <summary>
+            Serves Hash function for particular types
+            </summary>
+            <returns>HashCode for current object</returns>
+        </member>
+        <member name="M:Tags.ID3.ID3v2Frames.TextFrames.TextWithLanguageFrame.ToString">
+            <summary>
+            convert current Frame to System.String
+            </summary>
+            <returns>Description [Language]</returns>
+        </member>
+        <member name="P:Tags.ID3.ID3v2Frames.TextFrames.TextWithLanguageFrame.Language">
+            <summary>
+            Get/Set current frame Language 
+            </summary>
+        </member>
+        <member name="T:Tags.ASF.ASFTagInfo">
+            <summary>
+            Provide a class to read and write WMA tags
+            </summary>
+        </member>
+        <member name="F:Tags.ASF.ASFTagInfo.GUIDst">
+            <summary>
+            GUID for WMA file
+            </summary>
+        </member>
+        <member name="M:Tags.ASF.ASFTagInfo.#ctor(System.String,System.Boolean)">
+            <summary>
+            Create new ASFTagInfo from specific file and load it's data
+            </summary>
+            <param name="FilePath">File path to read ASF</param>
+            <param name="LoadData">Indicate Loading ASF data or not</param>
+        </member>
+        <member name="M:Tags.ASF.ASFTagInfo.Load">
+            <summary>
+            Load ASF information from file
+            </summary>
+            <returns>True if read successfull</returns>
+        </member>
+        <member name="M:Tags.ASF.ASFTagInfo.SaveAs(System.String)">
+            <summary>
+            Save file on specific path
+            </summary>
+            <param name="Path">Path to save file</param>
+            <returns>True if saved successfull</returns>
+        </member>
+        <member name="M:Tags.ASF.ASFTagInfo.Save">
+            <summary>
+            Save file in the same path
+            </summary>
+            <returns>true if saved successfull</returns>
+        </member>
+        <member name="M:Tags.ASF.ASFTagInfo.Save(System.String)">
+            <summary>
+            Save current ASFTagInfo with specific formula of filename
+            </summary>
+            <param name="Formula">Formula to make filename</param>
+            <returns>True if savfe successfull otherwise false</returns>
+        </member>
+        <member name="M:Tags.ASF.ASFTagInfo.MakeFileName(System.String)">
+            <summary>
+            Make file name according to formula
+            </summary>
+            <param name="Formula">Formula to make filename</param>
+        </member>
+        <member name="P:Tags.ASF.ASFTagInfo.FilePath">
+            <summary>
+            Get file path of current ASFTag
+            </summary>
+        </member>
+        <member name="P:Tags.ASF.ASFTagInfo.FileName">
+            <summary>
+            Filename of current ASFTagInfo
+            </summary>
+        </member>
+        <member name="P:Tags.ASF.ASFTagInfo.TempFilePath">
+            <summary>
+            Path of file to use as temp while saving
+            </summary>
+        </member>
+        <member name="P:Tags.ASF.ASFTagInfo.ContentDescription">
+            <summary>
+            Get Content Description of current ASFTagInfo
+            </summary>
+        </member>
+        <member name="P:Tags.ASF.ASFTagInfo.ExContentDescription">
+            <summary>
+            Extended Content Description for current TagInfo
+            </summary>
+        </member>
+        <member name="P:Tags.ASF.ASFTagInfo.ContentBranding">
+            <summary>
+            Content Branding Obejct
+            </summary>
+        </member>
+        <member name="P:Tags.ASF.ASFTagInfo.Exceptions">
+            <summary>
+            Exceptions that occured while reading the file
+            </summary>
+        </member>
+        <member name="P:Tags.ASF.ASFTagInfo.UnknowsObjects">
+            <summary>
+            Get array of unknown readed objects
+            </summary>
+        </member>
+        <member name="P:Tags.ASF.ASFTagInfo.HaveException">
+            <summary>
+            Indicate if current tag contains Excpetion
+            </summary>
+        </member>
+        <member name="P:Tags.ASF.ASFTagInfo.IsTemplate">
+            <summary>
+            Indicate if current tag is template
+            </summary>
+        </member>
+    </members>
+</doc>
