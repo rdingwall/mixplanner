@@ -20,8 +20,8 @@ namespace MixPlanner.Specs.ImportExport
 
              Because of = () => tracks = reader.Read(filename);
 
-             It should_read_all_the_display_names =
-                 () => tracks.Select(t => t.DisplayName).ShouldContainOnly("Aaa", "Bbb", "Ccc");
+             It should_read_all_the_title_names =
+                 () => tracks.Select(t => t.Title).ShouldContainOnly("Aaa", "Bbb", "Ccc");
 
              It should_read_all_the_file_names =
                 () => tracks.Select(t => t.File.Name).ShouldContainOnly("Aaa.mp3", "Bbb.mp3", "Ccc.mp3");

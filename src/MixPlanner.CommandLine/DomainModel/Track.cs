@@ -5,23 +5,36 @@ namespace MixPlanner.CommandLine.DomainModel
 {
     public class Track : IEquatable<Track>
     {
-        public Track(string displayName, Key key, string fileName)
+        public Track(string artist, string title, Key key, string fileName)
         {
-            if (displayName == null) throw new ArgumentNullException("displayName");
+            if (artist == null) throw new ArgumentNullException("artist");
+            if (title == null) throw new ArgumentNullException("title");
             if (key == null) throw new ArgumentNullException("key");
             if (fileName == null) throw new ArgumentNullException("fileName");
-            DisplayName = displayName;
+            Artist = artist;
+            Title = title;
             Key = key;
             File = new FileInfo(fileName);
+
+            Label = "";
+            Genre = "";
+            Year = "";
         }
 
-        public string DisplayName { get; private set; }
+        public string Artist { get; private set; }
+        public string Title { get; private set; }
         public Key Key { get; private set; }
-        public FileInfo File { get; set; }
+        public FileInfo File { get; private set; }
+
+        // Optional properties
+        public int? Bpm { get; set; }
+        public string Label { get; set; }
+        public string Genre { get; set; }
+        public string Year { get; set; }
 
         public override string ToString()
         {
-            return String.Format("{0} - {1}", DisplayName, Key);
+            return String.Format("{0} - {1}", Artist, Key);
         }
 
         public bool Equals(Track other)

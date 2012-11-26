@@ -32,7 +32,12 @@ namespace MixPlanner.App.Commands
                 var track = trackLoader.Load(file);
                 parent.LibraryItems.Add(new LibraryItemViewModel
                                             {
-                                                DisplayName = track.DisplayName,
+                                                Artist = track.Artist,
+                                                Title = track.Title,
+                                                Genre = track.Genre,
+                                                Bpm = track.Bpm,
+                                                Year = track.Year,
+                                                Label = track.Label,
                                                 Filename = track.File.FullName,
                                                 Key = track.Key.ToString()
                                             });

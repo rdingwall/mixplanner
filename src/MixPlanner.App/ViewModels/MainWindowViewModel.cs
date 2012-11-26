@@ -10,7 +10,7 @@ namespace MixPlanner.App.ViewModels
         {
             DropFilesCommand = new DropFilesCommand(this);
             LibraryItems = new ObservableCollection<LibraryItemViewModel>();
-            LibraryItems.Add(new LibraryItemViewModel { DisplayName = "Dummy", Filename = @"C:\foo", Key="10A"});
+            LibraryItems.Add(new LibraryItemViewModel { Artist = "Dummy", Filename = @"C:\foo", Key="10A"});
         }
 
         public ICommand DropFilesCommand { get; private set; }

@@ -25,23 +25,38 @@ namespace MixPlanner.CommandLine.Mp3
 
             Id3Tag id3Tag;
             if (id3Reader.TryRead(filename, out id3Tag))
-            {
-                var displayName = String.Format("{0} - {1}", id3Tag.Artist, id3Tag.Title);
-                Key key;
-                if (!Key.TryParse(id3Tag.InitialKey, out key))
-                    key = Key.Unknown;
-
-                return new Track(displayName, key, filename);
-            }
+                return LoadTrackFromId3Tag(filename, id3Tag);
 
             return LoadTrackWithoutId3Tags(filename);
+        }
+
+        static Track LoadTrackFromId3Tag(string filename, Id3Tag id3Tag)
+        {
+            var artist = id3Tag.Artist ?? "Unknown Artist";
+            var title = id3Tag.Title ?? "Unknown Title";
+
+            Key key;
+            if (!Key.TryParse(id3Tag.InitialKey, out key))
+                key = Key.Unknown;
+
+            var track = new Track(artist, title, key, filename);
+
+            int bpm;
+            if (Int32.TryParse(id3Tag.Bpm, out bpm))
+                track.Bpm = bpm;
+
+            track.Label = id3Tag.Publisher ?? "";
+            track.Genre = id3Tag.Genre ?? "";
+            track.Year = id3Tag.Year ?? "";
+
+            return track;
         }
 
         static Track LoadTrackWithoutId3Tags(string filename)
         {
             var displayName = Path.GetFileNameWithoutExtension(filename);
 
-            return new Track(displayName, Key.Unknown, filename);
+            return new Track("Unknown Artist", displayName, Key.Unknown, filename);
         }
     }
 }
