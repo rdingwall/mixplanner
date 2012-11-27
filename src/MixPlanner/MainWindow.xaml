@@ -6,12 +6,13 @@
         mc:Ignorable="d"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WPF4"
+        xmlns:mp="clr-namespace:MixPlanner.ViewModels"
         Title="MixPlanner" Height="350" Width="525" d:DataContext="{d:DesignInstance mp:MainWindowViewModel}"
         AllowDrop="True"
         DragEnter="MainWindow_OnDragEnter">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Drop">
-            <cmd:EventToCommand Command="{Binding DropFilesCommand, Mode=OneWay}"
+            <cmd:EventToCommand Command="{Binding DropFilesCommand}"
                                 PassEventArgsToCommand="True" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
@@ -27,7 +28,15 @@
               VerticalAlignment="Center" ShowsPreview="True" Height="5"/>
         <GroupBox Grid.Row="2" Header="Library">
 
-            <DataGrid ItemsSource="{Binding LibraryItems}">
+            <DataGrid ItemsSource="{Binding LibraryItems}"
+                      SelectedItem="{Binding SelectedTrack, Mode=TwoWay}"
+                      IsReadOnly="True">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="PreviewKeyDown">
+                        <cmd:EventToCommand Command="{Binding RemoveTrackFromLibraryCommand}"
+                                            CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.SelectedTrack}"  />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
             </DataGrid>
             
         </GroupBox>

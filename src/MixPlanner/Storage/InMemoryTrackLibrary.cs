@@ -55,6 +55,7 @@ namespace MixPlanner.Storage
         {
             if (track == null) throw new ArgumentNullException("track");
             tracks.Remove(track);
+            messenger.Send(new TrackRemovedFromLibraryEvent(track));
         }
     }
 }

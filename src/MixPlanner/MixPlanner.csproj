@@ -103,6 +103,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Commands\DropFilesCommand.cs" />
+    <Compile Include="Commands\RemoveTrackFromLibraryCommand.cs" />
     <Compile Include="DomainModel\IMixingStrategy.cs" />
     <Compile Include="DomainModel\INextTrackAdvisor.cs" />
     <Compile Include="DomainModel\InvalidPitchException.cs" />
@@ -127,6 +128,7 @@
     <Compile Include="DomainModel\TransitionTypeDetector.cs" />
     <Compile Include="DomainModel\UnknownKey.cs" />
     <Compile Include="Events\TrackAddedToLibraryEvent.cs" />
+    <Compile Include="Events\TrackRemovedFromLibraryEvent.cs" />
     <Compile Include="ImportExport\IPlaylistWriter.cs" />
     <Compile Include="ImportExport\M3uReader.cs" />
     <Compile Include="ImportExport\M3uWriter.cs" />

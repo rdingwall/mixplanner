@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Messaging;
 using MixPlanner.Commands;
@@ -9,38 +10,45 @@ namespace MixPlanner.ViewModels
 {
     public class MainWindowViewModel
     {
-        readonly IMessenger messenger;
+        LibraryItemViewModel selectedTrack;
+        public ICommand DropFilesCommand { get; private set; }
+        public ICommand RemoveTrackFromLibraryCommand { get; private set; }
 
-        public MainWindowViewModel(IMessenger messenger, DropFilesCommand dropFilesCommand)
+        public ObservableCollection<LibraryItemViewModel> LibraryItems { get; private set; }
+        public LibraryItemViewModel SelectedTrack
+        {
+            get { return selectedTrack; }
+            set { selectedTrack = value; }
+        }
+
+        public MainWindowViewModel(
+            IMessenger messenger, 
+            DropFilesCommand dropFilesCommand,
+            RemoveTrackFromLibraryCommand removeTrackCommand)
         {
             if (messenger == null) throw new ArgumentNullException("messenger");
             if (dropFilesCommand == null) throw new ArgumentNullException("dropFilesCommand");
-            this.messenger = messenger;
-            DropFilesCommand = dropFilesCommand;
-            LibraryItems = new ObservableCollection<LibraryItemViewModel>();
 
-            this.messenger.Register<TrackAddedToLibraryEvent>(this, OnTrackAddedToLibrary);
+            LibraryItems = new ObservableCollection<LibraryItemViewModel>();
+            
+            messenger.Register<TrackAddedToLibraryEvent>(this, OnTrackAddedToLibrary);
+            messenger.Register<TrackRemovedFromLibraryEvent>(this, OnTrackRemoved);
+
+            DropFilesCommand = dropFilesCommand;
+            RemoveTrackFromLibraryCommand = removeTrackCommand;
+        }
+
+        void OnTrackRemoved(TrackRemovedFromLibraryEvent e)
+        {
+            var item = LibraryItems.FirstOrDefault(i => e.Track.Equals(i.Track));
+            LibraryItems.Remove(item);
         }
 
         void OnTrackAddedToLibrary(TrackAddedToLibraryEvent e)
         {
             var track = e.Track;
-            var item = new LibraryItemViewModel
-                           {
-                               Artist = track.Artist,
-                               Title = track.Title,
-                               Genre = track.Genre,
-                               Bpm = track.Bpm,
-                               Year = track.Year,
-                               Label = track.Label,
-                               Filename = track.File.FullName,
-                               Key = track.Key.ToString()
-                           };
+            var item = new LibraryItemViewModel(track);
             LibraryItems.Add(item);
         }
-
-        public ICommand DropFilesCommand { get; private set; }
-
-        public ObservableCollection<LibraryItemViewModel> LibraryItems { get; private set; } 
     }
 }
