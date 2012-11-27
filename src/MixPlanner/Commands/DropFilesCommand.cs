@@ -1,20 +1,18 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Input;
-using MixPlanner.Mp3;
-using MixPlanner.ViewModels;
+using MixPlanner.DomainModel;
 
 namespace MixPlanner.Commands
 {
     public class DropFilesCommand : ICommand
     {
-        readonly MainWindowViewModel parent;
-        readonly ITrackLoader trackLoader;
+        readonly ITrackLibrary library;
 
-        public DropFilesCommand(MainWindowViewModel parent)
+        public DropFilesCommand(ITrackLibrary library)
         {
-            this.parent = parent;
-            trackLoader = new TrackLoader(new Id3Reader());
+            if (library == null) throw new ArgumentNullException("library");
+            this.library = library;
         }
 
         public bool CanExecute(object parameter)
@@ -26,22 +24,9 @@ namespace MixPlanner.Commands
         {
             var e = parameter as DragEventArgs;
 
-            var files = (string[])e.Data.GetData(DataFormats.FileDrop);
-            foreach (var file in files)
-            {
-                var track = trackLoader.Load(file);
-                parent.LibraryItems.Add(new LibraryItemViewModel
-                                            {
-                                                Artist = track.Artist,
-                                                Title = track.Title,
-                                                Genre = track.Genre,
-                                                Bpm = track.Bpm,
-                                                Year = track.Year,
-                                                Label = track.Label,
-                                                Filename = track.File.FullName,
-                                                Key = track.Key.ToString()
-                                            });
-            }
+            var files = (string[]) e.Data.GetData(DataFormats.FileDrop);
+
+            library.Import(files);
         }
 
         public event EventHandler CanExecuteChanged;
