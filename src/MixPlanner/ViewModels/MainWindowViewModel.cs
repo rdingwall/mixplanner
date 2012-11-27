@@ -10,16 +10,11 @@ namespace MixPlanner.ViewModels
 {
     public class MainWindowViewModel
     {
-        LibraryItemViewModel selectedTrack;
         public ICommand DropFilesCommand { get; private set; }
         public ICommand RemoveTrackFromLibraryCommand { get; private set; }
 
         public ObservableCollection<LibraryItemViewModel> LibraryItems { get; private set; }
-        public LibraryItemViewModel SelectedTrack
-        {
-            get { return selectedTrack; }
-            set { selectedTrack = value; }
-        }
+        public LibraryItemViewModel SelectedTrack { get; set; }
 
         public MainWindowViewModel(
             IMessenger messenger, 

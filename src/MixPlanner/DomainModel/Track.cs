@@ -14,6 +14,8 @@ namespace MixPlanner.DomainModel
             Artist = artist;
             Title = title;
             Key = key;
+            FileName = fileName;
+
             File = new FileInfo(fileName);
 
             Label = "";
@@ -24,6 +26,7 @@ namespace MixPlanner.DomainModel
         public string Artist { get; private set; }
         public string Title { get; private set; }
         public Key Key { get; private set; }
+        public string FileName { get; private set; }
         public FileInfo File { get; private set; }
 
         // Optional properties
