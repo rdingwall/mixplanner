@@ -32,7 +32,8 @@ namespace MixPlanner.ViewModels
 
             var item = new MixItemViewModel
                            {
-                               Text = sourceItem.Title
+                               Text = string.Format("{0} {1}", sourceItem.Key, sourceItem.Title),
+                               Track = sourceItem.Track
                            };
             Items.Insert(dropInfo.InsertIndex, item);
         }

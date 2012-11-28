@@ -17,7 +17,8 @@
                       dd:DragDrop.DropHandler="{Binding}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding Text}" />
+                        <TextBlock Text="{Binding Text}" 
+                                   Background="{Binding Track.Key, Converter={StaticResource HarmonicKeyToBrushConverter}}" />
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>

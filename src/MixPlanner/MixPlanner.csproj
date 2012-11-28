@@ -107,6 +107,7 @@
     </ApplicationDefinition>
     <Compile Include="Commands\DropFilesCommand.cs" />
     <Compile Include="Commands\RemoveTrackFromLibraryCommand.cs" />
+    <Compile Include="Converters\HarmonicKeyToBrushConverter.cs" />
     <Compile Include="DomainModel\IMixingStrategy.cs" />
     <Compile Include="DomainModel\INextTrackAdvisor.cs" />
     <Compile Include="DomainModel\InvalidPitchException.cs" />

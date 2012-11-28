@@ -9,6 +9,7 @@
         xmlns:vm="clr-namespace:MixPlanner.ViewModels"
         xmlns:views="clr-namespace:MixPlanner.Views"
         xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop"
+        xmlns:converters="clr-namespace:MixPlanner.Converters"
         Title="MixPlanner" 
         Height="350" 
         Width="525" 
@@ -45,6 +46,11 @@
                                             CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.SelectedTrack}"  />
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
+                <DataGrid.RowStyle>
+                    <Style TargetType="DataGridRow">
+                        <Setter Property="Background" Value="{Binding Track.Key, Converter={StaticResource HarmonicKeyToBrushConverter}}" />
+                    </Style>
+                </DataGrid.RowStyle>
             </DataGrid>
         </GroupBox>
         
