@@ -16,15 +16,20 @@ namespace MixPlanner.ViewModels
         public ObservableCollection<LibraryItemViewModel> LibraryItems { get; private set; }
         public LibraryItemViewModel SelectedTrack { get; set; }
 
+        public MixViewModel Mix { get; private set; }
+
         public MainWindowViewModel(
             IMessenger messenger, 
             DropFilesCommand dropFilesCommand,
-            RemoveTrackFromLibraryCommand removeTrackCommand)
+            RemoveTrackFromLibraryCommand removeTrackCommand,
+            MixViewModel mixViewModel)
         {
             if (messenger == null) throw new ArgumentNullException("messenger");
             if (dropFilesCommand == null) throw new ArgumentNullException("dropFilesCommand");
+            if (mixViewModel == null) throw new ArgumentNullException("mixViewModel");
 
             LibraryItems = new ObservableCollection<LibraryItemViewModel>();
+            Mix = mixViewModel;
             
             messenger.Register<TrackAddedToLibraryEvent>(this, OnTrackAddedToLibrary);
             messenger.Register<TrackRemovedFromLibraryEvent>(this, OnTrackRemoved);

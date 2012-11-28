@@ -6,31 +6,39 @@
         mc:Ignorable="d"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WPF4"
-        xmlns:mp="clr-namespace:MixPlanner.ViewModels"
-        Title="MixPlanner" Height="350" Width="525" d:DataContext="{d:DesignInstance mp:MainWindowViewModel}"
-        AllowDrop="True"
-        DragEnter="MainWindow_OnDragEnter">
+        xmlns:vm="clr-namespace:MixPlanner.ViewModels"
+        xmlns:views="clr-namespace:MixPlanner.Views"
+        xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop"
+        Title="MixPlanner" 
+        Height="350" 
+        Width="525" 
+        d:DataContext="{d:DesignInstance vm:MainWindowViewModel}"
+        AllowDrop="True">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Drop">
             <cmd:EventToCommand Command="{Binding DropFilesCommand}"
                                 PassEventArgsToCommand="True" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
+    
     <Grid>
-		<Grid.RowDefinitions>
-		<RowDefinition Height="50*" />
-		<RowDefinition Height="Auto" />
-        <RowDefinition Height="50*" />
-    </Grid.RowDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="50*" />
+        </Grid.RowDefinitions>
 
-	<GridSplitter Grid.Row="1" ResizeDirection="Rows"
+        <views:MixView Grid.Row="0" DataContext="{Binding Mix}" />
+
+        <GridSplitter Grid.Row="1" ResizeDirection="Rows"
                   HorizontalAlignment="Stretch"
               VerticalAlignment="Center" ShowsPreview="True" Height="5"/>
         <GroupBox Grid.Row="2" Header="Library">
 
             <DataGrid ItemsSource="{Binding LibraryItems}"
                       SelectedItem="{Binding SelectedTrack, Mode=TwoWay}"
-                      IsReadOnly="True">
+                      IsReadOnly="True"
+                      dd:DragDrop.IsDragSource="True">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="PreviewKeyDown">
                         <cmd:EventToCommand Command="{Binding RemoveTrackFromLibraryCommand}"
@@ -38,7 +46,9 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </DataGrid>
-            
         </GroupBox>
+        
     </Grid>
+
+
 </Window>

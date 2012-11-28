@@ -1,4 +1,6 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 using MixPlanner.ViewModels;
 
 namespace MixPlanner
@@ -12,13 +14,6 @@ namespace MixPlanner
         {
             DataContext = viewModel;
             InitializeComponent();
-        }
-
-        void MainWindow_OnDragEnter(object sender, DragEventArgs e)
-        {
-            var dropPossible = e.Data != null && ((DataObject)e.Data).ContainsFileDropList();
-            if (dropPossible)
-                e.Effects = DragDropEffects.Copy;
         }
     }
 }
