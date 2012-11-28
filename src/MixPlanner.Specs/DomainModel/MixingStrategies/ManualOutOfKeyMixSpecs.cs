@@ -12,7 +12,7 @@ namespace MixPlanner.Specs.DomainModel.MixingStrategies
         {
             Establish context = () =>
                                     {
-                                        currentTrack = TestTracks.Get(Key.Key9A);
+                                        currentTrack = TestTracks.Get(HarmonicKey.Key9A);
                                         strategy = new ManualOutOfKeyMix();
                                         unplayedTracks = TestMixes.GetRandomMix();
                                     };

@@ -40,7 +40,7 @@ namespace MixPlanner.Specs.DomainModel
                 () =>
                     {
                         allTracks = TestMixes.GetRandomMix();
-                        currentTrack = TestTracks.Get(Key.RandomKey());
+                        currentTrack = TestTracks.Get(HarmonicKey.RandomKey());
 
                         strategyA = new DummyMixingStrategy(allTracks.Last());
                         strategyB = new DummyMixingStrategy(allTracks.First());

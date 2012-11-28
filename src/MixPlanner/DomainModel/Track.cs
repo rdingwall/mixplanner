@@ -5,7 +5,7 @@ namespace MixPlanner.DomainModel
 {
     public class Track : IEquatable<Track>
     {
-        public Track(string artist, string title, Key key, string fileName)
+        public Track(string artist, string title, HarmonicKey key, string fileName)
         {
             if (artist == null) throw new ArgumentNullException("artist");
             if (title == null) throw new ArgumentNullException("title");
@@ -25,7 +25,7 @@ namespace MixPlanner.DomainModel
 
         public string Artist { get; private set; }
         public string Title { get; private set; }
-        public Key Key { get; private set; }
+        public HarmonicKey Key { get; private set; }
         public string FileName { get; private set; }
         public FileInfo File { get; private set; }
 

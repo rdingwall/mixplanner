@@ -101,7 +101,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DomainModel\KeySpecs.cs" />
+    <Compile Include="DomainModel\HarmonicKeySpecs.cs" />
     <Compile Include="DomainModel\MixingStrategies\SwitchToMajorScaleSpecs.cs" />
     <Compile Include="DomainModel\MixingStrategies\IncrementOneSpecs.cs" />
     <Compile Include="DomainModel\MixingStrategies\ManualOutOfKeyMixSpecs.cs" />

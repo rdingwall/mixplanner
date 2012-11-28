@@ -13,15 +13,15 @@ namespace MixPlanner.Specs.DomainModel.MixingStrategies
         {
             Establish context = () =>
                                     {
-                                        currentTrack = TestTracks.Get(Key.Key9A);
+                                        currentTrack = TestTracks.Get(HarmonicKey.Key9A);
                                         strategy = new SameKey();
                                         unplayedTracks = new[]
                                                              {
-                                                                 TestTracks.Get(Key.Key8B), 
-                                                                 TestTracks.Get(Key.Key11A),
-                                                                 TestTracks.Get(Key.Key11B),
-                                                                 TestTracks.Get(Key.Key11A),
-                                                                 TestTracks.Get(Key.Key9A)
+                                                                 TestTracks.Get(HarmonicKey.Key8B), 
+                                                                 TestTracks.Get(HarmonicKey.Key11A),
+                                                                 TestTracks.Get(HarmonicKey.Key11B),
+                                                                 TestTracks.Get(HarmonicKey.Key11A),
+                                                                 TestTracks.Get(HarmonicKey.Key9A)
                                                              };
                                     };
 
@@ -33,7 +33,7 @@ namespace MixPlanner.Specs.DomainModel.MixingStrategies
             static IEnumerable<Track> suggestedTracks;
 
             It should_suggest_tracks_that_are_in_the_same_key =
-                () => suggestedTracks.Select(t => t.Key).ShouldContainOnly(Key.Key9A);
+                () => suggestedTracks.Select(t => t.Key).ShouldContainOnly(HarmonicKey.Key9A);
         }
     }
 }

@@ -13,15 +13,15 @@ namespace MixPlanner.Specs.DomainModel.MixingStrategies
         {
             Establish context = () =>
                                     {
-                                        currentTrack = TestTracks.Get(Key.Key9A);
+                                        currentTrack = TestTracks.Get(HarmonicKey.Key9A);
                                         strategy = new IncrementOne();
                                         unplayedTracks = new[]
                                                              {
-                                                                 TestTracks.Get(Key.Key10A), 
-                                                                 TestTracks.Get(Key.Key4A),
-                                                                 TestTracks.Get(Key.Key4B),
-                                                                 TestTracks.Get(Key.Key4A),
-                                                                 TestTracks.Get(Key.Key8A),
+                                                                 TestTracks.Get(HarmonicKey.Key10A), 
+                                                                 TestTracks.Get(HarmonicKey.Key4A),
+                                                                 TestTracks.Get(HarmonicKey.Key4B),
+                                                                 TestTracks.Get(HarmonicKey.Key4A),
+                                                                 TestTracks.Get(HarmonicKey.Key8A),
                                                              };
                                     };
 
@@ -33,7 +33,7 @@ namespace MixPlanner.Specs.DomainModel.MixingStrategies
             static IEnumerable<Track> suggestedTracks;
 
             It should_suggest_tracks_that_are_one_hour_up_from_the_current =
-                () => suggestedTracks.Select(t => t.Key).ShouldContainOnly(Key.Key10A);
+                () => suggestedTracks.Select(t => t.Key).ShouldContainOnly(HarmonicKey.Key10A);
         }
     }
 }

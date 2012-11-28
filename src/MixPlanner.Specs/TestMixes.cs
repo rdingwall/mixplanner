@@ -8,11 +8,11 @@ namespace MixPlanner.Specs
         {
             return new Mix
                        {
-                           TestTracks.Get(Key.RandomKey()),
-                           TestTracks.Get(Key.RandomKey()),
-                           TestTracks.Get(Key.RandomKey()),
-                           TestTracks.Get(Key.RandomKey()),
-                           TestTracks.Get(Key.RandomKey())
+                           TestTracks.Get(HarmonicKey.RandomKey()),
+                           TestTracks.Get(HarmonicKey.RandomKey()),
+                           TestTracks.Get(HarmonicKey.RandomKey()),
+                           TestTracks.Get(HarmonicKey.RandomKey()),
+                           TestTracks.Get(HarmonicKey.RandomKey())
                        };
         }
     }

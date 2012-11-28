@@ -4,11 +4,11 @@ namespace MixPlanner.DomainModel
 {
     public class Transition
     {
-        public Transition(Key toKey, IMixingStrategy strategy) : this(null, strategy, toKey)
+        public Transition(HarmonicKey toKey, IMixingStrategy strategy) : this(null, strategy, toKey)
         {
         }
 
-        public Transition(Key fromKey, IMixingStrategy strategy, Key toKey)
+        public Transition(HarmonicKey fromKey, IMixingStrategy strategy, HarmonicKey toKey)
         {
             if (strategy == null) throw new ArgumentNullException("strategy");
             if (toKey == null) throw new ArgumentNullException("toKey");
@@ -17,8 +17,8 @@ namespace MixPlanner.DomainModel
             ToKey = toKey;
         }
 
-        public Key FromKey { get; private set; }
-        public Key ToKey { get; private set; }
+        public HarmonicKey FromKey { get; private set; }
+        public HarmonicKey ToKey { get; private set; }
         public IMixingStrategy Strategy { get; private set; }
         public string Description { get { return Strategy.Description; }}
     }

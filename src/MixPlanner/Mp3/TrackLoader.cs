@@ -35,9 +35,9 @@ namespace MixPlanner.Mp3
             var artist = id3Tag.Artist ?? "Unknown Artist";
             var title = id3Tag.Title ?? "Unknown Title";
 
-            Key key;
-            if (!Key.TryParse(id3Tag.InitialKey, out key))
-                key = Key.Unknown;
+            HarmonicKey key;
+            if (!HarmonicKey.TryParse(id3Tag.InitialKey, out key))
+                key = HarmonicKey.Unknown;
 
             var track = new Track(artist, title, key, filename);
 
@@ -56,7 +56,7 @@ namespace MixPlanner.Mp3
         {
             var displayName = Path.GetFileNameWithoutExtension(filename);
 
-            return new Track("Unknown Artist", displayName, Key.Unknown, filename);
+            return new Track("Unknown Artist", displayName, HarmonicKey.Unknown, filename);
         }
     }
 }

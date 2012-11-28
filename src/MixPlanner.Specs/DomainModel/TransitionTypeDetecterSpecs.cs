@@ -17,15 +17,15 @@ namespace MixPlanner.Specs.DomainModel
 
              Because of = 
                  () => transition = detector.GetTransitionBetween(
-                     TestTracks.Get(Key.Key1A), 
-                     TestTracks.Get(Key.Key2A));
+                     TestTracks.Get(HarmonicKey.Key1A), 
+                     TestTracks.Get(HarmonicKey.Key2A));
 
              It should_give_the_correct_strategy = 
                  () => transition.Strategy.ShouldBe(typeof(IncrementOne));
 
-             It should_return_the_first_key = () => transition.FromKey.ShouldEqual(Key.Key1A);
+             It should_return_the_first_key = () => transition.FromKey.ShouldEqual(HarmonicKey.Key1A);
 
-             It should_return_the_second_key = () => transition.ToKey.ShouldEqual(Key.Key2A);
+             It should_return_the_second_key = () => transition.ToKey.ShouldEqual(HarmonicKey.Key2A);
 
              static TransitionTypeDetector detector;
              static Transition transition;

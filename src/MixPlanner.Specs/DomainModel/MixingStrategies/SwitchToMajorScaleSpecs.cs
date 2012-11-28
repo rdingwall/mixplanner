@@ -13,15 +13,15 @@ namespace MixPlanner.Specs.DomainModel.MixingStrategies
         {
             Establish context = () =>
                                     {
-                                        currentTrack = TestTracks.Get(Key.Key9A);
+                                        currentTrack = TestTracks.Get(HarmonicKey.Key9A);
                                         strategy = new SwitchToMajorScale();
                                         unplayedTracks = new[]
                                                              {
-                                                                 TestTracks.Get(Key.Key9B), 
-                                                                 TestTracks.Get(Key.Key4A),
-                                                                 TestTracks.Get(Key.Key4B),
-                                                                 TestTracks.Get(Key.Key4A),
-                                                                 TestTracks.Get(Key.Key9B),
+                                                                 TestTracks.Get(HarmonicKey.Key9B), 
+                                                                 TestTracks.Get(HarmonicKey.Key4A),
+                                                                 TestTracks.Get(HarmonicKey.Key4B),
+                                                                 TestTracks.Get(HarmonicKey.Key4A),
+                                                                 TestTracks.Get(HarmonicKey.Key9B),
                                                              };
                                     };
 
@@ -33,7 +33,7 @@ namespace MixPlanner.Specs.DomainModel.MixingStrategies
             static IEnumerable<Track> suggestedTracks;
 
             It should_suggest_tracks_that_are_the_same_pitch_but_major =
-                () => suggestedTracks.Select(t => t.Key).ShouldContainOnly(Key.Key9B, Key.Key9B);
+                () => suggestedTracks.Select(t => t.Key).ShouldContainOnly(HarmonicKey.Key9B, HarmonicKey.Key9B);
         }
     }
 }

@@ -113,7 +113,7 @@
     <Compile Include="DomainModel\InvalidPitchException.cs" />
     <Compile Include="DomainModel\InvalidScaleException.cs" />
     <Compile Include="DomainModel\ITrackLibrary.cs" />
-    <Compile Include="DomainModel\Key.cs" />
+    <Compile Include="DomainModel\HarmonicKey.cs" />
     <Compile Include="DomainModel\Mix.cs" />
     <Compile Include="DomainModel\MixingStrategies\IncreasePitchStrategyBase.cs" />
     <Compile Include="DomainModel\MixingStrategies\IncrementOne.cs" />

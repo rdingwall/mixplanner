@@ -1,6 +1,6 @@
 ﻿namespace MixPlanner.DomainModel
 {
-    public class UnknownKey : Key
+    public class UnknownKey : HarmonicKey
     {
         public UnknownKey() : base(0, Scale.Unknown, -1) {}
 
