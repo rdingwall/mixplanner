@@ -124,6 +124,7 @@
     <Compile Include="DomainModel\Scale.cs" />
     <Compile Include="DomainModel\Strategies.cs" />
     <Compile Include="DomainModel\Track.cs" />
+    <Compile Include="DomainModel\TrackLibrary.cs" />
     <Compile Include="DomainModel\Transition.cs" />
     <Compile Include="DomainModel\TransitionTypeDetector.cs" />
     <Compile Include="DomainModel\UnknownKey.cs" />
@@ -137,7 +138,8 @@
     <Compile Include="Mp3\Id3Reader.cs" />
     <Compile Include="Mp3\Id3Tag.cs" />
     <Compile Include="Mp3\TrackLoader.cs" />
-    <Compile Include="Storage\InMemoryTrackLibrary.cs" />
+    <Compile Include="Storage\ILibraryStorage.cs" />
+    <Compile Include="Storage\InMemoryLibraryStorage.cs" />
     <Compile Include="ViewModels\LibraryItemViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />

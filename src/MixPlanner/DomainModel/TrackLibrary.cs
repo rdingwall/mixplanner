@@ -1,31 +1,30 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using GalaSoft.MvvmLight.Messaging;
-using MixPlanner.DomainModel;
 using MixPlanner.Events;
 using MixPlanner.Mp3;
+using MixPlanner.Storage;
 using MoreLinq;
 
-namespace MixPlanner.Storage
+namespace MixPlanner.DomainModel
 {
-    public class InMemoryTrackLibrary : ITrackLibrary
+    public class TrackLibrary : ITrackLibrary
     {
         const StringComparison Comparison = StringComparison.CurrentCultureIgnoreCase;
         readonly ITrackLoader loader;
         readonly IMessenger messenger;
+        readonly ILibraryStorage storage;
 
-        readonly IList<Track> tracks;
-        public IEnumerable<Track> Tracks { get { return tracks; } }
-
-        public InMemoryTrackLibrary(ITrackLoader loader, IMessenger messenger)
+        public TrackLibrary(ITrackLoader loader, IMessenger messenger, ILibraryStorage storage)
         {
             if (loader == null) throw new ArgumentNullException("loader");
             if (messenger == null) throw new ArgumentNullException("messenger");
+            if (storage == null) throw new ArgumentNullException("storage");
             this.loader = loader;
             this.messenger = messenger;
-            tracks = new List<Track>();
+            this.storage = storage;
         }
 
         public void Import(string filename)
@@ -36,13 +35,13 @@ namespace MixPlanner.Storage
             if (AlreadyContains(filename)) return;
 
             var track = loader.Load(filename);
-            tracks.Add(track);
+            storage.Add(track);
             messenger.Send(new TrackAddedToLibraryEvent(track));
         }
 
         bool AlreadyContains(string filename)
         {
-            return tracks.Any(t => t.FileName.Equals(filename, Comparison));
+            return storage.Tracks.Any(t => t.FileName.Equals(filename, Comparison));
         }
 
         static bool IsMp3(string filename)
@@ -71,7 +70,7 @@ namespace MixPlanner.Storage
         public void Remove(Track track)
         {
             if (track == null) throw new ArgumentNullException("track");
-            tracks.Remove(track);
+            storage.Remove(track);
             messenger.Send(new TrackRemovedFromLibraryEvent(track));
         }
     }

@@ -16,8 +16,9 @@ namespace MixPlanner
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
             container.Register(
-                Component.For<ITrackLibrary>().ImplementedBy<InMemoryTrackLibrary>(),
+                Component.For<ITrackLibrary>().ImplementedBy<TrackLibrary>(),
                 Component.For<ITrackLoader>().ImplementedBy<TrackLoader>(),
+                Component.For<ILibraryStorage>().ImplementedBy<InMemoryLibraryStorage>(),
                 Component.For<IId3Reader>().ImplementedBy<Id3Reader>(),
                 Component.For<IMessenger>().ImplementedBy<Messenger>(),
                 AllTypes.FromThisAssembly().InSameNamespaceAs<MainWindowViewModel>(),
