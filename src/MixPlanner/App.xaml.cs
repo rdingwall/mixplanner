@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using Castle.Windsor;
+using MixPlanner.Views;
 
 namespace MixPlanner
 {
