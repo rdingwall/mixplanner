@@ -1,9 +1,10 @@
 ﻿using System;
+using GalaSoft.MvvmLight;
 using MixPlanner.DomainModel;
 
 namespace MixPlanner.ViewModels
 {
-    public class LibraryItemViewModel
+    public class LibraryItemViewModel : ViewModelBase
     {
         public LibraryItemViewModel(Track track)
         {

@@ -1,19 +1,19 @@
 ﻿using System;
-using System.ComponentModel;
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
 using MixPlanner.DomainModel;
 using MixPlanner.Events;
 
 namespace MixPlanner.ViewModels
 {
-    public class MixItemViewModel : INotifyPropertyChanged
+    public class MixItemViewModel : ViewModelBase
     {
         public MixItem MixItem { get; private set; }
         public HarmonicKey Key { get { return MixItem.Track.Key; } }
 
         public MixItemViewModel(
             IMessenger messenger, 
-            MixItem mixItem)
+            MixItem mixItem) : base(messenger)
         {
             if (messenger == null) throw new ArgumentNullException("messenger");
             if (mixItem == null) throw new ArgumentNullException("mixItem");
@@ -26,7 +26,7 @@ namespace MixPlanner.ViewModels
             if (obj.MixItem != MixItem)
                 return;
 
-            PropertyChanged(this, new PropertyChangedEventArgs("Text"));
+            RaisePropertyChanged(() => Text);
         }
 
         public string Text
@@ -39,7 +39,5 @@ namespace MixPlanner.ViewModels
                                      MixItem.Track.Key, MixItem.Track.Title);
             }
         }
-
-        public event PropertyChangedEventHandler PropertyChanged = delegate { };
     }
 }

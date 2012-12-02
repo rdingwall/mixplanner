@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
 using GongSolutions.Wpf.DragDrop;
 using MixPlanner.Commands;
@@ -10,10 +11,8 @@ using MixPlanner.Events;
 
 namespace MixPlanner.ViewModels
 {
-    public class MixViewModel : IDropTarget
+    public class MixViewModel : ViewModelBase, IDropTarget
     {
-        readonly IMessenger messenger;
-
         public RemoveTrackFromMixCommand RemoveCommand { get; private set; }
         public ICommand DropTrackCommand { get; private set; }
         public ObservableCollection<MixItemViewModel> Items { get; private set; }
@@ -21,14 +20,13 @@ namespace MixPlanner.ViewModels
 
         public MixViewModel(IMessenger messenger, 
             DropTrackIntoMixCommand dropTrackCommand, 
-            RemoveTrackFromMixCommand removeCommand)
+            RemoveTrackFromMixCommand removeCommand) : base(messenger)
         {
             if (messenger == null) throw new ArgumentNullException("messenger");
             if (dropTrackCommand == null) throw new ArgumentNullException("dropTrackCommand");
             if (removeCommand == null) throw new ArgumentNullException("removeCommand");
-            this.messenger = messenger;
             DropTrackCommand = dropTrackCommand;
-            this.RemoveCommand = removeCommand;
+            RemoveCommand = removeCommand;
             Items = new ObservableCollection<MixItemViewModel>();
             messenger.Register<TrackAddedToMixEvent>(this, OnTrackAdded);
             messenger.Register<TrackRemovedFromMixEvent>(this, OnTrackRemoved);
@@ -42,7 +40,7 @@ namespace MixPlanner.ViewModels
 
         void OnTrackAdded(TrackAddedToMixEvent obj)
         {
-            var trackItem = new MixItemViewModel(messenger, obj.Item);
+            var trackItem = new MixItemViewModel(MessengerInstance, obj.Item);
             Items.Insert(obj.InsertIndex, trackItem);
         }
 

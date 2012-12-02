@@ -2,13 +2,14 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
 using MixPlanner.Commands;
 using MixPlanner.Events;
 
 namespace MixPlanner.ViewModels
 {
-    public class MainWindowViewModel
+    public class MainWindowViewModel : ViewModelBase
     {
         public ICommand DropFilesCommand { get; private set; }
         public ICommand RemoveTrackFromLibraryCommand { get; private set; }
@@ -19,12 +20,11 @@ namespace MixPlanner.ViewModels
         public MixViewModel Mix { get; private set; }
 
         public MainWindowViewModel(
-            IMessenger messenger, 
+            IMessenger messenger,
             DropFilesCommand dropFilesCommand,
             RemoveTrackFromLibraryCommand removeTrackCommand,
-            MixViewModel mixViewModel)
+            MixViewModel mixViewModel) : base(messenger)
         {
-            if (messenger == null) throw new ArgumentNullException("messenger");
             if (dropFilesCommand == null) throw new ArgumentNullException("dropFilesCommand");
             if (mixViewModel == null) throw new ArgumentNullException("mixViewModel");
 
