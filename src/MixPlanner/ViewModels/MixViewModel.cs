@@ -1,17 +1,40 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Windows;
+using System.Windows.Input;
+using GalaSoft.MvvmLight.Messaging;
 using GongSolutions.Wpf.DragDrop;
+using MixPlanner.Commands;
+using MixPlanner.Events;
 
 namespace MixPlanner.ViewModels
 {
     public class MixViewModel : IDropTarget
     {
-        public MixViewModel()
+        readonly IMessenger messenger;
+
+        public MixViewModel(IMessenger messenger, DropTrackIntoMixCommand dropTrackCommand)
         {
+            this.messenger = messenger;
+            if (dropTrackCommand == null) throw new ArgumentNullException("dropTrackCommand");
+            DropTrackCommand = dropTrackCommand;
             Items = new ObservableCollection<MixItemViewModel>();
-            Items.Add(new MixItemViewModel { Text = "Opening track"});
-            Items.Add(new MixItemViewModel { Text = ">>> Triple drop"});
+            messenger.Register<TrackAddedToMixEvent>(this, OnTrackAdded);
         }
+
+        void OnTrackAdded(TrackAddedToMixEvent obj)
+        {
+            var track = obj.Track;
+
+            var item = new MixItemViewModel
+            {
+                Text = string.Format("{0} {1}", track.Key, track.Title),
+                Track = track
+            };
+            Items.Insert(obj.InsertIndex, item);
+        }
+
+        public ICommand DropTrackCommand { get; private set; }
 
         public ObservableCollection<MixItemViewModel> Items { get; private set; }
 
@@ -28,14 +51,8 @@ namespace MixPlanner.ViewModels
 
         public void Drop(DropInfo dropInfo)
         {
-            var sourceItem = dropInfo.Data as LibraryItemViewModel;
-
-            var item = new MixItemViewModel
-                           {
-                               Text = string.Format("{0} {1}", sourceItem.Key, sourceItem.Title),
-                               Track = sourceItem.Track
-                           };
-            Items.Insert(dropInfo.InsertIndex, item);
+            // See if we can bind this later.
+            DropTrackCommand.Execute(dropInfo);
         }
     }
 }
