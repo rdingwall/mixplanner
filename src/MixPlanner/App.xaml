@@ -5,14 +5,13 @@
              StartupUri="App.xaml" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:vm="clr-namespace:MixPlanner.ViewModel" xmlns:converters="clr-namespace:MixPlanner.Converters"
+             xmlns:converters="clr-namespace:MixPlanner.Converters"
              mc:Ignorable="d">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Simple Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <vm:ViewModelLocator x:Key="Locator" d:IsDataSource="True" />
             <converters:HarmonicKeyToBrushConverter x:Key="HarmonicKeyToBrushConverter" />
         </ResourceDictionary>
     </Application.Resources>

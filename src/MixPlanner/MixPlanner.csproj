@@ -156,8 +156,6 @@
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\MixItemViewModel.cs" />
     <Compile Include="ViewModels\MixViewModel.cs" />
-    <Compile Include="ViewModel\MainViewModel.cs" />
-    <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="Views\MixView.xaml.cs">
       <DependentUpon>MixView.xaml</DependentUpon>
     </Compile>
