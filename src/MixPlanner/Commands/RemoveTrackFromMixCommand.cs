@@ -21,6 +21,8 @@ namespace MixPlanner.Commands
 
         public void Execute(object parameter)
         {
+            if (parameter == null) return;
+
             var mixItem = (MixItem) parameter;
             mix.Remove(mixItem);
         }

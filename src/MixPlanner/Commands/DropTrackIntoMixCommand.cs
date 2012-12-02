@@ -23,10 +23,11 @@ namespace MixPlanner.Commands
 
         public void Execute(object parameter)
         {
+            if (parameter == null) return;
+
             var dropInfo = (DropInfo) parameter;
 
             var sourceItem = dropInfo.Data as LibraryItemViewModel;
-
 
             mix.Insert(sourceItem.Track, dropInfo.InsertIndex);
         }

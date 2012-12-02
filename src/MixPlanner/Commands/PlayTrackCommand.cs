@@ -22,6 +22,8 @@ namespace MixPlanner.Commands
 
         public void Execute(object parameter)
         {
+            if (parameter == null) return;
+
             var track = (Track) parameter;
 
             player.Play(track.Filename);

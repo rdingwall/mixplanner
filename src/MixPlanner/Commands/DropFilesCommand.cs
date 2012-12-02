@@ -22,6 +22,8 @@ namespace MixPlanner.Commands
 
         public void Execute(object parameter)
         {
+            if (parameter == null) return;
+
             var e = (DragEventArgs)parameter;
 
             var files = (string[]) e.Data.GetData(DataFormats.FileDrop);

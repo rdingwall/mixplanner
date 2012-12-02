@@ -22,6 +22,8 @@ namespace MixPlanner.Commands
 
         public void Execute(object parameter)
         {
+            if (parameter == null) return;
+
             var item = (LibraryItemViewModel) parameter;
 
             library.Remove(item.Track);
