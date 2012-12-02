@@ -11,10 +11,13 @@ namespace MixPlanner.ViewModels
 {
     public class MixViewModel : IDropTarget
     {
+        readonly IMessenger messenger;
+
         public MixViewModel(IMessenger messenger, DropTrackIntoMixCommand dropTrackCommand)
         {
             if (messenger == null) throw new ArgumentNullException("messenger");
             if (dropTrackCommand == null) throw new ArgumentNullException("dropTrackCommand");
+            this.messenger = messenger;
             DropTrackCommand = dropTrackCommand;
             Items = new ObservableCollection<MixItemViewModel>();
             messenger.Register<TrackAddedToMixEvent>(this, OnTrackAdded);
@@ -22,18 +25,7 @@ namespace MixPlanner.ViewModels
 
         void OnTrackAdded(TrackAddedToMixEvent obj)
         {
-            var mixItem = obj.Item;
-            var track = mixItem.Track;
-
-            var trackItem = new MixItemViewModel
-            {
-                Text = string.Format("{0}{1}{2} {3}", 
-                mixItem.Transition.Description, 
-                Environment.NewLine,
-                track.Key, track.Title),
-                MixItem = mixItem
-            };
-
+            var trackItem = new MixItemViewModel(messenger, obj.Item);
             Items.Insert(obj.InsertIndex, trackItem);
         }
 

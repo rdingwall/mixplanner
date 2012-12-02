@@ -53,6 +53,24 @@ namespace MixPlanner.DomainModel
             items.Insert(insertIndex, item);
 
             messenger.Send(new TrackAddedToMixEvent(item, insertIndex));
+            RecalcTransitions();
+        }
+
+        public void RecalcTransitions()
+        {
+            for (var i = 0; i + 1 < items.Count; i++)
+            {
+                var previousItem = items[i];
+                var item = items[i + 1];
+
+                if (item.Transition.Strategy != null && item.Transition.Strategy.IsCompatible(previousItem.Track, item.Track))
+                    continue;
+
+                var newTransition = transitions.GetTransitionBetween(previousItem.Track, item.Track);
+                item.Transition = newTransition;
+
+                messenger.Send(new TransitionChangedEvent(item));
+            }
         }
 
         MixItem CreateItem(Track track, int insertIndex)

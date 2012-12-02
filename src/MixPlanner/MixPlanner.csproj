@@ -137,6 +137,7 @@
     <Compile Include="Events\TrackAddedToLibraryEvent.cs" />
     <Compile Include="Events\TrackAddedToMixEvent.cs" />
     <Compile Include="Events\TrackRemovedFromLibraryEvent.cs" />
+    <Compile Include="Events\TransitionChangedEvent.cs" />
     <Compile Include="ImportExport\IPlaylistWriter.cs" />
     <Compile Include="ImportExport\M3uReader.cs" />
     <Compile Include="ImportExport\M3uWriter.cs" />
@@ -145,6 +146,7 @@
     <Compile Include="Mp3\Id3Reader.cs" />
     <Compile Include="Mp3\Id3Tag.cs" />
     <Compile Include="Mp3\TrackLoader.cs" />
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Storage\ILibraryStorage.cs" />
     <Compile Include="Storage\InMemoryLibraryStorage.cs" />
     <Compile Include="ViewModels\LibraryItemViewModel.cs" />
