@@ -11,11 +11,9 @@ namespace MixPlanner.ViewModels
 {
     public class MixViewModel : IDropTarget
     {
-        readonly IMessenger messenger;
-
         public MixViewModel(IMessenger messenger, DropTrackIntoMixCommand dropTrackCommand)
         {
-            this.messenger = messenger;
+            if (messenger == null) throw new ArgumentNullException("messenger");
             if (dropTrackCommand == null) throw new ArgumentNullException("dropTrackCommand");
             DropTrackCommand = dropTrackCommand;
             Items = new ObservableCollection<MixItemViewModel>();
@@ -51,7 +49,6 @@ namespace MixPlanner.ViewModels
 
         public void Drop(DropInfo dropInfo)
         {
-            // See if we can bind this later.
             DropTrackCommand.Execute(dropInfo);
         }
     }
