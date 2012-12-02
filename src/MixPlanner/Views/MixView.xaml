@@ -17,12 +17,16 @@
             <ListView ItemsSource="{Binding Items}"
                       dd:DragDrop.IsDropTarget="True"
                       dd:DragDrop.DropHandler="{Binding}"
-                      SelectedItem="{Binding SelectedItem}">
+                      SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
                 
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="PreviewKeyDown">
                         <cmd:EventToCommand Command="{Binding RemoveCommand}" 
                                                         CommandParameter="{Binding SelectedItem.MixItem}"  />
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="MouseDoubleClick">
+                        <cmd:EventToCommand Command="{Binding PlayCommand}" 
+                                                        CommandParameter="{Binding SelectedItem.Track}"  />
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
 

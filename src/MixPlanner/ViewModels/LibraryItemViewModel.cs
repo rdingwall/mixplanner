@@ -17,7 +17,7 @@ namespace MixPlanner.ViewModels
             Year = track.Year;
             Label = track.Label;
             Filename = track.File.FullName;
-            Key = track.Key.ToString();
+            Key = track.Key;
         }
 
         public string Filename { get; set; }
@@ -25,7 +25,7 @@ namespace MixPlanner.ViewModels
         public string Artist { get; set; }
         public string Title { get; set; }
 
-        public string Key { get; set; }
+        public HarmonicKey Key { get; set; }
 
         public string Genre { get; set; }
         public string Label { get; set; }

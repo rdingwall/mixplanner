@@ -37,18 +37,22 @@
         <GroupBox Grid.Row="2" Header="Library">
 
             <DataGrid ItemsSource="{Binding LibraryItems}"
-                      SelectedItem="{Binding SelectedTrack, Mode=TwoWay}"
+                      SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
                       IsReadOnly="True"
                       dd:DragDrop.IsDragSource="True">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="PreviewKeyDown">
                         <cmd:EventToCommand Command="{Binding RemoveTrackFromLibraryCommand}"
-                                            CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.SelectedTrack}"  />
+                                            CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.SelectedItem}"  />
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="MouseDoubleClick">
+                        <cmd:EventToCommand Command="{Binding PlayCommand}" 
+                                                        CommandParameter="{Binding SelectedItem.Track}"  />
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
                 <DataGrid.RowStyle>
                     <Style TargetType="DataGridRow">
-                        <Setter Property="Background" Value="{Binding Track.Key, Converter={StaticResource HarmonicKeyToBrushConverter}}" />
+                        <Setter Property="Background" Value="{Binding Key, Converter={StaticResource HarmonicKeyToBrushConverter}}" />
                     </Style>
                 </DataGrid.RowStyle>
             </DataGrid>

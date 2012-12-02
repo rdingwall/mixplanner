@@ -6,6 +6,7 @@ using Castle.Windsor;
 using GalaSoft.MvvmLight.Messaging;
 using MixPlanner.DomainModel;
 using MixPlanner.Mp3;
+using MixPlanner.Player;
 using MixPlanner.Storage;
 using MixPlanner.ViewModels;
 
@@ -21,6 +22,7 @@ namespace MixPlanner
                 Component.For<ILibraryStorage>().ImplementedBy<InMemoryLibraryStorage>(),
                 Component.For<IId3Reader>().ImplementedBy<Id3Reader>(),
                 Component.For<IMessenger>().ImplementedBy<Messenger>(),
+                Component.For<IAudioPlayer>().ImplementedBy<AudioPlayer>(),
                 Component.For<ITransitionDetector>().ImplementedBy<TransitionDetector>()
                     .DependsOn(Property.ForKey("strategies").Eq(Strategies.AllStrategies)),
                 Component.For<IMix>().ImplementedBy<Mix>(),

@@ -41,7 +41,7 @@ namespace MixPlanner.DomainModel
 
         bool AlreadyContains(string filename)
         {
-            return storage.Tracks.Any(t => t.FileName.Equals(filename, Comparison));
+            return storage.Tracks.Any(t => t.Filename.Equals(filename, Comparison));
         }
 
         static bool IsMp3(string filename)

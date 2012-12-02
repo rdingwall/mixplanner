@@ -79,6 +79,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\morelinq.1.0\lib\net35\MoreLinq.dll</HintPath>
     </Reference>
+    <Reference Include="NAudio">
+      <HintPath>..\..\packages\NAudio.1.6\lib\net20\NAudio.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -107,6 +110,7 @@
     </ApplicationDefinition>
     <Compile Include="Commands\DropFilesCommand.cs" />
     <Compile Include="Commands\DropTrackIntoMixCommand.cs" />
+    <Compile Include="Commands\PlayTrackCommand.cs" />
     <Compile Include="Commands\RemoveTrackFromLibraryCommand.cs" />
     <Compile Include="Commands\RemoveTrackFromMixCommand.cs" />
     <Compile Include="Converters\HarmonicKeyToBrushConverter.cs" />
@@ -145,6 +149,7 @@
     <Compile Include="Mp3\Id3Reader.cs" />
     <Compile Include="Mp3\Id3Tag.cs" />
     <Compile Include="Mp3\TrackLoader.cs" />
+    <Compile Include="Player\AudioPlayer.cs" />
     <Compile Include="Storage\ILibraryStorage.cs" />
     <Compile Include="Storage\InMemoryLibraryStorage.cs" />
     <Compile Include="ViewModels\LibraryItemViewModel.cs" />

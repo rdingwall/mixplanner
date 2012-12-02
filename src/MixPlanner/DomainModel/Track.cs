@@ -14,7 +14,7 @@ namespace MixPlanner.DomainModel
             Artist = artist;
             Title = title;
             Key = key;
-            FileName = fileName;
+            Filename = fileName;
 
             File = new FileInfo(fileName);
 
@@ -26,7 +26,7 @@ namespace MixPlanner.DomainModel
         public string Artist { get; private set; }
         public string Title { get; private set; }
         public HarmonicKey Key { get; private set; }
-        public string FileName { get; private set; }
+        public string Filename { get; private set; }
         public FileInfo File { get; private set; }
 
         // Optional properties

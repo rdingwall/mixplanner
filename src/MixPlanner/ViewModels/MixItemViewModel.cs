@@ -10,6 +10,7 @@ namespace MixPlanner.ViewModels
     {
         public MixItem MixItem { get; private set; }
         public HarmonicKey Key { get { return MixItem.Track.Key; } }
+        public Track Track { get { return MixItem.Track; }}
 
         public MixItemViewModel(
             IMessenger messenger, 

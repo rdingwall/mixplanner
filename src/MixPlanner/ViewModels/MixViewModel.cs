@@ -13,20 +13,32 @@ namespace MixPlanner.ViewModels
 {
     public class MixViewModel : ViewModelBase, IDropTarget
     {
+        MixItemViewModel selectedItem;
         public RemoveTrackFromMixCommand RemoveCommand { get; private set; }
+        public PlayTrackCommand PlayCommand { get; private set; }
         public ICommand DropTrackCommand { get; private set; }
         public ObservableCollection<MixItemViewModel> Items { get; private set; }
-        public MixItemViewModel SelectedItem { get; set; }
+
+        public MixItemViewModel SelectedItem
+        {
+            get { return selectedItem; }
+            set { selectedItem = value;
+            RaisePropertyChanged(() => SelectedItem);}
+        }
 
         public MixViewModel(IMessenger messenger, 
             DropTrackIntoMixCommand dropTrackCommand, 
-            RemoveTrackFromMixCommand removeCommand) : base(messenger)
+            RemoveTrackFromMixCommand removeCommand,
+            PlayTrackCommand playCommand
+            ) : base(messenger)
         {
             if (messenger == null) throw new ArgumentNullException("messenger");
             if (dropTrackCommand == null) throw new ArgumentNullException("dropTrackCommand");
             if (removeCommand == null) throw new ArgumentNullException("removeCommand");
+            if (playCommand == null) throw new ArgumentNullException("playCommand");
             DropTrackCommand = dropTrackCommand;
             RemoveCommand = removeCommand;
+            PlayCommand = playCommand;
             Items = new ObservableCollection<MixItemViewModel>();
             messenger.Register<TrackAddedToMixEvent>(this, OnTrackAdded);
             messenger.Register<TrackRemovedFromMixEvent>(this, OnTrackRemoved);
