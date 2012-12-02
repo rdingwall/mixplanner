@@ -4,16 +4,14 @@ namespace MixPlanner.DomainModel
 {
     public class MixItem
     {
-        public MixItem(Track track, Transition previousTransition, Transition nextTransition)
+        public MixItem(Track track, Transition transition)
         {
             if (track == null) throw new ArgumentNullException("track");
             Track = track;
-            PreviousTransition = previousTransition;
-            NextTransition = nextTransition;
+            Transition = transition;
         }
 
         public Track Track { get; private set; }
-        public Transition PreviousTransition { get; set; }
-        public Transition NextTransition { get; set; }
+        public Transition Transition { get; set; }
     }
 }

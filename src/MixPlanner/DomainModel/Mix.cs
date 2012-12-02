@@ -11,6 +11,7 @@ namespace MixPlanner.DomainModel
         IEnumerable<Track> Tracks { get; }
         void Add(Track track);
         void Insert(Track track, int insertIndex);
+        IEnumerable<MixItem> Items { get; }
     }
 
     public class Mix : IMix
@@ -29,7 +30,12 @@ namespace MixPlanner.DomainModel
             items = new List<MixItem>();
         }
 
-        public IEnumerable<Track> Tracks { get { return items.Select(i => i.Track); } }
+        public IEnumerable<Track> Tracks { get { return Items.Select(i => i.Track); } }
+
+        public IEnumerable<MixItem> Items
+        {
+            get { return items; }
+        }
 
         public void Add(Track track)
         {
@@ -43,7 +49,7 @@ namespace MixPlanner.DomainModel
             if (track == null) throw new ArgumentNullException("track");
 
             var item = CreateItem(track, insertIndex);
-
+            
             items.Insert(insertIndex, item);
 
             messenger.Send(new TrackAddedToMixEvent(item, insertIndex));
@@ -52,12 +58,9 @@ namespace MixPlanner.DomainModel
         MixItem CreateItem(Track track, int insertIndex)
         {
             var previousTrack = GetTrackAtPosition(insertIndex - 1);
-            var nextTrack = GetTrackAtPosition(insertIndex + 1);
+            var transition = transitions.GetTransitionBetween(previousTrack, track);
 
-            var previousTransition = transitions.GetTransitionBetween(previousTrack, track);
-            var nextTransition = transitions.GetTransitionBetween(track, nextTrack);
-
-            return new MixItem(track, previousTransition, nextTransition);
+            return new MixItem(track, transition);
         }
 
         Track GetTrackAtPosition(int index)

@@ -30,10 +30,7 @@ namespace MixPlanner.Specs.DomainModel
                 () => ev.InsertIndex.ShouldEqual(0);
 
             It should_notify_the_previous_transition =
-                () => ev.Item.PreviousTransition.ShouldBeNull();
-
-            It should_notify_the_next_transition =
-                () => ev.Item.NextTransition.ShouldBeNull();
+                () => ev.Item.Transition.Description.ShouldContain("Intro");
 
             static TrackAddedToMixEvent ev;
             static Track track;

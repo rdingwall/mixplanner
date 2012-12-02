@@ -27,11 +27,10 @@ namespace MixPlanner.ViewModels
 
             var trackItem = new MixItemViewModel
             {
-                Text = string.Format("{0}{1}{2} {3}{1}{4}", 
-                mixItem.PreviousTransition.Description, 
+                Text = string.Format("{0}{1}{2} {3}", 
+                mixItem.Transition.Description, 
                 Environment.NewLine,
-                track.Key, track.Title,
-                mixItem.NextTransition.Description),
+                track.Key, track.Title),
                 MixItem = mixItem
             };
 
