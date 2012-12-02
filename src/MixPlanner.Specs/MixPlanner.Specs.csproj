@@ -125,7 +125,6 @@
     <Compile Include="DomainModel\MixingStrategies\SwitchToMinorScaleSpecs.cs" />
     <Compile Include="DomainModel\MixingStrategies\TwoSemitoneEnergyBoostSpecs.cs" />
     <Compile Include="DomainModel\MixSpecs.cs" />
-    <Compile Include="DomainModel\NextTrackAdvisorSpecs.cs" />
     <Compile Include="DomainModel\TrackSpecs.cs" />
     <Content Include="DummyPlaylist.m3u">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace MixPlanner.DomainModel.MixingStrategies
 {
@@ -20,14 +18,6 @@ namespace MixPlanner.DomainModel.MixingStrategies
 
             return secondTrack.Key.HasSameScaleAs(firstTrack.Key)
                    && secondTrack.Key.Equals(firstTrack.Key.IncreasePitch(increaseAmount));
-        }
-
-        public IEnumerable<Track> NextSuggestedTracks(Track currentTrack, IEnumerable<Track> unplayedTracks)
-        {
-            if (currentTrack == null) throw new ArgumentNullException("currentTrack");
-            if (unplayedTracks == null) throw new ArgumentNullException("unplayedTracks");
-
-            return unplayedTracks.Where(t => IsCompatible(currentTrack, t));
         }
 
         public virtual string Description
