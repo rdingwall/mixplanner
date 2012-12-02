@@ -22,7 +22,7 @@ namespace MixPlanner.Specs.ImportExport
              Because of = () => writer.Write(mix, path);
 
              It should_write_a_file = 
-                 () => File.ReadAllLines(path).ShouldContainOnly(mix.Select(t => t.File.FullName));
+                 () => File.ReadAllLines(path).ShouldContainOnly(mix.Tracks.Select(t => t.File.FullName));
 
              Cleanup after = () =>
                                  {

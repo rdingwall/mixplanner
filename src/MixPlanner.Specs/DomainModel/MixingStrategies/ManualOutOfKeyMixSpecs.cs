@@ -14,7 +14,7 @@ namespace MixPlanner.Specs.DomainModel.MixingStrategies
                                     {
                                         currentTrack = TestTracks.Get(HarmonicKey.Key9A);
                                         strategy = new ManualOutOfKeyMix();
-                                        unplayedTracks = TestMixes.GetRandomMix();
+                                        unplayedTracks = TestMixes.GetRandomMix().Tracks;
                                     };
 
             static Track currentTrack;

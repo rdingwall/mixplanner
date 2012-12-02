@@ -125,13 +125,14 @@
     <Compile Include="DomainModel\MixingStrategies\SwitchToMajorScale.cs" />
     <Compile Include="DomainModel\MixingStrategies\SwitchToMinorScale.cs" />
     <Compile Include="DomainModel\MixingStrategies\TwoSemitoneEnergyBoost.cs" />
+    <Compile Include="DomainModel\MixItem.cs" />
     <Compile Include="DomainModel\NextTrackAdvisor.cs" />
     <Compile Include="DomainModel\Scale.cs" />
     <Compile Include="DomainModel\Strategies.cs" />
     <Compile Include="DomainModel\Track.cs" />
     <Compile Include="DomainModel\TrackLibrary.cs" />
     <Compile Include="DomainModel\Transition.cs" />
-    <Compile Include="DomainModel\TransitionTypeDetector.cs" />
+    <Compile Include="DomainModel\TransitionDetector.cs" />
     <Compile Include="DomainModel\UnknownKey.cs" />
     <Compile Include="Events\TrackAddedToLibraryEvent.cs" />
     <Compile Include="Events\TrackAddedToMixEvent.cs" />

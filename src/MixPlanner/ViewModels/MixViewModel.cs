@@ -22,14 +22,20 @@ namespace MixPlanner.ViewModels
 
         void OnTrackAdded(TrackAddedToMixEvent obj)
         {
-            var track = obj.Track;
+            var mixItem = obj.Item;
+            var track = mixItem.Track;
 
-            var item = new MixItemViewModel
+            var trackItem = new MixItemViewModel
             {
-                Text = string.Format("{0} {1}", track.Key, track.Title),
-                Track = track
+                Text = string.Format("{0}{1}{2} {3}{1}{4}", 
+                mixItem.PreviousTransition.Description, 
+                Environment.NewLine,
+                track.Key, track.Title,
+                mixItem.NextTransition.Description),
+                MixItem = mixItem
             };
-            Items.Insert(obj.InsertIndex, item);
+
+            Items.Insert(obj.InsertIndex, trackItem);
         }
 
         public ICommand DropTrackCommand { get; private set; }

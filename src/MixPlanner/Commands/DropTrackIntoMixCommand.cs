@@ -1,20 +1,19 @@
 ﻿using System;
 using System.Windows.Input;
-using GalaSoft.MvvmLight.Messaging;
 using GongSolutions.Wpf.DragDrop;
-using MixPlanner.Events;
+using MixPlanner.DomainModel;
 using MixPlanner.ViewModels;
 
 namespace MixPlanner.Commands
 {
     public class DropTrackIntoMixCommand : ICommand
     {
-        readonly IMessenger messenger;
+        readonly IMix mix;
 
-        public DropTrackIntoMixCommand(IMessenger messenger)
+        public DropTrackIntoMixCommand(IMix mix)
         {
-            if (messenger == null) throw new ArgumentNullException("messenger");
-            this.messenger = messenger;
+            if (mix == null) throw new ArgumentNullException("mix");
+            this.mix = mix;
         }
 
         public bool CanExecute(object parameter)
@@ -28,7 +27,8 @@ namespace MixPlanner.Commands
 
             var sourceItem = dropInfo.Data as LibraryItemViewModel;
 
-            messenger.Send(new TrackAddedToMixEvent(sourceItem.Track, dropInfo.InsertIndex));
+
+            mix.Insert(sourceItem.Track, dropInfo.InsertIndex);
         }
 
         public event EventHandler CanExecuteChanged;

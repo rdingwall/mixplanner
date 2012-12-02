@@ -5,14 +5,14 @@ namespace MixPlanner.Events
 {
     public class TrackAddedToMixEvent
     {
-        public Track Track { get; private set; }
-        public int InsertIndex { get; private set; }
-
-        public TrackAddedToMixEvent(Track track, int insertIndex)
+        public TrackAddedToMixEvent(MixItem item, int insertIndex)
         {
-            if (track == null) throw new ArgumentNullException("track");
-            Track = track;
+            if (item == null) throw new ArgumentNullException("item");
+            Item = item;
             InsertIndex = insertIndex;
         }
+
+        public MixItem Item { get; private set; }
+        public int InsertIndex { get; private set; }
     }
 }

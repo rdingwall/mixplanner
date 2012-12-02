@@ -12,7 +12,7 @@ namespace MixPlanner.ImportExport
             if (mix == null) throw new ArgumentNullException("mix");
             if (filename == null) throw new ArgumentNullException("filename");
 
-            File.WriteAllLines(filename, mix.Select(t => t.File.FullName));
+            File.WriteAllLines(filename, mix.Tracks.Select(t => t.File.FullName));
         }
     }
 }

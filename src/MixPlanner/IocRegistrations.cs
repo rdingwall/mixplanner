@@ -21,6 +21,9 @@ namespace MixPlanner
                 Component.For<ILibraryStorage>().ImplementedBy<InMemoryLibraryStorage>(),
                 Component.For<IId3Reader>().ImplementedBy<Id3Reader>(),
                 Component.For<IMessenger>().ImplementedBy<Messenger>(),
+                Component.For<ITransitionDetector>().ImplementedBy<TransitionDetector>()
+                    .DependsOn(Property.ForKey("strategies").Eq(Strategies.AllStrategies)),
+                Component.For<IMix>().ImplementedBy<Mix>(),
                 AllTypes.FromThisAssembly().InSameNamespaceAs<MainWindowViewModel>(),
                 AllTypes.FromThisAssembly().BasedOn<Window>(),
                 AllTypes.FromThisAssembly().BasedOn<ICommand>());

@@ -1,4 +1,6 @@
-﻿using MixPlanner.DomainModel;
+﻿using System.Linq;
+using GalaSoft.MvvmLight.Messaging;
+using MixPlanner.DomainModel;
 
 namespace MixPlanner.Specs
 {
@@ -6,14 +8,13 @@ namespace MixPlanner.Specs
     {
         public static Mix GetRandomMix()
         {
-            return new Mix
-                       {
-                           TestTracks.Get(HarmonicKey.RandomKey()),
-                           TestTracks.Get(HarmonicKey.RandomKey()),
-                           TestTracks.Get(HarmonicKey.RandomKey()),
-                           TestTracks.Get(HarmonicKey.RandomKey()),
-                           TestTracks.Get(HarmonicKey.RandomKey())
-                       };
+            var mix = new Mix(new Messenger(), new TransitionDetector(Strategies.AllStrategies));
+            mix.Add(TestTracks.Get(HarmonicKey.RandomKey()));
+            mix.Add(TestTracks.Get(HarmonicKey.RandomKey()));
+            mix.Add(TestTracks.Get(HarmonicKey.RandomKey()));
+            mix.Add(TestTracks.Get(HarmonicKey.RandomKey()));
+            mix.Add(TestTracks.Get(HarmonicKey.RandomKey()));
+            return mix;
         }
     }
 }
