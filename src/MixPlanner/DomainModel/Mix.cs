@@ -13,6 +13,7 @@ namespace MixPlanner.DomainModel
         void Insert(Track track, int insertIndex);
         IEnumerable<MixItem> Items { get; }
         void Remove(MixItem item);
+        void Reorder(MixItem item, int newIndex);
     }
 
     public class Mix : IMix
@@ -45,6 +46,27 @@ namespace MixPlanner.DomainModel
             messenger.Send(new TrackRemovedFromMixEvent(item));
             RecalcTransitions();
         }
+
+        public void Reorder(MixItem item, int newIndex)
+        {
+            if (item == null) throw new ArgumentNullException("item");
+
+            var oldIndex = items.IndexOf(item);
+
+            // Adjust newIndex to account for the fact we are removing an item
+            // before inserting.
+            if (oldIndex < newIndex)
+                newIndex = Math.Max(newIndex - 1, 0);
+            else
+                newIndex = Math.Min(newIndex, items.Count);
+
+            items.Remove(item);
+            items.Insert(newIndex, item);
+            messenger.Send(new TrackRemovedFromMixEvent(item));
+            messenger.Send(new TrackAddedToMixEvent(item, newIndex));
+            RecalcTransitions();
+        }
+
 
         public void Add(Track track)
         {

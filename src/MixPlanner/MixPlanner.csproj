@@ -113,6 +113,7 @@
     <Compile Include="Commands\PlayTrackCommand.cs" />
     <Compile Include="Commands\RemoveTrackFromLibraryCommand.cs" />
     <Compile Include="Commands\RemoveTrackFromMixCommand.cs" />
+    <Compile Include="Commands\ReorderMixTrackCommand.cs" />
     <Compile Include="Converters\HarmonicKeyToBrushConverter.cs" />
     <Compile Include="DomainModel\IMixingStrategy.cs" />
     <Compile Include="DomainModel\InvalidPitchException.cs" />

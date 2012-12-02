@@ -16,7 +16,8 @@
             <ListView ItemsSource="{Binding Items}"
                       dd:DragDrop.IsDropTarget="True"
                       dd:DragDrop.DropHandler="{Binding}"
-                      SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
+                      SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
+                      dd:DragDrop.IsDragSource="True">
                 
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="PreviewKeyDown">

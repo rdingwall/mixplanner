@@ -16,6 +16,7 @@ namespace MixPlanner.ViewModels
         MixItemViewModel selectedItem;
         public RemoveTrackFromMixCommand RemoveCommand { get; private set; }
         public PlayTrackCommand PlayCommand { get; private set; }
+        public ReorderMixTrackCommand ReorderTrackCommand { get; set; }
         public ICommand DropTrackCommand { get; private set; }
         public ObservableCollection<MixItemViewModel> Items { get; private set; }
 
@@ -29,16 +30,19 @@ namespace MixPlanner.ViewModels
         public MixViewModel(IMessenger messenger, 
             DropTrackIntoMixCommand dropTrackCommand, 
             RemoveTrackFromMixCommand removeCommand,
-            PlayTrackCommand playCommand
+            PlayTrackCommand playCommand,
+            ReorderMixTrackCommand reorderTrackCommand
             ) : base(messenger)
         {
             if (messenger == null) throw new ArgumentNullException("messenger");
             if (dropTrackCommand == null) throw new ArgumentNullException("dropTrackCommand");
             if (removeCommand == null) throw new ArgumentNullException("removeCommand");
             if (playCommand == null) throw new ArgumentNullException("playCommand");
+            if (reorderTrackCommand == null) throw new ArgumentNullException("reorderTrackCommand");
             DropTrackCommand = dropTrackCommand;
             RemoveCommand = removeCommand;
             PlayCommand = playCommand;
+            ReorderTrackCommand = reorderTrackCommand;
             Items = new ObservableCollection<MixItemViewModel>();
             messenger.Register<TrackAddedToMixEvent>(this, OnTrackAdded);
             messenger.Register<TrackRemovedFromMixEvent>(this, OnTrackRemoved);
@@ -58,9 +62,7 @@ namespace MixPlanner.ViewModels
 
         public void DragOver(DropInfo dropInfo)
         {
-            var sourceItem = dropInfo.Data as LibraryItemViewModel;
-
-            if (sourceItem != null)
+            if (dropInfo.Data is LibraryItemViewModel || dropInfo.Data is MixItemViewModel)
             {
                 dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
                 dropInfo.Effects = DragDropEffects.Copy;
@@ -69,7 +71,10 @@ namespace MixPlanner.ViewModels
 
         public void Drop(DropInfo dropInfo)
         {
-            DropTrackCommand.Execute(dropInfo);
+            if (dropInfo.Data is LibraryItemViewModel)
+                DropTrackCommand.Execute(dropInfo);
+            else if (dropInfo.Data is MixItemViewModel)
+                ReorderTrackCommand.Execute(dropInfo);
         }
     }
 }
