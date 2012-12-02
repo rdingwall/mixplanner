@@ -28,6 +28,8 @@ namespace MixPlanner.Commands
 
             var files = (string[]) e.Data.GetData(DataFormats.FileDrop);
 
+            if (files == null) return;
+
             library.Import(files);
         }
 
