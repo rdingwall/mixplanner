@@ -5,6 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mp="clr-namespace:MixPlanner.ViewModels"
              xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WPF4"
              mc:Ignorable="d" 
              d:DesignHeight="300" 
              d:DesignWidth="300"
@@ -14,11 +16,25 @@
         <GroupBox Header="Mix">
             <ListView ItemsSource="{Binding Items}"
                       dd:DragDrop.IsDropTarget="True"
-                      dd:DragDrop.DropHandler="{Binding}">
+                      dd:DragDrop.DropHandler="{Binding}"
+                      SelectedItem="{Binding SelectedItem}">
+                
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="PreviewKeyDown">
+                        <cmd:EventToCommand Command="{Binding RemoveCommand}" 
+                                                        CommandParameter="{Binding SelectedItem.MixItem}"  />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding Text}" 
-                                   Background="{Binding Track.Key, Converter={StaticResource HarmonicKeyToBrushConverter}}" />
+                        <StackPanel>
+                            
+                            <TextBlock Text="{Binding Text}"
+                                   Background="{Binding Key, Converter={StaticResource HarmonicKeyToBrushConverter}}">
+
+                            </TextBlock>
+                        </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>

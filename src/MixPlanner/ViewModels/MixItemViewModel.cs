@@ -8,7 +8,12 @@ namespace MixPlanner.ViewModels
 {
     public class MixItemViewModel : INotifyPropertyChanged
     {
-        public MixItemViewModel(IMessenger messenger, MixItem mixItem)
+        public MixItem MixItem { get; private set; }
+        public HarmonicKey Key { get { return MixItem.Track.Key; } }
+
+        public MixItemViewModel(
+            IMessenger messenger, 
+            MixItem mixItem)
         {
             if (messenger == null) throw new ArgumentNullException("messenger");
             if (mixItem == null) throw new ArgumentNullException("mixItem");
@@ -34,8 +39,6 @@ namespace MixPlanner.ViewModels
                                      MixItem.Track.Key, MixItem.Track.Title);
             }
         }
-
-        public MixItem MixItem { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
     }

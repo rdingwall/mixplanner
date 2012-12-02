@@ -108,6 +108,7 @@
     <Compile Include="Commands\DropFilesCommand.cs" />
     <Compile Include="Commands\DropTrackIntoMixCommand.cs" />
     <Compile Include="Commands\RemoveTrackFromLibraryCommand.cs" />
+    <Compile Include="Commands\RemoveTrackFromMixCommand.cs" />
     <Compile Include="Converters\HarmonicKeyToBrushConverter.cs" />
     <Compile Include="DomainModel\IMixingStrategy.cs" />
     <Compile Include="DomainModel\InvalidPitchException.cs" />
@@ -134,6 +135,7 @@
     <Compile Include="Events\TrackAddedToLibraryEvent.cs" />
     <Compile Include="Events\TrackAddedToMixEvent.cs" />
     <Compile Include="Events\TrackRemovedFromLibraryEvent.cs" />
+    <Compile Include="Events\TrackRemovedFromMixEvent.cs" />
     <Compile Include="Events\TransitionChangedEvent.cs" />
     <Compile Include="ImportExport\IPlaylistWriter.cs" />
     <Compile Include="ImportExport\M3uReader.cs" />
@@ -143,7 +145,6 @@
     <Compile Include="Mp3\Id3Reader.cs" />
     <Compile Include="Mp3\Id3Tag.cs" />
     <Compile Include="Mp3\TrackLoader.cs" />
-    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Storage\ILibraryStorage.cs" />
     <Compile Include="Storage\InMemoryLibraryStorage.cs" />
     <Compile Include="ViewModels\LibraryItemViewModel.cs" />

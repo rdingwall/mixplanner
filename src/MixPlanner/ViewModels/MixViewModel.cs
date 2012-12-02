@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Messaging;
@@ -13,14 +14,30 @@ namespace MixPlanner.ViewModels
     {
         readonly IMessenger messenger;
 
-        public MixViewModel(IMessenger messenger, DropTrackIntoMixCommand dropTrackCommand)
+        public RemoveTrackFromMixCommand RemoveCommand { get; private set; }
+        public ICommand DropTrackCommand { get; private set; }
+        public ObservableCollection<MixItemViewModel> Items { get; private set; }
+        public MixItemViewModel SelectedItem { get; set; }
+
+        public MixViewModel(IMessenger messenger, 
+            DropTrackIntoMixCommand dropTrackCommand, 
+            RemoveTrackFromMixCommand removeCommand)
         {
             if (messenger == null) throw new ArgumentNullException("messenger");
             if (dropTrackCommand == null) throw new ArgumentNullException("dropTrackCommand");
+            if (removeCommand == null) throw new ArgumentNullException("removeCommand");
             this.messenger = messenger;
             DropTrackCommand = dropTrackCommand;
+            this.RemoveCommand = removeCommand;
             Items = new ObservableCollection<MixItemViewModel>();
             messenger.Register<TrackAddedToMixEvent>(this, OnTrackAdded);
+            messenger.Register<TrackRemovedFromMixEvent>(this, OnTrackRemoved);
+        }
+
+        void OnTrackRemoved(TrackRemovedFromMixEvent obj)
+        {
+            var viewModel = Items.First(v => v.MixItem.Equals(obj.Item));
+            Items.Remove(viewModel);
         }
 
         void OnTrackAdded(TrackAddedToMixEvent obj)
@@ -28,10 +45,6 @@ namespace MixPlanner.ViewModels
             var trackItem = new MixItemViewModel(messenger, obj.Item);
             Items.Insert(obj.InsertIndex, trackItem);
         }
-
-        public ICommand DropTrackCommand { get; private set; }
-
-        public ObservableCollection<MixItemViewModel> Items { get; private set; }
 
         public void DragOver(DropInfo dropInfo)
         {

@@ -12,6 +12,7 @@ namespace MixPlanner.DomainModel
         void Add(Track track);
         void Insert(Track track, int insertIndex);
         IEnumerable<MixItem> Items { get; }
+        void Remove(MixItem item);
     }
 
     public class Mix : IMix
@@ -35,6 +36,14 @@ namespace MixPlanner.DomainModel
         public IEnumerable<MixItem> Items
         {
             get { return items; }
+        }
+
+        public void Remove(MixItem item)
+        {
+            if (item == null) throw new ArgumentNullException("item");
+            items.Remove(item);
+            messenger.Send(new TrackRemovedFromMixEvent(item));
+            RecalcTransitions();
         }
 
         public void Add(Track track)
