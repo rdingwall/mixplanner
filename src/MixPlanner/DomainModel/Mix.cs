@@ -89,15 +89,29 @@ namespace MixPlanner.DomainModel
 
         public void RecalcTransitions()
         {
+            if (!items.Any())
+                return;
+
+            var intro = items[0];
+            if (intro.Transition.Strategy != null)
+            {
+                // First track should not have any strategy - should just be intro. 
+                // Need to clean this up a bit.
+                intro.Transition = transitions.GetTransitionBetween(null, intro.Track);
+                messenger.Send(new TransitionChangedEvent(intro));
+            }
+
             for (var i = 0; i + 1 < items.Count; i++)
             {
                 var previousItem = items[i];
                 var item = items[i + 1];
 
-                if (item.Transition.Strategy != null && item.Transition.Strategy.IsCompatible(previousItem.Track, item.Track))
+                var oldTransition = item.Transition;
+                var newTransition = transitions.GetTransitionBetween(previousItem.Track, item.Track);
+
+                if (newTransition.Strategy == oldTransition.Strategy)
                     continue;
 
-                var newTransition = transitions.GetTransitionBetween(previousItem.Track, item.Track);
                 item.Transition = newTransition;
 
                 messenger.Send(new TransitionChangedEvent(item));
