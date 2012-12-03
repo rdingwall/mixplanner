@@ -133,7 +133,7 @@
     <Compile Include="DomainModel\MixItem.cs" />
     <Compile Include="DomainModel\Scale.cs" />
     <Compile Include="DomainModel\Strategies.cs" />
-    <Compile Include="DomainModel\TempoAdjustment.cs" />
+    <Compile Include="DomainModel\PlaybackSpeed.cs" />
     <Compile Include="DomainModel\Track.cs" />
     <Compile Include="DomainModel\TrackLibrary.cs" />
     <Compile Include="DomainModel\Transition.cs" />

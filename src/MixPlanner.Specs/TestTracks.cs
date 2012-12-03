@@ -7,13 +7,18 @@ namespace MixPlanner.Specs
     {
         static readonly Random Random = new Random();
 
+        public static Track Get(HarmonicKey key, float bpm)
+        {
+            return new Track("Test Artist",
+                key.ToString(),
+                key,
+                string.Format("{0:N}.mp3", Guid.NewGuid()),
+                bpm);
+        }
+
         public static Track Get(HarmonicKey key)
         {
-            return new Track("Test Artist", 
-                key.ToString(), 
-                key, 
-                string.Format("{0:N}.mp3", Guid.NewGuid()),
-                GetRandomBpm());
+            return Get(key, GetRandomBpm());
         }
 
         public static float GetRandomBpm()

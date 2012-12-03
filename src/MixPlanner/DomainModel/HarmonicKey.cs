@@ -158,6 +158,9 @@ namespace MixPlanner.DomainModel
             if (newPitch == 0)
                 newPitch = 12;
 
+            if (newPitch < 0)
+                newPitch += 12;
+
             return new HarmonicKey(newPitch, Scale);
         }
 
