@@ -35,7 +35,7 @@
     </control>
     <control controlID="10" controlTypeID="com.balsamiq.mockups::Menu" x="1008" y="464" w="184" h="-1" measuredW="150" measuredH="145" zOrder="6" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>%20%20Play%2C%20ENTER%0A---------%0A%20Smart%20Insert%0A---------%0AEdit%20Details%0AShow%20in%20Folder%0ARemove%2C%20DEL</text>
+        <text>%20%20Play%2C%20ENTER%0A---------%0A%20Intelligent%20Insert%0A---------%0AEdit%20Details%0AShow%20in%20Folder%0ARemove%2C%20DEL</text>
       </controlProperties>
     </control>
     <control controlID="12" controlTypeID="com.balsamiq.mockups::Icon" x="1017" y="474" w="-1" h="-1" measuredW="16" measuredH="16" zOrder="7" locked="false" isInGroup="-1">
