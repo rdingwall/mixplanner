@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Windows;
-using System.Windows.Input;
 using MixPlanner.DomainModel;
 
 namespace MixPlanner.Commands
 {
-    public class DropFilesCommand : ICommand
+    public class DropFilesCommand : CommandBase<DragEventArgs>
     {
         readonly ITrackLibrary library;
 
@@ -15,24 +14,20 @@ namespace MixPlanner.Commands
             this.library = library;
         }
 
-        public bool CanExecute(object parameter)
+        protected override bool CanExecute(DragEventArgs parameter)
         {
-            return true;
+            return parameter != null;
         }
 
-        public void Execute(object parameter)
+        protected override void Execute(DragEventArgs parameter)
         {
-            if (parameter == null) return;
+            throw new Exception("Test!");
 
-            var e = (DragEventArgs)parameter;
-
-            var files = (string[]) e.Data.GetData(DataFormats.FileDrop);
+            var files = (string[]) parameter.Data.GetData(DataFormats.FileDrop);
 
             if (files == null) return;
 
             library.Import(files);
         }
-
-        public event EventHandler CanExecuteChanged;
     }
 }

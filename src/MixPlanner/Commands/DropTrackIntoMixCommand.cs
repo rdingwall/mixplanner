@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Windows.Input;
 using GongSolutions.Wpf.DragDrop;
 using MixPlanner.DomainModel;
 using MixPlanner.ViewModels;
 
 namespace MixPlanner.Commands
 {
-    public class DropTrackIntoMixCommand : ICommand
+    public class DropTrackIntoMixCommand : CommandBase<DropInfo>
     {
         readonly IMix mix;
 
@@ -16,22 +15,16 @@ namespace MixPlanner.Commands
             this.mix = mix;
         }
 
-        public bool CanExecute(object parameter)
+        protected override bool CanExecute(DropInfo parameter)
         {
-            return true;
+            return parameter != null;
         }
 
-        public void Execute(object parameter)
+        protected override void Execute(DropInfo parameter)
         {
-            if (parameter == null) return;
+            var sourceItem = parameter.Data as LibraryItemViewModel;
 
-            var dropInfo = (DropInfo) parameter;
-
-            var sourceItem = dropInfo.Data as LibraryItemViewModel;
-
-            mix.Insert(sourceItem.Track, dropInfo.InsertIndex);
+            mix.Insert(sourceItem.Track, parameter.InsertIndex);
         }
-
-        public event EventHandler CanExecuteChanged;
     }
 }

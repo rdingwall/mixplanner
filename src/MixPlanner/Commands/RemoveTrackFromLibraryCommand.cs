@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Windows.Input;
 using MixPlanner.DomainModel;
 using MixPlanner.ViewModels;
 
 namespace MixPlanner.Commands
 {
-    public class RemoveTrackFromLibraryCommand : ICommand
+    public class RemoveTrackFromLibraryCommand : CommandBase<LibraryItemViewModel>
     {
         readonly ITrackLibrary library;
 
@@ -15,20 +14,14 @@ namespace MixPlanner.Commands
             this.library = library;
         }
 
-        public bool CanExecute(object parameter)
+        protected override bool CanExecute(LibraryItemViewModel parameter)
         {
-            return true;
+            return parameter != null;
         }
 
-        public void Execute(object parameter)
+        protected override void Execute(LibraryItemViewModel parameter)
         {
-            if (parameter == null) return;
-
-            var item = (LibraryItemViewModel) parameter;
-
-            library.Remove(item.Track);
+            library.Remove(parameter.Track);
         }
-
-        public event EventHandler CanExecuteChanged;
     }
 }

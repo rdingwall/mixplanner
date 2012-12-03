@@ -108,6 +108,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Commands\CommandBase.cs" />
     <Compile Include="Commands\DropFilesCommand.cs" />
     <Compile Include="Commands\DropTrackIntoMixCommand.cs" />
     <Compile Include="Commands\PlayTrackCommand.cs" />
@@ -153,17 +154,26 @@
     <Compile Include="Player\AudioPlayer.cs" />
     <Compile Include="Storage\ILibraryStorage.cs" />
     <Compile Include="Storage\InMemoryLibraryStorage.cs" />
+    <Compile Include="ViewModels\ErrorWindowViewModel.cs" />
     <Compile Include="ViewModels\LibraryItemViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\MixItemViewModel.cs" />
     <Compile Include="ViewModels\MixViewModel.cs" />
     <Compile Include="ViewModels\TrackLibraryViewModel.cs" />
+    <Compile Include="Views\ErrorWindow.xaml.cs">
+      <DependentUpon>ErrorWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Views\MixView.xaml.cs">
       <DependentUpon>MixView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\TrackLibraryView.xaml.cs">
       <DependentUpon>TrackLibraryView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\ErrorWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

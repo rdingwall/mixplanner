@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Windows.Input;
 using MixPlanner.DomainModel;
 using MixPlanner.Player;
 
 namespace MixPlanner.Commands
 {
-    public class PlayTrackCommand : ICommand
+    public class PlayTrackCommand : CommandBase<Track>
     {
         readonly IAudioPlayer player;
 
@@ -15,20 +14,14 @@ namespace MixPlanner.Commands
             this.player = player;
         }
 
-        public bool CanExecute(object parameter)
+        protected override bool CanExecute(Track parameter)
         {
-            return true;
+            return parameter != null;
         }
 
-        public void Execute(object parameter)
+        protected override void Execute(Track parameter)
         {
-            if (parameter == null) return;
-
-            var track = (Track) parameter;
-
-            player.Play(track.Filename);
+            player.Play(parameter.Filename);
         }
-
-        public event EventHandler CanExecuteChanged;
     }
 }

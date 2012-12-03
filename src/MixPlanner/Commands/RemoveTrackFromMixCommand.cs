@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Windows.Input;
 using MixPlanner.DomainModel;
 
 namespace MixPlanner.Commands
 {
-    public class RemoveTrackFromMixCommand : ICommand
+    public class RemoveTrackFromMixCommand : CommandBase<MixItem>
     {
         readonly IMix mix;
 
@@ -14,19 +13,14 @@ namespace MixPlanner.Commands
             this.mix = mix;
         }
 
-        public bool CanExecute(object parameter)
+        protected override bool CanExecute(MixItem parameter)
         {
-            return true;
+            return parameter != null;
         }
 
-        public void Execute(object parameter)
+        protected override void Execute(MixItem parameter)
         {
-            if (parameter == null) return;
-
-            var mixItem = (MixItem) parameter;
-            mix.Remove(mixItem);
+            mix.Remove(parameter);
         }
-
-        public event EventHandler CanExecuteChanged;
     }
 }
