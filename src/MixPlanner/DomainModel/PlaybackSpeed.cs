@@ -6,11 +6,20 @@ namespace MixPlanner.DomainModel
     {
         public PlaybackSpeed(Track track)
         {
-            PercentIncrease = 0;
+            if (track == null) throw new ArgumentNullException("track");
             OriginalBpm = track.OriginalBpm;
             OriginalKey = track.OriginalKey;
             ActualBpm = track.OriginalBpm;
             ActualKey = track.OriginalKey;
+        }
+
+        public PlaybackSpeed(float originalBpm, HarmonicKey originalKey)
+        {
+            if (originalKey == null) throw new ArgumentNullException("originalKey");
+            OriginalBpm = originalBpm;
+            OriginalKey = originalKey;
+            ActualBpm = originalBpm;
+            ActualKey = originalKey;
         }
 
         public void SetSpeed(int percentIncrease)
