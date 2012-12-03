@@ -32,8 +32,7 @@ namespace MixPlanner.DomainModel
         HarmonicKey CalculateActualKey(int percentIncrease)
         {
             var pitchIncrease = 7*(percentIncrease/3);
-            var key = OriginalKey.IncreasePitch(pitchIncrease);
-            return key;
+            return OriginalKey.IncreasePitch(pitchIncrease);
         }
 
         float CalculateActualBpm(int percentIncrease)
@@ -42,11 +41,10 @@ namespace MixPlanner.DomainModel
             return OriginalBpm * (1 + increase);
         }
 
-        protected float OriginalBpm { get; private set; }
-        protected HarmonicKey OriginalKey { get; private set; }
+        public float OriginalBpm { get; private set; }
+        public HarmonicKey OriginalKey { get; private set; }
         public int PercentIncrease { get; private set; }
         public double ActualBpm { get; private set; }
         public HarmonicKey ActualKey { get; private set; }
-        
     }
 }
