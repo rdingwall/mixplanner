@@ -21,8 +21,6 @@ namespace MixPlanner.Commands
 
         protected override void Execute(DragEventArgs parameter)
         {
-            throw new Exception("Test!");
-
             var files = (string[]) parameter.Data.GetData(DataFormats.FileDrop);
 
             if (files == null) return;
