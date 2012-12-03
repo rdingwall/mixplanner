@@ -9,8 +9,10 @@ namespace MixPlanner.DomainModel
             if (track == null) throw new ArgumentNullException("track");
             Track = track;
             Transition = transition;
+            PlaybackSpeed = new PlaybackSpeed(track);
         }
 
+        public PlaybackSpeed PlaybackSpeed { get; private set; }
         public Track Track { get; private set; }
         public Transition Transition { get; set; }
     }

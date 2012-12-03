@@ -9,7 +9,9 @@ namespace MixPlanner.ViewModels
     public class MixItemViewModel : ViewModelBase
     {
         public MixItem MixItem { get; private set; }
-        public HarmonicKey Key { get { return MixItem.Track.OriginalKey; } }
+        public HarmonicKey ActualKey { get { return MixItem.PlaybackSpeed.ActualKey; } }
+        public double ActualBpm { get { return MixItem.PlaybackSpeed.ActualBpm; } }
+        public double PlaySpeed { get { return MixItem.PlaybackSpeed.PercentIncrease; } }
         public Track Track { get { return MixItem.Track; }}
 
         public MixItemViewModel(
