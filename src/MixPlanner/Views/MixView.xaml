@@ -34,7 +34,7 @@
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="{Binding Text}"
-                                   Background="{Binding Key, Converter={StaticResource HarmonicKeyToBrushConverter}}">
+                                   Background="{Binding ActualKey, Converter={StaticResource HarmonicKeyToBrushConverter}}">
                             </TextBlock>
                             <TextBlock Text="{Binding ActualKey}" Margin="2" />
                             <TextBlock Text="{Binding ActualBpm}" Margin="2" />
