@@ -30,7 +30,7 @@ namespace MixPlanner.ViewModels
         public string Genre { get; set; }
         public string Label { get; set; }
         public string Year { get; set; }
-        public float Bpm { get; set; }
+        public double Bpm { get; set; }
 
         public Track Track { get; set; }
     }

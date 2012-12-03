@@ -39,9 +39,9 @@ namespace MixPlanner.Mp3
             if (!HarmonicKey.TryParse(id3Tag.InitialKey, out key))
                 key = HarmonicKey.Unknown;
 
-            float bpm;
-            if (!Single.TryParse(id3Tag.Bpm, out bpm))
-                bpm = float.NaN;
+            double bpm;
+            if (!Double.TryParse(id3Tag.Bpm, out bpm))
+                bpm = double.NaN;
 
             var track = new Track(artist, title, key, filename, bpm)
                             {

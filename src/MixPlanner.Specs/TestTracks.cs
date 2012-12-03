@@ -7,7 +7,7 @@ namespace MixPlanner.Specs
     {
         static readonly Random Random = new Random();
 
-        public static Track Get(HarmonicKey key, float bpm)
+        public static Track Get(HarmonicKey key, double bpm)
         {
             return new Track("Test Artist",
                 key.ToString(),
@@ -21,13 +21,13 @@ namespace MixPlanner.Specs
             return Get(key, GetRandomBpm());
         }
 
-        public static float GetRandomBpm()
+        public static double GetRandomBpm()
         {
-            const float max = 150;
-            const float min = 120;
-            var factor = (float)Random.NextDouble();
+            const double maxBpm = 150;
+            const double minBpm = 120;
+            var factor = Random.NextDouble();
 
-            return factor*(max - min) + min;
+            return factor * (maxBpm - minBpm) + minBpm;
         }
     }
 }

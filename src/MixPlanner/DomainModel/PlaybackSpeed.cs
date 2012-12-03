@@ -13,7 +13,7 @@ namespace MixPlanner.DomainModel
             ActualKey = track.OriginalKey;
         }
 
-        public PlaybackSpeed(float originalBpm, HarmonicKey originalKey)
+        public PlaybackSpeed(double originalBpm, HarmonicKey originalKey)
         {
             if (originalKey == null) throw new ArgumentNullException("originalKey");
             OriginalBpm = originalBpm;
@@ -35,13 +35,13 @@ namespace MixPlanner.DomainModel
             return OriginalKey.IncreasePitch(pitchIncrease);
         }
 
-        float CalculateActualBpm(int percentIncrease)
+        double CalculateActualBpm(int percentIncrease)
         {
-            var increase = (float)percentIncrease / 100;
+            var increase = (double)percentIncrease / 100;
             return OriginalBpm * (1 + increase);
         }
 
-        public float OriginalBpm { get; private set; }
+        public double OriginalBpm { get; private set; }
         public HarmonicKey OriginalKey { get; private set; }
         public int PercentIncrease { get; private set; }
         public double ActualBpm { get; private set; }

@@ -10,7 +10,7 @@ namespace MixPlanner.DomainModel
             string title, 
             HarmonicKey originalKey, 
             string fileName,
-            float originalBpm)
+            double originalBpm)
         {
             if (artist == null) throw new ArgumentNullException("artist");
             if (title == null) throw new ArgumentNullException("title");
@@ -34,7 +34,7 @@ namespace MixPlanner.DomainModel
         public HarmonicKey OriginalKey { get; private set; }
         public string Filename { get; private set; }
         public FileInfo File { get; private set; }
-        public float OriginalBpm { get; private set; }
+        public double OriginalBpm { get; private set; }
 
         // Optional properties
         public string Label { get; set; }
