@@ -34,7 +34,7 @@ namespace MixPlanner.Specs.DomainModel.MixingStrategies
             Because of = () => suggested = unplayed.Where(t => strategy.IsCompatible(current, t));
 
             It should_suggest_tracks_that_are_one_semitone_up_from_the_current =
-                () => suggested.Select(t => t.OriginalKey).ShouldContainOnly(HarmonicKey.Key4A, HarmonicKey.Key4A);
+                () => suggested.Select(t => t.ActualKey).ShouldContainOnly(HarmonicKey.Key4A, HarmonicKey.Key4A);
         }
     }
 }

@@ -34,7 +34,7 @@ namespace MixPlanner.Specs.DomainModel.MixingStrategies
             Because of = () => suggested = unplayed.Where(t => strategy.IsCompatible(current, t));
 
             It should_suggest_tracks_that_are_in_the_same_key =
-                () => suggested.Select(t => t.OriginalKey).ShouldContainOnly(HarmonicKey.Key9A);
+                () => suggested.Select(t => t.ActualKey).ShouldContainOnly(HarmonicKey.Key9A);
         }
     }
 }
