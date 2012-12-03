@@ -9,12 +9,12 @@ namespace MixPlanner.DomainModel.MixingStrategies
             if (firstTrack == null) throw new ArgumentNullException("firstTrack");
             if (secondTrack == null) throw new ArgumentNullException("secondTrack");
 
-            var firstKey = firstTrack.Key;
-            var secondKey = secondTrack.Key;
+            var firstKey = firstTrack.OriginalKey;
+            var secondKey = secondTrack.OriginalKey;
 
             return firstKey.Pitch == secondKey.Pitch
-                   && firstTrack.Key.IsMajor()
-                   && secondTrack.Key.IsMinor();
+                   && firstTrack.OriginalKey.IsMajor()
+                   && secondTrack.OriginalKey.IsMinor();
         }
 
         public string Description { get { return "Switch to minor scale"; } }

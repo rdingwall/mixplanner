@@ -33,7 +33,7 @@ namespace MixPlanner.Specs.DomainModel.MixingStrategies
             static IEnumerable<Track> suggestedTracks;
 
             It should_suggest_tracks_that_are_two_semitone_up_from_the_current =
-                () => suggestedTracks.Select(t => t.Key).ShouldContainOnly(HarmonicKey.Key11A, HarmonicKey.Key11A);
+                () => suggestedTracks.Select(t => t.OriginalKey).ShouldContainOnly(HarmonicKey.Key11A, HarmonicKey.Key11A);
         }
     }
 }

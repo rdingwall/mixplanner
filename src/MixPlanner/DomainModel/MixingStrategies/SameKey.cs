@@ -11,7 +11,7 @@ namespace MixPlanner.DomainModel.MixingStrategies
             if (firstTrack == null) throw new ArgumentNullException("firstTrack");
             if (secondTrack == null) throw new ArgumentNullException("secondTrack");
 
-            return secondTrack.Key.Equals(firstTrack.Key);
+            return secondTrack.OriginalKey.Equals(firstTrack.OriginalKey);
         }
 
         public IEnumerable<Track> NextSuggestedTracks(Track currentTrack, IEnumerable<Track> unplayedTracks)

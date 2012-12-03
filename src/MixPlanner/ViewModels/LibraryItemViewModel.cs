@@ -13,11 +13,11 @@ namespace MixPlanner.ViewModels
             Artist = track.Artist;
             Title = track.Title;
             Genre = track.Genre;
-            Bpm = track.Bpm;
+            Bpm = track.OriginalBpm;
             Year = track.Year;
             Label = track.Label;
             Filename = track.File.FullName;
-            Key = track.Key;
+            Key = track.OriginalKey;
         }
 
         public string Filename { get; set; }
@@ -30,7 +30,7 @@ namespace MixPlanner.ViewModels
         public string Genre { get; set; }
         public string Label { get; set; }
         public string Year { get; set; }
-        public int? Bpm { get; set; }
+        public float Bpm { get; set; }
 
         public Track Track { get; set; }
     }

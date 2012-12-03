@@ -9,7 +9,7 @@ namespace MixPlanner.ViewModels
     public class MixItemViewModel : ViewModelBase
     {
         public MixItem MixItem { get; private set; }
-        public HarmonicKey Key { get { return MixItem.Track.Key; } }
+        public HarmonicKey Key { get { return MixItem.Track.OriginalKey; } }
         public Track Track { get { return MixItem.Track; }}
 
         public MixItemViewModel(
@@ -37,7 +37,7 @@ namespace MixPlanner.ViewModels
                 return string.Format("{0}{1}{2} {3}",
                                      MixItem.Transition.Description,
                                      Environment.NewLine,
-                                     MixItem.Track.Key, MixItem.Track.Title);
+                                     MixItem.Track.OriginalKey, MixItem.Track.Title);
             }
         }
     }

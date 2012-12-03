@@ -24,10 +24,10 @@ namespace MixPlanner.DomainModel
             var transition = new Transition();
 
             if (firstTrack != null)
-                transition.FromKey = firstTrack.Key;
+                transition.FromKey = firstTrack.OriginalKey;
 
             if (secondTrack != null)
-                transition.ToKey = secondTrack.Key;
+                transition.ToKey = secondTrack.OriginalKey;
 
             if (firstTrack != null && secondTrack != null)
             {

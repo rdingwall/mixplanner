@@ -33,7 +33,7 @@ namespace MixPlanner.Specs.DomainModel.MixingStrategies
             static IEnumerable<Track> suggestedTracks;
 
             It should_suggest_tracks_that_are_in_the_same_key =
-                () => suggestedTracks.Select(t => t.Key).ShouldContainOnly(HarmonicKey.Key9A);
+                () => suggestedTracks.Select(t => t.OriginalKey).ShouldContainOnly(HarmonicKey.Key9A);
         }
     }
 }

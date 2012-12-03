@@ -39,15 +39,16 @@ namespace MixPlanner.Mp3
             if (!HarmonicKey.TryParse(id3Tag.InitialKey, out key))
                 key = HarmonicKey.Unknown;
 
-            var track = new Track(artist, title, key, filename);
+            float bpm;
+            if (!Single.TryParse(id3Tag.Bpm, out bpm))
+                bpm = float.NaN;
 
-            int bpm;
-            if (Int32.TryParse(id3Tag.Bpm, out bpm))
-                track.Bpm = bpm;
-
-            track.Label = id3Tag.Publisher ?? "";
-            track.Genre = id3Tag.Genre ?? "";
-            track.Year = id3Tag.Year ?? "";
+            var track = new Track(artist, title, key, filename, bpm)
+                            {
+                                Label = id3Tag.Publisher ?? "",
+                                Genre = id3Tag.Genre ?? "",
+                                Year = id3Tag.Year ?? ""
+                            };
 
             return track;
         }
@@ -56,7 +57,8 @@ namespace MixPlanner.Mp3
         {
             var displayName = Path.GetFileNameWithoutExtension(filename);
 
-            return new Track("Unknown Artist", displayName, HarmonicKey.Unknown, filename);
+            return new Track("Unknown Artist", displayName, 
+                HarmonicKey.Unknown, filename, float.NaN);
         }
     }
 }
