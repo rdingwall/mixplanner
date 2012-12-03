@@ -4,17 +4,17 @@ namespace MixPlanner.DomainModel.MixingStrategies
 {
     public class SwitchToMinorScale : IMixingStrategy
     {
-        public bool IsCompatible(Track firstTrack, Track secondTrack)
+        public bool IsCompatible(PlaybackSpeed first, PlaybackSpeed second)
         {
-            if (firstTrack == null) throw new ArgumentNullException("firstTrack");
-            if (secondTrack == null) throw new ArgumentNullException("secondTrack");
+            if (first == null) throw new ArgumentNullException("first");
+            if (second == null) throw new ArgumentNullException("second");
 
-            var firstKey = firstTrack.OriginalKey;
-            var secondKey = secondTrack.OriginalKey;
+            var firstKey = first.OriginalKey;
+            var secondKey = second.OriginalKey;
 
             return firstKey.Pitch == secondKey.Pitch
-                   && firstTrack.OriginalKey.IsMajor()
-                   && secondTrack.OriginalKey.IsMinor();
+                   && firstKey.IsMajor()
+                   && secondKey.IsMinor();
         }
 
         public string Description { get { return "Switch to minor scale"; } }

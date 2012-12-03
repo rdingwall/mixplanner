@@ -6,7 +6,7 @@ namespace MixPlanner.DomainModel
 {
     public interface ITransitionDetector
     {
-        Transition GetTransitionBetween(Track firstTrack, Track secondTrack);
+        Transition GetTransitionBetween(PlaybackSpeed first, PlaybackSpeed second);
     }
 
     public class TransitionDetector : ITransitionDetector
@@ -19,24 +19,24 @@ namespace MixPlanner.DomainModel
             this.strategies = strategies;
         }
 
-        public Transition GetTransitionBetween(Track firstTrack, Track secondTrack)
+        public Transition GetTransitionBetween(PlaybackSpeed first, PlaybackSpeed second)
         {
             var transition = new Transition();
 
-            if (firstTrack != null)
-                transition.FromKey = firstTrack.OriginalKey;
+            if (first != null)
+                transition.FromKey = first.ActualKey;
 
-            if (secondTrack != null)
-                transition.ToKey = secondTrack.OriginalKey;
+            if (second != null)
+                transition.ToKey = second.ActualKey;
 
-            if (firstTrack != null && secondTrack != null)
+            if (first != null && second != null)
             {
-                var strategy = strategies.First(s => s.IsCompatible(firstTrack, secondTrack));
+                var strategy = strategies.First(s => s.IsCompatible(first, second));
 
                 transition.Strategy = strategy;
                 transition.Description = ">>> " + strategy.Description;
             }
-            else if (firstTrack == null)
+            else if (first == null)
                 transition.Description = ">>> Intro";
             else
                 transition.Description = ">>> Outro";

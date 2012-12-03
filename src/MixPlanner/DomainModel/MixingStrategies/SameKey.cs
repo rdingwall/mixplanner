@@ -1,25 +1,15 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace MixPlanner.DomainModel.MixingStrategies
 {
     public class SameKey : IMixingStrategy
     {
-        public bool IsCompatible(Track firstTrack, Track secondTrack)
+        public bool IsCompatible(PlaybackSpeed first, PlaybackSpeed second)
         {
-            if (firstTrack == null) throw new ArgumentNullException("firstTrack");
-            if (secondTrack == null) throw new ArgumentNullException("secondTrack");
+            if (first == null) throw new ArgumentNullException("first");
+            if (second == null) throw new ArgumentNullException("second");
 
-            return secondTrack.OriginalKey.Equals(firstTrack.OriginalKey);
-        }
-
-        public IEnumerable<Track> NextSuggestedTracks(Track currentTrack, IEnumerable<Track> unplayedTracks)
-        {
-            if (currentTrack == null) throw new ArgumentNullException("currentTrack");
-            if (unplayedTracks == null) throw new ArgumentNullException("unplayedTracks");
-
-            return unplayedTracks.Where(t => IsCompatible(currentTrack, t));
+            return second.ActualKey.Equals(first.ActualKey);
         }
 
         public string Description { get { return "Same key"; } }

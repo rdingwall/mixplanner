@@ -11,22 +11,23 @@ namespace MixPlanner.Specs.DomainModel.MixingStrategies
     {
         public class when_deciding_which_track_to_play_next
         {
-            Establish context = () =>
-                                    {
-                                        currentTrack = TestTracks.Get(HarmonicKey.Key9A);
-                                        strategy = new ManualOutOfKeyMix();
-                                        unplayedTracks = TestMixes.GetRandomMix().Tracks;
-                                    };
+            Establish context =
+                () =>
+                    {
+                        current = new PlaybackSpeed(HarmonicKey.RandomKey(), 128);
+                        strategy = new ManualOutOfKeyMix();
+                        unplayed = TestMixes.GetRandomMix().Items.Select(i => i.PlaybackSpeed);
+                    };
 
-            static Track currentTrack;
+            static PlaybackSpeed current;
             static IMixingStrategy strategy;
+            static IEnumerable<PlaybackSpeed> unplayed;
+            static IEnumerable<PlaybackSpeed> suggested;
 
-            Because of = () => suggestedTracks = unplayedTracks.Where(t => strategy.IsCompatible(currentTrack, t));
-            static IEnumerable<Track> unplayedTracks;
-            static IEnumerable<Track> suggestedTracks;
+            Because of = () => suggested = unplayed.Where(t => strategy.IsCompatible(current, t));
 
             It should_suggest_anything_we_havent_played_yet_good_luck =
-                () => suggestedTracks.ShouldContainOnly(unplayedTracks);
+                () => suggested.ShouldContainOnly(unplayed);
         }
     }
 }

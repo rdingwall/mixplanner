@@ -15,10 +15,10 @@ namespace MixPlanner.Specs.DomainModel
                          detector = new TransitionDetector(Strategies.AllStrategies);
                      };
 
-             Because of = 
+             Because of =
                  () => transition = detector.GetTransitionBetween(
-                     TestTracks.Get(HarmonicKey.Key1A), 
-                     TestTracks.Get(HarmonicKey.Key2A));
+                     new PlaybackSpeed(HarmonicKey.Key1A, 128),
+                     new PlaybackSpeed(HarmonicKey.Key2A, 128));
 
              It should_give_the_correct_strategy = 
                  () => transition.Strategy.ShouldBe(typeof(IncrementOne));
@@ -42,7 +42,7 @@ namespace MixPlanner.Specs.DomainModel
              Because of =
                  () => transition = detector.GetTransitionBetween(
                      null,
-                     TestTracks.Get(HarmonicKey.Key2A));
+                     new PlaybackSpeed(HarmonicKey.Key2A, 128));
 
              It should_give_the_correct_strategy =
                  () => transition.Strategy.ShouldBeNull();
@@ -70,7 +70,7 @@ namespace MixPlanner.Specs.DomainModel
 
              Because of =
                  () => transition = detector.GetTransitionBetween(
-                     TestTracks.Get(HarmonicKey.Key2A),
+                     new PlaybackSpeed(HarmonicKey.Key2A, 128),
                      null);
 
              It should_give_the_correct_strategy =

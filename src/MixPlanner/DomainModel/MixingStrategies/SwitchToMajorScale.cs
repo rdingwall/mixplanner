@@ -4,17 +4,17 @@ namespace MixPlanner.DomainModel.MixingStrategies
 {
     public class SwitchToMajorScale : IMixingStrategy
     {
-        public bool IsCompatible(Track firstTrack, Track secondTrack)
+        public bool IsCompatible(PlaybackSpeed first, PlaybackSpeed second)
         {
-            if (firstTrack == null) throw new ArgumentNullException("firstTrack");
-            if (secondTrack == null) throw new ArgumentNullException("secondTrack");
+            if (first == null) throw new ArgumentNullException("first");
+            if (second == null) throw new ArgumentNullException("second");
 
-            var firstKey = firstTrack.OriginalKey;
-            var secondKey = secondTrack.OriginalKey;
+            var firstKey = first.ActualKey;
+            var secondKey = second.ActualKey;
 
             return firstKey.Pitch == secondKey.Pitch
-                   && firstTrack.OriginalKey.IsMinor() 
-                   && secondTrack.OriginalKey.IsMajor();
+                   && firstKey.IsMinor()
+                   && secondKey.IsMajor();
         }
 
         public string Description { get { return "Switch to major scale"; } }

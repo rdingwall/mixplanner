@@ -97,7 +97,7 @@ namespace MixPlanner.DomainModel
             {
                 // First track should not have any strategy - should just be intro. 
                 // Need to clean this up a bit.
-                intro.Transition = transitions.GetTransitionBetween(null, intro.Track);
+                intro.Transition = transitions.GetTransitionBetween(null, intro.PlaybackSpeed);
                 messenger.Send(new TransitionChangedEvent(intro));
             }
 
@@ -107,7 +107,8 @@ namespace MixPlanner.DomainModel
                 var item = items[i + 1];
 
                 var oldTransition = item.Transition;
-                var newTransition = transitions.GetTransitionBetween(previousItem.Track, item.Track);
+                var newTransition = transitions.GetTransitionBetween(
+                    previousItem.PlaybackSpeed, item.PlaybackSpeed);
 
                 if (newTransition.Strategy == oldTransition.Strategy)
                     continue;
@@ -120,18 +121,19 @@ namespace MixPlanner.DomainModel
 
         MixItem CreateItem(Track track, int insertIndex)
         {
-            var previousTrack = GetTrackAtPosition(insertIndex - 1);
-            var transition = transitions.GetTransitionBetween(previousTrack, track);
+            var previousTrack = GetPlaybackSpeedAtPosition(insertIndex - 1);
+            var playbackSpeed = new PlaybackSpeed(track);
+            var transition = transitions.GetTransitionBetween(previousTrack, playbackSpeed);
 
             return new MixItem(track, transition);
         }
 
-        Track GetTrackAtPosition(int index)
+        PlaybackSpeed GetPlaybackSpeedAtPosition(int index)
         {
             if (items.Count == 0 || index >= items.Count || index < 0)
                 return null;
 
-            return items[index].Track;
+            return items[index].PlaybackSpeed;
         }
     }
 }

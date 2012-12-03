@@ -13,7 +13,7 @@ namespace MixPlanner.DomainModel
             ActualKey = track.OriginalKey;
         }
 
-        public PlaybackSpeed(double originalBpm, HarmonicKey originalKey)
+        public PlaybackSpeed(HarmonicKey originalKey, double originalBpm)
         {
             if (originalKey == null) throw new ArgumentNullException("originalKey");
             OriginalBpm = originalBpm;

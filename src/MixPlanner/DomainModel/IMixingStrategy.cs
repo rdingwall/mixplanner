@@ -2,7 +2,7 @@
 {
     public interface IMixingStrategy
     {
-        bool IsCompatible(Track firstTrack, Track secondTrack);
+        bool IsCompatible(PlaybackSpeed first, PlaybackSpeed second);
         string Description { get; }
     }
 }

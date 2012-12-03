@@ -11,13 +11,13 @@ namespace MixPlanner.DomainModel.MixingStrategies
             this.increaseAmount = increaseAmount;
         }
 
-        public bool IsCompatible(Track firstTrack, Track secondTrack)
+        public bool IsCompatible(PlaybackSpeed first, PlaybackSpeed second)
         {
-            if (firstTrack == null) throw new ArgumentNullException("firstTrack");
-            if (secondTrack == null) throw new ArgumentNullException("secondTrack");
+            if (first == null) throw new ArgumentNullException("first");
+            if (second == null) throw new ArgumentNullException("second");
 
-            return secondTrack.OriginalKey.HasSameScaleAs(firstTrack.OriginalKey)
-                   && secondTrack.OriginalKey.Equals(firstTrack.OriginalKey.IncreasePitch(increaseAmount));
+            return second.ActualKey.HasSameScaleAs(first.ActualKey)
+                   && second.ActualKey.Equals(first.ActualKey.IncreasePitch(increaseAmount));
         }
 
         public virtual string Description

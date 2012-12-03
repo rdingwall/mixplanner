@@ -11,29 +11,30 @@ namespace MixPlanner.Specs.DomainModel.MixingStrategies
     {
         public class when_deciding_which_track_to_play_next
         {
-            Establish context = () =>
-                                    {
-                                        currentTrack = TestTracks.Get(HarmonicKey.Key9A);
-                                        strategy = new IncrementOne();
-                                        unplayedTracks = new[]
-                                                             {
-                                                                 TestTracks.Get(HarmonicKey.Key10A), 
-                                                                 TestTracks.Get(HarmonicKey.Key4A),
-                                                                 TestTracks.Get(HarmonicKey.Key4B),
-                                                                 TestTracks.Get(HarmonicKey.Key4A),
-                                                                 TestTracks.Get(HarmonicKey.Key8A),
-                                                             };
-                                    };
+            Establish context =
+                () =>
+                    {
+                        current = new PlaybackSpeed(HarmonicKey.Key9A, 128);
+                        strategy = new IncrementOne();
+                        unplayed = new[]
+                                       {
+                                           new PlaybackSpeed(HarmonicKey.Key10A, 128),
+                                           new PlaybackSpeed(HarmonicKey.Key4A, 128),
+                                           new PlaybackSpeed(HarmonicKey.Key4B, 128),
+                                           new PlaybackSpeed(HarmonicKey.Key4A, 128),
+                                           new PlaybackSpeed(HarmonicKey.Key8A, 128),
+                                       };
+                    };
 
-            static Track currentTrack;
+            static PlaybackSpeed current;
             static IMixingStrategy strategy;
+            static PlaybackSpeed[] unplayed;
+            static IEnumerable<PlaybackSpeed> suggested;
 
-            Because of = () => suggestedTracks = unplayedTracks.Where(t => strategy.IsCompatible(currentTrack, t));
-            static IEnumerable<Track> unplayedTracks;
-            static IEnumerable<Track> suggestedTracks;
+            Because of = () => suggested = unplayed.Where(t => strategy.IsCompatible(current, t));
 
             It should_suggest_tracks_that_are_one_hour_up_from_the_current =
-                () => suggestedTracks.Select(t => t.OriginalKey).ShouldContainOnly(HarmonicKey.Key10A);
+                () => suggested.Select(t => t.OriginalKey).ShouldContainOnly(HarmonicKey.Key10A);
         }
     }
 }
