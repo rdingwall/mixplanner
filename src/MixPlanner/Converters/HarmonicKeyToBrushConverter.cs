@@ -38,7 +38,6 @@ namespace MixPlanner.Converters
                     {HarmonicKey.Key10B, Color.FromRgb(164, 158, 255)},
                     {HarmonicKey.Key11B, Color.FromRgb(148, 213, 255)},
                     {HarmonicKey.Key12B, Color.FromRgb(130, 253, 255)}
-                   
                 };
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -46,7 +45,7 @@ namespace MixPlanner.Converters
             var key = (HarmonicKey) value;
 
             Color color;
-            if (!ColorWheel.TryGetValue(key, out color))
+            if (key == null || !ColorWheel.TryGetValue(key, out color))
                  color = Colors.LightGray;
 
             return new SolidColorBrush(color);
