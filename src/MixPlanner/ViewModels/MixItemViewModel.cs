@@ -13,6 +13,8 @@ namespace MixPlanner.ViewModels
         public double ActualBpm { get { return MixItem.PlaybackSpeed.ActualBpm; } }
         public double PlaySpeed { get { return MixItem.PlaybackSpeed.PercentIncrease; } }
         public Track Track { get { return MixItem.Track; }}
+        public string Title { get { return MixItem.Track.Title;} }
+        public string Artist { get { return MixItem.Track.Artist;} }
 
         public MixItemViewModel(
             IMessenger messenger, 

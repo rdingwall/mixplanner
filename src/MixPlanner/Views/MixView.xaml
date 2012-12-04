@@ -7,6 +7,7 @@
              xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop"
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WPF4"
+             xmlns:views="clr-namespace:MixPlanner.Views"
              mc:Ignorable="d" 
              d:DesignHeight="300" 
              d:DesignWidth="300"
@@ -32,14 +33,7 @@
 
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding Text}"
-                                   Background="{Binding ActualKey, Converter={StaticResource HarmonicKeyToBrushConverter}}">
-                            </TextBlock>
-                            <TextBlock Text="{Binding ActualKey}" Margin="2" />
-                            <TextBlock Text="{Binding ActualBpm}" Margin="2" />
-                            <TextBlock Text="{Binding PlaySpeed}" Margin="2" />
-                        </StackPanel>
+                        <views:MixItemView DataContext="{Binding}" />
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
