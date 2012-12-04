@@ -122,7 +122,7 @@ namespace MixPlanner.DomainModel
         MixItem CreateItem(Track track, int insertIndex)
         {
             var previousTrack = GetPlaybackSpeedAtPosition(insertIndex - 1);
-            var playbackSpeed = new PlaybackSpeed(track);
+            var playbackSpeed = track.GetDefaultPlaybackSpeed();
             var transition = transitions.GetTransitionBetween(previousTrack, playbackSpeed);
 
             return new MixItem(track, transition);

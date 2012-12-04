@@ -41,6 +41,11 @@ namespace MixPlanner.DomainModel
         public string Genre { get; set; }
         public string Year { get; set; }
 
+        public PlaybackSpeed GetDefaultPlaybackSpeed()
+        {
+            return new PlaybackSpeed(OriginalKey, OriginalBpm);
+        }
+
         public override string ToString()
         {
             return String.Format("{0} - {1}", Artist, OriginalKey);

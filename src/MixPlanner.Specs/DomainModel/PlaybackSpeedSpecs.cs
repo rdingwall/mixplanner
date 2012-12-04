@@ -8,11 +8,7 @@ namespace MixPlanner.Specs.DomainModel
     {
         public class When_increasing_the_playback_speed_by_three
         {
-            Establish context = () =>
-                                    {
-                                        var track = TestTracks.Get(HarmonicKey.Key7A, 128);
-                                        speed = new PlaybackSpeed(track);
-                                    };
+            Establish context = () => speed = new PlaybackSpeed(HarmonicKey.Key7A, 128);
 
             static PlaybackSpeed speed;
 
@@ -27,11 +23,7 @@ namespace MixPlanner.Specs.DomainModel
 
         public class When_increasing_the_playback_speed_by_zero
         {
-            Establish context = () =>
-            {
-                var track = TestTracks.Get(HarmonicKey.Key7A, 128);
-                speed = new PlaybackSpeed(track);
-            };
+            Establish context = () => speed = new PlaybackSpeed(HarmonicKey.Key7A, 128);
 
             static PlaybackSpeed speed;
 
@@ -46,11 +38,7 @@ namespace MixPlanner.Specs.DomainModel
 
         public class When_increasing_the_playback_speed_by_six
         {
-            Establish context = () =>
-            {
-                var track = TestTracks.Get(HarmonicKey.Key7A, 128);
-                speed = new PlaybackSpeed(track);
-            };
+            Establish context = () => speed = new PlaybackSpeed(HarmonicKey.Key7A, 128);
 
             static PlaybackSpeed speed;
 
@@ -65,11 +53,7 @@ namespace MixPlanner.Specs.DomainModel
 
         public class When_decreasing_the_playback_speed_by_three
         {
-            Establish context = () =>
-            {
-                var track = TestTracks.Get(HarmonicKey.Key7A, 128);
-                speed = new PlaybackSpeed(track);
-            };
+            Establish context = () => speed = new PlaybackSpeed(HarmonicKey.Key7A, 128);
 
             static PlaybackSpeed speed;
 
@@ -84,11 +68,7 @@ namespace MixPlanner.Specs.DomainModel
 
         public class When_decreasing_the_playback_speed_by_six
         {
-            Establish context = () =>
-            {
-                var track = TestTracks.Get(HarmonicKey.Key7A, 128);
-                speed = new PlaybackSpeed(track);
-            };
+            Establish context = () => speed = new PlaybackSpeed(HarmonicKey.Key7A, 128);
 
             static PlaybackSpeed speed;
 

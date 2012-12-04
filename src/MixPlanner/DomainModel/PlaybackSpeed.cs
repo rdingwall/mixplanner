@@ -4,15 +4,6 @@ namespace MixPlanner.DomainModel
 {
     public class PlaybackSpeed
     {
-        public PlaybackSpeed(Track track)
-        {
-            if (track == null) throw new ArgumentNullException("track");
-            originalBpm = track.OriginalBpm;
-            originalKey = track.OriginalKey;
-            ActualBpm = track.OriginalBpm;
-            ActualKey = track.OriginalKey;
-        }
-
         public PlaybackSpeed(HarmonicKey originalKey, double originalBpm)
         {
             if (originalKey == null) throw new ArgumentNullException("originalKey");
