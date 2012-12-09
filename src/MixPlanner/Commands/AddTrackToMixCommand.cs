@@ -22,6 +22,8 @@ namespace MixPlanner.Commands
 
         protected override void DoExecute(DropInfo parameter)
         {
+
+
             var sourceItem = parameter.Data as LibraryItemViewModel;
 
             mix.Insert(sourceItem.Track, parameter.InsertIndex);
