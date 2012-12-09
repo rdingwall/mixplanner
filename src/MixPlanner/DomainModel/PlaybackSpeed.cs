@@ -13,29 +13,29 @@ namespace MixPlanner.DomainModel
             ActualKey = originalKey;
         }
 
-        public void SetSpeed(int percentIncrease)
+        public void SetSpeed(double percentIncrease)
         {
             PercentIncrease = percentIncrease;
             ActualBpm = CalculateActualBpm(percentIncrease);
             ActualKey = CalculateActualKey(percentIncrease);
         }
 
-        HarmonicKey CalculateActualKey(int percentIncrease)
+        HarmonicKey CalculateActualKey(double percentIncrease)
         {
             var pitchIncrease = 7*(percentIncrease/3);
-            return originalKey.IncreasePitch(pitchIncrease);
+            return originalKey.IncreasePitch((int)pitchIncrease);
         }
 
-        double CalculateActualBpm(int percentIncrease)
+        double CalculateActualBpm(double percentIncrease)
         {
-            var increase = (double)percentIncrease / 100;
+            var increase = percentIncrease / 100;
             return originalBpm * (1 + increase);
         }
 
         readonly double originalBpm;
         readonly HarmonicKey originalKey;
 
-        public int PercentIncrease { get; private set; }
+        public double PercentIncrease { get; private set; }
         public double ActualBpm { get; private set; }
         public HarmonicKey ActualKey { get; private set; }
     }
