@@ -2,19 +2,19 @@
   <controls>
     <control controlID="0" controlTypeID="com.balsamiq.mockups::TitleWindow" x="400" y="36" w="961" h="619" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="-1">
       <controlProperties>
-        <close>true</close>
         <topheight>26</topheight>
-        <maximizeRestore>true</maximizeRestore>
+        <close>true</close>
         <text>MixPlanner</text>
-        <minimize>true</minimize>
+        <maximizeRestore>true</maximizeRestore>
         <dragger>true</dragger>
+        <minimize>true</minimize>
       </controlProperties>
     </control>
     <control controlID="2" controlTypeID="com.balsamiq.mockups::DataGrid" x="402" y="397" w="956" h="234" measuredW="892" measuredH="118" zOrder="1" locked="false" isInGroup="-1">
       <controlProperties>
+        <verticalScrollbar>true</verticalScrollbar>
         <text>Play%2CKey%2C%20Bpm%2C%20Artist%2C%20Title%2C%20Year%2C%20Genre%2C%20Record%20Label%0A%2C9A%2C%20128%2C%20Hardwell%2C%20Three%20Triangles%20%28Original%20Club%20Mix%29%2C%202012%2C%20Progressive%20House%2C%20Toolroom%20Records%0A%2C7A%2C%20124%2C%20Ant%20Brooks%5C%2C%20Diavlo%2C%20Flex%20%28Original%20Mix%29%2C%202012%2C%20Tech%20House%2C%20Toolroom%20Records%0A%2C%2C%2CGrego%20Salto%5C%2C%20Chocolate%20Puma%2C%20Gimme%20Sum%2C%202012%2C%20Tech%20House%2C%20Pssst%20Music</text>
         <selectedIndex>0</selectedIndex>
-        <verticalScrollbar>true</verticalScrollbar>
       </controlProperties>
     </control>
     <control controlID="3" controlTypeID="com.balsamiq.mockups::Label" x="431" y="368" w="-1" h="-1" measuredW="92" measuredH="25" zOrder="2" locked="false" isInGroup="-1">
@@ -99,96 +99,96 @@
         <text>approx%20%7E10%20mins</text>
       </controlProperties>
     </control>
-    <control controlID="30" controlTypeID="com.balsamiq.mockups::Menu" x="1063" y="246" w="-1" h="-1" measuredW="150" measuredH="145" zOrder="39" locked="false" isInGroup="-1">
+    <control controlID="30" controlTypeID="com.balsamiq.mockups::Menu" x="1063" y="246" w="-1" h="-1" measuredW="150" measuredH="145" zOrder="37" locked="false" isInGroup="-1">
       <controlProperties>
         <text>Save%2C%20CTRL+S%0ASave%20As%0A--------%0AClear%0A--------%0ASave%20to%20Evernote%0AEmail</text>
       </controlProperties>
     </control>
-    <control controlID="32" controlTypeID="com.balsamiq.mockups::Icon" x="1063" y="128" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="24" locked="false" isInGroup="-1">
-      <controlProperties>
-        <icon>ListIcon%7Csmall</icon>
-      </controlProperties>
-    </control>
-    <control controlID="33" controlTypeID="com.balsamiq.mockups::Icon" x="1063" y="212" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="25" locked="false" isInGroup="-1">
-      <controlProperties>
-        <icon>ListIcon%7Csmall</icon>
-      </controlProperties>
-    </control>
-    <control controlID="34" controlTypeID="com.balsamiq.mockups::Icon" x="1063" y="81" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="26" locked="false" isInGroup="-1">
+    <control controlID="34" controlTypeID="com.balsamiq.mockups::Icon" x="1063" y="81" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="24" locked="false" isInGroup="-1">
       <controlProperties>
         <icon>DownFillTriangleIcon%7Csmall</icon>
       </controlProperties>
     </control>
-    <control controlID="35" controlTypeID="com.balsamiq.mockups::Icon" x="707" y="214" w="-1" h="-1" measuredW="32" measuredH="32" zOrder="27" locked="false" isInGroup="-1">
+    <control controlID="35" controlTypeID="com.balsamiq.mockups::Icon" x="707" y="214" w="-1" h="-1" measuredW="32" measuredH="32" zOrder="25" locked="false" isInGroup="-1">
       <controlProperties>
         <icon>RightTriangleIcon%7Cmedium</icon>
       </controlProperties>
     </control>
-    <control controlID="36" controlTypeID="com.balsamiq.mockups::Icon" x="406" y="370" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="28" locked="false" isInGroup="-1">
+    <control controlID="36" controlTypeID="com.balsamiq.mockups::Icon" x="406" y="370" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="26" locked="false" isInGroup="-1">
       <controlProperties>
         <icon>DownFillTriangleIcon%7Csmall</icon>
       </controlProperties>
     </control>
-    <control controlID="37" controlTypeID="com.balsamiq.mockups::Menu" x="231" y="397" w="184" h="-1" measuredW="150" measuredH="90" zOrder="29" locked="false" isInGroup="-1">
+    <control controlID="37" controlTypeID="com.balsamiq.mockups::Menu" x="231" y="397" w="184" h="-1" measuredW="150" measuredH="90" zOrder="27" locked="false" isInGroup="-1">
       <controlProperties>
         <text>Import%20File%28s%29...%0AImport%20Directory%0A-----------%0AExport</text>
       </controlProperties>
     </control>
-    <control controlID="38" controlTypeID="com.balsamiq.mockups::Label" x="707" y="152" w="-1" h="-1" measuredW="29" measuredH="25" zOrder="30" locked="false" isInGroup="-1">
+    <control controlID="38" controlTypeID="com.balsamiq.mockups::Label" x="707" y="152" w="-1" h="-1" measuredW="29" measuredH="25" zOrder="28" locked="false" isInGroup="-1">
       <controlProperties>
         <text>128</text>
       </controlProperties>
     </control>
-    <control controlID="39" controlTypeID="com.balsamiq.mockups::Label" x="707" y="241" w="-1" h="-1" measuredW="29" measuredH="25" zOrder="31" locked="false" isInGroup="-1">
+    <control controlID="39" controlTypeID="com.balsamiq.mockups::Label" x="707" y="241" w="-1" h="-1" measuredW="29" measuredH="25" zOrder="29" locked="false" isInGroup="-1">
       <controlProperties>
         <text>124</text>
       </controlProperties>
     </control>
-    <control controlID="40" controlTypeID="com.balsamiq.mockups::StickyNote" x="1383" y="256" w="162" h="177" measuredW="109" measuredH="123" zOrder="32" locked="false" isInGroup="-1">
+    <control controlID="40" controlTypeID="com.balsamiq.mockups::StickyNote" x="1383" y="256" w="162" h="177" measuredW="109" measuredH="123" zOrder="30" locked="false" isInGroup="-1">
       <controlProperties>
         <text>Clicking%20on%20a%20track%20filters%20the%20library%20to%20only%20show%20those%20tracks%20that%20are%20compatible%20to%20be%20played%20afterwards.%20In%20compatibility%20order</text>
       </controlProperties>
     </control>
-    <control controlID="41" controlTypeID="com.balsamiq.mockups::SearchBox" x="531" y="368" w="824" h="-1" measuredW="261" measuredH="25" zOrder="33" locked="false" isInGroup="-1">
+    <control controlID="41" controlTypeID="com.balsamiq.mockups::SearchBox" x="531" y="368" w="824" h="-1" measuredW="261" measuredH="25" zOrder="31" locked="false" isInGroup="-1">
       <controlProperties>
         <text>type%20here%20to%20search%20your%20library</text>
       </controlProperties>
     </control>
-    <control controlID="42" controlTypeID="com.balsamiq.mockups::Icon" x="947" y="634" w="-1" h="-1" measuredW="16" measuredH="16" zOrder="34" locked="false" isInGroup="-1">
+    <control controlID="42" controlTypeID="com.balsamiq.mockups::Icon" x="947" y="634" w="-1" h="-1" measuredW="16" measuredH="16" zOrder="32" locked="false" isInGroup="-1">
       <controlProperties>
         <icon>PauseIcon%7Cxsmall</icon>
       </controlProperties>
     </control>
-    <control controlID="43" controlTypeID="com.balsamiq.mockups::VSlider" x="1037" y="123" w="-1" h="-1" measuredW="11" measuredH="33" zOrder="35" locked="false" isInGroup="-1"/>
-    <control controlID="44" controlTypeID="com.balsamiq.mockups::VSlider" x="1036" y="207" w="-1" h="-1" measuredW="11" measuredH="33" zOrder="36" locked="false" isInGroup="-1">
+    <control controlID="43" controlTypeID="com.balsamiq.mockups::VSlider" x="1037" y="123" w="-1" h="-1" measuredW="11" measuredH="33" zOrder="33" locked="false" isInGroup="-1"/>
+    <control controlID="44" controlTypeID="com.balsamiq.mockups::VSlider" x="1036" y="207" w="-1" h="-1" measuredW="11" measuredH="33" zOrder="34" locked="false" isInGroup="-1">
       <controlProperties>
         <value>51</value>
       </controlProperties>
     </control>
-    <control controlID="45" controlTypeID="com.balsamiq.mockups::Label" x="1008" y="211" w="-1" h="-1" measuredW="25" measuredH="25" zOrder="37" locked="false" isInGroup="-1">
+    <control controlID="45" controlTypeID="com.balsamiq.mockups::Label" x="1008" y="211" w="-1" h="-1" measuredW="25" measuredH="25" zOrder="35" locked="false" isInGroup="-1">
       <controlProperties>
         <text>0%25</text>
       </controlProperties>
     </control>
-    <control controlID="46" controlTypeID="com.balsamiq.mockups::Label" x="1006" y="127" w="-1" h="-1" measuredW="32" measuredH="25" zOrder="38" locked="false" isInGroup="-1">
+    <control controlID="46" controlTypeID="com.balsamiq.mockups::Label" x="1006" y="127" w="-1" h="-1" measuredW="32" measuredH="25" zOrder="36" locked="false" isInGroup="-1">
       <controlProperties>
         <text>+3%25</text>
       </controlProperties>
     </control>
-    <control controlID="47" controlTypeID="com.balsamiq.mockups::Icon" x="1269" y="635" w="-1" h="-1" measuredW="16" measuredH="16" zOrder="40" locked="false" isInGroup="-1">
+    <control controlID="47" controlTypeID="com.balsamiq.mockups::Icon" x="1269" y="635" w="-1" h="-1" measuredW="16" measuredH="16" zOrder="38" locked="false" isInGroup="-1">
       <controlProperties>
         <icon>CellBarsIcon%7Cxsmall</icon>
       </controlProperties>
     </control>
-    <control controlID="48" controlTypeID="com.balsamiq.mockups::Label" x="405" y="629" w="-1" h="-1" measuredW="132" measuredH="25" zOrder="41" locked="false" isInGroup="-1">
+    <control controlID="48" controlTypeID="com.balsamiq.mockups::Label" x="405" y="629" w="-1" h="-1" measuredW="132" measuredH="25" zOrder="39" locked="false" isInGroup="-1">
       <controlProperties>
         <text>Importing%20tracks....</text>
       </controlProperties>
     </control>
-    <control controlID="49" controlTypeID="com.balsamiq.mockups::VRule" x="940" y="632" w="-1" h="23" measuredW="5" measuredH="100" zOrder="42" locked="false" isInGroup="-1"/>
-    <control controlID="50" controlTypeID="com.balsamiq.mockups::Link" x="963" y="631" w="-1" h="-1" measuredW="306" measuredH="25" zOrder="43" locked="false" isInGroup="-1">
+    <control controlID="49" controlTypeID="com.balsamiq.mockups::VRule" x="940" y="632" w="-1" h="23" measuredW="5" measuredH="100" zOrder="40" locked="false" isInGroup="-1"/>
+    <control controlID="50" controlTypeID="com.balsamiq.mockups::Link" x="963" y="631" w="-1" h="-1" measuredW="306" measuredH="25" zOrder="41" locked="false" isInGroup="-1">
       <controlProperties>
         <text>Hardwell%20-%20Three%20Triangles%20%28Original%20Club%20Mix%29</text>
+      </controlProperties>
+    </control>
+    <control controlID="32" controlTypeID="com.balsamiq.mockups::Icon" x="1063" y="128" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="43" locked="false" isInGroup="-1">
+      <controlProperties>
+        <icon>ListIcon%7Csmall</icon>
+      </controlProperties>
+    </control>
+    <control controlID="33" controlTypeID="com.balsamiq.mockups::Icon" x="1063" y="212" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="42" locked="false" isInGroup="-1">
+      <controlProperties>
+        <icon>ListIcon%7Csmall</icon>
       </controlProperties>
     </control>
   </controls>

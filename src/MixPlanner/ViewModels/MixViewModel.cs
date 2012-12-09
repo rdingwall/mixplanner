@@ -15,7 +15,7 @@ namespace MixPlanner.ViewModels
     {
         MixItemViewModel selectedItem;
         readonly IMixItemViewModelFactory viewModels;
-        public RemoveTrackFromMixCommand RemoveCommand { get; private set; }
+        public ICommand RemoveCommand { get; private set; }
         public ReorderMixTrackCommand ReorderTrackCommand { get; set; }
         public ICommand DropTrackCommand { get; private set; }
         public ObservableCollection<MixItemViewModel> Items { get; private set; }
@@ -23,8 +23,11 @@ namespace MixPlanner.ViewModels
         public MixItemViewModel SelectedItem
         {
             get { return selectedItem; }
-            set { selectedItem = value;
-            RaisePropertyChanged(() => SelectedItem);}
+            set
+            {
+                selectedItem = value;
+                RaisePropertyChanged(() => SelectedItem);
+            }
         }
 
         public MixViewModel(IMessenger messenger, 
@@ -40,7 +43,7 @@ namespace MixPlanner.ViewModels
             if (viewModels == null) throw new ArgumentNullException("viewModels");
             this.viewModels = viewModels;
             DropTrackCommand = dropTrackCommand;
-            RemoveCommand = removeCommand;
+            RemoveCommand = new DelKeyEventToCommandFilter(removeCommand, () => SelectedItem.MixItem);
             ReorderTrackCommand = reorderTrackCommand;
             Items = new ObservableCollection<MixItemViewModel>();
             messenger.Register<TrackAddedToMixEvent>(this, OnTrackAdded);

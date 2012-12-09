@@ -24,7 +24,7 @@
                 </i:EventTrigger>
                 <i:EventTrigger EventName="PreviewKeyDown">
                     <cmd:EventToCommand Command="{Binding RemoveTrackFromLibraryCommand}"
-                                            CommandParameter="{Binding SelectedItem}"  />
+                                        PassEventArgsToCommand="True"  />
                 </i:EventTrigger>
                 <i:EventTrigger EventName="MouseDoubleClick">
                     <cmd:EventToCommand Command="{Binding PlayCommand}" 

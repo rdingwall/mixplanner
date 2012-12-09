@@ -45,7 +45,7 @@ namespace MixPlanner.ViewModels
             messenger.Register<TrackRemovedFromLibraryEvent>(this, OnTrackRemoved);
 
             DropFilesCommand = dropFilesCommand;
-            RemoveTrackFromLibraryCommand = removeTrackCommand;
+            RemoveTrackFromLibraryCommand = new DelKeyEventToCommandFilter(removeTrackCommand, () => SelectedItem);
         }
 
         void OnTrackRemoved(TrackRemovedFromLibraryEvent e)

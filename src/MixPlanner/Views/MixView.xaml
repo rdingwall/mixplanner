@@ -22,8 +22,8 @@
                 
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="PreviewKeyDown">
-                        <cmd:EventToCommand Command="{Binding RemoveCommand}" 
-                                                        CommandParameter="{Binding SelectedItem.MixItem}"  />
+                        <cmd:EventToCommand Command="{Binding RemoveCommand}"
+                                            PassEventArgsToCommand="True" />
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
 

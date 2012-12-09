@@ -12,14 +12,15 @@
     <Grid Margin="0,0,0,0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="97*"/>
-            <ColumnDefinition Width="201*"/>
+            <ColumnDefinition Width="150*"/>
             <ColumnDefinition Width="89*"/>
+			<ColumnDefinition Width="89*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="20" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <StackPanel Grid.ColumnSpan="3" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top">
+        <StackPanel Grid.ColumnSpan="4" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top">
             <Label x:Name="Transition" Content="{Binding Transition}" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
         </StackPanel>
         <DockPanel Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Top">
@@ -45,6 +46,11 @@
         	<Label x:Name="CurrentPitch" Content="{Binding PlaySpeed, Converter={StaticResource PlaySpeedStringConverter}}" Height="48" VerticalAlignment="Top" HorizontalAlignment="Center"/>
         	<Slider x:Name="PitchSlider" Value="{Binding PlaySpeed}"  Height="48" VerticalAlignment="Top" Orientation="Vertical" DockPanel.Dock="Right" Minimum="-6" TickPlacement="TopLeft" SmallChange="3" TickFrequency="3" Maximum="6" LargeChange="3" IsSnapToTickEnabled="True" IsDirectionReversed="True"/>
         </DockPanel>
+        <StackPanel Grid.Column="3" HorizontalAlignment="Left" Height="48" Margin="10,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="61.042">
+        	<Rectangle Fill="#FFF4F4F5" Height="9" Stroke="Black"/>
+        	<Rectangle Fill="#FFF4F4F5" Height="9" Stroke="Black" Margin="0,5,0,0"/>
+        	<Rectangle Fill="#FFF4F4F5" Height="9" Stroke="Black" Margin="0,5,0,0"/>
+        </StackPanel>
 
     </Grid>
 </UserControl>
