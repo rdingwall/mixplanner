@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
 using MixPlanner.Commands;
@@ -20,6 +19,7 @@ namespace MixPlanner.ViewModels
         public PlayOrPauseTrackCommand PlayPauseCommand { get; private set; }
         public bool IsPlaying { get; private set; }
         public bool IsNotPlaying { get { return !IsPlaying; } }
+        public string Transition { get { return MixItem.Transition.Description; } }
 
         public MixItemViewModel(
             IMessenger messenger, 
@@ -39,18 +39,7 @@ namespace MixPlanner.ViewModels
             if (obj.MixItem != MixItem)
                 return;
 
-            RaisePropertyChanged(() => Text);
-        }
-
-        public string Text
-        {
-            get
-            {
-                return string.Format("{0}{1}{2} {3}",
-                                     MixItem.Transition.Description,
-                                     Environment.NewLine,
-                                     MixItem.Track.OriginalKey, MixItem.Track.Title);
-            }
+            RaisePropertyChanged(() => Transition);
         }
     }
 }

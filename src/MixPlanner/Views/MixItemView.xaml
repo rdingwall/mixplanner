@@ -9,22 +9,32 @@
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance {x:Type mp:MixItemViewModel}}" Height="88" Width="387"
              Background="{Binding ActualKey, Converter={StaticResource HarmonicKeyToBrushConverter}}">
-    <Grid Margin="0">
+    <Grid Margin="0,0,0,0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="97*"/>
             <ColumnDefinition Width="201*"/>
             <ColumnDefinition Width="89*"/>
         </Grid.ColumnDefinitions>
-        <StackPanel HorizontalAlignment="Left" Margin="0" VerticalAlignment="Top">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackPanel Grid.ColumnSpan="3" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Label x:Name="Transition" Content="{Binding Transition}" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Top">
             <Label x:Name="ActualKey" Content="{Binding ActualKey}" HorizontalAlignment="Center" FontSize="48" Padding="0"/>
             <Label x:Name="ActualBpm" Content="{Binding ActualBpm}" HorizontalAlignment="Center"/>
+            
         </StackPanel>
-        <StackPanel Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top">
+        <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top">
             <Label x:Name="TrackTitle" Content="{Binding Title}"/>
             <Label x:Name="TrackArtists" Content="{Binding Artist}"/>
         </StackPanel>
-        <StackPanel Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-        <Button Content="{Binding PlayPauseCommand.IsPlaying, Converter={StaticResource IsPlayingFlagToPlayPauseStringConverter}}"
+        <StackPanel Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+
+        <Button Grid.Row="1" Grid.Column="0"
+            Content="{Binding PlayPauseCommand.IsPlaying, Converter={StaticResource IsPlayingFlagToPlayPauseStringConverter}}"
                 CommandParameter="{Binding Track}"
                 Command="{Binding PlayPauseCommand}"
                 Visibility="{Binding IsMouseOver, ElementName=MixItem, Converter={StaticResource BooleanToVisibilityConverter}}" 
@@ -32,5 +42,6 @@
                 Margin="10,30.96,0,0"
                 VerticalAlignment="Top"
                 Width="75" />
+
     </Grid>
 </UserControl>
