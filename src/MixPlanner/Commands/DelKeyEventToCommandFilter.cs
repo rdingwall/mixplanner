@@ -19,7 +19,7 @@ namespace MixPlanner.Commands
             this.getParameter = getParameter;
         }
 
-        protected override void DoExecute(KeyEventArgs parameter)
+        protected override void Execute(KeyEventArgs parameter)
         {
             if (!deleteKeys.Contains(parameter.Key))
                 return;

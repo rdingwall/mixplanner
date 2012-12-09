@@ -21,7 +21,7 @@ namespace MixPlanner.Commands
                 return false;
             }
 
-            return DoCanExecute((T)parameter);
+            return CanExecute((T)parameter);
         }
 
         void LogWrongParameterMessage(object parameter)
@@ -38,15 +38,15 @@ namespace MixPlanner.Commands
                 return;
             }
 
-            DoExecute((T)parameter);
+            Execute((T)parameter);
         }
 
-        protected virtual bool DoCanExecute(T parameter)
+        protected virtual bool CanExecute(T parameter)
         {
             return true;
         }
 
-        protected abstract void DoExecute(T parameter);
+        protected abstract void Execute(T parameter);
 
         protected void RaiseCanExecuteChanged()
         {

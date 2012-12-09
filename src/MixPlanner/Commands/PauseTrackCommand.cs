@@ -19,7 +19,7 @@ namespace MixPlanner.Commands
             messenger.Register<PlayerPlayingEvent>(this, _ => RaiseCanExecuteChanged());
         }
 
-        protected override bool DoCanExecute(Track parameter)
+        protected override bool CanExecute(Track parameter)
         {
             if (parameter == null)
                 return false;
@@ -27,7 +27,7 @@ namespace MixPlanner.Commands
             return player.IsPlaying(parameter);
         }
 
-        protected override void DoExecute(Track parameter)
+        protected override void Execute(Track parameter)
         {
             player.Pause();
         }

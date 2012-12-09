@@ -13,12 +13,12 @@ namespace MixPlanner.Commands
             this.mix = mix;
         }
 
-        protected override bool DoCanExecute(MixItem parameter)
+        protected override bool CanExecute(MixItem parameter)
         {
             return parameter != null;
         }
 
-        protected override void DoExecute(MixItem parameter)
+        protected override void Execute(MixItem parameter)
         {
             mix.Remove(parameter);
         }

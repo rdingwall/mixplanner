@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Windows.Input;
 using GalaSoft.MvvmLight.Messaging;
 using MixPlanner.DomainModel;
 using MixPlanner.Events;
@@ -7,7 +8,7 @@ using MixPlanner.Player;
 
 namespace MixPlanner.Commands
 {
-    public class PlayOrPauseTrackCommand : CommandBase<object>, INotifyPropertyChanged
+    public class PlayOrPauseTrackCommand : ICommand, INotifyPropertyChanged
     {
         readonly IAudioPlayer player;
         readonly Track track;
@@ -51,17 +52,19 @@ namespace MixPlanner.Commands
             IsPlaying = false;
         }
 
-        protected override bool DoCanExecute(object parameter)
+        public bool CanExecute(object parameter)
         {
             return player.CanPlay(track);
         }
 
-        protected override void DoExecute(object parameter)
+        public void Execute(object parameter)
         {
             if (player.IsPlaying(track))
                 player.Pause();
             else
                 player.PlayOrResume(track);
         }
+
+        public event EventHandler CanExecuteChanged = delegate { };
     }
 }

@@ -27,12 +27,12 @@ namespace MixPlanner.Commands
                            };
         }
 
-        protected override bool DoCanExecute(DropInfo parameter)
+        protected override bool CanExecute(DropInfo parameter)
         {
             return commands.Any(c => c.CanExecute(parameter));
         }
 
-        protected override void DoExecute(DropInfo parameter)
+        protected override void Execute(DropInfo parameter)
         {
             var command = commands.FirstOrDefault(c => c.CanExecute(parameter));
 

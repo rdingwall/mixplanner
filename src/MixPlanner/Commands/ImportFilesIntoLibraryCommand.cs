@@ -14,12 +14,12 @@ namespace MixPlanner.Commands
             this.library = library;
         }
 
-        protected override bool DoCanExecute(DragEventArgs parameter)
+        protected override bool CanExecute(DragEventArgs parameter)
         {
             return parameter != null;
         }
 
-        protected override void DoExecute(DragEventArgs parameter)
+        protected override void Execute(DragEventArgs parameter)
         {
             var filenames = (string[]) parameter.Data.GetData(DataFormats.FileDrop);
 

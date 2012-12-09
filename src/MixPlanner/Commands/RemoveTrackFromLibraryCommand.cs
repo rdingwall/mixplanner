@@ -14,12 +14,12 @@ namespace MixPlanner.Commands
             this.library = library;
         }
 
-        protected override bool DoCanExecute(LibraryItemViewModel parameter)
+        protected override bool CanExecute(LibraryItemViewModel parameter)
         {
             return parameter != null;
         }
 
-        protected override void DoExecute(LibraryItemViewModel parameter)
+        protected override void Execute(LibraryItemViewModel parameter)
         {
             library.Remove(parameter.Track);
         }
