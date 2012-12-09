@@ -12,7 +12,7 @@ namespace MixPlanner.ViewModels
     public class TrackLibraryViewModel : ViewModelBase
     {
         LibraryItemViewModel selectedItem;
-        public ICommand DropFilesCommand { get; private set; }
+        public ICommand ImportTracksCommand { get; private set; }
         public ICommand RemoveTrackFromLibraryCommand { get; private set; }
         public ObservableCollection<LibraryItemViewModel> Items { get; private set; }
         public PlayTrackCommand PlayCommand { get; private set; }
@@ -29,13 +29,13 @@ namespace MixPlanner.ViewModels
 
         public TrackLibraryViewModel(
             IMessenger messenger,
-            DropFilesCommand dropFilesCommand,
+            ImportTracksIntoLibraryCommand importTracksCommand,
             RemoveTrackFromLibraryCommand removeTrackCommand,
             PlayTrackCommand playCommand
             )
             : base(messenger)
         {
-            if (dropFilesCommand == null) throw new ArgumentNullException("dropFilesCommand");
+            if (importTracksCommand == null) throw new ArgumentNullException("importTracksCommand");
             if (playCommand == null) throw new ArgumentNullException("playCommand");
 
             Items = new ObservableCollection<LibraryItemViewModel>();
@@ -44,7 +44,7 @@ namespace MixPlanner.ViewModels
             messenger.Register<TrackAddedToLibraryEvent>(this, OnTrackAddedToLibrary);
             messenger.Register<TrackRemovedFromLibraryEvent>(this, OnTrackRemoved);
 
-            DropFilesCommand = dropFilesCommand;
+            ImportTracksCommand = importTracksCommand;
             RemoveTrackFromLibraryCommand = new DelKeyEventToCommandFilter(removeTrackCommand, () => SelectedItem);
         }
 

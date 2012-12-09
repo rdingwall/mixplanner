@@ -5,11 +5,11 @@ using MixPlanner.ViewModels;
 
 namespace MixPlanner.Commands
 {
-    public class DropTrackIntoMixCommand : CommandBase<DropInfo>
+    public class AddTrackToMixCommand : CommandBase<DropInfo>
     {
         readonly IMix mix;
 
-        public DropTrackIntoMixCommand(IMix mix)
+        public AddTrackToMixCommand(IMix mix)
         {
             if (mix == null) throw new ArgumentNullException("mix");
             this.mix = mix;

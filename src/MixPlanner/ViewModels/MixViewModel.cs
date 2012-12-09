@@ -15,9 +15,9 @@ namespace MixPlanner.ViewModels
     {
         MixItemViewModel selectedItem;
         readonly IMixItemViewModelFactory viewModels;
-        public ICommand RemoveCommand { get; private set; }
+        public ICommand RemoveTrackCommand { get; private set; }
         public ReorderMixTrackCommand ReorderTrackCommand { get; set; }
-        public ICommand DropTrackCommand { get; private set; }
+        public ICommand AddTrackCommand { get; private set; }
         public ObservableCollection<MixItemViewModel> Items { get; private set; }
 
         public MixItemViewModel SelectedItem
@@ -31,19 +31,19 @@ namespace MixPlanner.ViewModels
         }
 
         public MixViewModel(IMessenger messenger, 
-            DropTrackIntoMixCommand dropTrackCommand, 
+            AddTrackToMixCommand addTrackToMixCommand, 
             RemoveTrackFromMixCommand removeCommand,
             ReorderMixTrackCommand reorderTrackCommand,
             IMixItemViewModelFactory viewModels) : base(messenger)
         {
             if (messenger == null) throw new ArgumentNullException("messenger");
-            if (dropTrackCommand == null) throw new ArgumentNullException("dropTrackCommand");
+            if (addTrackToMixCommand == null) throw new ArgumentNullException("addTrackToMixCommand");
             if (removeCommand == null) throw new ArgumentNullException("removeCommand");
             if (reorderTrackCommand == null) throw new ArgumentNullException("reorderTrackCommand");
             if (viewModels == null) throw new ArgumentNullException("viewModels");
             this.viewModels = viewModels;
-            DropTrackCommand = dropTrackCommand;
-            RemoveCommand = new DelKeyEventToCommandFilter(removeCommand, () => SelectedItem.MixItem);
+            AddTrackCommand = addTrackToMixCommand;
+            RemoveTrackCommand = new DelKeyEventToCommandFilter(removeCommand, () => SelectedItem.MixItem);
             ReorderTrackCommand = reorderTrackCommand;
             Items = new ObservableCollection<MixItemViewModel>();
             messenger.Register<TrackAddedToMixEvent>(this, OnTrackAdded);
@@ -74,7 +74,7 @@ namespace MixPlanner.ViewModels
         public void Drop(DropInfo dropInfo)
         {
             if (dropInfo.Data is LibraryItemViewModel)
-                DropTrackCommand.Execute(dropInfo);
+                AddTrackCommand.Execute(dropInfo);
             else if (dropInfo.Data is MixItemViewModel)
                 ReorderTrackCommand.Execute(dropInfo);
         }

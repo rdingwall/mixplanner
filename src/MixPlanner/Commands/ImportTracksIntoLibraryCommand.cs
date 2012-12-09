@@ -1,15 +1,14 @@
 ﻿using System;
-using System.IO;
 using System.Windows;
 using MixPlanner.DomainModel;
 
 namespace MixPlanner.Commands
 {
-    public class DropFilesCommand : CommandBase<DragEventArgs>
+    public class ImportTracksIntoLibraryCommand : CommandBase<DragEventArgs>
     {
         readonly ITrackLibrary library;
 
-        public DropFilesCommand(ITrackLibrary library)
+        public ImportTracksIntoLibraryCommand(ITrackLibrary library)
         {
             if (library == null) throw new ArgumentNullException("library");
             this.library = library;
@@ -22,11 +21,11 @@ namespace MixPlanner.Commands
 
         protected override void DoExecute(DragEventArgs parameter)
         {
-            var files = (string[]) parameter.Data.GetData(DataFormats.FileDrop);
+            var filenames = (string[]) parameter.Data.GetData(DataFormats.FileDrop);
 
-            if (files == null) return;
+            if (filenames == null) return;
 
-            library.Import(files);
+            library.Import(filenames);
         }
     }
 }

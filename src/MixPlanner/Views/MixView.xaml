@@ -22,7 +22,7 @@
                 
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="PreviewKeyDown">
-                        <cmd:EventToCommand Command="{Binding RemoveCommand}"
+                        <cmd:EventToCommand Command="{Binding RemoveTrackCommand}"
                                             PassEventArgsToCommand="True" />
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
