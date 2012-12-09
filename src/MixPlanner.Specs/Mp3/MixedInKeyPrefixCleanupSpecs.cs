@@ -19,7 +19,7 @@ namespace MixPlanner.Specs.Mp3
 
          public class When_cleaning_up_id3_tags_that_have_the_key_and_bpm_before_the_artist_name
          {
-             Establish context = () => tag = new Id3Tag { Artist = "1A - 125 - Dustin Zahn" };
+             Establish context = () => tag = new Id3Tag { Artist = "1A - 125.8 - Dustin Zahn" };
 
              Because of = () => new MixedInKeyTagCleanup().Clean(tag);
 
@@ -41,7 +41,7 @@ namespace MixPlanner.Specs.Mp3
 
          public class When_cleaning_up_id3_tags_that_have_the_key_and_bpm_after_the_artist_name
          {
-             Establish context = () => tag = new Id3Tag { Artist = "Axwell - 10A - 126" };
+             Establish context = () => tag = new Id3Tag { Artist = "Axwell - 10A - 126.1" };
 
              Because of = () => new MixedInKeyTagCleanup().Clean(tag);
 
