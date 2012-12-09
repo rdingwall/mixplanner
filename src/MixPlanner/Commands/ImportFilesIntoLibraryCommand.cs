@@ -4,11 +4,11 @@ using MixPlanner.DomainModel;
 
 namespace MixPlanner.Commands
 {
-    public class ImportTracksIntoLibraryCommand : CommandBase<DragEventArgs>
+    public class ImportFilesIntoLibraryCommand : CommandBase<DragEventArgs>
     {
         readonly ITrackLibrary library;
 
-        public ImportTracksIntoLibraryCommand(ITrackLibrary library)
+        public ImportFilesIntoLibraryCommand(ITrackLibrary library)
         {
             if (library == null) throw new ArgumentNullException("library");
             this.library = library;

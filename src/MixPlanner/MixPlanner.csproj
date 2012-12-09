@@ -113,7 +113,7 @@
     <Compile Include="Commands\DelKeyEventToCommandFilter.cs" />
     <Compile Include="Commands\DropItemIntoMixCommand.cs" />
     <Compile Include="Commands\PauseTrackCommand.cs" />
-    <Compile Include="Commands\ImportTracksIntoLibraryCommand.cs" />
+    <Compile Include="Commands\ImportFilesIntoLibraryCommand.cs" />
     <Compile Include="Commands\AddTrackToMixCommand.cs" />
     <Compile Include="Commands\PlayOrPauseTrackCommand.cs" />
     <Compile Include="Commands\PlayTrackCommand.cs" />

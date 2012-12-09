@@ -19,7 +19,7 @@
                       dd:DragDrop.IsDragSource="True">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Drop">
-                    <cmd:EventToCommand Command="{Binding ImportTracksCommand}"
+                    <cmd:EventToCommand Command="{Binding ImportFilesCommand}"
                             PassEventArgsToCommand="True" />
                 </i:EventTrigger>
                 <i:EventTrigger EventName="PreviewKeyDown">
