@@ -29,5 +29,10 @@ namespace MixPlanner.Specs
 
             return factor * (maxBpm - minBpm) + minBpm;
         }
+
+        public static PlaybackSpeed PlaybackSpeed(double bpm)
+        {
+            return new PlaybackSpeed(HarmonicKey.Key6B, bpm);
+        }
     }
 }

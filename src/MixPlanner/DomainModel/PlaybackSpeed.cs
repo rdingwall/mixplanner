@@ -32,6 +32,15 @@ namespace MixPlanner.DomainModel
             return originalBpm * (1 + increase);
         }
 
+        public bool IsWithinBpmRange(PlaybackSpeed other)
+        {
+            if (other == null) throw new ArgumentNullException("other");
+
+            var difference = other.ActualBpm - ActualBpm;
+            var percentIncreaseRequired = difference/ActualBpm * 100;
+            return Math.Abs(percentIncreaseRequired) < 3;
+        }
+
         readonly double originalBpm;
         readonly HarmonicKey originalKey;
 
