@@ -31,6 +31,12 @@ namespace MixPlanner.DomainModel
         {
             if (filename == null) throw new ArgumentNullException("filename");
 
+            if (IsDirectory(filename))
+            {
+                ImportDirectory(filename);
+                return;
+            }
+
             if (!IsMp3(filename)) return;
             if (AlreadyContains(filename)) return;
 
@@ -65,6 +71,12 @@ namespace MixPlanner.DomainModel
                 "*.mp3", SearchOption.AllDirectories);
 
             Import(filenames);
+        }
+
+        bool IsDirectory(string filename)
+        {
+            var attributes = File.GetAttributes(filename);
+            return (attributes & FileAttributes.Directory) == FileAttributes.Directory;
         }
 
         public void Remove(Track track)
