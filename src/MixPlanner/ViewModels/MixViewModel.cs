@@ -7,17 +7,14 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
 using GongSolutions.Wpf.DragDrop;
 using MixPlanner.Commands;
-using MixPlanner.DomainModel;
 using MixPlanner.Events;
-using MixPlanner.Player;
 
 namespace MixPlanner.ViewModels
 {
     public class MixViewModel : ViewModelBase, IDropTarget
     {
         MixItemViewModel selectedItem;
-        readonly IAudioPlayer player;
-        readonly IMix mix;
+        readonly IMixItemViewModelFactory viewModels;
         public RemoveTrackFromMixCommand RemoveCommand { get; private set; }
         public ReorderMixTrackCommand ReorderTrackCommand { get; set; }
         public ICommand DropTrackCommand { get; private set; }
@@ -33,22 +30,18 @@ namespace MixPlanner.ViewModels
         public MixViewModel(IMessenger messenger, 
             DropTrackIntoMixCommand dropTrackCommand, 
             RemoveTrackFromMixCommand removeCommand,
-            IAudioPlayer player,
             ReorderMixTrackCommand reorderTrackCommand,
-            IMix mix
-            ) : base(messenger)
+            IMixItemViewModelFactory viewModels) : base(messenger)
         {
             if (messenger == null) throw new ArgumentNullException("messenger");
             if (dropTrackCommand == null) throw new ArgumentNullException("dropTrackCommand");
             if (removeCommand == null) throw new ArgumentNullException("removeCommand");
-            if (player == null) throw new ArgumentNullException("player");
             if (reorderTrackCommand == null) throw new ArgumentNullException("reorderTrackCommand");
-            if (mix == null) throw new ArgumentNullException("mix");
+            if (viewModels == null) throw new ArgumentNullException("viewModels");
+            this.viewModels = viewModels;
             DropTrackCommand = dropTrackCommand;
             RemoveCommand = removeCommand;
             ReorderTrackCommand = reorderTrackCommand;
-            this.player = player;
-            this.mix = mix;
             Items = new ObservableCollection<MixItemViewModel>();
             messenger.Register<TrackAddedToMixEvent>(this, OnTrackAdded);
             messenger.Register<TrackRemovedFromMixEvent>(this, OnTrackRemoved);
@@ -62,9 +55,8 @@ namespace MixPlanner.ViewModels
 
         void OnTrackAdded(TrackAddedToMixEvent obj)
         {
-            var trackItem = new MixItemViewModel(MessengerInstance, obj.Item, 
-                new PlayOrPauseTrackCommand(player, MessengerInstance, obj.Item.Track), mix);
-            Items.Insert(obj.InsertIndex, trackItem);
+            var viewModel = viewModels.CreateFor(obj.Item);
+            Items.Insert(obj.InsertIndex, viewModel);
         }
 
         public void DragOver(DropInfo dropInfo)

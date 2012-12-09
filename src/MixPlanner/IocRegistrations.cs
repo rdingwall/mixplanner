@@ -23,6 +23,7 @@ namespace MixPlanner
                 Component.For<IId3Reader>().ImplementedBy<Id3Reader>(),
                 Component.For<IMessenger>().ImplementedBy<Messenger>(),
                 Component.For<IAudioPlayer>().ImplementedBy<AudioPlayer>(),
+                Component.For<IMixItemViewModelFactory>().ImplementedBy<MixItemViewModelFactory>(),
                 Component.For<ITransitionDetector>().ImplementedBy<TransitionDetector>()
                     .DependsOn(Property.ForKey("strategies").Eq(Strategies.AllStrategies)),
                 Component.For<IMix>().ImplementedBy<Mix>(),

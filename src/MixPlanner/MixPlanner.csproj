@@ -167,6 +167,7 @@
     <Compile Include="ViewModels\LibraryItemViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\MixItemViewModel.cs" />
+    <Compile Include="ViewModels\MixItemViewModelFactory.cs" />
     <Compile Include="ViewModels\MixViewModel.cs" />
     <Compile Include="ViewModels\TrackLibraryViewModel.cs" />
     <Compile Include="Views\ErrorWindow.xaml.cs">
