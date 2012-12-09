@@ -69,6 +69,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\log4net.2.0.0\lib\net40-full\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Expression.Drawing" />
     <Reference Include="Microsoft.Expression.Interactions, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Unofficial.Blend.Interactivity.1.0.0\lib\net45\Microsoft.Expression.Interactions.dll</HintPath>
     </Reference>
@@ -109,12 +110,15 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Commands\CommandBase.cs" />
+    <Compile Include="Commands\PauseTrackCommand.cs" />
     <Compile Include="Commands\DropFilesCommand.cs" />
     <Compile Include="Commands\DropTrackIntoMixCommand.cs" />
+    <Compile Include="Commands\PlayOrPauseTrackCommand.cs" />
     <Compile Include="Commands\PlayTrackCommand.cs" />
     <Compile Include="Commands\RemoveTrackFromLibraryCommand.cs" />
     <Compile Include="Commands\RemoveTrackFromMixCommand.cs" />
     <Compile Include="Commands\ReorderMixTrackCommand.cs" />
+    <Compile Include="Converters\IsPlayingFlagToPlayPauseStringConverter.cs" />
     <Compile Include="Converters\HarmonicKeyToBrushConverter.cs" />
     <Compile Include="DomainModel\IMixingStrategy.cs" />
     <Compile Include="DomainModel\InvalidPitchException.cs" />
@@ -139,6 +143,8 @@
     <Compile Include="DomainModel\Transition.cs" />
     <Compile Include="DomainModel\TransitionDetector.cs" />
     <Compile Include="DomainModel\UnknownKey.cs" />
+    <Compile Include="Events\PlayerPlayingEvent.cs" />
+    <Compile Include="Events\PlayerStoppedEvent.cs" />
     <Compile Include="Events\TrackAddedToLibraryEvent.cs" />
     <Compile Include="Events\TrackAddedToMixEvent.cs" />
     <Compile Include="Events\TrackRemovedFromLibraryEvent.cs" />

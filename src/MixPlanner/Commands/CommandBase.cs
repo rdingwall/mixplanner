@@ -10,7 +10,7 @@ namespace MixPlanner.Commands
             if (!(parameter is T))
                 return false;
 
-            return CanExecute((T)parameter);
+            return DoCanExecute((T)parameter);
         }
 
         public void Execute(object parameter)
@@ -18,15 +18,20 @@ namespace MixPlanner.Commands
             if (!(parameter is T))
                 return;
 
-            Execute((T)parameter);
+            DoExecute((T)parameter);
         }
 
-        protected virtual bool CanExecute(T parameter)
+        protected virtual bool DoCanExecute(T parameter)
         {
             return true;
         }
 
-        protected abstract void Execute(T parameter);
+        protected abstract void DoExecute(T parameter);
+
+        protected void RaiseCanExecuteChanged()
+        {
+            CanExecuteChanged(this, EventArgs.Empty);
+        }
 
         public event EventHandler CanExecuteChanged = delegate { };
     }

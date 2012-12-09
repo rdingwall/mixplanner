@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
+using MixPlanner.Commands;
 using MixPlanner.DomainModel;
 using MixPlanner.Events;
 
@@ -15,14 +17,20 @@ namespace MixPlanner.ViewModels
         public Track Track { get { return MixItem.Track; }}
         public string Title { get { return MixItem.Track.Title;} }
         public string Artist { get { return MixItem.Track.Artist;} }
+        public PlayOrPauseTrackCommand PlayPauseCommand { get; private set; }
+        public bool IsPlaying { get; private set; }
+        public bool IsNotPlaying { get { return !IsPlaying; } }
 
         public MixItemViewModel(
             IMessenger messenger, 
-            MixItem mixItem) : base(messenger)
+            MixItem mixItem,
+            PlayOrPauseTrackCommand playPauseCommand) : base(messenger)
         {
             if (messenger == null) throw new ArgumentNullException("messenger");
             if (mixItem == null) throw new ArgumentNullException("mixItem");
+            if (playPauseCommand == null) throw new ArgumentNullException("playPauseCommand");
             MixItem = mixItem;
+            PlayPauseCommand = playPauseCommand;
             messenger.Register<TransitionChangedEvent>(this, OnTransitionChanged);
         }
 

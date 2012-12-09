@@ -14,14 +14,14 @@ namespace MixPlanner.Commands
             this.player = player;
         }
 
-        protected override bool CanExecute(Track parameter)
+        protected override bool DoCanExecute(Track parameter)
         {
-            return parameter != null;
+            return parameter != null && player.CanPlay(parameter);
         }
 
-        protected override void Execute(Track parameter)
+        protected override void DoExecute(Track parameter)
         {
-            player.Play(parameter.Filename);
+            player.PlayOrResume(parameter);
         }
     }
 }

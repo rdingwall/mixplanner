@@ -1,26 +1,36 @@
-﻿<UserControl x:Class="MixPlanner.Views.MixItemView"
+﻿<UserControl Name="MixItem"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mp="clr-namespace:MixPlanner.ViewModels"
+             xmlns:ed="http://schemas.microsoft.com/expression/2010/drawing"
+             x:Class="MixPlanner.Views.MixItemView"
              mc:Ignorable="d"
-             d:DataContext="{d:DesignInstance mp:MixItemViewModel}" Height="88" Width="387"
+             d:DataContext="{d:DesignInstance {x:Type mp:MixItemViewModel}}" Height="88" Width="387"
              Background="{Binding ActualKey, Converter={StaticResource HarmonicKeyToBrushConverter}}">
     <Grid Margin="0">
-    	<Grid.ColumnDefinitions>
-    		<ColumnDefinition Width="97*"/>
-    		<ColumnDefinition Width="201*"/>
-    		<ColumnDefinition Width="89*"/>
-    	</Grid.ColumnDefinitions>
-    	<StackPanel HorizontalAlignment="Left" Margin="0" VerticalAlignment="Top">
-    		<Label x:Name="ActualKey" Content="{Binding ActualKey}" HorizontalAlignment="Center" FontSize="48" Padding="0"/>
-    		<Label x:Name="ActualBpm" Content="{Binding ActualBpm}" HorizontalAlignment="Center"/>
-    	</StackPanel>
-    	<StackPanel Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top">
-    		<Label x:Name="TrackTitle" Content="{Binding Title}"/>
-    		<Label x:Name="TrackArtists" Content="{Binding Artist}"/>
-    	</StackPanel>
-    	<StackPanel Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-	</Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="97*"/>
+            <ColumnDefinition Width="201*"/>
+            <ColumnDefinition Width="89*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel HorizontalAlignment="Left" Margin="0" VerticalAlignment="Top">
+            <Label x:Name="ActualKey" Content="{Binding ActualKey}" HorizontalAlignment="Center" FontSize="48" Padding="0"/>
+            <Label x:Name="ActualBpm" Content="{Binding ActualBpm}" HorizontalAlignment="Center"/>
+        </StackPanel>
+        <StackPanel Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Label x:Name="TrackTitle" Content="{Binding Title}"/>
+            <Label x:Name="TrackArtists" Content="{Binding Artist}"/>
+        </StackPanel>
+        <StackPanel Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Button Content="{Binding PlayPauseCommand.IsPlaying, Converter={StaticResource IsPlayingFlagToPlayPauseStringConverter}}"
+                CommandParameter="{Binding Track}"
+                Command="{Binding PlayPauseCommand}"
+                Visibility="{Binding IsMouseOver, ElementName=MixItem, Converter={StaticResource BooleanToVisibilityConverter}}" 
+                HorizontalAlignment="Left"
+                Margin="10,30.96,0,0"
+                VerticalAlignment="Top"
+                Width="75" />
+    </Grid>
 </UserControl>

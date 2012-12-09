@@ -15,12 +15,12 @@ namespace MixPlanner.Commands
             this.mix = mix;
         }
 
-        protected override bool CanExecute(DropInfo parameter)
+        protected override bool DoCanExecute(DropInfo parameter)
         {
             return parameter != null;
         }
 
-        protected override void Execute(DropInfo parameter)
+        protected override void DoExecute(DropInfo parameter)
         {
             var sourceItem = parameter.Data as LibraryItemViewModel;
 

@@ -25,10 +25,6 @@
                         <cmd:EventToCommand Command="{Binding RemoveCommand}" 
                                                         CommandParameter="{Binding SelectedItem.MixItem}"  />
                     </i:EventTrigger>
-                    <i:EventTrigger EventName="MouseDoubleClick">
-                        <cmd:EventToCommand Command="{Binding PlayCommand}" 
-                                                        CommandParameter="{Binding SelectedItem.Track}"  />
-                    </i:EventTrigger>
                 </i:Interaction.Triggers>
 
                 <ListView.ItemTemplate>

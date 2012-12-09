@@ -1,48 +1,100 @@
 ﻿using System;
+using GalaSoft.MvvmLight.Messaging;
+using MixPlanner.DomainModel;
+using MixPlanner.Events;
 using NAudio.Wave;
 
 namespace MixPlanner.Player
 {
-    public interface IAudioPlayer : IDisposable
+    public interface IAudioPlayer
     {
-        void Play(string filename);
-        void PauseOrResume();
+        Track CurrentTrack { get; }
+        bool CanPlay(Track track);
+        void PlayOrResume(Track track);
+
+        bool IsPlaying(Track track);
+        void Pause();
         void Stop();
     }
 
-    public class AudioPlayer : IAudioPlayer
+    public class AudioPlayer : IAudioPlayer, IDisposable
     {
-        public AudioPlayer()
+        readonly IMessenger messenger;
+        public Track CurrentTrack { get; private set; }
+
+        public AudioPlayer(IMessenger messenger)
         {
+            if (messenger == null) throw new ArgumentNullException("messenger");
+            this.messenger = messenger;
             waveOutDevice = new WaveOut();
+            waveOutDevice.PlaybackStopped += delegate { NotifyStopped(); };
         }
 
-        public void Play(string filename)
+        void NotifyStopped()
         {
-            if (filename == null) throw new ArgumentNullException("filename");
+            messenger.Send(new PlayerStoppedEvent(CurrentTrack));
+        }
 
-            Stop();
-            stream = new Mp3FileReader(filename);
-            waveOutDevice.Init(stream);
+        void NotifyStarting()
+        {
+            messenger.Send(new PlayerPlayingEvent(CurrentTrack));
+        }
+
+        public bool CanPlay(Track track)
+        {
+            return track != null && !String.IsNullOrWhiteSpace(track.Filename);
+        }
+
+        public void PlayOrResume(Track track)
+        {
+            if (track == null) throw new ArgumentNullException("track");
+            if (!CanPlay(track)) return;
+
+            if (!track.Equals(CurrentTrack))
+            {
+                Stop();
+                CurrentTrack = track;
+                stream = new Mp3FileReader(track.Filename);
+                waveOutDevice.Init(stream);
+            }
+
             waveOutDevice.Play();
+            NotifyStarting();
         }
 
-        public void PauseOrResume()
+        public bool IsPlaying(Track track)
         {
-            if (waveOutDevice.PlaybackState == PlaybackState.Paused)
-                waveOutDevice.Resume();
-            else
-                waveOutDevice.Pause();
+            if (track == null) throw new ArgumentNullException("track");
+            return track.Equals(CurrentTrack) 
+                && waveOutDevice.PlaybackState == PlaybackState.Playing;
+        }
+
+        public void Pause()
+        {
+            if (waveOutDevice.PlaybackState != PlaybackState.Playing)
+                return;
+
+            waveOutDevice.Pause();
+            NotifyStopped();
         }
 
         public void Stop()
         {
+            if (waveOutDevice.PlaybackState == PlaybackState.Stopped)
+                return;
+
+            if (CurrentTrack == null)
+                return;
+
             waveOutDevice.Stop();
+            CurrentTrack = null;
             if (stream != null)
             {
                 stream.Dispose();
                 stream = null;
             }
+
+            NotifyStopped();
         }
 
         public void Dispose()

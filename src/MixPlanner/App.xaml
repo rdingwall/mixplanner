@@ -12,6 +12,8 @@
                 <ResourceDictionary Source="Simple Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <converters:HarmonicKeyToBrushConverter x:Key="HarmonicKeyToBrushConverter" />
+            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+            <converters:IsPlayingFlagToPlayPauseStringConverter x:Key="IsPlayingFlagToPlayPauseStringConverter" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>
