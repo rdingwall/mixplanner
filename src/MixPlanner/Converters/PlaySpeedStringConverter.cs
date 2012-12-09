@@ -10,7 +10,7 @@ namespace MixPlanner.Converters
         {
             var playSpeed = (double) value;
 
-            return string.Format("{0}%", playSpeed);
+            return string.Format("{0:+0.#;-0.#;0}%", playSpeed);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
