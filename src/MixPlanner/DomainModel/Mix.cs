@@ -11,6 +11,7 @@ namespace MixPlanner.DomainModel
         IEnumerable<Track> Tracks { get; }
         void Add(Track track);
         void Insert(Track track, int insertIndex);
+        void Insert(IEnumerable<Track> tracks, int insertIndex);
         IEnumerable<MixItem> Items { get; }
         void Remove(MixItem item);
         void Reorder(MixItem item, int newIndex);
@@ -93,6 +94,14 @@ namespace MixPlanner.DomainModel
 
             messenger.Send(new TrackAddedToMixEvent(item, insertIndex));
             RecalcTransitions();
+        }
+
+        public void Insert(IEnumerable<Track> tracks, int insertIndex)
+        {
+            if (tracks == null) throw new ArgumentNullException("tracks");
+
+            foreach (var track in tracks)
+                Insert(track, insertIndex++);
         }
 
         public void RecalcTransitions()

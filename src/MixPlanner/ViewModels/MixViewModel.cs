@@ -18,6 +18,7 @@ namespace MixPlanner.ViewModels
         public ICommand RemoveTrackCommand { get; private set; }
         public ObservableCollection<MixItemViewModel> Items { get; private set; }
         public ICommand DropItemCommand { get; private set; }
+        public ICommand DropFilesCommand { get; private set; }
 
         public MixItemViewModel SelectedItem
         {
@@ -32,13 +33,16 @@ namespace MixPlanner.ViewModels
         public MixViewModel(IMessenger messenger, 
             RemoveTrackFromMixCommand removeCommand,
             IMixItemViewModelFactory viewModels,
-            DropItemIntoMixCommand dropItemCommand) : base(messenger)
+            DropItemIntoMixCommand dropItemCommand,
+            ImportFilesIntoMixCommand dropFilesCommand) : base(messenger)
         {
             if (messenger == null) throw new ArgumentNullException("messenger");
             if (removeCommand == null) throw new ArgumentNullException("removeCommand");
             if (viewModels == null) throw new ArgumentNullException("viewModels");
             if (dropItemCommand == null) throw new ArgumentNullException("dropItemCommand");
+            if (dropFilesCommand == null) throw new ArgumentNullException("dropFilesCommand");
             DropItemCommand = dropItemCommand;
+            DropFilesCommand = dropFilesCommand;
             this.viewModels = viewModels;
             RemoveTrackCommand = new DelKeyEventToCommandFilter(removeCommand, () => SelectedItem.MixItem);
             Items = new ObservableCollection<MixItemViewModel>();

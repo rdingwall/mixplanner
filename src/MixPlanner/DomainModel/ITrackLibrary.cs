@@ -4,9 +4,9 @@ namespace MixPlanner.DomainModel
 {
     public interface ITrackLibrary
     {
-        void Import(string filename);
-        void Import(IEnumerable<string> filenames);
-        void ImportDirectory(string directoryName);
+        IEnumerable<Track> Import(string filename);
+        IEnumerable<Track> Import(IEnumerable<string> filenames);
+        IEnumerable<Track> ImportDirectory(string directoryName);
 
         void Remove(Track track);
     }

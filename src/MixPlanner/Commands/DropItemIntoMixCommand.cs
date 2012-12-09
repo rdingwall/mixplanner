@@ -1,39 +1,43 @@
 ﻿using System;
-using System.Windows;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Input;
 using GongSolutions.Wpf.DragDrop;
-using MixPlanner.ViewModels;
 
 namespace MixPlanner.Commands
 {
     public class DropItemIntoMixCommand : CommandBase<DropInfo>
     {
-        readonly ICommand addTrackCommand;
-        readonly ICommand reorderTrackCommand;
+        readonly IEnumerable<ICommand> commands; 
 
         public DropItemIntoMixCommand(
             AddTrackToMixCommand addTrackCommand,
-            ReorderMixTrackCommand reorderTrackCommand)
+            ReorderMixTrackCommand reorderTrackCommand,
+            ImportFilesIntoMixCommand importFilesCommand)
         {
             if (addTrackCommand == null) throw new ArgumentNullException("addTrackCommand");
             if (reorderTrackCommand == null) throw new ArgumentNullException("reorderTrackCommand");
-            this.addTrackCommand = addTrackCommand;
-            this.reorderTrackCommand = reorderTrackCommand;
+            if (importFilesCommand == null) throw new ArgumentNullException("importFilesCommand");
+            
+            commands = new ICommand[]
+                           {
+                               addTrackCommand,
+                               reorderTrackCommand,
+                               importFilesCommand
+                           };
         }
 
         protected override bool DoCanExecute(DropInfo parameter)
         {
-            return (parameter.Data is LibraryItemViewModel ||
-                    parameter.Data is MixItemViewModel);
+            return commands.Any(c => c.CanExecute(parameter));
         }
 
         protected override void DoExecute(DropInfo parameter)
         {
-            if (parameter.Data is LibraryItemViewModel)
-                addTrackCommand.Execute(parameter);
+            var command = commands.FirstOrDefault(c => c.CanExecute(parameter));
 
-            else if (parameter.Data is MixItemViewModel)
-                reorderTrackCommand.Execute(parameter);
+            if (command != null)
+                command.Execute(parameter);
         }
     }
 }

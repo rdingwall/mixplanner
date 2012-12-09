@@ -17,13 +17,11 @@ namespace MixPlanner.Commands
 
         protected override bool DoCanExecute(DropInfo parameter)
         {
-            return parameter != null;
+            return parameter != null && parameter.Data is LibraryItemViewModel;
         }
 
         protected override void DoExecute(DropInfo parameter)
         {
-
-
             var sourceItem = parameter.Data as LibraryItemViewModel;
 
             mix.Insert(sourceItem.Track, parameter.InsertIndex);

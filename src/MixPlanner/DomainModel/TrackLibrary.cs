@@ -27,27 +27,31 @@ namespace MixPlanner.DomainModel
             this.storage = storage;
         }
 
-        public void Import(string filename)
+        public IEnumerable<Track> Import(string filename)
         {
             if (filename == null) throw new ArgumentNullException("filename");
 
             if (IsDirectory(filename))
-            {
-                ImportDirectory(filename);
-                return;
-            }
+                return ImportDirectory(filename);
 
-            if (!IsMp3(filename)) return;
-            if (AlreadyContains(filename)) return;
+            if (!IsMp3(filename)) 
+                return Enumerable.Empty<Track>();
 
-            var track = loader.Load(filename);
+            Track track;
+            if (TryGetTrack(filename, out track))
+                return new[] { track };
+
+            track = loader.Load(filename);
             storage.Add(track);
             messenger.Send(new TrackAddedToLibraryEvent(track));
+            return new[] { track };
         }
 
-        bool AlreadyContains(string filename)
+        bool TryGetTrack(string filename, out Track track)
         {
-            return storage.Tracks.Any(t => t.Filename.Equals(filename, Comparison));
+            track = storage.Tracks.FirstOrDefault(t => t.Filename.Equals(filename, Comparison));
+
+            return track != null;
         }
 
         static bool IsMp3(string filename)
@@ -56,24 +60,24 @@ namespace MixPlanner.DomainModel
             return extension.Equals(".mp3", Comparison);
         }
 
-        public void Import(IEnumerable<string> filenames)
+        public IEnumerable<Track> Import(IEnumerable<string> filenames)
         {
             if (filenames == null) throw new ArgumentNullException("filenames");
 
-            filenames.ForEach(Import);
+            return filenames.SelectMany(Import).ToList(); // force evaluation now
         }
 
-        public void ImportDirectory(string directoryName)
+        public IEnumerable<Track> ImportDirectory(string directoryName)
         {
             if (directoryName == null) throw new ArgumentNullException("directoryName");
 
             var filenames = Directory.GetFiles(directoryName, 
                 "*.mp3", SearchOption.AllDirectories);
 
-            Import(filenames);
+            return Import(filenames);
         }
 
-        bool IsDirectory(string filename)
+        static bool IsDirectory(string filename)
         {
             var attributes = File.GetAttributes(filename);
             return (attributes & FileAttributes.Directory) == FileAttributes.Directory;

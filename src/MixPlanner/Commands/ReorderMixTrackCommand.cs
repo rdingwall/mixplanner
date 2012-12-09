@@ -17,7 +17,7 @@ namespace MixPlanner.Commands
 
         protected override bool DoCanExecute(DropInfo parameter)
         {
-            return parameter != null;
+            return parameter != null && parameter.Data is MixItemViewModel;
         }
 
         protected override void DoExecute(DropInfo parameter)
