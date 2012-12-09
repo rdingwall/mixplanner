@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mp="clr-namespace:MixPlanner.ViewModels"
              xmlns:ed="http://schemas.microsoft.com/expression/2010/drawing"
+             xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop"
              x:Class="MixPlanner.Views.MixItemView"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance {x:Type mp:MixItemViewModel}}" Height="88" Width="387"
@@ -46,7 +47,15 @@
         	<Label x:Name="CurrentPitch" Content="{Binding PlaySpeed, Converter={StaticResource PlaySpeedStringConverter}}" Height="48" VerticalAlignment="Top" HorizontalAlignment="Center"/>
         	<Slider x:Name="PitchSlider" Value="{Binding PlaySpeed}"  Height="48" VerticalAlignment="Top" Orientation="Vertical" DockPanel.Dock="Right" Minimum="-6" TickPlacement="TopLeft" SmallChange="3" TickFrequency="3" Maximum="6" LargeChange="3" IsSnapToTickEnabled="True" IsDirectionReversed="True"/>
         </DockPanel>
-        <StackPanel Grid.Column="3" HorizontalAlignment="Left" Height="48" Margin="10,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="61.042">
+        <StackPanel dd:DragDrop.IsDragSource="True"
+                    dd:DragDrop.DragHandler="{Binding}"
+                    Grid.Column="3" 
+                    HorizontalAlignment="Left" 
+                    Height="48" 
+                    Margin="10,10,0,0" 
+                    Grid.Row="1" 
+                    VerticalAlignment="Top" 
+                    Width="61.042">
         	<Rectangle Fill="#FFF4F4F5" Height="9" Stroke="Black"/>
         	<Rectangle Fill="#FFF4F4F5" Height="9" Stroke="Black" Margin="0,5,0,0"/>
         	<Rectangle Fill="#FFF4F4F5" Height="9" Stroke="Black" Margin="0,5,0,0"/>

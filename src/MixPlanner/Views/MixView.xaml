@@ -12,19 +12,20 @@
              d:DesignHeight="300" 
              d:DesignWidth="300"
              d:DataContext="{d:DesignInstance mp:MixViewModel}">
-    <Grid AllowDrop="True">
+    <Grid>
         <i:Interaction.Triggers>
+            <!--
             <i:EventTrigger EventName="Drop">
                 <cmd:EventToCommand Command="{Binding DropFilesCommand}"
                             PassEventArgsToCommand="True" />
             </i:EventTrigger>
+            -->
             </i:Interaction.Triggers>
             <GroupBox Header="Mix">
             <ListView ItemsSource="{Binding Items}"
                       dd:DragDrop.IsDropTarget="True"
                       dd:DragDrop.DropHandler="{Binding}"
-                      SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
-                      dd:DragDrop.IsDragSource="True">
+                      SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="PreviewKeyDown">
                         <cmd:EventToCommand Command="{Binding RemoveTrackCommand}"

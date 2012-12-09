@@ -64,7 +64,9 @@ namespace MixPlanner.ViewModels
 
         public void DragOver(DropInfo dropInfo)
         {
-            if (DropItemCommand.CanExecute(dropInfo))
+            if (!DropItemCommand.CanExecute(dropInfo))
+                return;
+
             {
                 dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
                 dropInfo.Effects = DragDropEffects.Copy;

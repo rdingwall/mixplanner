@@ -1,13 +1,15 @@
 ﻿using System;
+using System.Windows;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
+using GongSolutions.Wpf.DragDrop;
 using MixPlanner.Commands;
 using MixPlanner.DomainModel;
 using MixPlanner.Events;
 
 namespace MixPlanner.ViewModels
 {
-    public class MixItemViewModel : ViewModelBase
+    public class MixItemViewModel : ViewModelBase, IDragSource
     {
         readonly IMix mix;
         public MixItem MixItem { get; private set; }
@@ -61,6 +63,12 @@ namespace MixPlanner.ViewModels
                 return;
 
             RaisePropertyChanged(() => Transition);
+        }
+
+        public void StartDrag(DragInfo dragInfo)
+        {
+            dragInfo.Data = this;
+            dragInfo.Effects = DragDropEffects.Move | DragDropEffects.Copy;
         }
     }
 }
