@@ -25,8 +25,8 @@ namespace MixPlanner.Mp3
 
                 // Reference: http://id3.org/id3v2.4.0-frames
                 t.InitialKey = GetTextFrameOrDefault(id3, "TKEY") ?? GetUserTextFrame(id3, "Initial key");
-                t.Artist = GetTextFrameOrDefault(id3, "TCOM") ?? id3.ID3v1Info.Artist;
-                t.Title = GetTextFrameOrDefault(id3, "TIT2") ?? id3.ID3v1Info.Title;
+                t.Artist = GetTextFrameOrDefault(id3, "TCOM") ?? id3.ID3v1Info.Artist ?? "Unknown Artist";
+                t.Title = GetTextFrameOrDefault(id3, "TIT2") ?? id3.ID3v1Info.Title ?? "Unknown Track";
                 t.Year = GetId3V1Year(id3) ?? GetTextFrameOrDefault(id3, "TYER");
                 t.Genre = GetTextFrameOrDefault(id3, "TCON");
                 t.Publisher = GetTextFrameOrDefault(id3, "TPUB") ?? GetUserTextFrame(id3, "Publisher");
@@ -43,14 +43,14 @@ namespace MixPlanner.Mp3
             }
         }
 
-        static string GetTextFrameOrDefault(ID3Info id3Info, string frameId)
+        static string GetTextFrameOrDefault(ID3Info id3Info, string frameId, string @default = null)
         {
             if (!id3Info.ID3v2Info.HaveTag)
                 return null;
 
             var value = id3Info.ID3v2Info.GetTextFrame(frameId);
 
-            return String.IsNullOrWhiteSpace(value) ? null : value;
+            return String.IsNullOrWhiteSpace(value) ? @default : value;
         }
 
         static string GetUserTextFrame(ID3Info id3Info, string description)

@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using MixPlanner.DomainModel;
+using MoreLinq;
 
 namespace MixPlanner.Mp3
 {
@@ -12,11 +14,14 @@ namespace MixPlanner.Mp3
     public class TrackLoader : ITrackLoader
     {
         readonly IId3Reader id3Reader;
+        readonly IEnumerable<IId3TagCleanup> cleanups;
 
-        public TrackLoader(IId3Reader id3Reader)
+        public TrackLoader(IId3Reader id3Reader, IId3TagCleanup[] cleanups)
         {
             if (id3Reader == null) throw new ArgumentNullException("id3Reader");
+            if (cleanups == null) throw new ArgumentNullException("cleanups");
             this.id3Reader = id3Reader;
+            this.cleanups = cleanups;
         }
 
         public Track Load(string filename)
@@ -30,10 +35,10 @@ namespace MixPlanner.Mp3
             return LoadTrackWithoutId3Tags(filename);
         }
 
-        static Track LoadTrackFromId3Tag(string filename, Id3Tag id3Tag)
+        Track LoadTrackFromId3Tag(string filename, Id3Tag id3Tag)
         {
-            var artist = id3Tag.Artist ?? "Unknown Artist";
-            var title = id3Tag.Title ?? "Unknown Title";
+            foreach (var cleanup in cleanups)
+                cleanup.Clean(id3Tag);
 
             HarmonicKey key;
             if (!HarmonicKey.TryParse(id3Tag.InitialKey, out key))
@@ -43,7 +48,7 @@ namespace MixPlanner.Mp3
             if (!Double.TryParse(id3Tag.Bpm, out bpm))
                 bpm = double.NaN;
 
-            var track = new Track(artist, title, key, filename, bpm)
+            var track = new Track(id3Tag.Artist, id3Tag.Title, key, filename, bpm)
                             {
                                 Label = id3Tag.Publisher ?? "",
                                 Genre = id3Tag.Genre ?? "",

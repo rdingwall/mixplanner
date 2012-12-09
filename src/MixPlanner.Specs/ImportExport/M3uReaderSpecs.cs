@@ -15,7 +15,8 @@ namespace MixPlanner.Specs.ImportExport
              Establish context = () =>
                                      {
                                          filename = "DummyPlaylist.m3u";
-                                         reader = new M3uReader(new TrackLoader(new Id3Reader()));
+                                         reader = new M3uReader(new TrackLoader(new Id3Reader(), 
+                                             new IId3TagCleanup[0]));
                                      };
 
              Because of = () => tracks = reader.Read(filename);

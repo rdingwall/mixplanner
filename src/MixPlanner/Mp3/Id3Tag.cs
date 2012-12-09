@@ -2,6 +2,17 @@ namespace MixPlanner.Mp3
 {
     public class Id3Tag
     {
+        public Id3Tag()
+        {
+            Artist = "";
+            Bpm = "";
+            Genre = "";
+            InitialKey = "";
+            Publisher = "";
+            Title = "";
+            Year = "";
+        }
+
         public string Artist { get; set; }
         public string Bpm { get; set; }
         public string Genre { get; set; }

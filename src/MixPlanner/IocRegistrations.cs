@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Input;
 using Castle.MicroKernel.Registration;
+using Castle.MicroKernel.Resolvers.SpecializedResolvers;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
 using GalaSoft.MvvmLight.Messaging;
@@ -16,9 +17,13 @@ namespace MixPlanner
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
+            container.Kernel.Resolver.AddSubResolver(new ArrayResolver(container.Kernel));
+            container.Kernel.Resolver.AddSubResolver(new CollectionResolver(container.Kernel));
+
             container.Register(
                 Component.For<ITrackLibrary>().ImplementedBy<TrackLibrary>(),
-                Component.For<ITrackLoader>().ImplementedBy<TrackLoader>(),
+                Component.For<ITrackLoader>().ImplementedBy<TrackLoader>()
+                .DependsOn(Property.ForKey("cleanups")),
                 Component.For<ILibraryStorage>().ImplementedBy<InMemoryLibraryStorage>(),
                 Component.For<IId3Reader>().ImplementedBy<Id3Reader>(),
                 Component.For<IMessenger>().ImplementedBy<Messenger>(),
@@ -29,6 +34,7 @@ namespace MixPlanner
                 Component.For<IMix>().ImplementedBy<Mix>(),
                 AllTypes.FromThisAssembly().InSameNamespaceAs<MainWindowViewModel>(),
                 AllTypes.FromThisAssembly().BasedOn<Window>(),
+                AllTypes.FromThisAssembly().BasedOn<IId3TagCleanup>().WithServiceBase(),
                 AllTypes.FromThisAssembly().BasedOn<ICommand>());
         }
     }
