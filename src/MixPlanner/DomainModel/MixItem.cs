@@ -15,5 +15,11 @@ namespace MixPlanner.DomainModel
         public PlaybackSpeed PlaybackSpeed { get; private set; }
         public Track Track { get; private set; }
         public Transition Transition { get; set; }
+
+        public void SetPlaybackSpeed(double value)
+        {
+            PlaybackSpeed.SetSpeed((int) value);
+            
+        }
     }
 }

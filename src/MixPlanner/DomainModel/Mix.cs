@@ -14,6 +14,7 @@ namespace MixPlanner.DomainModel
         IEnumerable<MixItem> Items { get; }
         void Remove(MixItem item);
         void Reorder(MixItem item, int newIndex);
+        void AdjustPlaybackSpeed(MixItem item, double value);
     }
 
     public class Mix : IMix
@@ -67,6 +68,13 @@ namespace MixPlanner.DomainModel
             RecalcTransitions();
         }
 
+        public void AdjustPlaybackSpeed(MixItem item, double value)
+        {
+            if (item == null) throw new ArgumentNullException("item");
+            item.SetPlaybackSpeed(value);
+            messenger.Send(new PlaybackSpeedAdjustedEvent(item));
+            RecalcTransitions();
+        }
 
         public void Add(Track track)
         {

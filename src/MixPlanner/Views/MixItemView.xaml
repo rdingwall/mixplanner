@@ -22,11 +22,10 @@
         <StackPanel Grid.ColumnSpan="3" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top">
             <Label x:Name="Transition" Content="{Binding Transition}" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
         </StackPanel>
-        <StackPanel Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Top">
-            <Label x:Name="ActualKey" Content="{Binding ActualKey}" HorizontalAlignment="Center" FontSize="48" Padding="0"/>
-            <Label x:Name="ActualBpm" Content="{Binding ActualBpm}" HorizontalAlignment="Center"/>
-            
-        </StackPanel>
+        <DockPanel Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Top">
+        	<Label x:Name="ActualKey" Content="{Binding ActualKey}" HorizontalAlignment="Center" FontSize="24" DockPanel.Dock="Top"/>
+        	<Label x:Name="ActualBpm" Content="{Binding ActualBpm}" HorizontalAlignment="Center" DockPanel.Dock="Right"/>
+        </DockPanel>
         <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top">
             <Label x:Name="TrackTitle" Content="{Binding Title}"/>
             <Label x:Name="TrackArtists" Content="{Binding Artist}"/>
@@ -42,6 +41,10 @@
                 Margin="10,30.96,0,0"
                 VerticalAlignment="Top"
                 Width="75" />
+        <DockPanel Grid.Column="2" HorizontalAlignment="Left" Height="48" LastChildFill="False" Margin="10,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="69">
+        	<Label x:Name="CurrentPitch" Content="{Binding PlaySpeed, Converter={StaticResource PlaySpeedStringConverter}}" Height="48" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+        	<Slider x:Name="PitchSlider" Value="{Binding PlaySpeed}"  Height="48" VerticalAlignment="Top" Orientation="Vertical" DockPanel.Dock="Right" Minimum="-6" TickPlacement="TopLeft" SmallChange="3" TickFrequency="3" Maximum="6" LargeChange="3" IsSnapToTickEnabled="True" IsDirectionReversed="True"/>
+        </DockPanel>
 
     </Grid>
 </UserControl>

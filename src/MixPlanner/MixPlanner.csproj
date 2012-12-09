@@ -120,6 +120,7 @@
     <Compile Include="Commands\ReorderMixTrackCommand.cs" />
     <Compile Include="Converters\IsPlayingFlagToPlayPauseStringConverter.cs" />
     <Compile Include="Converters\HarmonicKeyToBrushConverter.cs" />
+    <Compile Include="Converters\PlaySpeedStringConverter.cs" />
     <Compile Include="DomainModel\IMixingStrategy.cs" />
     <Compile Include="DomainModel\InvalidPitchException.cs" />
     <Compile Include="DomainModel\InvalidScaleException.cs" />
@@ -143,6 +144,7 @@
     <Compile Include="DomainModel\Transition.cs" />
     <Compile Include="DomainModel\TransitionDetector.cs" />
     <Compile Include="DomainModel\UnknownKey.cs" />
+    <Compile Include="Events\PlaybackSpeedAdjustedEvent.cs" />
     <Compile Include="Events\PlayerPlayingEvent.cs" />
     <Compile Include="Events\PlayerStoppedEvent.cs" />
     <Compile Include="Events\TrackAddedToLibraryEvent.cs" />
