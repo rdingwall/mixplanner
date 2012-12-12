@@ -121,6 +121,7 @@
     <Compile Include="Commands\RemoveTrackFromLibraryCommand.cs" />
     <Compile Include="Commands\RemoveTrackFromMixCommand.cs" />
     <Compile Include="Commands\ReorderMixTrackCommand.cs" />
+    <Compile Include="Converters\CamelotToTraditionalKeyConverter.cs" />
     <Compile Include="Converters\IsPlayingFlagToPlayPauseStringConverter.cs" />
     <Compile Include="Converters\HarmonicKeyToBrushConverter.cs" />
     <Compile Include="Converters\PlaySpeedStringConverter.cs" />

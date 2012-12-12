@@ -128,29 +128,6 @@ namespace MixPlanner.DomainModel
             return new HarmonicKey(pitch, scale);
         }
 
-        public bool Equals(HarmonicKey other)
-        {
-            if (ReferenceEquals(null, other)) return false;
-            if (ReferenceEquals(this, other)) return true;
-            return Equals(other.Scale, Scale) && other.Pitch == Pitch;
-        }
-
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != typeof (HarmonicKey)) return false;
-            return Equals((HarmonicKey) obj);
-        }
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                return (Scale.GetHashCode()*397) ^ Pitch;
-            }
-        }
-
         public HarmonicKey IncreasePitch(int value)
         {
             var newPitch = (Pitch + value) % 12;
@@ -186,6 +163,26 @@ namespace MixPlanner.DomainModel
                 key = null;
                 return false;
             }
+        }
+
+        public bool Equals(HarmonicKey other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return hexValue == other.hexValue;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            var other = obj as HarmonicKey;
+            return other != null && Equals(other);
+        }
+
+        public override int GetHashCode()
+        {
+            return hexValue.GetHashCode();
         }
     }
 }
