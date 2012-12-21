@@ -15,13 +15,12 @@
         Width="525" 
         d:DataContext="{d:DesignInstance vm:MainWindowViewModel}"
         AllowDrop="True">
-    
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50*" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="50*" />
+            <RowDefinition Height="24" />
         </Grid.RowDefinitions>
 
         <views:MixView Grid.Row="0" DataContext="{Binding Mix}" />
@@ -35,6 +34,9 @@
 
         <views:TrackLibraryView Grid.Row="2" DataContext="{Binding TrackLibrary}" />
 
+        <views:MiniPlayerView Grid.Row="3" 
+                              DataContext="{Binding MiniPlayer}" 
+                              HorizontalAlignment="Stretch" />
     </Grid>
 
 

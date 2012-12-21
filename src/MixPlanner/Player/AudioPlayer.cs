@@ -11,10 +11,12 @@ namespace MixPlanner.Player
         Track CurrentTrack { get; }
         bool CanPlay(Track track);
         void PlayOrResume(Track track);
-
+        void PlayOrResume();
         bool IsPlaying(Track track);
+        bool IsPlaying();
         void Pause();
         void Stop();
+        bool HasTrackLoaded();
     }
 
     public class AudioPlayer : IAudioPlayer, IDisposable
@@ -40,6 +42,11 @@ namespace MixPlanner.Player
             messenger.Send(new PlayerPlayingEvent(CurrentTrack));
         }
 
+        public bool HasTrackLoaded()
+        {
+            return CurrentTrack != null;
+        }
+
         public bool CanPlay(Track track)
         {
             return track != null && !String.IsNullOrWhiteSpace(track.Filename);
@@ -62,11 +69,24 @@ namespace MixPlanner.Player
             NotifyStarting();
         }
 
+        public void PlayOrResume()
+        {
+            if (!HasTrackLoaded())
+                return;
+
+            PlayOrResume(CurrentTrack);
+        }
+
         public bool IsPlaying(Track track)
         {
             if (track == null) throw new ArgumentNullException("track");
             return track.Equals(CurrentTrack) 
                 && waveOutDevice.PlaybackState == PlaybackState.Playing;
+        }
+
+        public bool IsPlaying()
+        {
+            return HasTrackLoaded() && IsPlaying(CurrentTrack);
         }
 
         public void Pause()
@@ -83,7 +103,7 @@ namespace MixPlanner.Player
             if (waveOutDevice.PlaybackState == PlaybackState.Stopped)
                 return;
 
-            if (CurrentTrack == null)
+            if (!HasTrackLoaded())
                 return;
 
             waveOutDevice.Stop();

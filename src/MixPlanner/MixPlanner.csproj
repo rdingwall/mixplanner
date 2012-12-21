@@ -113,6 +113,7 @@
     <Compile Include="Commands\DelKeyEventToCommandFilter.cs" />
     <Compile Include="Commands\DropItemIntoMixCommand.cs" />
     <Compile Include="Commands\ImportFilesIntoMixCommand.cs" />
+    <Compile Include="Commands\MiniPlayerPlayOrPauseTrackCommand.cs" />
     <Compile Include="Commands\PauseTrackCommand.cs" />
     <Compile Include="Commands\ImportFilesIntoLibraryCommand.cs" />
     <Compile Include="Commands\AddTrackToMixCommand.cs" />
@@ -172,6 +173,7 @@
     <Compile Include="ViewModels\ErrorWindowViewModel.cs" />
     <Compile Include="ViewModels\LibraryItemViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\MiniPlayerViewModel.cs" />
     <Compile Include="ViewModels\MixItemViewModel.cs" />
     <Compile Include="ViewModels\MixItemViewModelFactory.cs" />
     <Compile Include="ViewModels\MixViewModel.cs" />
@@ -179,6 +181,9 @@
     <Compile Include="Views\ErrorWindow.xaml.cs">
       <DependentUpon>ErrorWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\MiniPlayerView.xaml.cs">
+      <DependentUpon>MiniPlayerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MixItemView.xaml.cs">
       <DependentUpon>MixItemView.xaml</DependentUpon>
@@ -208,6 +213,10 @@
     <Page Include="Simple Styles.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\MiniPlayerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MixItemView.xaml">
       <SubType>Designer</SubType>
