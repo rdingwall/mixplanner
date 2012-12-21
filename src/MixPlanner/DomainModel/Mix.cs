@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using GalaSoft.MvvmLight.Messaging;
 using MixPlanner.Events;
+using MoreLinq;
 
 namespace MixPlanner.DomainModel
 {
@@ -16,6 +17,7 @@ namespace MixPlanner.DomainModel
         void Remove(MixItem item);
         void Reorder(MixItem item, int newIndex);
         void AdjustPlaybackSpeed(MixItem item, double value);
+        void RemoveRange(IEnumerable<MixItem> items);
     }
 
     public class Mix : IMix
@@ -75,6 +77,12 @@ namespace MixPlanner.DomainModel
             item.SetPlaybackSpeed(value);
             messenger.Send(new PlaybackSpeedAdjustedEvent(item));
             RecalcTransitions();
+        }
+
+        public void RemoveRange(IEnumerable<MixItem> items)
+        {
+            if (items == null) throw new ArgumentNullException("items");
+            items.ForEach(Remove);
         }
 
         public void Add(Track track)

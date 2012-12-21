@@ -29,6 +29,7 @@ namespace MixPlanner.ViewModels
         public bool IsPlaying { get; private set; }
         public bool IsNotPlaying { get { return !IsPlaying; } }
         public string Transition { get { return MixItem.Transition.Description; } }
+        public bool IsSelected { get; set; }
 
         public MixItemViewModel(
             IMessenger messenger, 

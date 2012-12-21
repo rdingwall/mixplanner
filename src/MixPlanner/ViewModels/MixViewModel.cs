@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
@@ -7,6 +8,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
 using GongSolutions.Wpf.DragDrop;
 using MixPlanner.Commands;
+using MixPlanner.DomainModel;
 using MixPlanner.Events;
 
 namespace MixPlanner.ViewModels
@@ -31,7 +33,7 @@ namespace MixPlanner.ViewModels
         }
 
         public MixViewModel(IMessenger messenger, 
-            RemoveTrackFromMixCommand removeCommand,
+            RemoveTracksFromMixCommand removeCommand,
             IMixItemViewModelFactory viewModels,
             DropItemIntoMixCommand dropItemCommand,
             ImportFilesIntoMixCommand dropFilesCommand) : base(messenger)
@@ -44,10 +46,18 @@ namespace MixPlanner.ViewModels
             DropItemCommand = dropItemCommand;
             DropFilesCommand = dropFilesCommand;
             this.viewModels = viewModels;
-            RemoveTrackCommand = new DelKeyEventToCommandFilter(removeCommand, () => SelectedItem.MixItem);
+            RemoveTrackCommand = new DelKeyEventToCommandFilter(removeCommand, GetSelectedItems);
             Items = new ObservableCollection<MixItemViewModel>();
             messenger.Register<TrackAddedToMixEvent>(this, OnTrackAdded);
             messenger.Register<TrackRemovedFromMixEvent>(this, OnTrackRemoved);
+        }
+
+        IEnumerable<MixItem> GetSelectedItems()
+        {
+            return Items
+                .Where(i => i.IsSelected)
+                .Select(i => i.MixItem)
+                .ToList();
         }
 
         void OnTrackRemoved(TrackRemovedFromMixEvent obj)
