@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
@@ -45,7 +46,12 @@ namespace MixPlanner.ViewModels
             messenger.Register<TrackRemovedFromLibraryEvent>(this, OnTrackRemoved);
 
             ImportFilesCommand = importFilesCommand;
-            RemoveTrackFromLibraryCommand = new DelKeyEventToCommandFilter(removeTrackCommand, () => SelectedItem);
+            RemoveTrackFromLibraryCommand = new DelKeyEventToCommandFilter(removeTrackCommand, GetSelectedItems);
+        }
+
+        IEnumerable<LibraryItemViewModel> GetSelectedItems()
+        {
+            return Items.Where(i => i.IsSelected).ToList();
         }
 
         void OnTrackRemoved(TrackRemovedFromLibraryEvent e)

@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using MixPlanner.DomainModel;
 using MixPlanner.ViewModels;
 
 namespace MixPlanner.Commands
 {
-    public class RemoveTrackFromLibraryCommand : CommandBase<LibraryItemViewModel>
+    public class RemoveTrackFromLibraryCommand : CommandBase<IEnumerable<LibraryItemViewModel>>
     {
         readonly ITrackLibrary library;
 
@@ -14,14 +16,14 @@ namespace MixPlanner.Commands
             this.library = library;
         }
 
-        protected override bool CanExecute(LibraryItemViewModel parameter)
+        protected override bool CanExecute(IEnumerable<LibraryItemViewModel> parameter)
         {
-            return parameter != null;
+            return parameter != null && parameter.Any();
         }
 
-        protected override void Execute(LibraryItemViewModel parameter)
+        protected override void Execute(IEnumerable<LibraryItemViewModel> parameter)
         {
-            library.Remove(parameter.Track);
+            library.RemoveRange(parameter.Select(i => i.Track));
         }
     }
 }

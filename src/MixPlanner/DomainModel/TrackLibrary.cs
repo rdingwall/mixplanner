@@ -89,5 +89,11 @@ namespace MixPlanner.DomainModel
             storage.Remove(track);
             messenger.Send(new TrackRemovedFromLibraryEvent(track));
         }
+
+        public void RemoveRange(IEnumerable<Track> tracks)
+        {
+            if (tracks == null) throw new ArgumentNullException("tracks");
+            tracks.ForEach(Remove);
+        }
     }
 }

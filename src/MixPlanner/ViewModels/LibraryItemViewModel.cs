@@ -33,5 +33,6 @@ namespace MixPlanner.ViewModels
         public double Bpm { get; set; }
 
         public Track Track { get; set; }
+        public bool IsSelected { get; set; }
     }
 }

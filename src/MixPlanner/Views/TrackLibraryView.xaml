@@ -13,10 +13,11 @@
              d:DataContext="{d:DesignInstance mp:TrackLibraryViewModel}">
     <GroupBox Header="Library">
         <DataGrid ItemsSource="{Binding Items}"
-                      SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
-                      IsReadOnly="True"
-                      AllowDrop="True"
-                      dd:DragDrop.IsDragSource="True">
+                  SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
+                  IsReadOnly="True"
+                  AllowDrop="True"
+                  dd:DragDrop.IsDragSource="True"
+                  SelectionMode="Extended">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Drop">
                     <cmd:EventToCommand Command="{Binding ImportFilesCommand}"
@@ -33,6 +34,7 @@
             </i:Interaction.Triggers>
             <DataGrid.RowStyle>
                 <Style TargetType="DataGridRow">
+                    <Setter Property="IsSelected" Value="{Binding IsSelected}" />
                     <Setter Property="Background" Value="{Binding Key, Converter={StaticResource HarmonicKeyToBrushConverter}}" />
                 </Style>
             </DataGrid.RowStyle>

@@ -9,5 +9,6 @@ namespace MixPlanner.DomainModel
         IEnumerable<Track> ImportDirectory(string directoryName);
 
         void Remove(Track track);
+        void RemoveRange(IEnumerable<Track> tracks);
     }
 }
