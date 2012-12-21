@@ -6,11 +6,11 @@ using MixPlanner.ViewModels;
 
 namespace MixPlanner.Commands
 {
-    public class RemoveTrackFromLibraryCommand : CommandBase<IEnumerable<LibraryItemViewModel>>
+    public class RemoveTracksFromLibraryCommand : CommandBase<IEnumerable<LibraryItemViewModel>>
     {
         readonly ITrackLibrary library;
 
-        public RemoveTrackFromLibraryCommand(ITrackLibrary library)
+        public RemoveTracksFromLibraryCommand(ITrackLibrary library)
         {
             if (library == null) throw new ArgumentNullException("library");
             this.library = library;

@@ -17,7 +17,7 @@ namespace MixPlanner.ViewModels
     {
         MixItemViewModel selectedItem;
         readonly IMixItemViewModelFactory viewModels;
-        public ICommand RemoveTrackCommand { get; private set; }
+        public ICommand RemoveTracksCommand { get; private set; }
         public ObservableCollection<MixItemViewModel> Items { get; private set; }
         public ICommand DropItemCommand { get; private set; }
         public ICommand DropFilesCommand { get; private set; }
@@ -46,7 +46,7 @@ namespace MixPlanner.ViewModels
             DropItemCommand = dropItemCommand;
             DropFilesCommand = dropFilesCommand;
             this.viewModels = viewModels;
-            RemoveTrackCommand = new DelKeyEventToCommandFilter(removeCommand, GetSelectedItems);
+            RemoveTracksCommand = new DelKeyEventToCommandFilter(removeCommand, GetSelectedItems);
             Items = new ObservableCollection<MixItemViewModel>();
             messenger.Register<TrackAddedToMixEvent>(this, OnTrackAdded);
             messenger.Register<TrackRemovedFromMixEvent>(this, OnTrackRemoved);

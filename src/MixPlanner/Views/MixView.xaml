@@ -29,7 +29,7 @@
                       SelectionMode="Extended">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="PreviewKeyDown">
-                        <cmd:EventToCommand Command="{Binding RemoveTrackCommand}"
+                        <cmd:EventToCommand Command="{Binding RemoveTracksCommand}"
                                             PassEventArgsToCommand="True" />
                     </i:EventTrigger>
                 </i:Interaction.Triggers>

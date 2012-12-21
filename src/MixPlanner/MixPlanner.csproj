@@ -119,7 +119,7 @@
     <Compile Include="Commands\AddTrackToMixCommand.cs" />
     <Compile Include="Commands\PlayOrPauseTrackCommand.cs" />
     <Compile Include="Commands\PlayTrackCommand.cs" />
-    <Compile Include="Commands\RemoveTrackFromLibraryCommand.cs" />
+    <Compile Include="Commands\RemoveTracksFromLibraryCommand.cs" />
     <Compile Include="Commands\RemoveTracksFromMixCommand.cs" />
     <Compile Include="Commands\ReorderMixTrackCommand.cs" />
     <Compile Include="Converters\CamelotToTraditionalKeyConverter.cs" />
