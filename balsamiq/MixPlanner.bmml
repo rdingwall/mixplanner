@@ -1,4 +1,4 @@
-<mockup version="1.0" skin="sketch" measuredW="1555" measuredH="666">
+<mockup version="1.0" skin="sketch" measuredW="1627" measuredH="668">
   <controls>
     <control controlID="0" controlTypeID="com.balsamiq.mockups::TitleWindow" x="400" y="36" w="961" h="619" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="-1">
       <controlProperties>
@@ -179,6 +179,26 @@
     <control controlID="53" controlTypeID="com.balsamiq.mockups::Icon" x="513" y="239" w="-1" h="-1" measuredW="16" measuredH="16" zOrder="41" locked="false" isInGroup="-1">
       <controlProperties>
         <icon>PauseIcon%7Cxsmall</icon>
+      </controlProperties>
+    </control>
+    <control controlID="54" controlTypeID="com.balsamiq.mockups::Menu" x="1424" y="503" w="184" h="-1" measuredW="150" measuredH="65" zOrder="42" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%20Intelligent%20Insert%0A-------%0ARemove%2C%20DEL</text>
+      </controlProperties>
+    </control>
+    <control controlID="55" controlTypeID="com.balsamiq.mockups::HCurly" x="1417" y="578" w="-1" h="-1" measuredW="200" measuredH="80" zOrder="43" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Library%20context%20menu%20when%20multiple%20items%20are%20selected</text>
+      </controlProperties>
+    </control>
+    <control controlID="56" controlTypeID="com.balsamiq.mockups::Menu" x="164" y="62" w="184" h="-1" measuredW="150" measuredH="65" zOrder="44" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Reset%20pitch%0A-------%0ARemove%2C%20DEL</text>
+      </controlProperties>
+    </control>
+    <control controlID="57" controlTypeID="com.balsamiq.mockups::HCurly" x="157" y="137" w="-1" h="-1" measuredW="200" measuredH="80" zOrder="45" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Mix%20context%20menu%20when%20multiple%20items%20are%20selected</text>
       </controlProperties>
     </control>
   </controls>
