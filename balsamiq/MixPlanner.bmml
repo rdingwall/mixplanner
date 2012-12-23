@@ -79,9 +79,9 @@
         <text>2%20tracks</text>
       </controlProperties>
     </control>
-    <control controlID="30" controlTypeID="com.balsamiq.mockups::Menu" x="1092" y="86" w="-1" h="-1" measuredW="150" measuredH="145" zOrder="33" locked="false" isInGroup="-1">
+    <control controlID="30" controlTypeID="com.balsamiq.mockups::Menu" x="1092" y="86" w="-1" h="-1" measuredW="150" measuredH="170" zOrder="33" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>Save%2C%20CTRL+S%0ASave%20As%0A--------%0AClear%0A--------%0ASave%20to%20Evernote%0AEmail</text>
+        <text>Save%2C%20CTRL+S%0ASave%20As%0A--------%0AClear%0A--------%0AExport%20playlist%0ASave%20to%20Evernote%0AEmail</text>
       </controlProperties>
     </control>
     <control controlID="32" controlTypeID="com.balsamiq.mockups::Icon" x="1063" y="128" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="39" locked="false" isInGroup="-1">
