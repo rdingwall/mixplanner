@@ -13,7 +13,7 @@ namespace MixPlanner.ViewModels
     {
         readonly IMix mix;
         public MixItem MixItem { get; private set; }
-        public HarmonicKey ActualKey { get { return MixItem.PlaybackSpeed.ActualStartingKey; } }
+        public HarmonicKey ActualKey { get { return MixItem.PlaybackSpeed.ActualKey; } }
         public double ActualBpm { get { return MixItem.PlaybackSpeed.ActualBpm; } }
 
         public double PlaySpeed

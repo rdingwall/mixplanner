@@ -14,15 +14,15 @@ namespace MixPlanner.Specs.DomainModel.MixingStrategies
             Establish context =
                 () =>
                     {
-                        current = TestPlaybackSpeeds.Ending(HarmonicKey.Key9A, 128);
+                        current = new PlaybackSpeed(HarmonicKey.Key9A, 128);
                         strategy = new IncrementOne();
                         unplayed = new[]
                                        {
-                                           TestPlaybackSpeeds.Starting(HarmonicKey.Key10A, 128),
-                                           TestPlaybackSpeeds.Starting(HarmonicKey.Key4A, 128),
-                                           TestPlaybackSpeeds.Starting(HarmonicKey.Key4B, 128),
-                                           TestPlaybackSpeeds.Starting(HarmonicKey.Key4A, 128),
-                                           TestPlaybackSpeeds.Starting(HarmonicKey.Key8A, 128),
+                                           new PlaybackSpeed(HarmonicKey.Key10A, 128),
+                                           new PlaybackSpeed(HarmonicKey.Key4A, 128),
+                                           new PlaybackSpeed(HarmonicKey.Key4B, 128),
+                                           new PlaybackSpeed(HarmonicKey.Key4A, 128),
+                                           new PlaybackSpeed(HarmonicKey.Key8A, 128),
                                        };
                     };
 
@@ -34,7 +34,7 @@ namespace MixPlanner.Specs.DomainModel.MixingStrategies
             Because of = () => suggested = unplayed.Where(t => strategy.IsCompatible(current, t));
 
             It should_suggest_tracks_that_are_one_hour_up_from_the_current =
-                () => suggested.Select(t => t.ActualStartingKey).ShouldContainOnly(HarmonicKey.Key10A);
+                () => suggested.Select(t => t.ActualKey).ShouldContainOnly(HarmonicKey.Key10A);
         }
     }
 }

@@ -14,15 +14,15 @@ namespace MixPlanner.Specs.DomainModel.MixingStrategies
             Establish context =
                 () =>
                     {
-                        current = TestPlaybackSpeeds.Ending(HarmonicKey.Key9B, 128);
+                        current = new PlaybackSpeed(HarmonicKey.Key9B, 128);
                         strategy = new SwitchToMinorScale();
                         unplayed = new[]
                                        {
-                                           TestPlaybackSpeeds.Starting(HarmonicKey.Key9A, 128),
-                                           TestPlaybackSpeeds.Starting(HarmonicKey.Key4A, 128),
-                                           TestPlaybackSpeeds.Starting(HarmonicKey.Key4B, 128),
-                                           TestPlaybackSpeeds.Starting(HarmonicKey.Key4A, 128),
-                                           TestPlaybackSpeeds.Starting(HarmonicKey.Key9A, 128)
+                                           new PlaybackSpeed(HarmonicKey.Key9A, 128),
+                                           new PlaybackSpeed(HarmonicKey.Key4A, 128),
+                                           new PlaybackSpeed(HarmonicKey.Key4B, 128),
+                                           new PlaybackSpeed(HarmonicKey.Key4A, 128),
+                                           new PlaybackSpeed(HarmonicKey.Key9A, 128)
                                        };
                     };
 
@@ -34,7 +34,7 @@ namespace MixPlanner.Specs.DomainModel.MixingStrategies
             Because of = () => suggested = unplayed.Where(t => strategy.IsCompatible(current, t));
 
             It should_suggest_tracks_that_are_the_same_pitch_but_minor =
-                () => suggested.Select(t => t.ActualStartingKey).Distinct().ShouldContainOnly(HarmonicKey.Key9A);
+                () => suggested.Select(t => t.ActualKey).Distinct().ShouldContainOnly(HarmonicKey.Key9A);
         }
     }
 }

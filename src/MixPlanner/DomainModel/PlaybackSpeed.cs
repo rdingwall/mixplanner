@@ -1,38 +1,29 @@
 ﻿using System;
-using System.Diagnostics;
 
 namespace MixPlanner.DomainModel
 {
-    [DebuggerDisplay("{ActualStartingKey} - {ActualEndingKey} ({ActualBpm})")]
     public class PlaybackSpeed
     {
-        public PlaybackSpeed(
-            HarmonicKey originalStartingKey,
-            HarmonicKey originalEndingingKey,
-            double originalBpm)
+        public PlaybackSpeed(HarmonicKey originalKey, double originalBpm)
         {
-            if (originalStartingKey == null) throw new ArgumentNullException("originalStartingKey");
-            if (originalEndingingKey == null) throw new ArgumentNullException("originalEndingingKey");
+            if (originalKey == null) throw new ArgumentNullException("originalKey");
             this.originalBpm = originalBpm;
-            this.originalStartingKey = originalStartingKey;
-            this.originalEndingingKey = originalEndingingKey;
+            this.originalKey = originalKey;
             ActualBpm = originalBpm;
-            ActualStartingKey = originalStartingKey;
-            ActualEndingKey = originalEndingingKey;
+            ActualKey = originalKey;
         }
 
         public void SetSpeed(double percentIncrease)
         {
             PercentIncrease = percentIncrease;
             ActualBpm = CalculateActualBpm(percentIncrease);
-            ActualStartingKey = CalculateActualKey(originalStartingKey, percentIncrease);
-            ActualEndingKey = CalculateActualKey(originalEndingingKey, percentIncrease);
+            ActualKey = CalculateActualKey(percentIncrease);
         }
 
-        static HarmonicKey CalculateActualKey(HarmonicKey key, double percentIncrease)
+        HarmonicKey CalculateActualKey(double percentIncrease)
         {
             var pitchIncrease = 7*(percentIncrease/3);
-            return key.IncreasePitch((int)pitchIncrease);
+            return originalKey.IncreasePitch((int)pitchIncrease);
         }
 
         double CalculateActualBpm(double percentIncrease)
@@ -51,12 +42,10 @@ namespace MixPlanner.DomainModel
         }
 
         readonly double originalBpm;
-        readonly HarmonicKey originalStartingKey;
-        readonly HarmonicKey originalEndingingKey;
+        readonly HarmonicKey originalKey;
 
         public double PercentIncrease { get; private set; }
         public double ActualBpm { get; private set; }
-        public HarmonicKey ActualStartingKey { get; private set; }
-        public HarmonicKey ActualEndingKey { get; private set; }
+        public HarmonicKey ActualKey { get; private set; }
     }
 }

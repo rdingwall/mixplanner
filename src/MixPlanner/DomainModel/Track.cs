@@ -8,20 +8,17 @@ namespace MixPlanner.DomainModel
         public Track(
             string artist, 
             string title, 
-            HarmonicKey originalStartingKey,
-            HarmonicKey originalEndingKey,
+            HarmonicKey originalKey, 
             string fileName,
             double originalBpm)
         {
             if (artist == null) throw new ArgumentNullException("artist");
             if (title == null) throw new ArgumentNullException("title");
-            if (originalStartingKey == null) throw new ArgumentNullException("originalStartingKey");
-            if (originalEndingKey == null) throw new ArgumentNullException("originalEndingKey");
+            if (originalKey == null) throw new ArgumentNullException("originalKey");
             if (fileName == null) throw new ArgumentNullException("fileName");
             Artist = artist;
             Title = title;
-            OriginalStartingKey = originalStartingKey;
-            OriginalEndingKey = originalEndingKey;
+            OriginalKey = originalKey;
             Filename = fileName;
             OriginalBpm = originalBpm;
 
@@ -34,8 +31,7 @@ namespace MixPlanner.DomainModel
 
         public string Artist { get; private set; }
         public string Title { get; private set; }
-        public HarmonicKey OriginalStartingKey { get; private set; }
-        public HarmonicKey OriginalEndingKey { get; set; }
+        public HarmonicKey OriginalKey { get; private set; }
         public string Filename { get; private set; }
         public FileInfo File { get; private set; }
         public double OriginalBpm { get; private set; }
@@ -47,12 +43,12 @@ namespace MixPlanner.DomainModel
 
         public PlaybackSpeed GetDefaultPlaybackSpeed()
         {
-            return new PlaybackSpeed(OriginalStartingKey, OriginalEndingKey, OriginalBpm);
+            return new PlaybackSpeed(OriginalKey, OriginalBpm);
         }
 
         public override string ToString()
         {
-            return String.Format("{0} - {1}", Artist, OriginalStartingKey);
+            return String.Format("{0} - {1}", Artist, OriginalKey);
         }
 
         public bool Equals(Track other)

@@ -14,15 +14,15 @@ namespace MixPlanner.Specs.DomainModel.MixingStrategies
             Establish context =
                 () =>
                     {
-                        current = TestPlaybackSpeeds.Ending(HarmonicKey.Key9A, 128);
+                        current = new PlaybackSpeed(HarmonicKey.Key9A, 128);
                         strategy = new TwoSemitoneEnergyBoost();
                         unplayed = new[]
                                        {
-                                           TestPlaybackSpeeds.Starting(HarmonicKey.Key8B, 128),
-                                           TestPlaybackSpeeds.Starting(HarmonicKey.Key11A, 128),
-                                           TestPlaybackSpeeds.Starting(HarmonicKey.Key11B, 128),
-                                           TestPlaybackSpeeds.Starting(HarmonicKey.Key11A, 128),
-                                           TestPlaybackSpeeds.Starting(HarmonicKey.Key8A, 128),
+                                           new PlaybackSpeed(HarmonicKey.Key8B, 128),
+                                           new PlaybackSpeed(HarmonicKey.Key11A, 128),
+                                           new PlaybackSpeed(HarmonicKey.Key11B, 128),
+                                           new PlaybackSpeed(HarmonicKey.Key11A, 128),
+                                           new PlaybackSpeed(HarmonicKey.Key8A, 128),
                                        };
                     };
 
@@ -34,7 +34,7 @@ namespace MixPlanner.Specs.DomainModel.MixingStrategies
             Because of = () => suggested = unplayed.Where(t => strategy.IsCompatible(current, t));
 
             It should_suggest_tracks_that_are_two_semitone_up_from_the_current =
-                () => suggested.Select(t => t.ActualStartingKey).ShouldContainOnly(HarmonicKey.Key11A, HarmonicKey.Key11A);
+                () => suggested.Select(t => t.ActualKey).ShouldContainOnly(HarmonicKey.Key11A, HarmonicKey.Key11A);
         }
     }
 }

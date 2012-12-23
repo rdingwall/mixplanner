@@ -16,11 +16,8 @@ namespace MixPlanner.DomainModel.MixingStrategies
             if (first == null) throw new ArgumentNullException("first");
             if (second == null) throw new ArgumentNullException("second");
 
-            var firstKey = first.ActualEndingKey;
-            var secondKey = second.ActualStartingKey;
-
-            return secondKey.HasSameScaleAs(firstKey)
-                   && secondKey.Equals(firstKey.IncreasePitch(increaseAmount));
+            return second.ActualKey.HasSameScaleAs(first.ActualKey)
+                   && second.ActualKey.Equals(first.ActualKey.IncreasePitch(increaseAmount));
         }
 
         public virtual string Description

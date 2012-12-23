@@ -8,7 +8,7 @@ namespace MixPlanner.Specs.DomainModel
     {
         public class When_increasing_the_playback_speed_by_three
         {
-            Establish context = () => speed = TestPlaybackSpeeds.Get(HarmonicKey.Key7A, HarmonicKey.Key8A, 128);
+            Establish context = () => speed = new PlaybackSpeed(HarmonicKey.Key7A, 128);
 
             static PlaybackSpeed speed;
 
@@ -18,14 +18,12 @@ namespace MixPlanner.Specs.DomainModel
 
             It should_increase_the_bpm = () => speed.ActualBpm.ShouldBeCloseTo(131.84, 0.01);
 
-            It should_increase_the_starting_key = () => speed.ActualStartingKey.ShouldEqual(HarmonicKey.Key2A);
-
-            It should_increase_the_ending_key = () => speed.ActualEndingKey.ShouldEqual(HarmonicKey.Key3A);
+            It should_increase_the_key = () => speed.ActualKey.ShouldEqual(HarmonicKey.Key2A);
         }
 
         public class When_increasing_the_playback_speed_by_zero
         {
-            Establish context = () => speed = TestPlaybackSpeeds.Get(HarmonicKey.Key7A, HarmonicKey.Key8A, 128);
+            Establish context = () => speed = new PlaybackSpeed(HarmonicKey.Key7A, 128);
 
             static PlaybackSpeed speed;
 
@@ -35,14 +33,12 @@ namespace MixPlanner.Specs.DomainModel
 
             It should_use_the_original_bpm = () => speed.ActualBpm.ShouldBeCloseTo(128, 0.01);
 
-            It should_use_the_original_starting_key = () => speed.ActualStartingKey.ShouldEqual(HarmonicKey.Key7A);
-            
-            It should_use_the_original_ending_key = () => speed.ActualEndingKey.ShouldEqual(HarmonicKey.Key8A);
+            It should_use_the_original_key = () => speed.ActualKey.ShouldEqual(HarmonicKey.Key7A);
         }
 
         public class When_increasing_the_playback_speed_by_six
         {
-            Establish context = () => speed = TestPlaybackSpeeds.Get(HarmonicKey.Key7A, HarmonicKey.Key8A, 128);
+            Establish context = () => speed = new PlaybackSpeed(HarmonicKey.Key7A, 128);
 
             static PlaybackSpeed speed;
 
@@ -52,14 +48,12 @@ namespace MixPlanner.Specs.DomainModel
 
             It should_increase_the_bpm = () => speed.ActualBpm.ShouldBeCloseTo(135.68, 0.01);
 
-            It should_increase_the_starting_key = () => speed.ActualStartingKey.ShouldEqual(HarmonicKey.Key9A);
-            
-            It should_increase_the_ending_key = () => speed.ActualEndingKey.ShouldEqual(HarmonicKey.Key10A);
+            It should_increase_the_key = () => speed.ActualKey.ShouldEqual(HarmonicKey.Key9A);
         }
 
         public class When_decreasing_the_playback_speed_by_three
         {
-            Establish context = () => speed = TestPlaybackSpeeds.Get(HarmonicKey.Key7A, HarmonicKey.Key8A, 128);
+            Establish context = () => speed = new PlaybackSpeed(HarmonicKey.Key7A, 128);
 
             static PlaybackSpeed speed;
 
@@ -69,14 +63,12 @@ namespace MixPlanner.Specs.DomainModel
 
             It should_decrease_the_bpm = () => speed.ActualBpm.ShouldBeCloseTo(124.16, 0.01);
 
-            It should_decrease_the_starting_key = () => speed.ActualStartingKey.ShouldEqual(HarmonicKey.Key12A);
-            
-            It should_decrease_the_ending_key = () => speed.ActualEndingKey.ShouldEqual(HarmonicKey.Key1A);
+            It should_decrease_the_key = () => speed.ActualKey.ShouldEqual(HarmonicKey.Key12A);
         }
 
         public class When_decreasing_the_playback_speed_by_six
         {
-            Establish context = () => speed = TestPlaybackSpeeds.Get(HarmonicKey.Key7A, HarmonicKey.Key8A, 128);
+            Establish context = () => speed = new PlaybackSpeed(HarmonicKey.Key7A, 128);
 
             static PlaybackSpeed speed;
 
@@ -86,36 +78,34 @@ namespace MixPlanner.Specs.DomainModel
 
             It should_decrease_the_bpm = () => speed.ActualBpm.ShouldBeCloseTo(120.32, 0.01);
 
-            It should_decrease_the_starting_key = () => speed.ActualStartingKey.ShouldEqual(HarmonicKey.Key5A);
-
-            It should_decrease_the_ending_key = () => speed.ActualEndingKey.ShouldEqual(HarmonicKey.Key6A);
+            It should_decrease_the_key = () => speed.ActualKey.ShouldEqual(HarmonicKey.Key5A);
         }
 
         public class When_comparing_to_see_if_the_playback_speed_is_within_range_under_plus_3
         {
             It should_be_within_range =
-                () => TestPlaybackSpeeds.Get(128).IsWithinBpmRange(TestPlaybackSpeeds.Get(131))
+                () => TestTracks.PlaybackSpeed(128).IsWithinBpmRange(TestTracks.PlaybackSpeed(131))
                                 .ShouldBeTrue();
         }
 
         public class When_comparing_to_see_if_the_playback_speed_is_within_range_over_plus_3
         {
             It should_not_be_within_range =
-                () => TestPlaybackSpeeds.Get(128).IsWithinBpmRange(TestPlaybackSpeeds.Get(133))
+                () => TestTracks.PlaybackSpeed(128).IsWithinBpmRange(TestTracks.PlaybackSpeed(133))
                                 .ShouldBeFalse();
         }
 
         public class When_comparing_to_see_if_the_playback_speed_is_within_range_over_minus_3
         {
             It should_be_within_range =
-                () => TestPlaybackSpeeds.Get(128).IsWithinBpmRange(TestPlaybackSpeeds.Get(125))
+                () => TestTracks.PlaybackSpeed(128).IsWithinBpmRange(TestTracks.PlaybackSpeed(125))
                                 .ShouldBeTrue();
         }
 
         public class When_comparing_to_see_if_the_playback_speed_is_within_range_under_minus_3
         {
             It should_not_be_within_range =
-                () => TestPlaybackSpeeds.Get(128).IsWithinBpmRange(TestPlaybackSpeeds.Get(120))
+                () => TestTracks.PlaybackSpeed(128).IsWithinBpmRange(TestTracks.PlaybackSpeed(120))
                                 .ShouldBeFalse();
         }
     }
