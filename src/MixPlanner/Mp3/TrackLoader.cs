@@ -48,7 +48,7 @@ namespace MixPlanner.Mp3
             if (!Double.TryParse(id3Tag.Bpm, out bpm))
                 bpm = double.NaN;
 
-            var track = new Track(id3Tag.Artist, id3Tag.Title, key, filename, bpm)
+            var track = new Track(id3Tag.Artist, id3Tag.Title, key, key, filename, bpm)
                             {
                                 Label = id3Tag.Publisher ?? "",
                                 Genre = id3Tag.Genre ?? "",
@@ -63,7 +63,7 @@ namespace MixPlanner.Mp3
             var displayName = Path.GetFileNameWithoutExtension(filename);
 
             return new Track("Unknown Artist", displayName, 
-                HarmonicKey.Unknown, filename, float.NaN);
+                HarmonicKey.Unknown, HarmonicKey.Unknown, filename, float.NaN);
         }
     }
 }

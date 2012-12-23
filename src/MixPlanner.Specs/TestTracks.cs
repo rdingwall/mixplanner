@@ -12,6 +12,7 @@ namespace MixPlanner.Specs
             return new Track("Test Artist",
                 key.ToString(),
                 key,
+                key,
                 string.Format("{0:N}.mp3", Guid.NewGuid()),
                 bpm);
         }
@@ -28,11 +29,6 @@ namespace MixPlanner.Specs
             var factor = Random.NextDouble();
 
             return factor * (maxBpm - minBpm) + minBpm;
-        }
-
-        public static PlaybackSpeed PlaybackSpeed(double bpm)
-        {
-            return new PlaybackSpeed(HarmonicKey.Key6B, bpm);
         }
     }
 }

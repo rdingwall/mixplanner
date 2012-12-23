@@ -4,26 +4,32 @@ namespace MixPlanner.DomainModel
 {
     public class PlaybackSpeed
     {
-        public PlaybackSpeed(HarmonicKey originalKey, double originalBpm)
+        public PlaybackSpeed(
+            HarmonicKey originalStartingKey,
+            HarmonicKey originalEndingingKey,
+            double originalBpm)
         {
-            if (originalKey == null) throw new ArgumentNullException("originalKey");
+            if (originalStartingKey == null) throw new ArgumentNullException("originalStartingKey");
+            if (originalEndingingKey == null) throw new ArgumentNullException("originalEndingingKey");
             this.originalBpm = originalBpm;
-            this.originalKey = originalKey;
+            this.originalStartingKey = originalStartingKey;
+            this.originalEndingingKey = originalEndingingKey;
             ActualBpm = originalBpm;
-            ActualKey = originalKey;
+            ActualStartingKey = originalStartingKey;
         }
 
         public void SetSpeed(double percentIncrease)
         {
             PercentIncrease = percentIncrease;
             ActualBpm = CalculateActualBpm(percentIncrease);
-            ActualKey = CalculateActualKey(percentIncrease);
+            ActualStartingKey = CalculateActualKey(originalStartingKey, percentIncrease);
+            ActualEndingKey = CalculateActualKey(originalEndingingKey, percentIncrease);
         }
 
-        HarmonicKey CalculateActualKey(double percentIncrease)
+        static HarmonicKey CalculateActualKey(HarmonicKey key, double percentIncrease)
         {
             var pitchIncrease = 7*(percentIncrease/3);
-            return originalKey.IncreasePitch((int)pitchIncrease);
+            return key.IncreasePitch((int)pitchIncrease);
         }
 
         double CalculateActualBpm(double percentIncrease)
@@ -42,10 +48,12 @@ namespace MixPlanner.DomainModel
         }
 
         readonly double originalBpm;
-        readonly HarmonicKey originalKey;
+        readonly HarmonicKey originalStartingKey;
+        readonly HarmonicKey originalEndingingKey;
 
         public double PercentIncrease { get; private set; }
         public double ActualBpm { get; private set; }
-        public HarmonicKey ActualKey { get; private set; }
+        public HarmonicKey ActualStartingKey { get; private set; }
+        public HarmonicKey ActualEndingKey { get; private set; }
     }
 }

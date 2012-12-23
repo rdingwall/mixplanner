@@ -9,7 +9,7 @@ namespace MixPlanner.DomainModel.MixingStrategies
             if (first == null) throw new ArgumentNullException("first");
             if (second == null) throw new ArgumentNullException("second");
 
-            return second.ActualKey.Equals(first.ActualKey);
+            return second.ActualStartingKey.Equals(first.ActualStartingKey);
         }
 
         public string Description { get { return "Same key"; } }

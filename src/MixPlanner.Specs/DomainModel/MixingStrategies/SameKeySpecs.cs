@@ -14,15 +14,15 @@ namespace MixPlanner.Specs.DomainModel.MixingStrategies
             Establish context =
                 () =>
                     {
-                        current = new PlaybackSpeed(HarmonicKey.Key9A, 128);
+                        current = TestPlaybackSpeeds.Starting(HarmonicKey.Key9A, 128);
                         strategy = new SameKey();
                         unplayed = new[]
                                        {
-                                           new PlaybackSpeed(HarmonicKey.Key8B, 128),
-                                           new PlaybackSpeed(HarmonicKey.Key11A, 128),
-                                           new PlaybackSpeed(HarmonicKey.Key11B, 128),
-                                           new PlaybackSpeed(HarmonicKey.Key11A, 128),
-                                           new PlaybackSpeed(HarmonicKey.Key9A, 128)
+                                           TestPlaybackSpeeds.Starting(HarmonicKey.Key8B, 128),
+                                           TestPlaybackSpeeds.Starting(HarmonicKey.Key11A, 128),
+                                           TestPlaybackSpeeds.Starting(HarmonicKey.Key11B, 128),
+                                           TestPlaybackSpeeds.Starting(HarmonicKey.Key11A, 128),
+                                           TestPlaybackSpeeds.Starting(HarmonicKey.Key9A, 128)
                                        };
                     };
 
@@ -34,7 +34,7 @@ namespace MixPlanner.Specs.DomainModel.MixingStrategies
             Because of = () => suggested = unplayed.Where(t => strategy.IsCompatible(current, t));
 
             It should_suggest_tracks_that_are_in_the_same_key =
-                () => suggested.Select(t => t.ActualKey).ShouldContainOnly(HarmonicKey.Key9A);
+                () => suggested.Select(t => t.ActualStartingKey).ShouldContainOnly(HarmonicKey.Key9A);
         }
     }
 }

@@ -9,8 +9,8 @@ namespace MixPlanner.DomainModel.MixingStrategies
             if (first == null) throw new ArgumentNullException("first");
             if (second == null) throw new ArgumentNullException("second");
 
-            var firstKey = first.ActualKey;
-            var secondKey = second.ActualKey;
+            var firstKey = first.ActualStartingKey;
+            var secondKey = second.ActualStartingKey;
 
             return firstKey.Pitch == secondKey.Pitch
                    && firstKey.IsMinor()

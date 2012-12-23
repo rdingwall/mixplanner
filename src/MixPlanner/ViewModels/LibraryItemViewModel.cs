@@ -17,7 +17,7 @@ namespace MixPlanner.ViewModels
             Year = track.Year;
             Label = track.Label;
             Filename = track.File.FullName;
-            Key = track.OriginalKey;
+            Key = track.OriginalStartingKey;
         }
 
         public string Filename { get; set; }

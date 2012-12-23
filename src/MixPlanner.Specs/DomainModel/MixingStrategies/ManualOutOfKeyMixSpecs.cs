@@ -14,7 +14,7 @@ namespace MixPlanner.Specs.DomainModel.MixingStrategies
             Establish context =
                 () =>
                     {
-                        current = new PlaybackSpeed(HarmonicKey.RandomKey(), 128);
+                        current = TestPlaybackSpeeds.Starting(HarmonicKey.RandomKey(), 128);
                         strategy = new ManualOutOfKeyMix();
                         unplayed = TestMixes.GetRandomMix().Items.Select(i => i.PlaybackSpeed);
                     };
