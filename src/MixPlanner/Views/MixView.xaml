@@ -14,12 +14,6 @@
              d:DataContext="{d:DesignInstance mp:MixViewModel}">
     <Grid>
         <i:Interaction.Triggers>
-            <!--
-            <i:EventTrigger EventName="Drop">
-                <cmd:EventToCommand Command="{Binding DropFilesCommand}"
-                            PassEventArgsToCommand="True" />
-            </i:EventTrigger>
-            -->
             </i:Interaction.Triggers>
             <GroupBox Header="Mix">
             <ListView ItemsSource="{Binding Items}"
