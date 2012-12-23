@@ -10,6 +10,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Simple Styles.xaml" />
+                <ResourceDictionary Source="CLassic.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <converters:HarmonicKeyToBrushConverter x:Key="HarmonicKeyToBrushConverter" />
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />

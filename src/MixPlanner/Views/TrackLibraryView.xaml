@@ -7,37 +7,46 @@
              xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop"
              xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WPF4"
              xmlns:mp="clr-namespace:MixPlanner.ViewModels"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:controls="clr-namespace:MixPlanner.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="300"
              d:DesignWidth="300"
              d:DataContext="{d:DesignInstance mp:TrackLibraryViewModel}">
     <GroupBox Header="Library">
-        <DataGrid ItemsSource="{Binding Items}"
-                  SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
-                  IsReadOnly="True"
-                  AllowDrop="True"
-                  dd:DragDrop.IsDragSource="True"
-                  SelectionMode="Extended">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="Drop">
-                    <cmd:EventToCommand Command="{Binding ImportFilesCommand}"
-                            PassEventArgsToCommand="True" />
-                </i:EventTrigger>
-                <i:EventTrigger EventName="PreviewKeyDown">
-                    <cmd:EventToCommand Command="{Binding RemoveTracksFromLibraryCommand}"
-                                        PassEventArgsToCommand="True"  />
-                </i:EventTrigger>
-                <i:EventTrigger EventName="MouseDoubleClick">
-                    <cmd:EventToCommand Command="{Binding PlayCommand}" 
-                                                        CommandParameter="{Binding SelectedItem.Track}"  />
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-            <DataGrid.RowStyle>
-                <Style TargetType="DataGridRow">
-                    <Setter Property="IsSelected" Value="{Binding IsSelected}" />
-                    <Setter Property="Background" Value="{Binding Key, Converter={StaticResource HarmonicKeyToBrushConverter}}" />
-                </Style>
-            </DataGrid.RowStyle>
-        </DataGrid>
+		<StackPanel>
+            <controls:SearchTextBox Height="24"
+                AllowEmptySearches="True"
+                                    SearchMode="Instant"
+                                    Command="{Binding SearchCommand}"
+                                    CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
+			<DataGrid ItemsSource="{Binding ItemsView}"
+					  SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
+					  IsReadOnly="True"
+					  AllowDrop="True"
+					  dd:DragDrop.IsDragSource="True"
+					  SelectionMode="Extended">
+				<i:Interaction.Triggers>
+					<i:EventTrigger EventName="Drop">
+						<cmd:EventToCommand Command="{Binding ImportFilesCommand}"
+								PassEventArgsToCommand="True" />
+					</i:EventTrigger>
+					<i:EventTrigger EventName="PreviewKeyDown">
+						<cmd:EventToCommand Command="{Binding RemoveTracksFromLibraryCommand}"
+											PassEventArgsToCommand="True"  />
+					</i:EventTrigger>
+					<i:EventTrigger EventName="MouseDoubleClick">
+						<cmd:EventToCommand Command="{Binding PlayCommand}" 
+															CommandParameter="{Binding SelectedItem.Track}"  />
+					</i:EventTrigger>
+				</i:Interaction.Triggers>
+				<DataGrid.RowStyle>
+					<Style TargetType="DataGridRow">
+						<Setter Property="IsSelected" Value="{Binding IsSelected}" />
+						<Setter Property="Background" Value="{Binding Key, Converter={StaticResource HarmonicKeyToBrushConverter}}" />
+					</Style>
+				</DataGrid.RowStyle>
+			</DataGrid>
+		</StackPanel>
     </GroupBox>
 </UserControl>

@@ -83,6 +83,7 @@
     <Reference Include="NAudio">
       <HintPath>..\..\packages\NAudio.1.6\lib\net20\NAudio.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationFramework.Classic" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -103,6 +104,12 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WPFToolkit.Extended">
+      <HintPath>..\..\packages\Extended.Wpf.Toolkit.1.8.0\lib\net40\WPFToolkit.Extended.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.DataGrid">
+      <HintPath>..\..\packages\Extended.Wpf.Toolkit.1.8.0\lib\net40\Xceed.Wpf.DataGrid.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -113,6 +120,7 @@
     <Compile Include="Commands\DelKeyEventToCommandFilter.cs" />
     <Compile Include="Commands\DropItemIntoMixCommand.cs" />
     <Compile Include="Commands\ImportFilesIntoMixCommand.cs" />
+    <Compile Include="Commands\SearchCommand.cs" />
     <Compile Include="Commands\MiniPlayerPlayOrPauseTrackCommand.cs" />
     <Compile Include="Commands\PauseTrackCommand.cs" />
     <Compile Include="Commands\ImportFilesIntoLibraryCommand.cs" />
@@ -122,6 +130,7 @@
     <Compile Include="Commands\RemoveTracksFromLibraryCommand.cs" />
     <Compile Include="Commands\RemoveTracksFromMixCommand.cs" />
     <Compile Include="Commands\ReorderMixTrackCommand.cs" />
+    <Compile Include="Controls\SearchTextBox.cs" />
     <Compile Include="Converters\CamelotToTraditionalKeyConverter.cs" />
     <Compile Include="Converters\IsPlayingFlagToPlayPauseStringConverter.cs" />
     <Compile Include="Converters\HarmonicKeyToBrushConverter.cs" />
@@ -149,6 +158,8 @@
     <Compile Include="DomainModel\Transition.cs" />
     <Compile Include="DomainModel\TransitionDetector.cs" />
     <Compile Include="DomainModel\UnknownKey.cs" />
+    <Compile Include="Events\SearchTextClearedEvent.cs" />
+    <Compile Include="Events\SearchRequestedEvent.cs" />
     <Compile Include="Events\PlaybackSpeedAdjustedEvent.cs" />
     <Compile Include="Events\PlayerPlayingEvent.cs" />
     <Compile Include="Events\PlayerStoppedEvent.cs" />
@@ -178,6 +189,7 @@
     <Compile Include="ViewModels\MixItemViewModelFactory.cs" />
     <Compile Include="ViewModels\MixViewModel.cs" />
     <Compile Include="ViewModels\TrackLibraryViewModel.cs" />
+    <Compile Include="ViewModels\TrackSearchFilter.cs" />
     <Compile Include="Views\ErrorWindow.xaml.cs">
       <DependentUpon>ErrorWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -194,6 +206,10 @@
     <Compile Include="Views\TrackLibraryView.xaml.cs">
       <DependentUpon>TrackLibraryView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Classic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\ErrorWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -275,6 +291,10 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\search_clear.png" />
+    <Resource Include="Resources\search_glyph.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -27,7 +27,15 @@ namespace MixPlanner.DomainModel
             Label = "";
             Genre = "";
             Year = "";
+
+            SearchData = String.Concat(artist,
+                                       title,
+                                       Path.GetFileNameWithoutExtension(fileName),
+                                       originalBpm.ToString(),
+                                       originalKey.ToString());
         }
+
+        public string SearchData { get; private set; }
 
         public string Artist { get; private set; }
         public string Title { get; private set; }
