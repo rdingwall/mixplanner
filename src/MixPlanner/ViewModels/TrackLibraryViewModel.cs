@@ -16,10 +16,11 @@ namespace MixPlanner.ViewModels
     {
         LibraryItemViewModel selectedItem;
         public ICommand ImportFilesCommand { get; private set; }
-        public ICommand RemoveTracksFromLibraryCommand { get; private set; }
+        public ICommand RemoveDelKeyCommand { get; private set; }
+        public ICommand RemoveCommand { get; private set; }
         readonly ObservableCollection<LibraryItemViewModel> items;
         public PlayTrackCommand PlayCommand { get; private set; }
-
+        public ICommand ShowInExplorerCommand { get; private set; }
         public ICommand SearchCommand { get; private set; }
 
         ICollectionView itemsView;
@@ -40,6 +41,7 @@ namespace MixPlanner.ViewModels
             {
                 selectedItem = value;
                 RaisePropertyChanged(() => SelectedItem);
+                RaisePropertyChanged(() => SelectedItems);
             }
         }
 
@@ -48,7 +50,8 @@ namespace MixPlanner.ViewModels
             ImportFilesIntoLibraryCommand importFilesCommand,
             RemoveTracksFromLibraryCommand removeTracksCommand,
             PlayTrackCommand playCommand,
-            SearchCommand searchCommand
+            SearchCommand searchCommand,
+            ShowInExplorerCommand showInExplorerCommand
             )
             : base(messenger)
         {
@@ -56,6 +59,7 @@ namespace MixPlanner.ViewModels
             if (removeTracksCommand == null) throw new ArgumentNullException("removeTracksCommand");
             if (playCommand == null) throw new ArgumentNullException("playCommand");
             if (searchCommand == null) throw new ArgumentNullException("searchCommand");
+            if (showInExplorerCommand == null) throw new ArgumentNullException("showInExplorerCommand");
 
             items = new ObservableCollection<LibraryItemViewModel>();
             ItemsView = CollectionViewSource.GetDefaultView(items);
@@ -67,9 +71,11 @@ namespace MixPlanner.ViewModels
             messenger.Register<SearchTextClearedEvent>(this, OnSearchTextCleared);
 
             SearchCommand = searchCommand;
+            ShowInExplorerCommand = showInExplorerCommand;
 
             ImportFilesCommand = importFilesCommand;
-            RemoveTracksFromLibraryCommand = new DelKeyEventToCommandFilter(removeTracksCommand, GetSelectedItems);
+            RemoveCommand = removeTracksCommand;
+            RemoveDelKeyCommand = new DelKeyEventToCommandFilter(removeTracksCommand, () => SelectedItems);
         }
 
         void OnSearchTextCleared(SearchTextClearedEvent obj)
@@ -82,9 +88,12 @@ namespace MixPlanner.ViewModels
             ItemsView.Filter = new TrackSearchFilter(obj.SearchText).Filter;
         }
 
-        IEnumerable<LibraryItemViewModel> GetSelectedItems()
+        public IEnumerable<LibraryItemViewModel> SelectedItems
         {
-            return items.Where(i => i.IsSelected).ToList();
+            get
+            { 
+                return items.Where(i => i.IsSelected).ToList();
+            }
         }
 
         void OnTrackRemoved(TrackRemovedFromLibraryEvent e)

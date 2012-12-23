@@ -20,7 +20,8 @@
                                     SearchMode="Instant"
                                     Command="{Binding SearchCommand}"
                                     CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Text}" DockPanel.Dock="Top"/>
-			<DataGrid ItemsSource="{Binding ItemsView}"
+			<DataGrid Name="TrackLibraryDataGrid"
+                      ItemsSource="{Binding ItemsView}"
 					  SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
 					  IsReadOnly="True"
 					  AllowDrop="True"
@@ -32,7 +33,7 @@
 								PassEventArgsToCommand="True" />
 					</i:EventTrigger>
 					<i:EventTrigger EventName="PreviewKeyDown">
-						<cmd:EventToCommand Command="{Binding RemoveTracksFromLibraryCommand}"
+						<cmd:EventToCommand Command="{Binding RemoveDelKeyCommand}"
 											PassEventArgsToCommand="True"  />
 					</i:EventTrigger>
 					<i:EventTrigger EventName="MouseDoubleClick">
@@ -40,6 +41,26 @@
 															CommandParameter="{Binding SelectedItem.Track}"  />
 					</i:EventTrigger>
 				</i:Interaction.Triggers>
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Play"
+                                  InputGestureText="Space"
+                                  Command="{Binding PlayCommand}"
+                                  CommandTarget="{Binding Path=PlacementTarget, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
+                                  CommandParameter="{Binding Path=PlacementTarget.SelectedItem.Track, RelativeSource={RelativeSource AncestorType=ContextMenu}}"/>
+                        <Separator />
+                        <MenuItem Header="Show in Explorer" 
+                                  Command="{Binding ShowInExplorerCommand}"
+                                  CommandTarget="{Binding Path=PlacementTarget, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
+                                  CommandParameter="{Binding Path=PlacementTarget.SelectedItem.Track, RelativeSource={RelativeSource AncestorType=ContextMenu}}"/>
+                        <Separator />
+                        <MenuItem Header="Remove"
+                                  InputGestureText="Del"
+                                  Command="{Binding RemoveCommand}"
+                                  CommandTarget="{Binding Path=PlacementTarget, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
+                                  CommandParameter="{Binding Path=PlacementTarget.DataContext.SelectedItems, RelativeSource={RelativeSource AncestorType=ContextMenu}}"/>
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
 				<DataGrid.RowStyle>
 					<Style TargetType="DataGridRow">
 						<Setter Property="IsSelected" Value="{Binding IsSelected}" />

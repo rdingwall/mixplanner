@@ -49,6 +49,11 @@ namespace MixPlanner.DomainModel
         public string Genre { get; set; }
         public string Year { get; set; }
 
+        public bool HasFilename
+        {
+            get { return !String.IsNullOrWhiteSpace(Filename); }
+        }
+
         public PlaybackSpeed GetDefaultPlaybackSpeed()
         {
             return new PlaybackSpeed(OriginalKey, OriginalBpm);
