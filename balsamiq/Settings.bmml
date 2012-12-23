@@ -10,11 +10,11 @@
         <topheight>26</topheight>
       </controlProperties>
     </control>
-    <control controlID="2" controlTypeID="com.balsamiq.mockups::DataGrid" x="402" y="397" w="956" h="234" measuredW="894" measuredH="118" zOrder="1" locked="false" isInGroup="-1">
+    <control controlID="2" controlTypeID="com.balsamiq.mockups::DataGrid" x="402" y="397" w="956" h="234" measuredW="892" measuredH="118" zOrder="1" locked="false" isInGroup="-1">
       <controlProperties>
+        <verticalScrollbar>true</verticalScrollbar>
         <selectedIndex>0</selectedIndex>
         <text>Play%2CKey%2C%20Bpm%2C%20Artist%2C%20Title%2C%20Year%2C%20Genre%2C%20Record%20Label%0A%2C9A%2C%20128%2C%20Hardwell%2C%20Three%20Triangles%20%28Original%20Club%20Mix%29%2C%202012%2C%20Progressive%20House%2C%20Toolroom%20Records%0A%2C7A%2C%20124%2C%20Ant%20Brooks%5C%2C%20Diavlo%2C%20Flex%20%28Original%20Mix%29%2C%202012%2C%20Tech%20House%2C%20Toolroom%20Records%0A%2C%2C%2CGrego%20Salto%5C%2C%20Chocolate%20Puma%2C%20Gimme%20Sum%2C%202012%2C%20Tech%20House%2C%20Pssst%20Music</text>
-        <verticalScrollbar>true</verticalScrollbar>
       </controlProperties>
     </control>
     <control controlID="3" controlTypeID="com.balsamiq.mockups::Label" x="404" y="373" w="-1" h="-1" measuredW="92" measuredH="25" zOrder="2" locked="false" isInGroup="-1">
@@ -139,7 +139,7 @@
         <text>Show%20keys%20as%3A%20</text>
       </controlProperties>
     </control>
-    <control controlID="47" controlTypeID="com.balsamiq.mockups::RadioButton" x="803" y="261" w="-1" h="-1" measuredW="47" measuredH="18" zOrder="32" locked="false" isInGroup="-1">
+    <control controlID="47" controlTypeID="com.balsamiq.mockups::RadioButton" x="803" y="261" w="-1" h="-1" measuredW="48" measuredH="18" zOrder="32" locked="false" isInGroup="-1">
       <controlProperties>
         <text>11A</text>
         <state>selected</state>
@@ -148,6 +148,24 @@
     <control controlID="48" controlTypeID="com.balsamiq.mockups::RadioButton" x="869" y="261" w="-1" h="-1" measuredW="79" measuredH="18" zOrder="33" locked="false" isInGroup="-1">
       <controlProperties>
         <text>F%23%20major</text>
+        <state>up</state>
+      </controlProperties>
+    </control>
+    <control controlID="50" controlTypeID="com.balsamiq.mockups::CheckBox" x="749" y="298" w="-1" h="-1" measuredW="327" measuredH="18" zOrder="34" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Strip%20Mixed%20in%20Key-style%20Artist/Track%20prefixes</text>
+        <state>selected</state>
+      </controlProperties>
+    </control>
+    <control controlID="51" controlTypeID="com.balsamiq.mockups::Label" x="790" y="314" w="-1" h="-1" measuredW="237" measuredH="25" zOrder="35" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>E.g.%20%2212A%20/%20128%20Artist%22%20-%3E%20%22Artist%22</text>
+        <color>8421504</color>
+      </controlProperties>
+    </control>
+    <control controlID="52" controlTypeID="com.balsamiq.mockups::RadioButton" x="961" y="261" w="-1" h="-1" measuredW="115" measuredH="18" zOrder="36" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>F-Sharp%20Major</text>
         <state>up</state>
       </controlProperties>
     </control>
