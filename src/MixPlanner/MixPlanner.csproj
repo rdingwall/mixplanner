@@ -122,12 +122,9 @@
     <Compile Include="Commands\DropItemIntoMixCommand.cs" />
     <Compile Include="Commands\ImportFilesIntoMixCommand.cs" />
     <Compile Include="Commands\SearchCommand.cs" />
-    <Compile Include="Commands\MiniPlayerPlayOrPauseTrackCommand.cs" />
-    <Compile Include="Commands\PauseTrackCommand.cs" />
     <Compile Include="Commands\ImportFilesIntoLibraryCommand.cs" />
     <Compile Include="Commands\AddTrackToMixCommand.cs" />
-    <Compile Include="Commands\PlayOrPauseTrackCommand.cs" />
-    <Compile Include="Commands\PlayTrackCommand.cs" />
+    <Compile Include="Commands\PlayPauseTrackCommand.cs" />
     <Compile Include="Commands\RemoveTracksFromLibraryCommand.cs" />
     <Compile Include="Commands\RemoveTracksFromMixCommand.cs" />
     <Compile Include="Commands\ReorderMixTrackCommand.cs" />
@@ -135,7 +132,7 @@
     <Compile Include="Controls\SearchTextBox.cs" />
     <Compile Include="Converters\CamelotToTraditionalKeyConverter.cs" />
     <Compile Include="Converters\HarmonicKeyToBrushConverter.cs" />
-    <Compile Include="Converters\PlayOrPauseCommandLabelConverter.cs" />
+    <Compile Include="Converters\PlayPauseCommandLabelConverter.cs" />
     <Compile Include="Converters\PlaySpeedStringConverter.cs" />
     <Compile Include="DomainModel\IMixingStrategy.cs" />
     <Compile Include="DomainModel\InvalidPitchException.cs" />

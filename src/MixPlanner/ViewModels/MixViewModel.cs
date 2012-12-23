@@ -46,17 +46,17 @@ namespace MixPlanner.ViewModels
             IMixItemViewModelFactory viewModels,
             DropItemIntoMixCommand dropItemCommand,
             ImportFilesIntoMixCommand dropFilesCommand,
-            PlayOrPauseTrackCommand playOrPauseCommand) : base(messenger)
+            PlayPauseTrackCommand playPauseCommand) : base(messenger)
         {
             if (messenger == null) throw new ArgumentNullException("messenger");
             if (removeCommand == null) throw new ArgumentNullException("removeCommand");
             if (viewModels == null) throw new ArgumentNullException("viewModels");
             if (dropItemCommand == null) throw new ArgumentNullException("dropItemCommand");
             if (dropFilesCommand == null) throw new ArgumentNullException("dropFilesCommand");
-            if (playOrPauseCommand == null) throw new ArgumentNullException("playOrPauseCommand");
+            if (playPauseCommand == null) throw new ArgumentNullException("playPauseCommand");
             DropItemCommand = dropItemCommand;
             DropFilesCommand = dropFilesCommand;
-            PlayPauseCommand = playOrPauseCommand;
+            PlayPauseCommand = playPauseCommand;
             this.viewModels = viewModels;
             RemoveCommand = removeCommand;
             RemoveDelKeyCommand = new DelKeyEventToCommandFilter(removeCommand, () => SelectedItems);

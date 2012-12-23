@@ -42,7 +42,7 @@
                 
                 <ListView.ContextMenu>
                     <ContextMenu>
-                        <MenuItem Header="{Binding Path=PlacementTarget.SelectedItem.Track, RelativeSource={RelativeSource AncestorType=ContextMenu}, Converter={StaticResource PlayOrPauseCommandLabelConverter}}"
+                        <MenuItem Header="{Binding Path=PlacementTarget.SelectedItem.Track, RelativeSource={RelativeSource AncestorType=ContextMenu}, Converter={StaticResource PlayPauseCommandLabelConverter}}"
                                   Visibility="{Binding Path=PlacementTarget.DataContext.HasSingleItemSelected, RelativeSource={RelativeSource AncestorType=ContextMenu}, Converter={StaticResource BooleanToVisibilityConverter}}"
                                   InputGestureText="Space"
                                   Command="{Binding PlayPauseCommand}"

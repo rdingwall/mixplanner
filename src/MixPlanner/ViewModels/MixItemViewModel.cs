@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
 using GongSolutions.Wpf.DragDrop;
@@ -25,7 +26,7 @@ namespace MixPlanner.ViewModels
         public Track Track { get { return MixItem.Track; }}
         public string Title { get { return MixItem.Track.Title;} }
         public string Artist { get { return MixItem.Track.Artist;} }
-        public PlayOrPauseTrackCommand PlayPauseCommand { get; private set; }
+        public ICommand PlayPauseCommand { get; private set; }
         public bool IsPlaying { get; private set; }
         public bool IsNotPlaying { get { return !IsPlaying; } }
         public string Transition { get { return MixItem.Transition.Description; } }
@@ -34,7 +35,7 @@ namespace MixPlanner.ViewModels
         public MixItemViewModel(
             IMessenger messenger, 
             MixItem mixItem,
-            PlayOrPauseTrackCommand playPauseCommand,
+            PlayPauseTrackCommand playPauseCommand,
             IMix mix) : base(messenger)
         {
             this.mix = mix;

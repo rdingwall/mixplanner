@@ -7,16 +7,16 @@ using MixPlanner.Player;
 
 namespace MixPlanner.Converters
 {
-    public class PlayOrPauseCommandLabelConverter : IValueConverter
+    public class PlayPauseCommandLabelConverter : IValueConverter
     {
         readonly IAudioPlayer player;
 
-        public PlayOrPauseCommandLabelConverter() : 
+        public PlayPauseCommandLabelConverter() : 
             this(ServiceLocator.Current.GetInstance<IAudioPlayer>())
         {
         }
 
-        public PlayOrPauseCommandLabelConverter(IAudioPlayer player)
+        public PlayPauseCommandLabelConverter(IAudioPlayer player)
         {
             if (player == null) throw new ArgumentNullException("player");
             this.player = player;

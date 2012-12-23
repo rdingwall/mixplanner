@@ -15,7 +15,7 @@
             <converters:HarmonicKeyToBrushConverter x:Key="HarmonicKeyToBrushConverter" />
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
             <converters:PlaySpeedStringConverter x:Key="PlaySpeedStringConverter" />
-            <converters:PlayOrPauseCommandLabelConverter x:Key="PlayOrPauseCommandLabelConverter" />
+            <converters:PlayPauseCommandLabelConverter x:Key="PlayPauseCommandLabelConverter" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

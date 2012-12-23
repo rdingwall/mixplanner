@@ -4,11 +4,11 @@ using MixPlanner.Player;
 
 namespace MixPlanner.Commands
 {
-    public class PlayTrackCommand : CommandBase<Track>
+    public class PlayPauseTrackCommand : CommandBase<Track>
     {
         readonly IAudioPlayer player;
 
-        public PlayTrackCommand(IAudioPlayer player)
+        public PlayPauseTrackCommand(IAudioPlayer player)
         {
             if (player == null) throw new ArgumentNullException("player");
             this.player = player;
@@ -16,12 +16,15 @@ namespace MixPlanner.Commands
 
         protected override bool CanExecute(Track parameter)
         {
-            return parameter != null && player.CanPlay(parameter);
+            return player.CanPlay(parameter);
         }
 
         protected override void Execute(Track parameter)
         {
-            player.PlayOrResume(parameter);
+            if (player.IsPlaying(parameter))
+                player.Pause();
+            else
+                player.PlayOrResume(parameter);
         }
     }
 }

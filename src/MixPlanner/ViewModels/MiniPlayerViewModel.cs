@@ -10,7 +10,7 @@ namespace MixPlanner.ViewModels
 {
     public class MiniPlayerViewModel : ViewModelBase
     {
-        public ICommand PlayOrPauseCommand { get; private set; }
+        public ICommand PlayPauseCommand { get; private set; }
         string title;
         bool hasTrackLoaded;
         Track track;
@@ -47,11 +47,11 @@ namespace MixPlanner.ViewModels
 
         public MiniPlayerViewModel(
             IMessenger messenger,
-            MiniPlayerPlayOrPauseTrackCommand playOrPauseCommand)
+            PlayPauseTrackCommand playPauseCommand)
         {
             if (messenger == null) throw new ArgumentNullException("messenger");
-            if (playOrPauseCommand == null) throw new ArgumentNullException("playOrPauseCommand");
-            PlayOrPauseCommand = playOrPauseCommand;
+            if (playPauseCommand == null) throw new ArgumentNullException("playPauseCommand");
+            PlayPauseCommand = playPauseCommand;
 
             messenger.Register<PlayerStoppedEvent>(this, _ => RaisePropertyChanged(() => Track));
             messenger.Register<PlayerPlayingEvent>(this, OnPlayerPlaying);

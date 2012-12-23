@@ -19,7 +19,7 @@ namespace MixPlanner.ViewModels
         public ICommand RemoveDelKeyCommand { get; private set; }
         public ICommand RemoveCommand { get; private set; }
         readonly ObservableCollection<TrackLibraryItemViewModel> items;
-        public PlayOrPauseTrackCommand PlayCommand { get; private set; }
+        public PlayPauseTrackCommand PlayPauseCommand { get; private set; }
         public ICommand ShowInExplorerCommand { get; private set; }
         public ICommand SearchCommand { get; private set; }
 
@@ -55,7 +55,7 @@ namespace MixPlanner.ViewModels
             IMessenger messenger,
             ImportFilesIntoLibraryCommand importFilesCommand,
             RemoveTracksFromLibraryCommand removeTracksCommand,
-            PlayOrPauseTrackCommand playCommand,
+            PlayPauseTrackCommand playCommand,
             SearchCommand searchCommand,
             ShowInExplorerCommand showInExplorerCommand
             )
@@ -69,7 +69,7 @@ namespace MixPlanner.ViewModels
 
             items = new ObservableCollection<TrackLibraryItemViewModel>();
             ItemsView = CollectionViewSource.GetDefaultView(items);
-            PlayCommand = playCommand;
+            PlayPauseCommand = playCommand;
 
             messenger.Register<TrackAddedToLibraryEvent>(this, OnTrackAddedToLibrary);
             messenger.Register<TrackRemovedFromLibraryEvent>(this, OnTrackRemoved);

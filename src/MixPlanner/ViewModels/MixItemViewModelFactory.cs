@@ -14,24 +14,24 @@ namespace MixPlanner.ViewModels
     {
         readonly IMessenger messenger;
         readonly IMix mix;
-        readonly PlayOrPauseTrackCommand playOrPauseCommand;
+        readonly PlayPauseTrackCommand playPauseCommand;
 
         public MixItemViewModelFactory(
             IMessenger messenger, 
             IMix mix, 
-            PlayOrPauseTrackCommand playOrPauseCommand)
+            PlayPauseTrackCommand playPauseCommand)
         {
             if (messenger == null) throw new ArgumentNullException("messenger");
             if (mix == null) throw new ArgumentNullException("mix");
-            if (playOrPauseCommand == null) throw new ArgumentNullException("playOrPauseCommand");
+            if (playPauseCommand == null) throw new ArgumentNullException("playPauseCommand");
             this.messenger = messenger;
             this.mix = mix;
-            this.playOrPauseCommand = playOrPauseCommand;
+            this.playPauseCommand = playPauseCommand;
         }
 
         public MixItemViewModel CreateFor(MixItem item)
         {
-            return new MixItemViewModel(messenger, item, playOrPauseCommand, mix);
+            return new MixItemViewModel(messenger, item, playPauseCommand, mix);
         }
     }
 }

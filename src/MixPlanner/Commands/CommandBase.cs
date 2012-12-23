@@ -48,11 +48,12 @@ namespace MixPlanner.Commands
 
         protected abstract void Execute(T parameter);
 
-        protected void RaiseCanExecuteChanged()
+        // CanExecuteChanged whenever a property changes
+        // http://stackoverflow.com/a/3092873/91551
+        public event EventHandler CanExecuteChanged
         {
-            CanExecuteChanged(this, EventArgs.Empty);
+            add { CommandManager.RequerySuggested += value; }
+            remove { CommandManager.RequerySuggested -= value; }
         }
-
-        public event EventHandler CanExecuteChanged = delegate { };
     }
 }

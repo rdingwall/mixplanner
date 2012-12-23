@@ -37,16 +37,16 @@
 											PassEventArgsToCommand="True"  />
 					</i:EventTrigger>
 					<i:EventTrigger EventName="MouseDoubleClick">
-						<cmd:EventToCommand Command="{Binding PlayCommand}" 
-															CommandParameter="{Binding SelectedItem.Track}"  />
+						<cmd:EventToCommand Command="{Binding PlayPauseCommand}" 
+											CommandParameter="{Binding SelectedItem.Track}"  />
 					</i:EventTrigger>
 				</i:Interaction.Triggers>
                 <DataGrid.ContextMenu>
                     <ContextMenu>
-                        <MenuItem Header="{Binding Path=PlacementTarget.SelectedItem.Track, RelativeSource={RelativeSource AncestorType=ContextMenu}, Converter={StaticResource PlayOrPauseCommandLabelConverter}}"
+                        <MenuItem Header="{Binding Path=PlacementTarget.SelectedItem.Track, RelativeSource={RelativeSource AncestorType=ContextMenu}, Converter={StaticResource PlayPauseCommandLabelConverter}}"
                                   Visibility="{Binding Path=PlacementTarget.DataContext.HasSingleItemSelected, RelativeSource={RelativeSource AncestorType=ContextMenu}, Converter={StaticResource BooleanToVisibilityConverter}}"
                                   InputGestureText="Space"
-                                  Command="{Binding PlayCommand}"
+                                  Command="{Binding PlayPauseCommand}"
                                   CommandTarget="{Binding Path=PlacementTarget, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
                                   CommandParameter="{Binding Path=PlacementTarget.SelectedItem.Track, RelativeSource={RelativeSource AncestorType=ContextMenu}}"/>
                         <Separator Visibility="{Binding Path=PlacementTarget.DataContext.HasSingleItemSelected, RelativeSource={RelativeSource AncestorType=ContextMenu}, Converter={StaticResource BooleanToVisibilityConverter}}" />
