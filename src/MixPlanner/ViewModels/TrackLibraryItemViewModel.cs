@@ -6,9 +6,9 @@ using MixPlanner.Events;
 
 namespace MixPlanner.ViewModels
 {
-    public class LibraryItemViewModel : ViewModelBase
+    public class TrackLibraryItemViewModel : ViewModelBase
     {
-        public LibraryItemViewModel(IMessenger messenger, Track track)
+        public TrackLibraryItemViewModel(IMessenger messenger, Track track)
         {
             if (messenger == null) throw new ArgumentNullException("messenger");
             if (track == null) throw new ArgumentNullException("track");

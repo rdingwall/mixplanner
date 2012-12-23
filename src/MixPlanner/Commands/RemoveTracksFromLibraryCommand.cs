@@ -6,7 +6,7 @@ using MixPlanner.ViewModels;
 
 namespace MixPlanner.Commands
 {
-    public class RemoveTracksFromLibraryCommand : CommandBase<IEnumerable<LibraryItemViewModel>>
+    public class RemoveTracksFromLibraryCommand : CommandBase<IEnumerable<TrackLibraryItemViewModel>>
     {
         readonly ITrackLibrary library;
 
@@ -16,12 +16,12 @@ namespace MixPlanner.Commands
             this.library = library;
         }
 
-        protected override bool CanExecute(IEnumerable<LibraryItemViewModel> parameter)
+        protected override bool CanExecute(IEnumerable<TrackLibraryItemViewModel> parameter)
         {
             return parameter != null && parameter.Any();
         }
 
-        protected override void Execute(IEnumerable<LibraryItemViewModel> parameter)
+        protected override void Execute(IEnumerable<TrackLibraryItemViewModel> parameter)
         {
             library.RemoveRange(parameter.Select(i => i.Track));
         }

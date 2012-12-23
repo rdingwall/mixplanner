@@ -2,12 +2,12 @@
 
 namespace MixPlanner.ViewModels
 {
-    public class TrackSearchFilter
+    public class TrackLibrarySearchFilter
     {
         readonly string searchText;
         const StringComparison Comparison = StringComparison.CurrentCultureIgnoreCase;
 
-        public TrackSearchFilter(string searchText)
+        public TrackLibrarySearchFilter(string searchText)
         {
             if (searchText == null) throw new ArgumentNullException("searchText");
             this.searchText = searchText;
@@ -15,7 +15,7 @@ namespace MixPlanner.ViewModels
 
         public bool Filter(object obj)
         {
-            var item = (LibraryItemViewModel)obj;
+            var item = (TrackLibraryItemViewModel)obj;
 
             return item.Track.SearchData.IndexOf(searchText, Comparison) > -1;
         }

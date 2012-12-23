@@ -14,11 +14,11 @@ namespace MixPlanner.ViewModels
 {
     public class TrackLibraryViewModel : ViewModelBase
     {
-        LibraryItemViewModel selectedItem;
+        TrackLibraryItemViewModel selectedItem;
         public ICommand ImportFilesCommand { get; private set; }
         public ICommand RemoveDelKeyCommand { get; private set; }
         public ICommand RemoveCommand { get; private set; }
-        readonly ObservableCollection<LibraryItemViewModel> items;
+        readonly ObservableCollection<TrackLibraryItemViewModel> items;
         public PlayOrPauseTrackCommand PlayCommand { get; private set; }
         public ICommand ShowInExplorerCommand { get; private set; }
         public ICommand SearchCommand { get; private set; }
@@ -34,7 +34,7 @@ namespace MixPlanner.ViewModels
             }
         }
 
-        public LibraryItemViewModel SelectedItem
+        public TrackLibraryItemViewModel SelectedItem
         {
             get { return selectedItem; }
             set
@@ -61,7 +61,7 @@ namespace MixPlanner.ViewModels
             if (searchCommand == null) throw new ArgumentNullException("searchCommand");
             if (showInExplorerCommand == null) throw new ArgumentNullException("showInExplorerCommand");
 
-            items = new ObservableCollection<LibraryItemViewModel>();
+            items = new ObservableCollection<TrackLibraryItemViewModel>();
             ItemsView = CollectionViewSource.GetDefaultView(items);
             PlayCommand = playCommand;
 
@@ -85,10 +85,10 @@ namespace MixPlanner.ViewModels
 
         void OnSearchRequested(SearchRequestedEvent obj)
         {
-            ItemsView.Filter = new TrackSearchFilter(obj.SearchText).Filter;
+            ItemsView.Filter = new TrackLibrarySearchFilter(obj.SearchText).Filter;
         }
 
-        public IEnumerable<LibraryItemViewModel> SelectedItems
+        public IEnumerable<TrackLibraryItemViewModel> SelectedItems
         {
             get
             { 
@@ -105,7 +105,7 @@ namespace MixPlanner.ViewModels
         void OnTrackAddedToLibrary(TrackAddedToLibraryEvent e)
         {
             var track = e.Track;
-            var item = new LibraryItemViewModel(MessengerInstance, track);
+            var item = new TrackLibraryItemViewModel(MessengerInstance, track);
             items.Add(item);
         }
     }
