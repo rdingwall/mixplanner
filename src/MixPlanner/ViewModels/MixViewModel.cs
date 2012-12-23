@@ -17,10 +17,12 @@ namespace MixPlanner.ViewModels
     {
         MixItemViewModel selectedItem;
         readonly IMixItemViewModelFactory viewModels;
-        public ICommand RemoveTracksCommand { get; private set; }
+        public ICommand RemoveDelKeyCommand { get; private set; }
+        public ICommand RemoveCommand { get; private set; }
         public ObservableCollection<MixItemViewModel> Items { get; private set; }
         public ICommand DropItemCommand { get; private set; }
         public ICommand DropFilesCommand { get; private set; }
+        public ICommand PlayPauseCommand { get; set; }
 
         public MixItemViewModel SelectedItem
         {
@@ -29,35 +31,49 @@ namespace MixPlanner.ViewModels
             {
                 selectedItem = value;
                 RaisePropertyChanged(() => SelectedItem);
+                RaisePropertyChanged(() => SelectedItems);
+                RaisePropertyChanged(() => HasSingleItemSelected);
             }
+        }
+
+        public bool HasSingleItemSelected
+        {
+            get { return SelectedItems.Count() == 1; }
         }
 
         public MixViewModel(IMessenger messenger, 
             RemoveTracksFromMixCommand removeCommand,
             IMixItemViewModelFactory viewModels,
             DropItemIntoMixCommand dropItemCommand,
-            ImportFilesIntoMixCommand dropFilesCommand) : base(messenger)
+            ImportFilesIntoMixCommand dropFilesCommand,
+            PlayOrPauseTrackCommand playOrPauseCommand) : base(messenger)
         {
             if (messenger == null) throw new ArgumentNullException("messenger");
             if (removeCommand == null) throw new ArgumentNullException("removeCommand");
             if (viewModels == null) throw new ArgumentNullException("viewModels");
             if (dropItemCommand == null) throw new ArgumentNullException("dropItemCommand");
             if (dropFilesCommand == null) throw new ArgumentNullException("dropFilesCommand");
+            if (playOrPauseCommand == null) throw new ArgumentNullException("playOrPauseCommand");
             DropItemCommand = dropItemCommand;
             DropFilesCommand = dropFilesCommand;
+            PlayPauseCommand = playOrPauseCommand;
             this.viewModels = viewModels;
-            RemoveTracksCommand = new DelKeyEventToCommandFilter(removeCommand, GetSelectedItems);
+            RemoveCommand = removeCommand;
+            RemoveDelKeyCommand = new DelKeyEventToCommandFilter(removeCommand, () => SelectedItems);
             Items = new ObservableCollection<MixItemViewModel>();
             messenger.Register<TrackAddedToMixEvent>(this, OnTrackAdded);
             messenger.Register<TrackRemovedFromMixEvent>(this, OnTrackRemoved);
         }
 
-        IEnumerable<MixItem> GetSelectedItems()
+        public IEnumerable<MixItem> SelectedItems
         {
-            return Items
-                .Where(i => i.IsSelected)
-                .Select(i => i.MixItem)
-                .ToList();
+            get
+            {
+                return Items
+                    .Where(i => i.IsSelected)
+                    .Select(i => i.MixItem)
+                    .ToList();
+            }
         }
 
         void OnTrackRemoved(TrackRemovedFromMixEvent obj)
