@@ -14,12 +14,12 @@
              d:DesignWidth="300"
              d:DataContext="{d:DesignInstance mp:TrackLibraryViewModel}">
     <GroupBox Header="Library">
-		<StackPanel>
+		<DockPanel>
             <controls:SearchTextBox Height="24"
                 AllowEmptySearches="True"
                                     SearchMode="Instant"
                                     Command="{Binding SearchCommand}"
-                                    CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
+                                    CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Text}" DockPanel.Dock="Top"/>
 			<DataGrid ItemsSource="{Binding ItemsView}"
 					  SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
 					  IsReadOnly="True"
@@ -47,6 +47,6 @@
 					</Style>
 				</DataGrid.RowStyle>
 			</DataGrid>
-		</StackPanel>
+		</DockPanel>
     </GroupBox>
 </UserControl>
