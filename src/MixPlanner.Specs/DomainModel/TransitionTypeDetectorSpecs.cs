@@ -17,7 +17,7 @@ namespace MixPlanner.Specs.DomainModel
 
              Because of =
                  () => transition = detector.GetTransitionBetween(
-                     TestPlaybackSpeeds.Starting(HarmonicKey.Key1A, 128),
+                     TestPlaybackSpeeds.Ending(HarmonicKey.Key1A, 128),
                      TestPlaybackSpeeds.Starting(HarmonicKey.Key2A, 128));
 
              It should_give_the_correct_strategy = 

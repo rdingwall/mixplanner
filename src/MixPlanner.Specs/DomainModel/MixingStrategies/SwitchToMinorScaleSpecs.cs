@@ -14,7 +14,7 @@ namespace MixPlanner.Specs.DomainModel.MixingStrategies
             Establish context =
                 () =>
                     {
-                        current = TestPlaybackSpeeds.Starting(HarmonicKey.Key9B, 128);
+                        current = TestPlaybackSpeeds.Ending(HarmonicKey.Key9B, 128);
                         strategy = new SwitchToMinorScale();
                         unplayed = new[]
                                        {

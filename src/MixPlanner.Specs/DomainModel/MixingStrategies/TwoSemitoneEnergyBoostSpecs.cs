@@ -14,7 +14,7 @@ namespace MixPlanner.Specs.DomainModel.MixingStrategies
             Establish context =
                 () =>
                     {
-                        current = TestPlaybackSpeeds.Starting(HarmonicKey.Key9A, 128);
+                        current = TestPlaybackSpeeds.Ending(HarmonicKey.Key9A, 128);
                         strategy = new TwoSemitoneEnergyBoost();
                         unplayed = new[]
                                        {

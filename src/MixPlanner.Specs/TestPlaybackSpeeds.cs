@@ -6,12 +6,17 @@ namespace MixPlanner.Specs
     {
         public static PlaybackSpeed Get(double bpm)
         {
-            return new PlaybackSpeed(HarmonicKey.Key6B, HarmonicKey.Key6B, bpm);
+            return new PlaybackSpeed(HarmonicKey.RandomKey(), HarmonicKey.Key6B, bpm);
+        }
+
+        public static PlaybackSpeed Ending(HarmonicKey key, double bpm)
+        {
+            return new PlaybackSpeed(HarmonicKey.RandomKey(), key, bpm);
         }
 
         public static PlaybackSpeed Starting(HarmonicKey key, double bpm)
         {
-            return new PlaybackSpeed(key, key, bpm);
+            return new PlaybackSpeed(key, HarmonicKey.RandomKey(), bpm);
         }
 
         public static PlaybackSpeed Get(

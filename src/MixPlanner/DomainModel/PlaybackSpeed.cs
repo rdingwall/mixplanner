@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace MixPlanner.DomainModel
 {
+    [DebuggerDisplay("{ActualStartingKey} - {ActualEndingKey} ({ActualBpm})")]
     public class PlaybackSpeed
     {
         public PlaybackSpeed(
@@ -16,6 +18,7 @@ namespace MixPlanner.DomainModel
             this.originalEndingingKey = originalEndingingKey;
             ActualBpm = originalBpm;
             ActualStartingKey = originalStartingKey;
+            ActualEndingKey = originalEndingingKey;
         }
 
         public void SetSpeed(double percentIncrease)
