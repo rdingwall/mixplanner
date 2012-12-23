@@ -3,15 +3,12 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using MixPlanner.Commands;
 using MixPlanner.Events;
-using Xceed.Wpf.Toolkit;
 
 namespace MixPlanner.ViewModels
 {
@@ -33,17 +30,6 @@ namespace MixPlanner.ViewModels
             {
                 itemsView = value;
                 RaisePropertyChanged(() => ItemsView);
-            }
-        }
-
-        string searchText;
-        public string SearchText
-        {
-            get { return searchText; }
-            set
-            {
-                searchText = value;
-                RaisePropertyChanged(() => SearchText);
             }
         }
 
