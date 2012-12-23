@@ -42,7 +42,13 @@ namespace MixPlanner.ViewModels
                 selectedItem = value;
                 RaisePropertyChanged(() => SelectedItem);
                 RaisePropertyChanged(() => SelectedItems);
+                RaisePropertyChanged(() => HasSingleItemSelected);
             }
+        }
+
+        public bool HasSingleItemSelected
+        {
+            get { return SelectedItems.Count() == 1; }
         }
 
         public TrackLibraryViewModel(
