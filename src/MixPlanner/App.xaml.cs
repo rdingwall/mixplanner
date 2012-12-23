@@ -1,6 +1,5 @@
 ﻿using System.Windows;
 using Castle.Windsor;
-using CommonServiceLocator.WindsorAdapter;
 using Microsoft.Practices.ServiceLocation;
 using MixPlanner.Views;
 

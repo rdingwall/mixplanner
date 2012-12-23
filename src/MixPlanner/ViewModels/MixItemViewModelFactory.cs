@@ -2,7 +2,6 @@
 using GalaSoft.MvvmLight.Messaging;
 using MixPlanner.Commands;
 using MixPlanner.DomainModel;
-using MixPlanner.Player;
 
 namespace MixPlanner.ViewModels
 {
@@ -15,25 +14,24 @@ namespace MixPlanner.ViewModels
     {
         readonly IMessenger messenger;
         readonly IMix mix;
-        readonly IAudioPlayer player;
+        readonly PlayOrPauseTrackCommand playOrPauseCommand;
 
         public MixItemViewModelFactory(
             IMessenger messenger, 
             IMix mix, 
-            IAudioPlayer player)
+            PlayOrPauseTrackCommand playOrPauseCommand)
         {
             if (messenger == null) throw new ArgumentNullException("messenger");
             if (mix == null) throw new ArgumentNullException("mix");
-            if (player == null) throw new ArgumentNullException("player");
+            if (playOrPauseCommand == null) throw new ArgumentNullException("playOrPauseCommand");
             this.messenger = messenger;
             this.mix = mix;
-            this.player = player;
+            this.playOrPauseCommand = playOrPauseCommand;
         }
 
         public MixItemViewModel CreateFor(MixItem item)
         {
-            var command = new PlayOrPauseTrackCommand(player, messenger, item.Track);
-            return new MixItemViewModel(messenger, item, command, mix);
+            return new MixItemViewModel(messenger, item, playOrPauseCommand, mix);
         }
     }
 }

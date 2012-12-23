@@ -3,6 +3,7 @@ using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
 using MixPlanner.Commands;
+using MixPlanner.DomainModel;
 using MixPlanner.Events;
 
 namespace MixPlanner.ViewModels
@@ -11,8 +12,8 @@ namespace MixPlanner.ViewModels
     {
         public ICommand PlayOrPauseCommand { get; private set; }
         string title;
-        string playOrPauseButtonLabel;
         bool hasTrackLoaded;
+        Track track;
 
         public string Title
         {
@@ -24,13 +25,13 @@ namespace MixPlanner.ViewModels
             }
         }
 
-        public string PlayOrPauseButtonLabel
+        public Track Track
         {
-            get { return playOrPauseButtonLabel; }
+            get { return track; }
             set
             {
-                playOrPauseButtonLabel = value;
-                RaisePropertyChanged(() => PlayOrPauseButtonLabel);
+                track = value;
+                RaisePropertyChanged(() => Track);
             }
         }
 
@@ -52,20 +53,15 @@ namespace MixPlanner.ViewModels
             if (playOrPauseCommand == null) throw new ArgumentNullException("playOrPauseCommand");
             PlayOrPauseCommand = playOrPauseCommand;
 
-            messenger.Register<PlayerStoppedEvent>(this, OnPlayerStopped);
+            messenger.Register<PlayerStoppedEvent>(this, _ => RaisePropertyChanged(() => Track));
             messenger.Register<PlayerPlayingEvent>(this, OnPlayerPlaying);
         }
 
         void OnPlayerPlaying(PlayerPlayingEvent obj)
         {
-            PlayOrPauseButtonLabel = "Pause";
             HasTrackLoaded = true;
+            Track = obj.Track;
             Title = String.Format("{0} - {1}", obj.Track.Artist, obj.Track.Title);
-        }
-
-        void OnPlayerStopped(PlayerStoppedEvent obj)
-        {
-            PlayOrPauseButtonLabel = "Play";
         }
     }
 }

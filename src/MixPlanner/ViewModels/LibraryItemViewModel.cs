@@ -1,13 +1,16 @@
 ﻿using System;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Messaging;
 using MixPlanner.DomainModel;
+using MixPlanner.Events;
 
 namespace MixPlanner.ViewModels
 {
     public class LibraryItemViewModel : ViewModelBase
     {
-        public LibraryItemViewModel(Track track)
+        public LibraryItemViewModel(IMessenger messenger, Track track)
         {
+            if (messenger == null) throw new ArgumentNullException("messenger");
             if (track == null) throw new ArgumentNullException("track");
             Track = track;
             Artist = track.Artist;
@@ -18,6 +21,10 @@ namespace MixPlanner.ViewModels
             Label = track.Label;
             Filename = track.File.FullName;
             Key = track.OriginalKey;
+
+            // Required for play/pause status
+            messenger.Register<PlayerPlayingEvent>(this, _ => RaisePropertyChanged(() => Track));
+            messenger.Register<PlayerStoppedEvent>(this, _ => RaisePropertyChanged(() => Track));
         }
 
         public string Filename { get; set; }

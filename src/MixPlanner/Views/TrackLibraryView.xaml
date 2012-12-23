@@ -43,7 +43,7 @@
 				</i:Interaction.Triggers>
                 <DataGrid.ContextMenu>
                     <ContextMenu>
-                        <MenuItem Header="Play"
+                        <MenuItem Header="{Binding Path=PlacementTarget.SelectedItem.Track, RelativeSource={RelativeSource AncestorType=ContextMenu}, Converter={StaticResource PlayOrPauseCommandLabelConverter}}"
                                   InputGestureText="Space"
                                   Command="{Binding PlayCommand}"
                                   CommandTarget="{Binding Path=PlacementTarget, RelativeSource={RelativeSource AncestorType=ContextMenu}}"

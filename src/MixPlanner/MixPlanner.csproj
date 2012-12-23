@@ -56,9 +56,6 @@
     <Reference Include="Castle.Windsor">
       <HintPath>..\..\packages\Castle.Windsor.3.1.0\lib\net40\Castle.Windsor.dll</HintPath>
     </Reference>
-    <Reference Include="CommonServiceLocator.WindsorAdapter">
-      <HintPath>..\..\packages\CommonServiceLocator.WindsorAdapter.1.0\lib\NET35\CommonServiceLocator.WindsorAdapter.dll</HintPath>
-    </Reference>
     <Reference Include="GalaSoft.MvvmLight.Extras.WPF4">
       <HintPath>..\..\packages\MvvmLight.4.1.23.0\lib\net40\GalaSoft.MvvmLight.Extras.WPF4.dll</HintPath>
     </Reference>
@@ -137,8 +134,8 @@
     <Compile Include="Commands\ShowInExplorerCommand.cs" />
     <Compile Include="Controls\SearchTextBox.cs" />
     <Compile Include="Converters\CamelotToTraditionalKeyConverter.cs" />
-    <Compile Include="Converters\IsPlayingFlagToPlayPauseStringConverter.cs" />
     <Compile Include="Converters\HarmonicKeyToBrushConverter.cs" />
+    <Compile Include="Converters\PlayOrPauseCommandLabelConverter.cs" />
     <Compile Include="Converters\PlaySpeedStringConverter.cs" />
     <Compile Include="DomainModel\IMixingStrategy.cs" />
     <Compile Include="DomainModel\InvalidPitchException.cs" />
@@ -211,6 +208,7 @@
     <Compile Include="Views\TrackLibraryView.xaml.cs">
       <DependentUpon>TrackLibraryView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WindsorServiceLocator.cs" />
     <Page Include="Classic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

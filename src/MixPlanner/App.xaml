@@ -14,8 +14,8 @@
             </ResourceDictionary.MergedDictionaries>
             <converters:HarmonicKeyToBrushConverter x:Key="HarmonicKeyToBrushConverter" />
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
-            <converters:IsPlayingFlagToPlayPauseStringConverter x:Key="IsPlayingFlagToPlayPauseStringConverter" />
             <converters:PlaySpeedStringConverter x:Key="PlaySpeedStringConverter" />
+            <converters:PlayOrPauseCommandLabelConverter x:Key="PlayOrPauseCommandLabelConverter" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

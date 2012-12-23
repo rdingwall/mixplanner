@@ -9,7 +9,7 @@
     <StackPanel Orientation="Horizontal" 
                 HorizontalAlignment="Right" 
                 Visibility="{Binding HasTrackLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
-        <Button Content="{Binding PlayOrPauseButtonLabel}"
+        <Button Content="{Binding Track, Converter={StaticResource PlayOrPauseCommandLabelConverter}}"
                 Command="{Binding PlayOrPauseCommand}"/>
         <Label Content="{Binding Title}"/>
     </StackPanel>
