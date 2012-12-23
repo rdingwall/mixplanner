@@ -25,7 +25,7 @@
     <control controlID="5" controlTypeID="com.balsamiq.mockups::VSplitter" x="405" y="352" w="950" h="-1" measuredW="100" measuredH="12" zOrder="3" locked="false" isInGroup="-1"/>
     <control controlID="10" controlTypeID="com.balsamiq.mockups::Menu" x="1008" y="464" w="184" h="-1" measuredW="150" measuredH="145" zOrder="4" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>%20%20Play%2C%20SPACE%0A---------%0A%20Intelligent%20Insert%0A---------%0AEdit%20Details%0AShow%20in%20Folder%0ARemove%2C%20DEL</text>
+        <text>%20%20Play%2C%20SPACE%0A---------%0A%20Intelligent%20Insert%0A---------%0AEdit%2C%20F2%0AShow%20in%20Folder%0ARemove%2C%20DEL</text>
       </controlProperties>
     </control>
     <control controlID="12" controlTypeID="com.balsamiq.mockups::Icon" x="1017" y="474" w="-1" h="-1" measuredW="16" measuredH="16" zOrder="5" locked="false" isInGroup="-1">
@@ -74,7 +74,7 @@
       </controlProperties>
     </control>
     <control controlID="26" controlTypeID="com.balsamiq.mockups::HRule" x="692" y="105" w="404" h="-1" measuredW="100" measuredH="5" zOrder="18" locked="false" isInGroup="-1"/>
-    <control controlID="27" controlTypeID="com.balsamiq.mockups::Label" x="692" y="69" w="-1" h="-1" measuredW="57" measuredH="25" zOrder="19" locked="false" isInGroup="-1">
+    <control controlID="27" controlTypeID="com.balsamiq.mockups::Label" x="694" y="75" w="-1" h="-1" measuredW="57" measuredH="25" zOrder="19" locked="false" isInGroup="-1">
       <controlProperties>
         <text>2%20tracks</text>
       </controlProperties>
@@ -171,9 +171,9 @@
         <text>Hardwell%20-%20Three%20Triangles%20%28Original%20Club%20Mix%29</text>
       </controlProperties>
     </control>
-    <control controlID="52" controlTypeID="com.balsamiq.mockups::Menu" x="503" y="231" w="184" h="-1" measuredW="150" measuredH="140" zOrder="40" locked="false" isInGroup="-1">
+    <control controlID="52" controlTypeID="com.balsamiq.mockups::Menu" x="503" y="231" w="184" h="-1" measuredW="150" measuredH="175" zOrder="40" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>%20%20Pause%2C%20SPACE%0AReset%20pitch%0A---------%0AEdit%20Details%0AShow%20in%20Folder%0ARemove%2C%20DEL</text>
+        <text>%20%20Pause%2C%20SPACE%0A---------%0AReset%20pitch%0AFind%20in%20Library%0A---------%0AEdit%2C%20F2%0AShow%20in%20Folder%0A---------%0ARemove%2C%20DEL</text>
       </controlProperties>
     </control>
     <control controlID="53" controlTypeID="com.balsamiq.mockups::Icon" x="513" y="239" w="-1" h="-1" measuredW="16" measuredH="16" zOrder="41" locked="false" isInGroup="-1">
