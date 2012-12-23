@@ -1,5 +1,7 @@
 ﻿using System.Windows;
 using Castle.Windsor;
+using CommonServiceLocator.WindsorAdapter;
+using Microsoft.Practices.ServiceLocation;
 using MixPlanner.Views;
 
 namespace MixPlanner
@@ -15,7 +17,7 @@ namespace MixPlanner
         {
             container = new WindsorContainer();
             container.Install(new IocRegistrations());
-
+            ServiceLocator.SetLocatorProvider(() => new WindsorServiceLocator(container));
             container.Resolve<MainWindow>().ShowDialog();
         }
 
