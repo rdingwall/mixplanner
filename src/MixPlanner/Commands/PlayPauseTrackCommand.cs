@@ -20,12 +20,12 @@ namespace MixPlanner.Commands
             return player.CanPlay(parameter);
         }
 
-        protected override Task DoExecute(Track parameter)
+        protected override async Task DoExecute(Track parameter)
         {
             if (player.IsPlaying(parameter))
-                return player.PauseAsync();
+                await player.PauseAsync();
             else
-                return player.PlayOrResumeAsync(parameter);
+                await player.PlayOrResumeAsync(parameter);
         }
     }
 }
