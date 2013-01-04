@@ -121,6 +121,7 @@
     <Compile Include="Commands\DelKeyEventToCommandFilter.cs" />
     <Compile Include="Commands\DropItemIntoMixCommand.cs" />
     <Compile Include="Commands\ImportFilesIntoMixCommand.cs" />
+    <Compile Include="Commands\ResetPlaybackSpeedCommand.cs" />
     <Compile Include="Commands\SearchCommand.cs" />
     <Compile Include="Commands\ImportFilesIntoLibraryCommand.cs" />
     <Compile Include="Commands\AddTrackToMixCommand.cs" />

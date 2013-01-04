@@ -4,6 +4,8 @@ namespace MixPlanner.DomainModel
 {
     public class PlaybackSpeed
     {
+        public const double DefaultSpeed = 1;
+
         public PlaybackSpeed(HarmonicKey originalKey, double originalBpm)
         {
             if (originalKey == null) throw new ArgumentNullException("originalKey");
@@ -11,7 +13,7 @@ namespace MixPlanner.DomainModel
             this.originalKey = originalKey;
             ActualBpm = originalBpm;
             ActualKey = originalKey;
-            Speed = 1;
+            Speed = DefaultSpeed;
         }
 
         public void SetSpeed(double speed)
@@ -59,6 +61,11 @@ namespace MixPlanner.DomainModel
         public override string ToString()
         {
             return String.Format("{0} ({1}, {2})", Speed, ActualBpm, ActualKey);
+        }
+
+        public void Reset()
+        {
+            SetSpeed(DefaultSpeed);
         }
     }
 }

@@ -48,7 +48,11 @@
                                   Command="{Binding PlayPauseCommand}"
                                   CommandTarget="{Binding Path=PlacementTarget, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
                                   CommandParameter="{Binding Path=PlacementTarget.SelectedItem.Track, RelativeSource={RelativeSource AncestorType=ContextMenu}}"/>
-                        <Separator Visibility="{Binding Path=PlacementTarget.DataContext.HasSingleItemSelected, RelativeSource={RelativeSource AncestorType=ContextMenu}, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                        <MenuItem Header="Reset Pitch"
+                                  Command="{Binding ResetPlaybackSpeedCommand}"
+                                  CommandTarget="{Binding Path=PlacementTarget, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
+                                  CommandParameter="{Binding Path=PlacementTarget.DataContext.SelectedItems, RelativeSource={RelativeSource AncestorType=ContextMenu}}"/>
+                        <Separator />
                         <MenuItem Header="Remove"
                                   InputGestureText="Del"
                                   Command="{Binding RemoveCommand}"

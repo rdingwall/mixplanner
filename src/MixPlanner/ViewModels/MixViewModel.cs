@@ -22,7 +22,8 @@ namespace MixPlanner.ViewModels
         public ObservableCollection<MixItemViewModel> Items { get; private set; }
         public ICommand DropItemCommand { get; private set; }
         public ICommand DropFilesCommand { get; private set; }
-        public ICommand PlayPauseCommand { get; set; }
+        public ICommand PlayPauseCommand { get; private set; }
+        public ICommand ResetPlaybackSpeedCommand { get; private set; }
 
         public MixItemViewModel SelectedItem
         {
@@ -46,7 +47,8 @@ namespace MixPlanner.ViewModels
             IMixItemViewModelFactory viewModels,
             DropItemIntoMixCommand dropItemCommand,
             ImportFilesIntoMixCommand dropFilesCommand,
-            PlayPauseTrackCommand playPauseCommand) : base(messenger)
+            PlayPauseTrackCommand playPauseCommand,
+            ResetPlaybackSpeedCommand resetPlaybackSpeedCommand) : base(messenger)
         {
             if (messenger == null) throw new ArgumentNullException("messenger");
             if (removeCommand == null) throw new ArgumentNullException("removeCommand");
@@ -54,9 +56,11 @@ namespace MixPlanner.ViewModels
             if (dropItemCommand == null) throw new ArgumentNullException("dropItemCommand");
             if (dropFilesCommand == null) throw new ArgumentNullException("dropFilesCommand");
             if (playPauseCommand == null) throw new ArgumentNullException("playPauseCommand");
+            if (resetPlaybackSpeedCommand == null) throw new ArgumentNullException("resetPlaybackSpeedCommand");
             DropItemCommand = dropItemCommand;
             DropFilesCommand = dropFilesCommand;
             PlayPauseCommand = playPauseCommand;
+            ResetPlaybackSpeedCommand = resetPlaybackSpeedCommand;
             this.viewModels = viewModels;
             RemoveCommand = removeCommand;
             RemoveDelKeyCommand = new DelKeyEventToCommandFilter(removeCommand, () => SelectedItems);

@@ -150,7 +150,7 @@ namespace MixPlanner.DomainModel
             var playbackSpeed = track.GetDefaultPlaybackSpeed();
             var transition = transitions.GetTransitionBetween(previousTrack, playbackSpeed);
 
-            return new MixItem(track, transition);
+            return new MixItem(this, track, transition);
         }
 
         PlaybackSpeed GetPlaybackSpeedAtPosition(int index)
@@ -159,6 +159,15 @@ namespace MixPlanner.DomainModel
                 return null;
 
             return items[index].PlaybackSpeed;
+        }
+
+        public void ResetPlaybackSpeed(MixItem item)
+        {
+            if (item == null) throw new ArgumentNullException("item");
+
+            item.ResetPlaybackSpeed();
+            messenger.Send(new PlaybackSpeedAdjustedEvent(item));
+            RecalcTransitions();
         }
     }
 }
