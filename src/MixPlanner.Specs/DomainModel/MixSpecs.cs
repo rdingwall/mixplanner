@@ -16,7 +16,7 @@ namespace MixPlanner.Specs.DomainModel
                         track = TestTracks.Get(HarmonicKey.Key1A);
                         messenger = new Messenger();
                         messenger.Register<TrackAddedToMixEvent>(new object(), e => ev = e);
-                        mix = new Mix(messenger, new TransitionDetector(Strategies.AllStrategies));
+                        mix = new Mix(messenger, new TransitionDetector(TestMixingStrategies.AllStrategies));
                     };
 
             Because of = () => mix.Insert(track, 0);

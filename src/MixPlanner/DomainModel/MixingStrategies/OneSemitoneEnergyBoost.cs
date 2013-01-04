@@ -3,7 +3,8 @@
     // http://www.harmonic-mixing.com/EnergyBoostMixing.aspx
     public class OneSemitoneEnergyBoost : IncreasePitchStrategyBase
     {
-        public OneSemitoneEnergyBoost() : base(increaseAmount: 7) { }
+        public OneSemitoneEnergyBoost(IBpmRangeChecker bpmRangeChecker) 
+            : base(bpmRangeChecker, increaseAmount: 7) { }
 
         public override string Description
         {

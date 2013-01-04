@@ -2,9 +2,13 @@ using System;
 
 namespace MixPlanner.DomainModel.MixingStrategies
 {
-    public class SwitchToMinorScale : IMixingStrategy
+    public class SwitchToMinorScale : CompatibleBpmMixingStrategyBase
     {
-        public bool IsCompatible(PlaybackSpeed first, PlaybackSpeed second)
+        public SwitchToMinorScale(IBpmRangeChecker bpmRangeChecker) : base(bpmRangeChecker)
+        {
+        }
+
+        protected override bool IsCompatibleKey(PlaybackSpeed first, PlaybackSpeed second)
         {
             if (first == null) throw new ArgumentNullException("first");
             if (second == null) throw new ArgumentNullException("second");
@@ -17,6 +21,6 @@ namespace MixPlanner.DomainModel.MixingStrategies
                    && secondKey.IsMinor();
         }
 
-        public string Description { get { return "Switch to minor scale"; } }
+        public override string Description { get { return "Switch to minor scale"; } }
     }
 }

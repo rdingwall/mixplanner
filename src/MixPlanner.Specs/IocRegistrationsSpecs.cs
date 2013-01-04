@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows.Input;
 using Castle.Windsor;
 using MixPlanner.Commands;
+using MixPlanner.DomainModel;
 using MixPlanner.Mp3;
 using MixPlanner.ViewModels;
 using NUnit.Framework;
@@ -40,13 +41,33 @@ namespace MixPlanner.Specs
                 Assert.That(container.Resolve(type), Is.Not.Null);
             }
 
+            [Test, TestCaseSource("GetMixingStrategyTypes")]
+            public void It_should_be_able_to_resolve_the_mixing_strategy(Type type)
+            {
+                Assert.That(container.Resolve(type), Is.Not.Null);
+            }
+
+            [Test]
+            public void It_should_be_able_to_resolve_the_preferred_mixing_strategies()
+            {
+                var strategies = container.Resolve<IEnumerable<IMixingStrategy>>("PreferredStrategies");
+                Assert.That(strategies, Is.Not.Empty);
+            }
+
+            [Test]
+            public void It_should_be_able_to_resolve_all_mixing_strategies()
+            {
+                var strategies = container.Resolve<IEnumerable<IMixingStrategy>>("AllStrategies");
+                Assert.That(strategies, Is.Not.Empty);
+            }
+
             [Test]
             public void It_should_be_able_to_resolve_all_tag_cleanups()
             {
                 Assert.That(container.ResolveAll<IId3TagCleanup>(), Is.Not.Empty);
             }
 
-            public IEnumerable<Type> GetCommandTypes()
+            static IEnumerable<Type> GetCommandTypes()
             {
                 return typeof (AddTrackToMixCommand)
                     .Assembly.GetTypes()
@@ -57,6 +78,14 @@ namespace MixPlanner.Specs
                                     typeof (PlayPauseTrackCommand),
                                     typeof (DelKeyEventToCommandFilter)
                                 });
+            }
+
+            static IEnumerable<Type> GetMixingStrategyTypes()
+            {
+                return typeof (IMixingStrategy)
+                    .Assembly.GetTypes()
+                    .Where(t => typeof (IMixingStrategy).IsAssignableFrom(t))
+                    .Where(t => !t.IsAbstract);
             }
 
             static IWindsorContainer container;

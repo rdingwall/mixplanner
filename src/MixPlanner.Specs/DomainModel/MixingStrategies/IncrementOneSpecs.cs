@@ -15,7 +15,7 @@ namespace MixPlanner.Specs.DomainModel.MixingStrategies
                 () =>
                     {
                         current = new PlaybackSpeed(HarmonicKey.Key9A, 128);
-                        strategy = new IncrementOne();
+                        strategy = new IncrementOne(new AlwaysInRangeBpmChecker());
                         unplayed = new[]
                                        {
                                            new PlaybackSpeed(HarmonicKey.Key10A, 128),

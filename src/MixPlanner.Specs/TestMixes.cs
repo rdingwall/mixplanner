@@ -8,7 +8,9 @@ namespace MixPlanner.Specs
     {
         public static Mix GetRandomMix()
         {
-            var mix = new Mix(new Messenger(), new TransitionDetector(Strategies.AllStrategies));
+            
+
+            var mix = new Mix(new Messenger(), new TransitionDetector(TestMixingStrategies.AllStrategies));
             mix.Add(TestTracks.Get(HarmonicKey.RandomKey()));
             mix.Add(TestTracks.Get(HarmonicKey.RandomKey()));
             mix.Add(TestTracks.Get(HarmonicKey.RandomKey()));

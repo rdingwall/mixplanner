@@ -2,16 +2,17 @@
 
 namespace MixPlanner.DomainModel.MixingStrategies
 {
-    public abstract class IncreasePitchStrategyBase : IMixingStrategy
+    public abstract class IncreasePitchStrategyBase : CompatibleBpmMixingStrategyBase
     {
         readonly int increaseAmount;
 
-        protected IncreasePitchStrategyBase(int increaseAmount)
+        protected IncreasePitchStrategyBase(IBpmRangeChecker bpmRangeChecker, int increaseAmount)
+            : base(bpmRangeChecker)
         {
             this.increaseAmount = increaseAmount;
         }
 
-        public bool IsCompatible(PlaybackSpeed first, PlaybackSpeed second)
+        protected override bool IsCompatibleKey(PlaybackSpeed first, PlaybackSpeed second)
         {
             if (first == null) throw new ArgumentNullException("first");
             if (second == null) throw new ArgumentNullException("second");
@@ -20,7 +21,7 @@ namespace MixPlanner.DomainModel.MixingStrategies
                    && second.ActualKey.Equals(first.ActualKey.IncreasePitch(increaseAmount));
         }
 
-        public virtual string Description
+        public override string Description
         {
             get
             {

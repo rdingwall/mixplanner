@@ -125,12 +125,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AlwaysInRangeBpmChecker.cs" />
     <Compile Include="Converters\CamelotToTraditionalKeyConverterSpecs.cs" />
     <Compile Include="Converters\PlaySpeedStringConverterSpecs.cs" />
     <Compile Include="DomainModel\HarmonicKeySpecs.cs" />
+    <Compile Include="DomainModel\MixingStrategies\ManualIncompatibleBpmsMixSpecs.cs" />
     <Compile Include="DomainModel\MixingStrategies\SwitchToMajorScaleSpecs.cs" />
     <Compile Include="DomainModel\MixingStrategies\IncrementOneSpecs.cs" />
-    <Compile Include="DomainModel\MixingStrategies\ManualOutOfKeyMixSpecs.cs" />
+    <Compile Include="DomainModel\MixingStrategies\ManualOutOfKeyKeyMixSpecs.cs" />
     <Compile Include="DomainModel\MixingStrategies\OneSemitoneEnergyBoostSpecs.cs" />
     <Compile Include="DomainModel\MixingStrategies\SameKeySpecs.cs" />
     <Compile Include="DomainModel\MixingStrategies\SwitchToMinorScaleSpecs.cs" />
@@ -150,6 +152,7 @@
     <Compile Include="Mp3\MixedInKeyPrefixCleanupSpecs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestMixes.cs" />
+    <Compile Include="TestMixingStrategies.cs" />
     <Compile Include="TestTracks.cs" />
     <Content Include="audacity.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

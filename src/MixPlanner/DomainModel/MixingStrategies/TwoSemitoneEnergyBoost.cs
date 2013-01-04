@@ -2,7 +2,8 @@
 {
     public class TwoSemitoneEnergyBoost : IncreasePitchStrategyBase
     {
-        public TwoSemitoneEnergyBoost() : base(increaseAmount: 7 * 2) { }
+        public TwoSemitoneEnergyBoost(IBpmRangeChecker bpmRangeChecker)
+            : base(bpmRangeChecker, increaseAmount: 7 * 2) { }
 
         public override string Description
         {

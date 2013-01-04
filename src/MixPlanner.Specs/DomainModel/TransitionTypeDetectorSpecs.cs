@@ -12,7 +12,7 @@ namespace MixPlanner.Specs.DomainModel
              Establish context =
                  () =>
                      {
-                         detector = new TransitionDetector(Strategies.AllStrategies);
+                         detector = new TransitionDetector(TestMixingStrategies.AllStrategies);
                      };
 
              Because of =
@@ -36,7 +36,7 @@ namespace MixPlanner.Specs.DomainModel
              Establish context =
                  () =>
                  {
-                     detector = new TransitionDetector(Strategies.AllStrategies);
+                     detector = new TransitionDetector(TestMixingStrategies.AllStrategies);
                  };
 
              Because of =
@@ -65,7 +65,7 @@ namespace MixPlanner.Specs.DomainModel
              Establish context =
                  () =>
                  {
-                     detector = new TransitionDetector(Strategies.AllStrategies);
+                     detector = new TransitionDetector(TestMixingStrategies.AllStrategies);
                  };
 
              Because of =

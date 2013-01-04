@@ -7,7 +7,7 @@ using MixPlanner.DomainModel.MixingStrategies;
 namespace MixPlanner.Specs.DomainModel.MixingStrategies
 {
     [Subject(typeof(ManualOutOfKeyMix))]
-    public class ManualOutOfKeyMixSpecs
+    public class ManualOutOfKeyKeyMixSpecs
     {
         public class when_deciding_which_track_to_play_next
         {
@@ -15,7 +15,7 @@ namespace MixPlanner.Specs.DomainModel.MixingStrategies
                 () =>
                     {
                         current = new PlaybackSpeed(HarmonicKey.RandomKey(), 128);
-                        strategy = new ManualOutOfKeyMix();
+                        strategy = new ManualOutOfKeyMix(new AlwaysInRangeBpmChecker());
                         unplayed = TestMixes.GetRandomMix().Items.Select(i => i.PlaybackSpeed);
                     };
 
