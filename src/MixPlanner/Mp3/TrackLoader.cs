@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 using MixPlanner.DomainModel;
 using MoreLinq;
 
@@ -9,6 +10,7 @@ namespace MixPlanner.Mp3
     public interface ITrackLoader
     {
         Track Load(string filename);
+        Task<Track> LoadAsync(string filename);
     }
 
     public class TrackLoader : ITrackLoader
@@ -22,6 +24,11 @@ namespace MixPlanner.Mp3
             if (cleanups == null) throw new ArgumentNullException("cleanups");
             this.id3Reader = id3Reader;
             this.cleanups = cleanups;
+        }
+
+        public async Task<Track> LoadAsync(string filename)
+        {
+            return await Task.Run(() => Load(filename));
         }
 
         public Track Load(string filename)

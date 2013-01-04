@@ -22,12 +22,12 @@ namespace MixPlanner.DomainModel
 
     public class Mix : IMix
     {
-        readonly IMessenger messenger;
+        readonly IDispatcherMessenger messenger;
         readonly ITransitionDetector transitions;
         readonly IList<MixItem> items;
 
         public Mix(
-            IMessenger messenger,
+            IDispatcherMessenger messenger,
             ITransitionDetector transitions)
         {
             if (messenger == null) throw new ArgumentNullException("messenger");
@@ -47,7 +47,7 @@ namespace MixPlanner.DomainModel
         {
             if (item == null) throw new ArgumentNullException("item");
             items.Remove(item);
-            messenger.Send(new TrackRemovedFromMixEvent(item));
+            messenger.SendToUI(new TrackRemovedFromMixEvent(item));
             RecalcTransitions();
         }
 
@@ -66,8 +66,8 @@ namespace MixPlanner.DomainModel
 
             items.Remove(item);
             items.Insert(newIndex, item);
-            messenger.Send(new TrackRemovedFromMixEvent(item));
-            messenger.Send(new TrackAddedToMixEvent(item, newIndex));
+            messenger.SendToUI(new TrackRemovedFromMixEvent(item));
+            messenger.SendToUI(new TrackAddedToMixEvent(item, newIndex));
             RecalcTransitions();
         }
 
@@ -75,7 +75,7 @@ namespace MixPlanner.DomainModel
         {
             if (item == null) throw new ArgumentNullException("item");
             item.SetPlaybackSpeed(value);
-            messenger.Send(new PlaybackSpeedAdjustedEvent(item));
+            messenger.SendToUI(new PlaybackSpeedAdjustedEvent(item));
             RecalcTransitions();
         }
 
@@ -100,7 +100,7 @@ namespace MixPlanner.DomainModel
             
             items.Insert(insertIndex, item);
 
-            messenger.Send(new TrackAddedToMixEvent(item, insertIndex));
+            messenger.SendToUI(new TrackAddedToMixEvent(item, insertIndex));
             RecalcTransitions();
         }
 
@@ -123,7 +123,7 @@ namespace MixPlanner.DomainModel
                 // First track should not have any strategy - should just be intro. 
                 // Need to clean this up a bit.
                 intro.Transition = transitions.GetTransitionBetween(null, intro.PlaybackSpeed);
-                messenger.Send(new TransitionChangedEvent(intro));
+                messenger.SendToUI(new TransitionChangedEvent(intro));
             }
 
             for (var i = 0; i + 1 < items.Count; i++)
@@ -140,7 +140,7 @@ namespace MixPlanner.DomainModel
 
                 item.Transition = newTransition;
 
-                messenger.Send(new TransitionChangedEvent(item));
+                messenger.SendToUI(new TransitionChangedEvent(item));
             }
         }
 
@@ -166,7 +166,7 @@ namespace MixPlanner.DomainModel
             if (item == null) throw new ArgumentNullException("item");
 
             item.ResetPlaybackSpeed();
-            messenger.Send(new PlaybackSpeedAdjustedEvent(item));
+            messenger.SendToUI(new PlaybackSpeedAdjustedEvent(item));
             RecalcTransitions();
         }
     }

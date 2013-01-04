@@ -14,7 +14,7 @@ namespace MixPlanner.Specs.DomainModel
                 () =>
                     {
                         track = TestTracks.Get(HarmonicKey.Key1A);
-                        messenger = new Messenger();
+                        messenger = new DispatcherMessenger(new Messenger());
                         messenger.Register<TrackAddedToMixEvent>(new object(), e => ev = e);
                         mix = new Mix(messenger, new TransitionDetector(TestMixingStrategies.AllStrategies));
                     };
@@ -35,7 +35,7 @@ namespace MixPlanner.Specs.DomainModel
             static TrackAddedToMixEvent ev;
             static Track track;
             static Mix mix;
-            static IMessenger messenger;
+            static IDispatcherMessenger messenger;
         }
     }
 }

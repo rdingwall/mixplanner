@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using GalaSoft.MvvmLight.Messaging;
 using MixPlanner.DomainModel;
+using Rhino.Mocks;
 
 namespace MixPlanner.Specs
 {
@@ -10,7 +11,7 @@ namespace MixPlanner.Specs
         {
             
 
-            var mix = new Mix(new Messenger(), new TransitionDetector(TestMixingStrategies.AllStrategies));
+            var mix = new Mix(MockRepository.GenerateMock<IDispatcherMessenger>(), new TransitionDetector(TestMixingStrategies.AllStrategies));
             mix.Add(TestTracks.Get(HarmonicKey.RandomKey()));
             mix.Add(TestTracks.Get(HarmonicKey.RandomKey()));
             mix.Add(TestTracks.Get(HarmonicKey.RandomKey()));

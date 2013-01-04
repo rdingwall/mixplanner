@@ -21,10 +21,10 @@ namespace MixPlanner.Player
 
     public class AudioPlayer : IAudioPlayer, IDisposable
     {
-        readonly IMessenger messenger;
+        readonly IDispatcherMessenger messenger;
         public Track CurrentTrack { get; private set; }
 
-        public AudioPlayer(IMessenger messenger)
+        public AudioPlayer(IDispatcherMessenger messenger)
         {
             if (messenger == null) throw new ArgumentNullException("messenger");
             this.messenger = messenger;
@@ -34,12 +34,12 @@ namespace MixPlanner.Player
 
         void NotifyStopped()
         {
-            messenger.Send(new PlayerStoppedEvent(CurrentTrack));
+            messenger.SendToUI(new PlayerStoppedEvent(CurrentTrack));
         }
 
         void NotifyStarting()
         {
-            messenger.Send(new PlayerPlayingEvent(CurrentTrack));
+            messenger.SendToUI(new PlayerPlayingEvent(CurrentTrack));
         }
 
         public bool HasTrackLoaded()

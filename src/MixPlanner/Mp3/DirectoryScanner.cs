@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 using MixPlanner.DomainModel;
 
 namespace MixPlanner.Mp3
@@ -15,8 +16,15 @@ namespace MixPlanner.Mp3
             this.loader = loader;
         }
 
+        public async Task<IEnumerable<Track>> GetTracksAsync(string directoryName)
+        {
+            return await Task.Run(() => GetTracks(directoryName));
+        }
+
         public IEnumerable<Track> GetTracks(string directoryName)
         {
+            if (directoryName == null) throw new ArgumentNullException("directoryName");
+
             var files = Directory.GetFiles(directoryName, "*.mp3", SearchOption.AllDirectories);
 
             IList<Track> tracks = new List<Track>();

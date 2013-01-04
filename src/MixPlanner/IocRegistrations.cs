@@ -29,6 +29,7 @@ namespace MixPlanner
                 Component.For<ILibraryStorage>().ImplementedBy<InMemoryLibraryStorage>(),
                 Component.For<IId3Reader>().ImplementedBy<Id3Reader>(),
                 Component.For<IMessenger>().ImplementedBy<Messenger>(),
+                Component.For<IDispatcherMessenger>().ImplementedBy<DispatcherMessenger>(),
                 Component.For<IAudioPlayer>().ImplementedBy<AudioPlayer>(),
                 Component.For<IBpmRangeChecker>().ImplementedBy<BpmRangeChecker>(),
                 Component.For<IMixingStrategiesFactory>().ImplementedBy<MixingStrategiesFactory>(),

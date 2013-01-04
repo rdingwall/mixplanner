@@ -117,6 +117,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Commands\AsyncCommandBase.cs" />
     <Compile Include="Commands\CommandBase.cs" />
     <Compile Include="Commands\DelKeyEventToCommandFilter.cs" />
     <Compile Include="Commands\DropItemIntoMixCommand.cs" />
@@ -171,6 +172,7 @@
     <Compile Include="Events\TrackRemovedFromLibraryEvent.cs" />
     <Compile Include="Events\TrackRemovedFromMixEvent.cs" />
     <Compile Include="Events\TransitionChangedEvent.cs" />
+    <Compile Include="DispatcherMessenger.cs" />
     <Compile Include="ImportExport\IPlaylistWriter.cs" />
     <Compile Include="ImportExport\M3uReader.cs" />
     <Compile Include="ImportExport\M3uWriter.cs" />

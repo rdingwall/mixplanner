@@ -46,6 +46,11 @@ namespace MixPlanner.Commands
             return true;
         }
 
+        protected void RaiseCanExecuteChanged()
+        {
+            CommandManager.InvalidateRequerySuggested();
+        }
+
         protected abstract void Execute(T parameter);
 
         // CanExecuteChanged whenever a property changes

@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using Castle.Windsor;
+using GalaSoft.MvvmLight.Threading;
 using Microsoft.Practices.ServiceLocation;
 using MixPlanner.Views;
 
@@ -14,6 +15,7 @@ namespace MixPlanner
 
         protected override void OnStartup(StartupEventArgs e)
         {
+            DispatcherHelper.Initialize();
             container = new WindsorContainer();
             container.Install(new IocRegistrations());
             ServiceLocator.SetLocatorProvider(() => new WindsorServiceLocator(container));

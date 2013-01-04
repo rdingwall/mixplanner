@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Windows;
 using MixPlanner.DomainModel;
 
 namespace MixPlanner.Commands
 {
-    public class ImportFilesIntoLibraryCommand : CommandBase<DragEventArgs>
+    public class ImportFilesIntoLibraryCommand : AsyncCommandBase<DragEventArgs>
     {
         readonly ITrackLibrary library;
 
@@ -19,13 +20,13 @@ namespace MixPlanner.Commands
             return parameter != null;
         }
 
-        protected override void Execute(DragEventArgs parameter)
+        protected async override Task DoExecute(DragEventArgs parameter)
         {
             var filenames = (string[]) parameter.Data.GetData(DataFormats.FileDrop);
 
             if (filenames == null) return;
 
-            library.Import(filenames);
+            await library.ImportAsync(filenames);
         }
     }
 }

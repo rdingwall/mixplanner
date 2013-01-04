@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using GalaSoft.MvvmLight.Messaging;
 using MixPlanner.Events;
 using MixPlanner.Mp3;
@@ -14,10 +15,10 @@ namespace MixPlanner.DomainModel
     {
         const StringComparison Comparison = StringComparison.CurrentCultureIgnoreCase;
         readonly ITrackLoader loader;
-        readonly IMessenger messenger;
+        readonly IDispatcherMessenger messenger;
         readonly ILibraryStorage storage;
 
-        public TrackLibrary(ITrackLoader loader, IMessenger messenger, ILibraryStorage storage)
+        public TrackLibrary(ITrackLoader loader, IDispatcherMessenger messenger, ILibraryStorage storage)
         {
             if (loader == null) throw new ArgumentNullException("loader");
             if (messenger == null) throw new ArgumentNullException("messenger");
@@ -43,7 +44,7 @@ namespace MixPlanner.DomainModel
 
             track = loader.Load(filename);
             storage.Add(track);
-            messenger.Send(new TrackAddedToLibraryEvent(track));
+            messenger.SendToUI(new TrackAddedToLibraryEvent(track));
             return new[] { track };
         }
 
@@ -77,6 +78,21 @@ namespace MixPlanner.DomainModel
             return Import(filenames);
         }
 
+        public async Task<IEnumerable<Track>> ImportAsync(string filename)
+        {
+            return await Task.Run(() => Import(filename));
+        }
+
+        public async Task<IEnumerable<Track>> ImportAsync(IEnumerable<string> filenames)
+        {
+            return await Task.Run(() => Import(filenames));
+        }
+
+        public async Task<IEnumerable<Track>> ImportDirectoryAsync(string directoryName)
+        {
+            return await Task.Run(() => ImportDirectory(directoryName));
+        }
+
         static bool IsDirectory(string filename)
         {
             var attributes = File.GetAttributes(filename);
@@ -87,7 +103,7 @@ namespace MixPlanner.DomainModel
         {
             if (track == null) throw new ArgumentNullException("track");
             storage.Remove(track);
-            messenger.Send(new TrackRemovedFromLibraryEvent(track));
+            messenger.SendToUI(new TrackRemovedFromLibraryEvent(track));
         }
 
         public void RemoveRange(IEnumerable<Track> tracks)
