@@ -20,19 +20,14 @@
                       dd:DragDrop.IsDropTarget="True"
                       dd:DragDrop.DropHandler="{Binding}"
                       SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
-                      SelectionMode="Extended">
+                      SelectionMode="Extended"
+                      SelectionChanged="OnSelectionChanged">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="PreviewKeyDown">
                         <cmd:EventToCommand Command="{Binding RemoveDelKeyCommand}"
                                             PassEventArgsToCommand="True" />
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
-                
-                <ListView.ItemContainerStyle>
-                    <Style TargetType="{x:Type ListViewItem}">
-                        <Setter Property="IsSelected" Value="{Binding IsSelected}" />
-                    </Style>
-                </ListView.ItemContainerStyle>
                 
                 <ListView.ItemTemplate>
                     <DataTemplate>

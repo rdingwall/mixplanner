@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MixPlanner.ViewModels;
+using MoreLinq;
 
 namespace MixPlanner.Views
 {
@@ -23,6 +25,14 @@ namespace MixPlanner.Views
         public TrackLibraryView()
         {
             InitializeComponent();
+        }
+
+        void OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // Bit dirty, toggle 'IsSelected' flag for virtualized list
+            // See http://stackoverflow.com/a/9897347/91551
+            e.RemovedItems.OfType<TrackLibraryItemViewModel>().ForEach(i => i.IsSelected = false);
+            e.AddedItems.OfType<TrackLibraryItemViewModel>().ForEach(i => i.IsSelected = true);
         }
     }
 }
