@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Threading.Tasks;
 using MixPlanner.DomainModel;
 using MixPlanner.Player;
 
 namespace MixPlanner.Commands
 {
-    public class PlayPauseTrackCommand : CommandBase<Track>
+    public class PlayPauseTrackCommand : AsyncCommandBase<Track>
     {
         readonly IAudioPlayer player;
 
@@ -19,12 +20,12 @@ namespace MixPlanner.Commands
             return player.CanPlay(parameter);
         }
 
-        protected override void Execute(Track parameter)
+        protected override Task DoExecute(Track parameter)
         {
             if (player.IsPlaying(parameter))
-                player.Pause();
+                return player.PauseAsync();
             else
-                player.PlayOrResume(parameter);
+                return player.PlayOrResumeAsync(parameter);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using GalaSoft.MvvmLight.Messaging;
 using MixPlanner.DomainModel;
 using MixPlanner.Events;
@@ -10,12 +11,12 @@ namespace MixPlanner.Player
     {
         Track CurrentTrack { get; }
         bool CanPlay(Track track);
-        void PlayOrResume(Track track);
-        void PlayOrResume();
+        Task PlayOrResumeAsync(Track track);
+        Task PlayOrResumeAsync();
         bool IsPlaying(Track track);
         bool IsPlaying();
-        void Pause();
-        void Stop();
+        Task PauseAsync();
+        Task StopAsync();
         bool HasTrackLoaded();
     }
 
@@ -52,7 +53,12 @@ namespace MixPlanner.Player
             return track != null && !String.IsNullOrWhiteSpace(track.Filename);
         }
 
-        public void PlayOrResume(Track track)
+        public async Task PlayOrResumeAsync(Track track)
+        {
+            await Task.Run(() => PlayOrResume(track));
+        }
+
+        void PlayOrResume(Track track)
         {
             if (track == null) throw new ArgumentNullException("track");
             if (!CanPlay(track)) return;
@@ -69,7 +75,12 @@ namespace MixPlanner.Player
             NotifyStarting();
         }
 
-        public void PlayOrResume()
+        public async Task PlayOrResumeAsync()
+        {
+            await Task.Run(() => PlayOrResume());
+        }
+
+        void PlayOrResume()
         {
             if (!HasTrackLoaded())
                 return;
@@ -89,7 +100,12 @@ namespace MixPlanner.Player
             return HasTrackLoaded() && IsPlaying(CurrentTrack);
         }
 
-        public void Pause()
+        public async Task PauseAsync()
+        {
+            await Task.Run(() => Pause());
+        }
+
+        void Pause()
         {
             if (waveOutDevice.PlaybackState != PlaybackState.Playing)
                 return;
@@ -98,7 +114,12 @@ namespace MixPlanner.Player
             NotifyStopped();
         }
 
-        public void Stop()
+        public async Task StopAsync()
+        {
+            await Task.Run(() => Stop());
+        }
+
+        void Stop()
         {
             if (waveOutDevice.PlaybackState == PlaybackState.Stopped)
                 return;
