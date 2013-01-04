@@ -8,19 +8,23 @@ namespace MixPlanner.ViewModels
         public MixViewModel Mix { get; private set; }
         public TrackLibraryViewModel TrackLibrary { get; private set; }
         public MiniPlayerViewModel MiniPlayer { get; private set; }
+        public StatusBarViewModel StatusBar { get; private set; }
 
         public MainWindowViewModel(
             MixViewModel mixViewModel,
             TrackLibraryViewModel trackLibraryViewModel,
-            MiniPlayerViewModel miniPlayerViewModel)
+            MiniPlayerViewModel miniPlayerViewModel,
+            StatusBarViewModel statusBar)
         {
             if (mixViewModel == null) throw new ArgumentNullException("mixViewModel");
             if (trackLibraryViewModel == null) throw new ArgumentNullException("trackLibraryViewModel");
             if (miniPlayerViewModel == null) throw new ArgumentNullException("miniPlayerViewModel");
+            if (statusBar == null) throw new ArgumentNullException("statusBar");
 
             Mix = mixViewModel;
             TrackLibrary = trackLibraryViewModel;
             MiniPlayer = miniPlayerViewModel;
+            StatusBar = statusBar;
         }
     }
 }

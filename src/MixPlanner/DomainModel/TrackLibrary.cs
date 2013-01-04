@@ -64,12 +64,20 @@ namespace MixPlanner.DomainModel
         {
             if (filenames == null) throw new ArgumentNullException("filenames");
 
-            return filenames.SelectMany(Import).ToList(); // force evaluation now
+            messenger.SendToUI(new BeganLoadingTracksEvent());
+
+            var tracks = filenames.SelectMany(Import).ToList(); // force evaluation now
+
+            messenger.SendToUI(new FinishedLoadingTracksEvent());
+
+            return tracks;
         }
 
         IEnumerable<Track> ImportDirectory(string directoryName)
         {
             if (directoryName == null) throw new ArgumentNullException("directoryName");
+
+            messenger.SendToUI(new BeganScanningDirectoryEvent());
 
             var filenames = Directory.GetFiles(directoryName, 
                 "*.mp3", SearchOption.AllDirectories);

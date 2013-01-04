@@ -34,9 +34,15 @@
 
         <views:TrackLibraryView Grid.Row="2" DataContext="{Binding TrackLibrary}" />
 
-        <views:MiniPlayerView Grid.Row="3" 
-                              DataContext="{Binding MiniPlayer}" 
-                              HorizontalAlignment="Stretch" />
+        <DockPanel Grid.Row="3">
+            <views:StatusBarView DockPanel.Dock="Left"
+                                  DataContext="{Binding StatusBar}" />
+            
+            <views:MiniPlayerView DockPanel.Dock="Right"
+                                  DataContext="{Binding MiniPlayer}" />
+        </DockPanel>
+        
+        
     </Grid>
 
 
