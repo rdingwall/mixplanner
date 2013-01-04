@@ -8,6 +8,7 @@ using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
 using MixPlanner.Commands;
+using MixPlanner.DomainModel;
 using MixPlanner.Events;
 
 namespace MixPlanner.ViewModels
@@ -81,7 +82,7 @@ namespace MixPlanner.ViewModels
 
             ImportFilesCommand = importFilesCommand;
             RemoveCommand = removeTracksCommand;
-            RemoveDelKeyCommand = new DelKeyEventToCommandFilter(removeTracksCommand, () => SelectedItems);
+            RemoveDelKeyCommand = new DelKeyEventToCommandFilter(removeTracksCommand, () => SelectedTracks);
         }
 
         void OnSearchTextCleared(SearchTextClearedEvent obj)
@@ -99,6 +100,14 @@ namespace MixPlanner.ViewModels
             get
             { 
                 return items.Where(i => i.IsSelected).ToList();
+            }
+        }
+
+        public IEnumerable<Track> SelectedTracks
+        {
+            get
+            {
+                return items.Where(i => i.IsSelected).Select(i => i.Track).ToList();
             }
         }
 
