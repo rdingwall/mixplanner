@@ -126,6 +126,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Converters\CamelotToTraditionalKeyConverterSpecs.cs" />
+    <Compile Include="Converters\PlaySpeedStringConverterSpecs.cs" />
     <Compile Include="DomainModel\HarmonicKeySpecs.cs" />
     <Compile Include="DomainModel\MixingStrategies\SwitchToMajorScaleSpecs.cs" />
     <Compile Include="DomainModel\MixingStrategies\IncrementOneSpecs.cs" />

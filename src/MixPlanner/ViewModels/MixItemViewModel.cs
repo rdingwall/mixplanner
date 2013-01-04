@@ -19,7 +19,7 @@ namespace MixPlanner.ViewModels
 
         public double PlaySpeed
         {
-            get { return MixItem.PlaybackSpeed.PercentIncrease; }
+            get { return MixItem.PlaybackSpeed.Speed; }
             set { mix.AdjustPlaybackSpeed(MixItem, value); }
         }
 

@@ -12,9 +12,9 @@ namespace MixPlanner.Specs.DomainModel
 
             static PlaybackSpeed speed;
 
-            Because of = () => speed.SetSpeed(3);
+            Because of = () => speed.SetSpeed(1.03);
 
-            It should_increase_the_speed = () => speed.PercentIncrease.ShouldEqual(3);
+            It should_increase_the_speed = () => speed.Speed.ShouldEqual(1.03);
 
             It should_increase_the_bpm = () => speed.ActualBpm.ShouldBeCloseTo(131.84, 0.01);
 
@@ -27,9 +27,9 @@ namespace MixPlanner.Specs.DomainModel
 
             static PlaybackSpeed speed;
 
-            Because of = () => speed.SetSpeed(0);
+            Because of = () => speed.SetSpeed(1.0);
 
-            It should_use_the_original_speed = () => speed.PercentIncrease.ShouldEqual(0);
+            It should_use_the_original_speed = () => speed.Speed.ShouldEqual(1.0);
 
             It should_use_the_original_bpm = () => speed.ActualBpm.ShouldBeCloseTo(128, 0.01);
 
@@ -42,9 +42,9 @@ namespace MixPlanner.Specs.DomainModel
 
             static PlaybackSpeed speed;
 
-            Because of = () => speed.SetSpeed(6);
+            Because of = () => speed.SetSpeed(1.06);
 
-            It should_increase_the_speed = () => speed.PercentIncrease.ShouldEqual(6);
+            It should_increase_the_speed = () => speed.Speed.ShouldEqual(1.06);
 
             It should_increase_the_bpm = () => speed.ActualBpm.ShouldBeCloseTo(135.68, 0.01);
 
@@ -57,9 +57,9 @@ namespace MixPlanner.Specs.DomainModel
 
             static PlaybackSpeed speed;
 
-            Because of = () => speed.SetSpeed(-3);
+            Because of = () => speed.SetSpeed(.97);
 
-            It should_decrease_the_speed = () => speed.PercentIncrease.ShouldEqual(-3);
+            It should_decrease_the_speed = () => speed.Speed.ShouldEqual(.97);
 
             It should_decrease_the_bpm = () => speed.ActualBpm.ShouldBeCloseTo(124.16, 0.01);
 
@@ -72,9 +72,9 @@ namespace MixPlanner.Specs.DomainModel
 
             static PlaybackSpeed speed;
 
-            Because of = () => speed.SetSpeed(-6);
+            Because of = () => speed.SetSpeed(.94);
 
-            It should_decrease_the_speed = () => speed.PercentIncrease.ShouldEqual(-6);
+            It should_decrease_the_speed = () => speed.Speed.ShouldEqual(.94);
 
             It should_decrease_the_bpm = () => speed.ActualBpm.ShouldBeCloseTo(120.32, 0.01);
 

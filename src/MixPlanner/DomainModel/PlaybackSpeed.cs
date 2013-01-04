@@ -11,25 +11,33 @@ namespace MixPlanner.DomainModel
             this.originalKey = originalKey;
             ActualBpm = originalBpm;
             ActualKey = originalKey;
+            Speed = 1;
         }
 
-        public void SetSpeed(double percentIncrease)
+        public void SetSpeed(double speed)
         {
-            PercentIncrease = percentIncrease;
-            ActualBpm = CalculateActualBpm(percentIncrease);
-            ActualKey = CalculateActualKey(percentIncrease);
+            Speed = speed;
+            ActualBpm = CalculateActualBpm(speed);
+            ActualKey = CalculateActualKey(speed);
         }
 
-        HarmonicKey CalculateActualKey(double percentIncrease)
+        HarmonicKey CalculateActualKey(double speed)
         {
+            // How many percentage points we are increasing the speed
+            // e.g. 1.03 = 103% = 3
+            //      0.94 =  -6% = 6
+            var percentIncrease = (speed - 1)*100;
+
+            // Pitch changes one semitone (+/- 7 on the Camelot wheel) for
+            // every 3% difference.
             var pitchIncrease = 7*(percentIncrease/3);
+
             return originalKey.IncreasePitch((int)pitchIncrease);
         }
 
-        double CalculateActualBpm(double percentIncrease)
+        double CalculateActualBpm(double speed)
         {
-            var increase = percentIncrease / 100;
-            return originalBpm * (1 + increase);
+            return originalBpm * speed;
         }
 
         public bool IsWithinBpmRange(PlaybackSpeed other)
@@ -44,8 +52,13 @@ namespace MixPlanner.DomainModel
         readonly double originalBpm;
         readonly HarmonicKey originalKey;
 
-        public double PercentIncrease { get; private set; }
+        public double Speed { get; private set; }
         public double ActualBpm { get; private set; }
         public HarmonicKey ActualKey { get; private set; }
+
+        public override string ToString()
+        {
+            return String.Format("{0} ({1}, {2})", Speed, ActualBpm, ActualKey);
+        }
     }
 }

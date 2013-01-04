@@ -45,8 +45,25 @@
                 VerticalAlignment="Top"
                 Width="75" />
         <DockPanel Grid.Column="2" HorizontalAlignment="Left" Height="48" LastChildFill="False" Margin="10,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="69">
-        	<Label x:Name="CurrentPitch" Content="{Binding PlaySpeed, Converter={StaticResource PlaySpeedStringConverter}}" Height="48" VerticalAlignment="Top" HorizontalAlignment="Center"/>
-        	<Slider x:Name="PitchSlider" Value="{Binding PlaySpeed}"  Height="48" VerticalAlignment="Top" Orientation="Vertical" DockPanel.Dock="Right" Minimum="-6" TickPlacement="TopLeft" SmallChange="3" TickFrequency="3" Maximum="6" LargeChange="3" IsSnapToTickEnabled="True" IsDirectionReversed="True"/>
+        	<Label x:Name="CurrentPitch"
+                   Content="{Binding PlaySpeed, Converter={StaticResource PlaySpeedStringConverter}}" 
+                   Height="48" 
+                   VerticalAlignment="Top" 
+                   HorizontalAlignment="Center"/>
+        	<Slider x:Name="PitchSlider"
+                    Value="{Binding PlaySpeed}" 
+                    Height="48"
+                    VerticalAlignment="Top"
+                    Orientation="Vertical"
+                    DockPanel.Dock="Right"
+                    Minimum="0.94"
+                    TickPlacement="TopLeft"
+                    SmallChange="0.03"
+                    TickFrequency="0.03"
+                    Maximum="1.06"
+                    LargeChange="0.03"
+                    IsSnapToTickEnabled="True"
+                    IsDirectionReversed="True"/>
         </DockPanel>
         <StackPanel dd:DragDrop.IsDragSource="True"
                     dd:DragDrop.DragHandler="{Binding}"

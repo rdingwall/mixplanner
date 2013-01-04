@@ -18,7 +18,7 @@ namespace MixPlanner.DomainModel
 
         public void SetPlaybackSpeed(double value)
         {
-            PlaybackSpeed.SetSpeed((int) value);
+            PlaybackSpeed.SetSpeed(value);
             
         }
     }

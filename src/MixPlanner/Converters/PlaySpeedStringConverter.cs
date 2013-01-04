@@ -8,9 +8,10 @@ namespace MixPlanner.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var playSpeed = (double) value;
+            var speed = System.Convert.ToDouble(value);
+            var percentageIncrease = (speed - 1) * 100;
 
-            return string.Format("{0:+0.#;-0.#;0}%", playSpeed);
+            return string.Format("{0:+0.#;-0.#;0}%", percentageIncrease);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
