@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Windows;
 using GongSolutions.Wpf.DragDrop;
 using MixPlanner.DomainModel;
 
 namespace MixPlanner.Commands
 {
-    public class ImportFilesIntoMixCommand : CommandBase<DropInfo>
+    public class ImportFilesIntoMixCommand : AsyncCommandBase<DropInfo>
     {
         readonly ITrackLibrary library;
         readonly IMix mix;
@@ -25,7 +26,7 @@ namespace MixPlanner.Commands
             return data.GetDataPresent(DataFormats.FileDrop); 
         }
 
-        protected override void Execute(DropInfo parameter)
+        protected override async Task DoExecute(DropInfo parameter)
         {
             var data = (IDataObject)parameter.Data;
 
@@ -33,7 +34,7 @@ namespace MixPlanner.Commands
 
             if (filenames == null) return;
 
-            var tracks = library.Import(filenames);
+            var tracks = await library.ImportAsync(filenames);
 
             mix.Insert(tracks, parameter.InsertIndex);
         }

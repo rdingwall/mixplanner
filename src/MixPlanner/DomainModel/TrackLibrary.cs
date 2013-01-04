@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using GalaSoft.MvvmLight.Messaging;
 using MixPlanner.Events;
 using MixPlanner.Mp3;
 using MixPlanner.Storage;
@@ -28,7 +27,7 @@ namespace MixPlanner.DomainModel
             this.storage = storage;
         }
 
-        public IEnumerable<Track> Import(string filename)
+        IEnumerable<Track> Import(string filename)
         {
             if (filename == null) throw new ArgumentNullException("filename");
 
@@ -61,14 +60,14 @@ namespace MixPlanner.DomainModel
             return extension.Equals(".mp3", Comparison);
         }
 
-        public IEnumerable<Track> Import(IEnumerable<string> filenames)
+        IEnumerable<Track> Import(IEnumerable<string> filenames)
         {
             if (filenames == null) throw new ArgumentNullException("filenames");
 
             return filenames.SelectMany(Import).ToList(); // force evaluation now
         }
 
-        public IEnumerable<Track> ImportDirectory(string directoryName)
+        IEnumerable<Track> ImportDirectory(string directoryName)
         {
             if (directoryName == null) throw new ArgumentNullException("directoryName");
 
