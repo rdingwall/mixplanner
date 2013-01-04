@@ -23,7 +23,7 @@ namespace MixPlanner.ViewModels
         {
             if (messenger == null) throw new ArgumentNullException("messenger");
             messenger.Register<BeganScanningDirectoryEvent>(this, _ => Message = "Scanning directory...");
-            messenger.Register<BeganLoadingTracksEvent>(this, _ => Message = "Loading tracks...");
+            messenger.Register<BeganLoadingTracksEvent>(this, _ => Message = "Importing tracks...");
             messenger.Register<FinishedLoadingTracksEvent>(this, _ => Message = "");
         }
     }
