@@ -3,6 +3,7 @@ using Castle.Windsor;
 using GalaSoft.MvvmLight.Threading;
 using Microsoft.Practices.ServiceLocation;
 using MixPlanner.Views;
+using log4net.Config;
 
 namespace MixPlanner
 {
@@ -15,6 +16,7 @@ namespace MixPlanner
 
         protected override void OnStartup(StartupEventArgs e)
         {
+            BasicConfigurator.Configure();
             DispatcherHelper.Initialize();
             container = new WindsorContainer();
             container.Install(new IocRegistrations());
