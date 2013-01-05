@@ -16,6 +16,7 @@
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
             <converters:PlaySpeedStringConverter x:Key="PlaySpeedStringConverter" />
             <converters:PlayPauseCommandLabelConverter x:Key="PlayPauseCommandLabelConverter" />
+            <converters:EnumToBoolConverter x:Key="EnumToBoolConverter" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>
