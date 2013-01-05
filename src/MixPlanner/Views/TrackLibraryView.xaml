@@ -14,35 +14,53 @@
              d:DesignWidth="300"
              d:DataContext="{d:DesignInstance mp:TrackLibraryViewModel}">
     <GroupBox Header="Library">
-		<DockPanel>
+        <DockPanel>
             <controls:SearchTextBox Height="24"
                 AllowEmptySearches="True"
                                     SearchMode="Instant"
                                     Command="{Binding SearchCommand}"
                                     CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Text}" DockPanel.Dock="Top"/>
-			<DataGrid Name="TrackLibraryDataGrid"
+            <controls:ImprovedListView x:Name="TrackLibraryDataGrid"
                       ItemsSource="{Binding ItemsView}"
 					  SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
-					  IsReadOnly="True"
 					  AllowDrop="True"
 					  dd:DragDrop.IsDragSource="True"
 					  SelectionMode="Extended"
                       SelectionChanged="OnSelectionChanged">
-				<i:Interaction.Triggers>
-					<i:EventTrigger EventName="Drop">
-						<cmd:EventToCommand Command="{Binding ImportFilesCommand}"
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Drop">
+                        <cmd:EventToCommand Command="{Binding ImportFilesCommand}"
 								PassEventArgsToCommand="True" />
-					</i:EventTrigger>
-					<i:EventTrigger EventName="PreviewKeyDown">
-						<cmd:EventToCommand Command="{Binding RemoveDelKeyCommand}"
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="PreviewKeyDown">
+                        <cmd:EventToCommand Command="{Binding RemoveDelKeyCommand}"
 											PassEventArgsToCommand="True"  />
-					</i:EventTrigger>
-					<i:EventTrigger EventName="MouseDoubleClick">
-						<cmd:EventToCommand Command="{Binding PlayPauseCommand}" 
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="MouseDoubleClick">
+                        <cmd:EventToCommand Command="{Binding PlayPauseCommand}" 
 											CommandParameter="{Binding SelectedItem.Track}"  />
-					</i:EventTrigger>
-				</i:Interaction.Triggers>
-                <DataGrid.ContextMenu>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+
+                <controls:ImprovedListView.View>
+                    <GridView controls:AttachedProperties.ColumnCollectionSource="{Binding LibraryColumns}" AllowsColumnReorder="True">
+                    </GridView>
+                </controls:ImprovedListView.View>
+
+                <controls:ImprovedListView.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListViewItem}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsRecommended}" Value="True">
+                                <Setter Property="Background" Value="Yellow" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding IsRecommended}" Value="False">
+                                <Setter Property="Background" Value="{Binding Key, Converter={StaticResource HarmonicKeyToBrushConverter}}" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </controls:ImprovedListView.ItemContainerStyle>
+
+                <controls:ImprovedListView.ContextMenu>
                     <ContextMenu>
                         <MenuItem Header="{Binding Path=PlacementTarget.SelectedItem.Track, RelativeSource={RelativeSource AncestorType=ContextMenu}, Converter={StaticResource PlayPauseCommandLabelConverter}}"
                                   Visibility="{Binding Path=PlacementTarget.DataContext.HasSingleItemSelected, RelativeSource={RelativeSource AncestorType=ContextMenu}, Converter={StaticResource BooleanToVisibilityConverter}}"
@@ -63,13 +81,9 @@
                                   CommandTarget="{Binding Path=PlacementTarget, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
                                   CommandParameter="{Binding Path=PlacementTarget.DataContext.SelectedTracks, RelativeSource={RelativeSource AncestorType=ContextMenu}}"/>
                     </ContextMenu>
-                </DataGrid.ContextMenu>
-				<DataGrid.RowStyle>
-					<Style TargetType="DataGridRow">
-						<Setter Property="Background" Value="{Binding Key, Converter={StaticResource HarmonicKeyToBrushConverter}}" />
-					</Style>
-				</DataGrid.RowStyle>
-			</DataGrid>
-		</DockPanel>
+                </controls:ImprovedListView.ContextMenu>
+
+            </controls:ImprovedListView>
+        </DockPanel>
     </GroupBox>
 </UserControl>

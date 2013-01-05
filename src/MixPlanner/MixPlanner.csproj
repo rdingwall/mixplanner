@@ -136,7 +136,10 @@
     <Compile Include="Commands\RemoveTracksFromMixCommand.cs" />
     <Compile Include="Commands\ReorderMixTrackCommand.cs" />
     <Compile Include="Commands\ShowInExplorerCommand.cs" />
+    <Compile Include="Controls\AttachedProperties.cs" />
+    <Compile Include="Controls\ImprovedListView.cs" />
     <Compile Include="Controls\SearchTextBox.cs" />
+    <Compile Include="Controls\UIHelpers.cs" />
     <Compile Include="Converters\CamelotToTraditionalKeyConverter.cs" />
     <Compile Include="Converters\HarmonicKeyToBrushConverter.cs" />
     <Compile Include="Converters\PlayPauseCommandLabelConverter.cs" />

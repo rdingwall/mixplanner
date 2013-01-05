@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
@@ -24,6 +25,8 @@ namespace MixPlanner.ViewModels
         public ICommand ShowInExplorerCommand { get; private set; }
         public ICommand SearchCommand { get; private set; }
 
+        public ObservableCollection<GridViewColumn> LibraryColumns { get; private set; }
+            
         ICollectionView itemsView;
         public ICollectionView ItemsView
         {
@@ -71,6 +74,18 @@ namespace MixPlanner.ViewModels
             items = new ObservableCollection<TrackLibraryItemViewModel>();
             ItemsView = CollectionViewSource.GetDefaultView(items);
             PlayPauseCommand = playCommand;
+
+            LibraryColumns = new ObservableCollection<GridViewColumn>
+                          {
+                              new GridViewColumn { Header = "Bpm", DisplayMemberBinding = new Binding("Bpm"), Width= 100},
+                              new GridViewColumn { Header = "Key", DisplayMemberBinding = new Binding("Key"), Width= 100},
+                              new GridViewColumn { Header = "Artist", DisplayMemberBinding = new Binding("Artist"), Width= 100},
+                              new GridViewColumn { Header = "Title", DisplayMemberBinding = new Binding("Title"), Width= 100},
+                              new GridViewColumn { Header = "Year", DisplayMemberBinding = new Binding("Year"), Width= 100},
+                              new GridViewColumn { Header = "Genre", DisplayMemberBinding = new Binding("Genre"), Width= 100},
+                              new GridViewColumn { Header = "Label", DisplayMemberBinding = new Binding("Label"), Width= 100},
+                              new GridViewColumn { Header = "Filename", DisplayMemberBinding = new Binding("Filename")}
+                          };
 
             messenger.Register<TrackAddedToLibraryEvent>(this, OnTrackAddedToLibrary);
             messenger.Register<TrackRemovedFromLibraryEvent>(this, OnTrackRemoved);
