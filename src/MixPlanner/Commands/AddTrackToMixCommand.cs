@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using GongSolutions.Wpf.DragDrop;
 using MixPlanner.DomainModel;
 using MixPlanner.ViewModels;
@@ -17,14 +19,32 @@ namespace MixPlanner.Commands
 
         protected override bool CanExecute(DropInfo parameter)
         {
-            return parameter != null && parameter.Data is TrackLibraryItemViewModel;
+            if (parameter == null)
+                return false;
+
+            return parameter.Data is TrackLibraryItemViewModel || IsCollection(parameter.Data);
+        }
+
+        static bool IsCollection(object obj)
+        {
+            var items = obj as IEnumerable<TrackLibraryItemViewModel>;
+            return items != null && items.Any();
         }
 
         protected override void Execute(DropInfo parameter)
         {
             var sourceItem = parameter.Data as TrackLibraryItemViewModel;
 
-            mix.Insert(sourceItem.Track, parameter.InsertIndex);
+            if (sourceItem != null)
+            {
+                mix.Insert(sourceItem.Track, parameter.InsertIndex);
+                return;
+            }
+
+            var sourceItems = parameter.Data as IEnumerable<TrackLibraryItemViewModel>;
+
+            if (sourceItems != null && sourceItems.Any())
+                mix.Insert(sourceItems.Select(i => i.Track), parameter.InsertIndex);
         }
     }
 }
