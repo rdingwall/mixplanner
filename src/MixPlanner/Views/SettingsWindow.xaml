@@ -4,12 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModels="clr-namespace:MixPlanner.ViewModels" xmlns:domainModel="clr-namespace:MixPlanner.DomainModel"
+        xmlns:attachedProperties="clr-namespace:MixPlanner.AttachedProperties"
         mc:Ignorable="d"
         Title="MixPlanner Settings"
         Height="345"
         Width="600"
         ResizeMode="NoResize"
-        d:DataContext="{d:DesignInstance viewModels:SettingsWindowViewModel}">
+        d:DataContext="{d:DesignInstance viewModels:SettingsWindowViewModel}"
+        attachedProperties:DialogCloser.DialogResult="{Binding Close}">
     <Grid>
         <StackPanel Orientation="Vertical">
             <GroupBox Header="Display"
@@ -112,7 +114,8 @@
                         HorizontalAlignment="Center">
                 <Button Content="OK"
                         Width="100"
-                        IsEnabled="False"
+                        CommandParameter="{Binding}"
+                        Command="{Binding SaveCommand}"
                         Margin="10" />
                 <Button Content="Cancel"
                         Width="100"

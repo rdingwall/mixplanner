@@ -120,9 +120,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AttachedProperties\DialogCloser.cs" />
     <Compile Include="AttachedProperties\GridViewSort.cs" />
     <Compile Include="Commands\AsyncCommandBase.cs" />
     <Compile Include="Commands\ClearRecommendationsCommand.cs" />
+    <Compile Include="Commands\CloseSettingsCommand.cs" />
     <Compile Include="Commands\CommandBase.cs" />
     <Compile Include="Commands\KeyEventCommandFilter.cs" />
     <Compile Include="Commands\DropItemIntoMixCommand.cs" />
@@ -130,6 +132,7 @@
     <Compile Include="Commands\ImportFilesIntoMixCommand.cs" />
     <Compile Include="Commands\OpenSettingsCommand.cs" />
     <Compile Include="Commands\ResetPlaybackSpeedCommand.cs" />
+    <Compile Include="Commands\SaveSettingsCommand.cs" />
     <Compile Include="Commands\SearchCommand.cs" />
     <Compile Include="Commands\ImportFilesIntoLibraryCommand.cs" />
     <Compile Include="Commands\AddTrackToMixCommand.cs" />
@@ -177,6 +180,7 @@
     <Compile Include="DomainModel\RelaxedTransitionDetector.cs" />
     <Compile Include="DomainModel\UnknownKey.cs" />
     <Compile Include="Events\BeganLoadingTracksEvent.cs" />
+    <Compile Include="Events\ConfigurationSavedEvent.cs" />
     <Compile Include="Events\RecommendationsClearedEvent.cs" />
     <Compile Include="Events\SearchTextClearedEvent.cs" />
     <Compile Include="Events\SearchRequestedEvent.cs" />
@@ -203,7 +207,9 @@
     <Compile Include="Mp3\MixedInKeyTagCleanup.cs" />
     <Compile Include="Mp3\TrackLoader.cs" />
     <Compile Include="Player\AudioPlayer.cs" />
+    <Compile Include="Storage\IConfigurationStorage.cs" />
     <Compile Include="Storage\ILibraryStorage.cs" />
+    <Compile Include="Storage\InMemoryConfigurationStorage.cs" />
     <Compile Include="Storage\InMemoryLibraryStorage.cs" />
     <Compile Include="ViewModels\ErrorWindowViewModel.cs" />
     <Compile Include="ViewModels\SettingsWindowViewModel.cs" />

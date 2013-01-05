@@ -15,6 +15,9 @@ namespace MixPlanner.Commands
 
         public bool CanExecute(object parameter)
         {
+            if (parameter == null)
+                return false;
+
             if (!(parameter is T))
             {
                 LogWrongParameterMessage(parameter);
@@ -32,6 +35,9 @@ namespace MixPlanner.Commands
 
         public void Execute(object parameter)
         {
+            if (parameter == null)
+                return;
+
             if (!(parameter is T))
             {
                 LogWrongParameterMessage(parameter);

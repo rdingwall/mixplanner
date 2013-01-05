@@ -1,5 +1,9 @@
-﻿using GalaSoft.MvvmLight;
+﻿using System;
+using System.Windows.Input;
+using GalaSoft.MvvmLight;
+using MixPlanner.Commands;
 using MixPlanner.DomainModel;
+using MixPlanner.Events;
 
 namespace MixPlanner.ViewModels
 {
@@ -8,6 +12,28 @@ namespace MixPlanner.ViewModels
         HarmonicKeyDisplayMode harmonicKeyDisplayMode;
         bool restrictBpmCompatibility;
         bool stripMixedInKeyPrefixes;
+        bool close;
+
+        public ICommand SaveCommand { get; private set; }
+
+        public SettingsWindowViewModel(
+            IDispatcherMessenger messenger,
+            SaveSettingsCommand saveCommand)
+        {
+            if (messenger == null) throw new ArgumentNullException("messenger");
+            if (saveCommand == null) throw new ArgumentNullException("saveCommand");
+            SaveCommand = saveCommand;
+
+            messenger.Register<ConfigurationSavedEvent>(this, _ => Close = true);
+        }
+
+        public void Initialize(Configuration configuration)
+        {
+            if (configuration == null) throw new ArgumentNullException("configuration");
+            HarmonicKeyDisplayMode = configuration.HarmonicKeyDisplayMode;
+            RestrictBpmCompatibility = configuration.RestrictBpmCompatibility;
+            StripMixedInKeyPrefixes = configuration.StripMixedInKeyPrefixes;
+        }
 
         public HarmonicKeyDisplayMode HarmonicKeyDisplayMode
         {
@@ -36,6 +62,16 @@ namespace MixPlanner.ViewModels
             {
                 stripMixedInKeyPrefixes = value;
                 RaisePropertyChanged(() => StripMixedInKeyPrefixes);
+            }
+        }
+
+        public bool Close
+        {
+            get { return close; }
+            set
+            {
+                close = value;
+                RaisePropertyChanged(() => Close);
             }
         }
     }

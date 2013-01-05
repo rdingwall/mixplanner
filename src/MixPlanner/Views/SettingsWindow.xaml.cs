@@ -1,6 +1,4 @@
-﻿using System;
-using System.Windows;
-using MixPlanner.ViewModels;
+﻿using System.Windows;
 
 namespace MixPlanner.Views
 {
@@ -9,10 +7,8 @@ namespace MixPlanner.Views
     /// </summary>
     public partial class SettingsWindow : Window
     {
-        public SettingsWindow(SettingsWindowViewModel viewModel)
+        public SettingsWindow()
         {
-            if (viewModel == null) throw new ArgumentNullException("viewModel");
-            DataContext = viewModel;
             InitializeComponent();
         }
     }

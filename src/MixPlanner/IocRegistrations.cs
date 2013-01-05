@@ -30,6 +30,7 @@ namespace MixPlanner
                 Component.For<ITrackLoader>().ImplementedBy<TrackLoader>()
                          .DependsOn(Property.ForKey("cleanups")),
                 Component.For<ILibraryStorage>().ImplementedBy<InMemoryLibraryStorage>(),
+                Component.For<IConfigurationStorage>().ImplementedBy<InMemoryConfigurationStorage>(),
                 Component.For<IId3Reader>().ImplementedBy<Id3Reader>(),
                 Component.For<IMessenger>().ImplementedBy<Messenger>(),
                 Component.For<IDispatcherMessenger>().ImplementedBy<DispatcherMessenger>(),
@@ -42,7 +43,8 @@ namespace MixPlanner
                 Component.For<IStrictTransitionDetector>().ImplementedBy<StrictTransitionDetector>()
                          .DependsOn(Property.ForKey("preferredstrategies").Is(preferredStrategies)),
                 Component.For<IMix>().ImplementedBy<Mix>(),
-                AllTypes.FromThisAssembly().InSameNamespaceAs<MainWindowViewModel>(),
+                AllTypes.FromThisAssembly().InSameNamespaceAs<MainWindowViewModel>()
+                    .ConfigureFor<SettingsWindowViewModel>(c => c.LifestyleTransient()),
                 AllTypes.FromThisAssembly().BasedOn<Window>().LifestyleTransient(),
                 AllTypes.FromThisAssembly().BasedOn<IId3TagCleanup>().WithServiceBase(),
                 AllTypes.FromThisAssembly().BasedOn<ICommand>(),
