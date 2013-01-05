@@ -8,6 +8,7 @@ namespace MixPlanner.DomainModel
     public interface IConfigurationProvider
     {
         Configuration Configuration { get; }
+        Task Initialize();
     }
 
     public class ConfigurationProvider : IConfigurationProvider
@@ -23,10 +24,9 @@ namespace MixPlanner.DomainModel
             if (storage == null) throw new ArgumentNullException("storage");
             messenger.Register<ConfigurationSavedEvent>(this, e => Configuration = e.Configuration);
             this.storage = storage;
-            Task.Run(() => Initialize());
         }
 
-        async Task Initialize()
+        public async Task Initialize()
         {
             Configuration = await storage.GetConfiguration();
         }
