@@ -33,11 +33,18 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
                 
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalAlignment" Value="Center" />
+                    </Style>
+                </ListView.ItemContainerStyle>
+                
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <views:MixItemView DataContext="{Binding}" />
+						<views:MixItemView DataContext="{Binding}" />
                     </DataTemplate>
                 </ListView.ItemTemplate>
+                
                 
                 <ListView.ContextMenu>
                     <ContextMenu>

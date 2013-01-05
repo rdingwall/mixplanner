@@ -8,7 +8,9 @@
              xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop"
              x:Class="MixPlanner.Views.MixItemView"
              mc:Ignorable="d"
-             d:DataContext="{d:DesignInstance {x:Type mp:MixItemViewModel}}" Height="88" Width="387"
+             d:DataContext="{d:DesignInstance {x:Type mp:MixItemViewModel}}"
+             Height="88"
+             Width="500"
              Background="{Binding ActualKey, Converter={StaticResource HarmonicKeyToBrushConverter}}">
     <Grid Margin="0,0,0,0">
         <Grid.ColumnDefinitions>
