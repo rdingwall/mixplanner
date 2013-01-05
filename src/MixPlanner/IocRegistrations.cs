@@ -43,7 +43,7 @@ namespace MixPlanner
                          .DependsOn(Property.ForKey("preferredstrategies").Is(preferredStrategies)),
                 Component.For<IMix>().ImplementedBy<Mix>(),
                 AllTypes.FromThisAssembly().InSameNamespaceAs<MainWindowViewModel>(),
-                AllTypes.FromThisAssembly().BasedOn<Window>(),
+                AllTypes.FromThisAssembly().BasedOn<Window>().LifestyleTransient(),
                 AllTypes.FromThisAssembly().BasedOn<IId3TagCleanup>().WithServiceBase(),
                 AllTypes.FromThisAssembly().BasedOn<ICommand>(),
                 AllTypes.FromThisAssembly().BasedOn<IMixingStrategy>().WithServiceSelf(),

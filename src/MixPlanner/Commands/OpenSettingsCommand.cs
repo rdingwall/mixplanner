@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Windows.Input;
+using Castle.Windsor;
 using MixPlanner.Views;
 
 namespace MixPlanner.Commands
 {
     public class OpenSettingsCommand : ICommand
     {
-        readonly SettingsWindow window;
+        readonly IWindsorContainer container;
 
-        public OpenSettingsCommand(SettingsWindow window)
+        public OpenSettingsCommand(IWindsorContainer container)
         {
-            if (window == null) throw new ArgumentNullException("window");
-            this.window = window;
+            if (container == null) throw new ArgumentNullException("container");
+            this.container = container;
         }
 
         public bool CanExecute(object parameter)
@@ -21,7 +22,7 @@ namespace MixPlanner.Commands
 
         public void Execute(object parameter)
         {
-            window.ShowDialog();
+            container.Resolve<SettingsWindow>().ShowDialog();
         }
 
         public event EventHandler CanExecuteChanged = delegate { };
