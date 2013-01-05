@@ -31,6 +31,7 @@ namespace MixPlanner
                          .DependsOn(Property.ForKey("cleanups")),
                 Component.For<ILibraryStorage>().ImplementedBy<InMemoryLibraryStorage>(),
                 Component.For<IConfigurationStorage>().ImplementedBy<InMemoryConfigurationStorage>(),
+                Component.For<IConfigurationProvider>().ImplementedBy<ConfigurationProvider>(),
                 Component.For<IId3Reader>().ImplementedBy<Id3Reader>(),
                 Component.For<IMessenger>().ImplementedBy<Messenger>(),
                 Component.For<IDispatcherMessenger>().ImplementedBy<DispatcherMessenger>(),

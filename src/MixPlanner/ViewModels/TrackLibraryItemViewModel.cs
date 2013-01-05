@@ -30,6 +30,7 @@ namespace MixPlanner.ViewModels
             // Required for play/pause status
             messenger.Register<PlayerPlayingEvent>(this, _ => RaisePropertyChanged(() => Track));
             messenger.Register<PlayerStoppedEvent>(this, _ => RaisePropertyChanged(() => Track));
+            messenger.Register<ConfigurationSavedEvent>(this, _ => RaisePropertyChanged(() => Key));
         }
 
         void OnTrackRecommended(TrackRecommendedEvent obj)

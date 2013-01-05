@@ -27,7 +27,7 @@
             <Label x:Name="Transition" Content="{Binding Transition}" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
         </StackPanel>
         <DockPanel Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Top">
-        	<Label x:Name="ActualKey" Content="{Binding ActualKey}" HorizontalAlignment="Center" FontSize="24" DockPanel.Dock="Top"/>
+        	<Label x:Name="ActualKey" Content="{Binding ActualKey, Converter={StaticResource HarmonicKeyCoverter}}" HorizontalAlignment="Center" FontSize="24" DockPanel.Dock="Top"/>
         	<Label x:Name="ActualBpm" Content="{Binding ActualBpm}" HorizontalAlignment="Center" DockPanel.Dock="Right"/>
         </DockPanel>
         <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top">

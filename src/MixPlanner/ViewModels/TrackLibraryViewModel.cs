@@ -10,6 +10,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
 using MixPlanner.AttachedProperties;
 using MixPlanner.Commands;
+using MixPlanner.Converters;
 using MixPlanner.DomainModel;
 using MixPlanner.Events;
 using MoreLinq;
@@ -86,7 +87,7 @@ namespace MixPlanner.ViewModels
                           {
                               new GridViewColumn { Header = "TransitionDescription", DisplayMemberBinding = new Binding("TransitionDescription"), Width= 150},
                               new GridViewColumn { Header = "Bpm", DisplayMemberBinding = new Binding("Bpm"), Width= 100},
-                              new GridViewColumn { Header = "Key", DisplayMemberBinding = new Binding("Key"), Width= 100},
+                              new GridViewColumn { Header = "Key", DisplayMemberBinding = new Binding("Key") { Converter = new HarmonicKeyCoverter() }, Width= 100},
                               new GridViewColumn { Header = "Artist", DisplayMemberBinding = new Binding("Artist"), Width= 100},
                               new GridViewColumn { Header = "Title", DisplayMemberBinding = new Binding("Title"), Width= 100},
                               new GridViewColumn { Header = "Year", DisplayMemberBinding = new Binding("Year"), Width= 100},

@@ -126,7 +126,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AlwaysInRangeBpmChecker.cs" />
-    <Compile Include="Converters\CamelotToTraditionalKeyConverterSpecs.cs" />
+    <Compile Include="Converters\TraditionalSymbolsHarmonicKeyConverterSpecs.cs" />
     <Compile Include="Converters\PlaySpeedStringConverterSpecs.cs" />
     <Compile Include="DomainModel\HarmonicKeySpecs.cs" />
     <Compile Include="DomainModel\MixingStrategies\ManualIncompatibleBpmsMixSpecs.cs" />

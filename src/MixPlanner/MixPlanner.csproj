@@ -145,13 +145,16 @@
     <Compile Include="Controls\ImprovedListView.cs" />
     <Compile Include="Controls\SearchTextBox.cs" />
     <Compile Include="Controls\UIHelpers.cs" />
-    <Compile Include="Converters\CamelotToTraditionalKeyConverter.cs" />
+    <Compile Include="Converters\TraditionalSymbolsHarmonicKeyConverter.cs" />
     <Compile Include="Converters\EnumToBoolConverter.cs" />
+    <Compile Include="Converters\HarmonicKeyCoverter.cs" />
     <Compile Include="Converters\HarmonicKeyToBrushConverter.cs" />
     <Compile Include="Converters\PlayPauseCommandLabelConverter.cs" />
     <Compile Include="Converters\PlaySpeedStringConverter.cs" />
+    <Compile Include="Converters\TraditionalTextHarmonicKeyConverter.cs" />
     <Compile Include="DomainModel\BpmRangeChecker.cs" />
     <Compile Include="DomainModel\Configuration.cs" />
+    <Compile Include="DomainModel\ConfigurationProvider.cs" />
     <Compile Include="DomainModel\HarmonicKeyDisplayMode.cs" />
     <Compile Include="DomainModel\IMixingStrategy.cs" />
     <Compile Include="DomainModel\InvalidPitchException.cs" />

@@ -8,12 +8,12 @@ using System.Linq;
 namespace MixPlanner.Converters
 {
     [ValueConversion(typeof(HarmonicKey), typeof(string))]
-    public class CamelotToTraditionalKeyConverter : IValueConverter
+    public class TraditionalSymbolsHarmonicKeyConverter : IValueConverter
     {
         static readonly IDictionary<HarmonicKey, string> TradtionalKeys;
         static readonly IDictionary<string, HarmonicKey> CamelotKeys;
 
-        static CamelotToTraditionalKeyConverter()
+        static TraditionalSymbolsHarmonicKeyConverter()
         {
             TradtionalKeys = 
             new Dictionary<HarmonicKey, string>
