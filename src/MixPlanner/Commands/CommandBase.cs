@@ -26,7 +26,7 @@ namespace MixPlanner.Commands
 
         void LogWrongParameterMessage(object parameter)
         {
-            Log.ErrorFormat("Invalid command parameter received, excepted {0} but got '{1}'",
+            Log.DebugFormat("Invalid command parameter received, excepted {0} but got '{1}'",
                             typeof(T), parameter);
         }
 
