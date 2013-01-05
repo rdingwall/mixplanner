@@ -7,22 +7,25 @@ using MixPlanner.Events;
 
 namespace MixPlanner.ViewModels
 {
-    public class SettingsWindowViewModel : ViewModelBase
+    public class SettingsWindowViewModel : CloseableViewModelBase
     {
         HarmonicKeyDisplayMode harmonicKeyDisplayMode;
         bool restrictBpmCompatibility;
         bool stripMixedInKeyPrefixes;
-        bool close;
 
         public ICommand SaveCommand { get; private set; }
+        public ICommand CancelCommand { get; private set; }
 
         public SettingsWindowViewModel(
             IDispatcherMessenger messenger,
-            SaveSettingsCommand saveCommand)
+            SaveSettingsCommand saveCommand,
+            CloseWindowCommand cancelCommand)
         {
             if (messenger == null) throw new ArgumentNullException("messenger");
             if (saveCommand == null) throw new ArgumentNullException("saveCommand");
+            if (cancelCommand == null) throw new ArgumentNullException("cancelCommand");
             SaveCommand = saveCommand;
+            CancelCommand = cancelCommand;
 
             messenger.Register<ConfigurationSavedEvent>(this, _ => Close = true);
         }
@@ -62,16 +65,6 @@ namespace MixPlanner.ViewModels
             {
                 stripMixedInKeyPrefixes = value;
                 RaisePropertyChanged(() => StripMixedInKeyPrefixes);
-            }
-        }
-
-        public bool Close
-        {
-            get { return close; }
-            set
-            {
-                close = value;
-                RaisePropertyChanged(() => Close);
             }
         }
     }

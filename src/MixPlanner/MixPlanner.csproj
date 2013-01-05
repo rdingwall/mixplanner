@@ -124,7 +124,7 @@
     <Compile Include="AttachedProperties\GridViewSort.cs" />
     <Compile Include="Commands\AsyncCommandBase.cs" />
     <Compile Include="Commands\ClearRecommendationsCommand.cs" />
-    <Compile Include="Commands\CloseSettingsCommand.cs" />
+    <Compile Include="Commands\CloseWindowCommand.cs" />
     <Compile Include="Commands\CommandBase.cs" />
     <Compile Include="Commands\KeyEventCommandFilter.cs" />
     <Compile Include="Commands\DropItemIntoMixCommand.cs" />
@@ -211,6 +211,7 @@
     <Compile Include="Storage\ILibraryStorage.cs" />
     <Compile Include="Storage\InMemoryConfigurationStorage.cs" />
     <Compile Include="Storage\InMemoryLibraryStorage.cs" />
+    <Compile Include="ViewModels\CloseableViewModelBase.cs" />
     <Compile Include="ViewModels\ErrorWindowViewModel.cs" />
     <Compile Include="ViewModels\SettingsWindowViewModel.cs" />
     <Compile Include="ViewModels\StatusBarViewModel.cs" />

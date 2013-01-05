@@ -119,7 +119,8 @@
                         Margin="10" />
                 <Button Content="Cancel"
                         Width="100"
-                        IsEnabled="False"
+                        CommandParameter="{Binding}"
+                        Command="{Binding CancelCommand}"
                         Margin="10" />
             </StackPanel>
 
