@@ -8,6 +8,8 @@ namespace MixPlanner.ViewModels
 {
     public class TrackLibraryItemViewModel : ViewModelBase
     {
+        double recommendationFactor;
+
         public TrackLibraryItemViewModel(IMessenger messenger, Track track)
         {
             if (messenger == null) throw new ArgumentNullException("messenger");
@@ -21,10 +23,21 @@ namespace MixPlanner.ViewModels
             Label = track.Label;
             Filename = track.File.FullName;
             Key = track.OriginalKey;
+            recommendationFactor = 0;
 
             // Required for play/pause status
             messenger.Register<PlayerPlayingEvent>(this, _ => RaisePropertyChanged(() => Track));
             messenger.Register<PlayerStoppedEvent>(this, _ => RaisePropertyChanged(() => Track));
+        }
+
+        public double RecommendationFactor
+        {
+            get { return recommendationFactor; }
+            set
+            {
+                recommendationFactor = value;
+                RaisePropertyChanged(() => RecommendationFactor);
+            }
         }
 
         public string Filename { get; set; }

@@ -139,6 +139,7 @@
     <Compile Include="DomainModel\MixingStrategies\TwoSemitoneEnergyBoostSpecs.cs" />
     <Compile Include="DomainModel\MixSpecs.cs" />
     <Compile Include="DomainModel\PlaybackSpeedSpecs.cs" />
+    <Compile Include="DomainModel\RecommendationFactorCalculatorSpecs.cs" />
     <Compile Include="DomainModel\TrackSpecs.cs" />
     <Content Include="DummyPlaylist.m3u">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

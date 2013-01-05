@@ -16,6 +16,11 @@ namespace MixPlanner.Specs
                 bpm);
         }
 
+        public static Track GetRandomTrack()
+        {
+            return Get(HarmonicKey.RandomKey(), GetRandomBpm());
+        }
+
         public static Track Get(HarmonicKey key)
         {
             return Get(key, GetRandomBpm());

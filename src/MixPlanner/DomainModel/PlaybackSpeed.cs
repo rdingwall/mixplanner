@@ -2,7 +2,7 @@
 
 namespace MixPlanner.DomainModel
 {
-    public class PlaybackSpeed
+    public class PlaybackSpeed : IEquatable<PlaybackSpeed>
     {
         public const double DefaultSpeed = 1;
 
@@ -28,11 +28,11 @@ namespace MixPlanner.DomainModel
             // How many percentage points we are increasing the speed
             // e.g. 1.03 = 103% = 3
             //      0.94 =  -6% = 6
-            var percentIncrease = (speed - 1)*100;
+            var percentIncrease = (speed - 1) * 100;
 
             // Pitch changes one semitone (+/- 7 on the Camelot wheel) for
             // every 3% difference.
-            var pitchIncrease = 7*(percentIncrease/3);
+            var pitchIncrease = 7 * (percentIncrease / 3);
 
             return originalKey.IncreasePitch((int)pitchIncrease);
         }
@@ -47,7 +47,7 @@ namespace MixPlanner.DomainModel
             if (other == null) throw new ArgumentNullException("other");
 
             var difference = other.ActualBpm - ActualBpm;
-            var percentIncreaseRequired = difference/ActualBpm * 100;
+            var percentIncreaseRequired = difference / ActualBpm * 100;
             return Math.Abs(percentIncreaseRequired) < 3;
         }
 
@@ -66,6 +66,34 @@ namespace MixPlanner.DomainModel
         public void Reset()
         {
             SetSpeed(DefaultSpeed);
+        }
+
+        public bool Equals(PlaybackSpeed other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return ActualBpm.Equals(other.ActualBpm) && Equals(ActualKey, other.ActualKey) && Speed.Equals(other.Speed) && originalBpm.Equals(other.originalBpm) && Equals(originalKey, other.originalKey);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((PlaybackSpeed)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var hashCode = ActualBpm.GetHashCode();
+                hashCode = (hashCode * 397) ^ (ActualKey != null ? ActualKey.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ Speed.GetHashCode();
+                hashCode = (hashCode * 397) ^ originalBpm.GetHashCode();
+                hashCode = (hashCode * 397) ^ (originalKey != null ? originalKey.GetHashCode() : 0);
+                return hashCode;
+            }
         }
     }
 }
