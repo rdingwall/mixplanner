@@ -24,6 +24,8 @@ namespace MixPlanner.ViewModels
         public ICommand DropFilesCommand { get; private set; }
         public ICommand PlayPauseCommand { get; private set; }
         public ICommand ResetPlaybackSpeedCommand { get; private set; }
+        public ICommand GetRecommendationsCommand { get; private set; }
+        public ICommand ClearRecommendationsCommand { get; private set; }
 
         public MixItemViewModel SelectedItem
         {
@@ -48,7 +50,9 @@ namespace MixPlanner.ViewModels
             DropItemIntoMixCommand dropItemCommand,
             ImportFilesIntoMixCommand dropFilesCommand,
             PlayPauseTrackCommand playPauseCommand,
-            ResetPlaybackSpeedCommand resetPlaybackSpeedCommand) : base(messenger)
+            ResetPlaybackSpeedCommand resetPlaybackSpeedCommand,
+            ClearRecommendationsCommand clearRecommendationsCommand,
+            GetRecommendationsCommand getRecommendationsCommand) : base(messenger)
         {
             if (messenger == null) throw new ArgumentNullException("messenger");
             if (removeCommand == null) throw new ArgumentNullException("removeCommand");
@@ -57,10 +61,14 @@ namespace MixPlanner.ViewModels
             if (dropFilesCommand == null) throw new ArgumentNullException("dropFilesCommand");
             if (playPauseCommand == null) throw new ArgumentNullException("playPauseCommand");
             if (resetPlaybackSpeedCommand == null) throw new ArgumentNullException("resetPlaybackSpeedCommand");
+            if (clearRecommendationsCommand == null) throw new ArgumentNullException("clearRecommendationsCommand");
+            if (getRecommendationsCommand == null) throw new ArgumentNullException("getRecommendationsCommand");
             DropItemCommand = dropItemCommand;
             DropFilesCommand = dropFilesCommand;
             PlayPauseCommand = playPauseCommand;
             ResetPlaybackSpeedCommand = resetPlaybackSpeedCommand;
+            ClearRecommendationsCommand = clearRecommendationsCommand;
+            GetRecommendationsCommand = getRecommendationsCommand;
             this.viewModels = viewModels;
             RemoveCommand = removeCommand;
             RemoveDelKeyCommand = new DelKeyEventToCommandFilter(removeCommand, () => SelectedItems);
@@ -69,7 +77,7 @@ namespace MixPlanner.ViewModels
             messenger.Register<TrackRemovedFromMixEvent>(this, OnTrackRemoved);
         }
 
-        public IEnumerable<MixItem> SelectedItems
+        public ICollection<MixItem> SelectedItems
         {
             get
             {
@@ -106,6 +114,12 @@ namespace MixPlanner.ViewModels
         public void Drop(DropInfo dropInfo)
         {
             DropItemCommand.Execute(dropInfo);
+        }
+
+        public void OnSelectionChanged()
+        {
+            ClearRecommendationsCommand.Execute(null);
+            GetRecommendationsCommand.Execute(SelectedItems);
         }
     }
 }

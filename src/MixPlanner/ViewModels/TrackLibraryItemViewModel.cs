@@ -25,9 +25,20 @@ namespace MixPlanner.ViewModels
             Key = track.OriginalKey;
             recommendationFactor = 0;
 
+            messenger.Register<RecommendationsClearedEvent>(this, _ => RecommendationFactor = 0);
+            messenger.Register<TrackRecommendedEvent>(this, OnTrackRecommended);
+
             // Required for play/pause status
             messenger.Register<PlayerPlayingEvent>(this, _ => RaisePropertyChanged(() => Track));
             messenger.Register<PlayerStoppedEvent>(this, _ => RaisePropertyChanged(() => Track));
+        }
+
+        void OnTrackRecommended(TrackRecommendedEvent obj)
+        {
+            if (obj.Track != Track)
+                return;
+
+            RecommendationFactor = obj.RecommendationFactor;
         }
 
         public double RecommendationFactor
@@ -37,7 +48,13 @@ namespace MixPlanner.ViewModels
             {
                 recommendationFactor = value;
                 RaisePropertyChanged(() => RecommendationFactor);
+                RaisePropertyChanged(() => IsRecommended);
             }
+        }
+
+        public bool IsRecommended
+        {
+            get { return recommendationFactor > 0; }
         }
 
         public string Filename { get; set; }

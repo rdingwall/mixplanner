@@ -16,15 +16,31 @@ namespace MixPlanner.DomainModel
         readonly ITrackLoader loader;
         readonly IDispatcherMessenger messenger;
         readonly ILibraryStorage storage;
+        readonly IRecommendationFactorCalculator recommendationFactors;
 
-        public TrackLibrary(ITrackLoader loader, IDispatcherMessenger messenger, ILibraryStorage storage)
+        public TrackLibrary(
+            ITrackLoader loader, 
+            IDispatcherMessenger messenger, 
+            ILibraryStorage storage,
+            IRecommendationFactorCalculator recommendationFactors)
         {
             if (loader == null) throw new ArgumentNullException("loader");
             if (messenger == null) throw new ArgumentNullException("messenger");
             if (storage == null) throw new ArgumentNullException("storage");
+            if (recommendationFactors == null) throw new ArgumentNullException("recommendationFactors");
             this.loader = loader;
             this.messenger = messenger;
             this.storage = storage;
+            this.recommendationFactors = recommendationFactors;
+        }
+
+        public IEnumerable<Tuple<Track, double>> GetRecommendations(MixItem mixItem)
+        {
+            if (mixItem == null) throw new ArgumentNullException("mixItem");
+
+            return storage.Tracks
+                          .Select(t => Tuple.Create(t, recommendationFactors.GetRecommendationFactor(mixItem, t)))
+                          .Where(e => e.Item2 > 0);
         }
 
         IEnumerable<Track> Import(string filename)

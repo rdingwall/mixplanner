@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace MixPlanner.DomainModel
@@ -11,5 +12,6 @@ namespace MixPlanner.DomainModel
 
         void Remove(Track track);
         void RemoveRange(IEnumerable<Track> tracks);
+        IEnumerable<Tuple<Track, double>> GetRecommendations(MixItem mixItem);
     }
 }
