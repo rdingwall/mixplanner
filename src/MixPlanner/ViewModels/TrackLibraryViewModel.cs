@@ -21,6 +21,7 @@ namespace MixPlanner.ViewModels
         TrackLibraryItemViewModel selectedItem;
         public ICommand ImportFilesCommand { get; private set; }
         public ICommand RemoveDelKeyCommand { get; private set; }
+        public ICommand PlayPauseSpaceKeyCommand { get; private set; }
         public ICommand RemoveCommand { get; private set; }
         readonly ObservableCollection<TrackLibraryItemViewModel> items;
         public PlayPauseTrackCommand PlayPauseCommand { get; private set; }
@@ -102,7 +103,10 @@ namespace MixPlanner.ViewModels
 
             ImportFilesCommand = importFilesCommand;
             RemoveCommand = removeTracksCommand;
-            RemoveDelKeyCommand = new DelKeyEventToCommandFilter(removeTracksCommand, () => SelectedTracks);
+            RemoveDelKeyCommand = new KeyEventCommandFilter(
+                removeTracksCommand, () => SelectedTracks, Key.Delete, Key.Back);
+            PlayPauseSpaceKeyCommand = new KeyEventCommandFilter(
+                PlayPauseCommand, () => SelectedItem.Track, Key.Space, Key.Return, Key.Enter);
         }
 
         void OnSearchTextCleared(SearchTextClearedEvent obj)

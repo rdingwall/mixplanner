@@ -124,7 +124,7 @@
     <Compile Include="Commands\AsyncCommandBase.cs" />
     <Compile Include="Commands\ClearRecommendationsCommand.cs" />
     <Compile Include="Commands\CommandBase.cs" />
-    <Compile Include="Commands\DelKeyEventToCommandFilter.cs" />
+    <Compile Include="Commands\KeyEventCommandFilter.cs" />
     <Compile Include="Commands\DropItemIntoMixCommand.cs" />
     <Compile Include="Commands\GetRecommendationsCommand.cs" />
     <Compile Include="Commands\ImportFilesIntoMixCommand.cs" />

@@ -27,6 +27,10 @@
                         <cmd:EventToCommand Command="{Binding RemoveDelKeyCommand}"
                                             PassEventArgsToCommand="True" />
                     </i:EventTrigger>
+                    <i:EventTrigger EventName="KeyUp">
+                        <cmd:EventToCommand Command="{Binding PlayPauseSpaceKeyCommand}"
+                                            PassEventArgsToCommand="True"  />
+                    </i:EventTrigger>
                 </i:Interaction.Triggers>
                 
                 <ListView.ItemTemplate>

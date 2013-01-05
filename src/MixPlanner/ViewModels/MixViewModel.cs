@@ -18,6 +18,7 @@ namespace MixPlanner.ViewModels
         MixItemViewModel selectedItem;
         readonly IMixItemViewModelFactory viewModels;
         public ICommand RemoveDelKeyCommand { get; private set; }
+        public ICommand PlayPauseSpaceKeyCommand { get; private set; }
         public ICommand RemoveCommand { get; private set; }
         public ObservableCollection<MixItemViewModel> Items { get; private set; }
         public ICommand DropItemCommand { get; private set; }
@@ -71,7 +72,10 @@ namespace MixPlanner.ViewModels
             GetRecommendationsCommand = getRecommendationsCommand;
             this.viewModels = viewModels;
             RemoveCommand = removeCommand;
-            RemoveDelKeyCommand = new DelKeyEventToCommandFilter(removeCommand, () => SelectedItems);
+            RemoveDelKeyCommand = new KeyEventCommandFilter(
+                removeCommand, () => SelectedItems, Key.Delete, Key.Back);
+            PlayPauseSpaceKeyCommand = new KeyEventCommandFilter(
+                PlayPauseCommand, () => SelectedItem.Track, Key.Space, Key.Enter, Key.Return);
             Items = new ObservableCollection<MixItemViewModel>();
             messenger.Register<TrackAddedToMixEvent>(this, OnTrackAdded);
             messenger.Register<TrackRemovedFromMixEvent>(this, OnTrackRemoved);

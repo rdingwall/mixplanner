@@ -44,6 +44,10 @@
                         <cmd:EventToCommand Command="{Binding PlayPauseCommand}" 
 											CommandParameter="{Binding SelectedItem.Track}"  />
                     </i:EventTrigger>
+                    <i:EventTrigger EventName="KeyUp">
+                        <cmd:EventToCommand Command="{Binding PlayPauseSpaceKeyCommand}"
+                                            PassEventArgsToCommand="True"  />
+                    </i:EventTrigger>
                 </i:Interaction.Triggers>
 
                 <c:ImprovedListView.View>

@@ -76,7 +76,7 @@ namespace MixPlanner.Specs
                     .Except(new[]
                                 {
                                     typeof (PlayPauseTrackCommand),
-                                    typeof (DelKeyEventToCommandFilter)
+                                    typeof (KeyEventCommandFilter)
                                 });
             }
 
