@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
+using System.Windows.Data;
 using System.Windows.Input;
 using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.Resolvers.SpecializedResolvers;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
 using GalaSoft.MvvmLight.Messaging;
+using MixPlanner.Converters;
 using MixPlanner.DomainModel;
 using MixPlanner.Mp3;
 using MixPlanner.Player;
@@ -37,6 +39,7 @@ namespace MixPlanner
                 Component.For<IDispatcherMessenger>().ImplementedBy<DispatcherMessenger>(),
                 Component.For<IAudioPlayer>().ImplementedBy<AudioPlayer>(),
                 Component.For<IBpmRangeChecker>().ImplementedBy<BpmRangeChecker>(),
+                Component.For<IHarmonicKeyConverterFactory>().ImplementedBy<HarmonicKeyConverterFactory>(),
                 Component.For<IMixingStrategiesFactory>().ImplementedBy<MixingStrategiesFactory>(),
                 Component.For<IMixItemViewModelFactory>().ImplementedBy<MixItemViewModelFactory>(),
                 Component.For<IRelaxedTransitionDetector>().ImplementedBy<RelaxedTransitionDetector>()
@@ -49,6 +52,7 @@ namespace MixPlanner
                 AllTypes.FromThisAssembly().BasedOn<Window>().LifestyleTransient(),
                 AllTypes.FromThisAssembly().BasedOn<IId3TagCleanup>().WithServiceBase(),
                 AllTypes.FromThisAssembly().BasedOn<ICommand>(),
+                AllTypes.FromThisAssembly().BasedOn<IValueConverter>().WithServiceSelf(),
                 AllTypes.FromThisAssembly().BasedOn<IMixingStrategy>().WithServiceSelf(),
                 Component.For<IEnumerable<IMixingStrategy>>().Named(preferredStrategies)
                          .UsingFactoryMethod(k => k.Resolve<IMixingStrategiesFactory>().GetStrategiesInPreferredOrder()),
