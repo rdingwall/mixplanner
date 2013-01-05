@@ -7,6 +7,7 @@ using MixPlanner.DomainModel;
 
 namespace MixPlanner.Converters
 {
+    [ValueConversion(typeof(HarmonicKey), typeof(Brush))]
     public class HarmonicKeyToBrushConverter : IValueConverter
     {
         // Based on middle of square color from this

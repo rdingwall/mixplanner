@@ -7,6 +7,7 @@ using MixPlanner.Player;
 
 namespace MixPlanner.Converters
 {
+    [ValueConversion(typeof(Track), typeof(string))]
     public class PlayPauseCommandLabelConverter : IValueConverter
     {
         // Using a lazy here, not constructor injection because it screws up

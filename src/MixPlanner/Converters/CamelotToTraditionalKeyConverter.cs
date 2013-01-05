@@ -7,6 +7,7 @@ using System.Linq;
 
 namespace MixPlanner.Converters
 {
+    [ValueConversion(typeof(HarmonicKey), typeof(string))]
     public class CamelotToTraditionalKeyConverter : IValueConverter
     {
         static readonly IDictionary<HarmonicKey, string> TradtionalKeys;

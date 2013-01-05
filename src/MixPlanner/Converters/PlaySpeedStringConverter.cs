@@ -4,6 +4,7 @@ using System.Windows.Data;
 
 namespace MixPlanner.Converters
 {
+    [ValueConversion(typeof(double), typeof(string))]
     public class PlaySpeedStringConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
