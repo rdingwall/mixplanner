@@ -69,12 +69,27 @@ namespace MixPlanner.Specs.DomainModel
         {
             It should_consider_them_equal =
                 () => new HarmonicKey("12A").ShouldEqual(new HarmonicKey("12A"));
+
+            It should_sort_them_the_same =
+                () => HarmonicKey.Key12A.CompareTo(HarmonicKey.Key12A).ShouldEqual(0);
         }
 
         public class when_comparing_two_different_keys
         {
             It should_not_consider_them_equal =
                 () => new HarmonicKey("8B").ShouldNotEqual(new HarmonicKey("12A"));
+
+            It should_sort_them_in_the_correct_order =
+                () => HarmonicKey.Key8B.CompareTo(HarmonicKey.Key12A).ShouldBeLessThan(0);
+        }
+
+        public class when_comparing_the_same_key_with_different_scales
+        {
+            It should_not_consider_them_equal =
+                () => new HarmonicKey("8A").ShouldNotEqual(new HarmonicKey("8B"));
+
+            It should_sort_them_in_the_correct_order =
+                () => HarmonicKey.Key8B.CompareTo(HarmonicKey.Key8A).ShouldBeGreaterThan(0);
         }
 
         public class when_rendering_as_a_string

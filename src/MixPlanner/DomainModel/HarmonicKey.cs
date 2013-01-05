@@ -3,7 +3,7 @@ using System.Globalization;
 
 namespace MixPlanner.DomainModel
 {
-    public class HarmonicKey : IEquatable<HarmonicKey>
+    public class HarmonicKey : IEquatable<HarmonicKey>, IComparable<HarmonicKey>, IComparable
     {
         // e.g. 12A
         private readonly ushort hexValue;
@@ -183,6 +183,19 @@ namespace MixPlanner.DomainModel
         public override int GetHashCode()
         {
             return hexValue.GetHashCode();
+        }
+
+        public int CompareTo(HarmonicKey other)
+        {
+            if (other == null)
+                return 1;
+
+            return hexValue - other.hexValue;
+        }
+
+        public int CompareTo(object obj)
+        {
+            return CompareTo(obj as HarmonicKey);
         }
     }
 }
