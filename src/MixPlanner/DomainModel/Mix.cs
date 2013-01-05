@@ -23,12 +23,12 @@ namespace MixPlanner.DomainModel
     public class Mix : IMix
     {
         readonly IDispatcherMessenger messenger;
-        readonly ITransitionDetector transitions;
+        readonly IRelaxedTransitionDetector transitions;
         readonly IList<MixItem> items;
 
         public Mix(
             IDispatcherMessenger messenger,
-            ITransitionDetector transitions)
+            IRelaxedTransitionDetector transitions)
         {
             if (messenger == null) throw new ArgumentNullException("messenger");
             this.messenger = messenger;

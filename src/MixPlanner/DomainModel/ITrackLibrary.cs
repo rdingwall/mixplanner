@@ -12,6 +12,6 @@ namespace MixPlanner.DomainModel
 
         void Remove(Track track);
         void RemoveRange(IEnumerable<Track> tracks);
-        IEnumerable<Tuple<Track, double>> GetRecommendations(MixItem mixItem);
+        IEnumerable<Tuple<Track, Transition>> GetNextTracks(MixItem mixItem);
     }
 }

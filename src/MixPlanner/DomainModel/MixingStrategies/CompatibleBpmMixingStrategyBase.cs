@@ -24,5 +24,10 @@ namespace MixPlanner.DomainModel.MixingStrategies
         protected abstract bool IsCompatibleKey(PlaybackSpeed first, PlaybackSpeed second);
 
         public abstract string Description { get; }
+
+        public bool Equals(IMixingStrategy other)
+        {
+            return other != null && String.Equals(other.Description, Description);
+        }
     }
 }

@@ -4,7 +4,7 @@ using MixPlanner.DomainModel.MixingStrategies;
 
 namespace MixPlanner.Specs.DomainModel
 {
-    [Subject(typeof(TransitionDetector))]
+    [Subject(typeof(RelaxedTransitionDetector))]
     public class TransitionTypeDetectorSpecs
     {
          public class When_detecting_the_type_of_transition_between_two_tracks
@@ -12,7 +12,7 @@ namespace MixPlanner.Specs.DomainModel
              Establish context =
                  () =>
                      {
-                         detector = new TransitionDetector(TestMixingStrategies.AllStrategies);
+                         detector = new RelaxedTransitionDetector(TestMixingStrategies.AllStrategies);
                      };
 
              Because of =
@@ -27,7 +27,7 @@ namespace MixPlanner.Specs.DomainModel
 
              It should_return_the_second_key = () => transition.ToKey.ShouldEqual(HarmonicKey.Key2A);
 
-             static TransitionDetector detector;
+             static RelaxedTransitionDetector detector;
              static Transition transition;
          }
 
@@ -36,7 +36,7 @@ namespace MixPlanner.Specs.DomainModel
              Establish context =
                  () =>
                  {
-                     detector = new TransitionDetector(TestMixingStrategies.AllStrategies);
+                     detector = new RelaxedTransitionDetector(TestMixingStrategies.AllStrategies);
                  };
 
              Because of =
@@ -56,7 +56,7 @@ namespace MixPlanner.Specs.DomainModel
              It should_set_the_description =
                  () => transition.Description.ShouldContain("Intro");
 
-             static TransitionDetector detector;
+             static RelaxedTransitionDetector detector;
              static Transition transition;
          }
 
@@ -65,7 +65,7 @@ namespace MixPlanner.Specs.DomainModel
              Establish context =
                  () =>
                  {
-                     detector = new TransitionDetector(TestMixingStrategies.AllStrategies);
+                     detector = new RelaxedTransitionDetector(TestMixingStrategies.AllStrategies);
                  };
 
              Because of =
@@ -85,7 +85,7 @@ namespace MixPlanner.Specs.DomainModel
              It should_set_the_description =
                  () => transition.Description.ShouldContain("Outro");
 
-             static TransitionDetector detector;
+             static RelaxedTransitionDetector detector;
              static Transition transition;
          }
     }

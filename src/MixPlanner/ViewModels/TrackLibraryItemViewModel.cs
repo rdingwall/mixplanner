@@ -8,7 +8,7 @@ namespace MixPlanner.ViewModels
 {
     public class TrackLibraryItemViewModel : ViewModelBase
     {
-        double compatibilityFactor;
+        Transition transition;
 
         public TrackLibraryItemViewModel(IMessenger messenger, Track track)
         {
@@ -23,9 +23,8 @@ namespace MixPlanner.ViewModels
             Label = track.Label;
             Filename = track.File.FullName;
             Key = track.OriginalKey;
-            compatibilityFactor = 0;
 
-            messenger.Register<RecommendationsClearedEvent>(this, _ => CompatibilityFactor = 0);
+            messenger.Register<RecommendationsClearedEvent>(this, _ => Transition = null);
             messenger.Register<TrackRecommendedEvent>(this, OnTrackRecommended);
 
             // Required for play/pause status
@@ -38,23 +37,29 @@ namespace MixPlanner.ViewModels
             if (obj.Track != Track)
                 return;
 
-            CompatibilityFactor = obj.CompatibilityFactor;
+            Transition = obj.Transition;
         }
 
-        public double CompatibilityFactor
+        public string TransitionDescription
         {
-            get { return compatibilityFactor; }
+            get { return Transition != null ? Transition.Description : null; }
+        }
+
+        public Transition Transition
+        {
+            get { return transition; }
             set
             {
-                compatibilityFactor = value;
-                RaisePropertyChanged(() => CompatibilityFactor);
+                transition = value;
+                RaisePropertyChanged(() => Transition);
+                RaisePropertyChanged(() => TransitionDescription);
                 RaisePropertyChanged(() => IsCompatible);
             }
         }
 
         public bool IsCompatible
         {
-            get { return compatibilityFactor > 0; }
+            get { return transition != null; }
         }
 
         public string Filename { get; set; }

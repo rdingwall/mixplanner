@@ -16,31 +16,37 @@ namespace MixPlanner.DomainModel
         readonly ITrackLoader loader;
         readonly IDispatcherMessenger messenger;
         readonly ILibraryStorage storage;
-        readonly ICompatibilityFactorCalculator compatibilityFactors;
+        readonly IStrictTransitionDetector transitionDetector;
 
         public TrackLibrary(
             ITrackLoader loader, 
             IDispatcherMessenger messenger, 
             ILibraryStorage storage,
-            ICompatibilityFactorCalculator compatibilityFactors)
+            IStrictTransitionDetector transitionDetector)
         {
             if (loader == null) throw new ArgumentNullException("loader");
             if (messenger == null) throw new ArgumentNullException("messenger");
             if (storage == null) throw new ArgumentNullException("storage");
-            if (compatibilityFactors == null) throw new ArgumentNullException("compatibilityFactors");
+            if (transitionDetector == null) throw new ArgumentNullException("transitionDetector");
             this.loader = loader;
             this.messenger = messenger;
             this.storage = storage;
-            this.compatibilityFactors = compatibilityFactors;
+            this.transitionDetector = transitionDetector;
         }
 
-        public IEnumerable<Tuple<Track, double>> GetRecommendations(MixItem mixItem)
+        public IEnumerable<Tuple<Track, Transition>> GetNextTracks(MixItem mixItem)
         {
             if (mixItem == null) throw new ArgumentNullException("mixItem");
 
             return storage.Tracks
-                          .Select(t => Tuple.Create(t, compatibilityFactors.CalculateCompatibilityFactor(mixItem, t)))
-                          .Where(e => e.Item2 > 0);
+                          .Select(t => Tuple.Create(t, GetTransition(mixItem, t)))
+                          .Where(t => t.Item2 != null);
+        }
+
+        Transition GetTransition(MixItem mixItem, Track track)
+        {
+            return transitionDetector.GetTransitionBetween(mixItem.PlaybackSpeed,
+                                                           track.GetDefaultPlaybackSpeed());
         }
 
         IEnumerable<Track> Import(string filename)

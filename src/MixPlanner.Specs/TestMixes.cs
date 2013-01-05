@@ -11,7 +11,7 @@ namespace MixPlanner.Specs
         {
             
 
-            var mix = new Mix(MockRepository.GenerateMock<IDispatcherMessenger>(), new TransitionDetector(TestMixingStrategies.AllStrategies));
+            var mix = new Mix(MockRepository.GenerateMock<IDispatcherMessenger>(), new RelaxedTransitionDetector(TestMixingStrategies.AllStrategies));
             mix.Add(TestTracks.Get(HarmonicKey.RandomKey()));
             mix.Add(TestTracks.Get(HarmonicKey.RandomKey()));
             mix.Add(TestTracks.Get(HarmonicKey.RandomKey()));

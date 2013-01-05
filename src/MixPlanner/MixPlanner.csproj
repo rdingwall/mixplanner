@@ -163,14 +163,14 @@
     <Compile Include="DomainModel\MixingStrategies\TwoSemitoneEnergyBoost.cs" />
     <Compile Include="DomainModel\MixingStrategies\ManualOutOfKeyMix.cs" />
     <Compile Include="DomainModel\MixItem.cs" />
-    <Compile Include="DomainModel\CompatibilityFactorCalculator.cs" />
     <Compile Include="DomainModel\Scale.cs" />
     <Compile Include="DomainModel\MixingStrategiesFactory.cs" />
     <Compile Include="DomainModel\PlaybackSpeed.cs" />
+    <Compile Include="DomainModel\StrictTransitionDetector.cs" />
     <Compile Include="DomainModel\Track.cs" />
     <Compile Include="DomainModel\TrackLibrary.cs" />
     <Compile Include="DomainModel\Transition.cs" />
-    <Compile Include="DomainModel\TransitionDetector.cs" />
+    <Compile Include="DomainModel\RelaxedTransitionDetector.cs" />
     <Compile Include="DomainModel\UnknownKey.cs" />
     <Compile Include="Events\BeganLoadingTracksEvent.cs" />
     <Compile Include="Events\RecommendationsClearedEvent.cs" />

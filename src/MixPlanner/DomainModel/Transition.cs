@@ -8,5 +8,6 @@ namespace MixPlanner.DomainModel
         public HarmonicKey ToKey { get; set; }
         public IMixingStrategy Strategy { get; set; }
         public string Description { get; set; }
+        public bool IsCompatible { get; set; }
     }
 }

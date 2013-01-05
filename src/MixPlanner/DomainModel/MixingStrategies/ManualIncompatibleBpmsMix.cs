@@ -19,5 +19,10 @@ namespace MixPlanner.DomainModel.MixingStrategies
         }
 
         public string Description { get { return "BPMs out of range / train wreck!"; } }
+
+        public bool Equals(IMixingStrategy other)
+        {
+            return other != null && String.Equals(other.Description, Description);
+        }
     }
 }

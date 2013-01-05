@@ -5,14 +5,15 @@ namespace MixPlanner.Events
 {
     public class TrackRecommendedEvent
     {
-        public TrackRecommendedEvent(Track track, double compatibilityFactor)
+        public TrackRecommendedEvent(Track track, Transition transition)
         {
             if (track == null) throw new ArgumentNullException("track");
+            if (transition == null) throw new ArgumentNullException("transition");
             Track = track;
-            CompatibilityFactor = compatibilityFactor;
+            Transition = transition;
         }
 
         public Track Track { get; private set; }
-        public double CompatibilityFactor { get; private set; }
+        public Transition Transition { get; private set; }
     }
 }

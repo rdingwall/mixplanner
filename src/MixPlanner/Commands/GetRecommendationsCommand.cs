@@ -32,7 +32,7 @@ namespace MixPlanner.Commands
             if (!CanExecute(parameter))
                 return;
 
-            var recommendations = trackLibrary.GetRecommendations(parameter.First());
+            var recommendations = trackLibrary.GetNextTracks(parameter.First());
 
             recommendations.Select(t => new TrackRecommendedEvent(t.Item1, t.Item2))
                            .ForEach(e => messenger.SendToUI(e));
