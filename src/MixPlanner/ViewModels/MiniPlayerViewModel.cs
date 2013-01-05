@@ -10,7 +10,7 @@ namespace MixPlanner.ViewModels
 {
     public class MiniPlayerViewModel : ViewModelBase
     {
-        public ICommand PlayPauseCommand { get; private set; }
+        public PlayPauseTrackCommand PlayPauseCommand { get; private set; }
         string title;
         bool hasTrackLoaded;
         Track track;

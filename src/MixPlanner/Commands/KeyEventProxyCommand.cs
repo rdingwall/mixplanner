@@ -4,13 +4,13 @@ using System.Windows.Input;
 
 namespace MixPlanner.Commands
 {
-    public class KeyEventCommandFilter : CommandBase<KeyEventArgs>
+    public class KeyEventProxyCommand : CommandBase<KeyEventArgs>
     {
         readonly ICommand command;
         readonly Func<object> getParameter;
         readonly Key[] keys;
 
-        public KeyEventCommandFilter(ICommand command, Func<object> getParameter, params Key[] keys)
+        public KeyEventProxyCommand(ICommand command, Func<object> getParameter, params Key[] keys)
         {
             if (command == null) throw new ArgumentNullException("command");
             if (getParameter == null) throw new ArgumentNullException("getParameter");

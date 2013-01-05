@@ -17,16 +17,17 @@ namespace MixPlanner.ViewModels
     {
         MixItemViewModel selectedItem;
         readonly IMixItemViewModelFactory viewModels;
-        public ICommand RemoveDelKeyCommand { get; private set; }
-        public ICommand PlayPauseSpaceKeyCommand { get; private set; }
-        public ICommand RemoveCommand { get; private set; }
+
+        public KeyEventProxyCommand RemoveDelKeyCommand { get; private set; }
+        public KeyEventProxyCommand PlayPauseSpaceKeyCommand { get; private set; }
+        public RemoveTracksFromMixCommand RemoveCommand { get; private set; }
         public ObservableCollection<MixItemViewModel> Items { get; private set; }
-        public ICommand DropItemCommand { get; private set; }
-        public ICommand DropFilesCommand { get; private set; }
-        public ICommand PlayPauseCommand { get; private set; }
-        public ICommand ResetPlaybackSpeedCommand { get; private set; }
-        public ICommand GetRecommendationsCommand { get; private set; }
-        public ICommand ClearRecommendationsCommand { get; private set; }
+        public DropItemIntoMixCommand DropItemCommand { get; private set; }
+        public ImportFilesIntoMixCommand DropFilesCommand { get; private set; }
+        public PlayPauseTrackCommand PlayPauseCommand { get; private set; }
+        public ResetPlaybackSpeedCommand ResetPlaybackSpeedCommand { get; private set; }
+        public GetRecommendationsCommand GetRecommendationsCommand { get; private set; }
+        public ClearRecommendationsCommand ClearRecommendationsCommand { get; private set; }
 
         public MixItemViewModel SelectedItem
         {
@@ -72,9 +73,9 @@ namespace MixPlanner.ViewModels
             GetRecommendationsCommand = getRecommendationsCommand;
             this.viewModels = viewModels;
             RemoveCommand = removeCommand;
-            RemoveDelKeyCommand = new KeyEventCommandFilter(
+            RemoveDelKeyCommand = new KeyEventProxyCommand(
                 removeCommand, () => SelectedItems, Key.Delete, Key.Back);
-            PlayPauseSpaceKeyCommand = new KeyEventCommandFilter(
+            PlayPauseSpaceKeyCommand = new KeyEventProxyCommand(
                 PlayPauseCommand, () => SelectedItem.Track, Key.Space, Key.Enter, Key.Return);
             Items = new ObservableCollection<MixItemViewModel>();
             messenger.Register<TrackAddedToMixEvent>(this, OnTrackAdded);

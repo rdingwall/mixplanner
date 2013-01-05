@@ -26,9 +26,7 @@ namespace MixPlanner.ViewModels
         public Track Track { get { return MixItem.Track; }}
         public string Title { get { return MixItem.Track.Title;} }
         public string Artist { get { return MixItem.Track.Artist;} }
-        public ICommand PlayPauseCommand { get; private set; }
-        public bool IsPlaying { get; private set; }
-        public bool IsNotPlaying { get { return !IsPlaying; } }
+        public PlayPauseTrackCommand PlayPauseCommand { get; private set; }
         public string Transition { get { return MixItem.Transition.Description; } }
         public bool IsSelected { get; set; }
 

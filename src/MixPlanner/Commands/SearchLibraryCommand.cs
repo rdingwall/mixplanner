@@ -3,11 +3,11 @@ using MixPlanner.Events;
 
 namespace MixPlanner.Commands
 {
-    public class SearchCommand : CommandBase<string>
+    public class SearchLibraryCommand : CommandBase<string>
     {
         readonly IDispatcherMessenger messenger;
 
-        public SearchCommand(IDispatcherMessenger messenger)
+        public SearchLibraryCommand(IDispatcherMessenger messenger)
         {
             if (messenger == null) throw new ArgumentNullException("messenger");
             this.messenger = messenger;

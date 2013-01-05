@@ -126,14 +126,14 @@
     <Compile Include="Commands\ClearRecommendationsCommand.cs" />
     <Compile Include="Commands\CloseWindowCommand.cs" />
     <Compile Include="Commands\CommandBase.cs" />
-    <Compile Include="Commands\KeyEventCommandFilter.cs" />
+    <Compile Include="Commands\KeyEventProxyCommand.cs" />
     <Compile Include="Commands\DropItemIntoMixCommand.cs" />
     <Compile Include="Commands\GetRecommendationsCommand.cs" />
     <Compile Include="Commands\ImportFilesIntoMixCommand.cs" />
     <Compile Include="Commands\OpenSettingsCommand.cs" />
     <Compile Include="Commands\ResetPlaybackSpeedCommand.cs" />
     <Compile Include="Commands\SaveSettingsCommand.cs" />
-    <Compile Include="Commands\SearchCommand.cs" />
+    <Compile Include="Commands\SearchLibraryCommand.cs" />
     <Compile Include="Commands\ImportFilesIntoLibraryCommand.cs" />
     <Compile Include="Commands\AddTrackToMixCommand.cs" />
     <Compile Include="Commands\PlayPauseTrackCommand.cs" />

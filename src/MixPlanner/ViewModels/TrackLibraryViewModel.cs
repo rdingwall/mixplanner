@@ -19,15 +19,16 @@ namespace MixPlanner.ViewModels
     public class TrackLibraryViewModel : ViewModelBase
     {
         TrackLibraryItemViewModel selectedItem;
-        public ICommand ImportFilesCommand { get; private set; }
-        public ICommand RemoveDelKeyCommand { get; private set; }
-        public ICommand PlayPauseSpaceKeyCommand { get; private set; }
-        public ICommand RemoveCommand { get; private set; }
         readonly ObservableCollection<TrackLibraryItemViewModel> items;
+
+        public ImportFilesIntoLibraryCommand ImportFilesCommand { get; private set; }
+        public KeyEventProxyCommand RemoveDelKeyCommand { get; private set; }
+        public KeyEventProxyCommand PlayPauseSpaceKeyCommand { get; private set; }
+        public RemoveTracksFromLibraryCommand RemoveCommand { get; private set; }
         public PlayPauseTrackCommand PlayPauseCommand { get; private set; }
-        public ICommand ShowInExplorerCommand { get; private set; }
-        public ICommand SearchCommand { get; private set; }
-        public ICommand OpenSettingsCommand { get; private set; }
+        public ShowInExplorerCommand ShowInExplorerCommand { get; private set; }
+        public SearchLibraryCommand SearchCommand { get; private set; }
+        public OpenSettingsCommand OpenSettingsCommand { get; private set; }
 
         public ObservableCollection<GridViewColumn> LibraryColumns { get; private set; }
             
@@ -64,7 +65,7 @@ namespace MixPlanner.ViewModels
             ImportFilesIntoLibraryCommand importFilesCommand,
             RemoveTracksFromLibraryCommand removeTracksCommand,
             PlayPauseTrackCommand playCommand,
-            SearchCommand searchCommand,
+            SearchLibraryCommand searchCommand,
             ShowInExplorerCommand showInExplorerCommand,
             OpenSettingsCommand openSettingsCommand
             )
@@ -107,9 +108,9 @@ namespace MixPlanner.ViewModels
 
             ImportFilesCommand = importFilesCommand;
             RemoveCommand = removeTracksCommand;
-            RemoveDelKeyCommand = new KeyEventCommandFilter(
+            RemoveDelKeyCommand = new KeyEventProxyCommand(
                 removeTracksCommand, () => SelectedTracks, Key.Delete, Key.Back);
-            PlayPauseSpaceKeyCommand = new KeyEventCommandFilter(
+            PlayPauseSpaceKeyCommand = new KeyEventProxyCommand(
                 PlayPauseCommand, () => SelectedItem.Track, Key.Space, Key.Return, Key.Enter);
         }
 

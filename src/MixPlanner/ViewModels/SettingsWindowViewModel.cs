@@ -13,8 +13,8 @@ namespace MixPlanner.ViewModels
         bool restrictBpmCompatibility;
         bool stripMixedInKeyPrefixes;
 
-        public ICommand SaveCommand { get; private set; }
-        public ICommand CancelCommand { get; private set; }
+        public SaveSettingsCommand SaveCommand { get; private set; }
+        public CloseWindowCommand CancelCommand { get; private set; }
 
         public SettingsWindowViewModel(
             IDispatcherMessenger messenger,
