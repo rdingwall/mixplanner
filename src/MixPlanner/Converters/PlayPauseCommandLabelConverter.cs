@@ -9,18 +9,10 @@ namespace MixPlanner.Converters
 {
     public class PlayPauseCommandLabelConverter : IValueConverter
     {
-        readonly IAudioPlayer player;
-
-        public PlayPauseCommandLabelConverter() : 
-            this(ServiceLocator.Current.GetInstance<IAudioPlayer>())
-        {
-        }
-
-        public PlayPauseCommandLabelConverter(IAudioPlayer player)
-        {
-            if (player == null) throw new ArgumentNullException("player");
-            this.player = player;
-        }
+        // Using a lazy here, not constructor injection because it screws up
+        // blend (can't display the XAML preview).
+        readonly Lazy<IAudioPlayer> player = 
+            new Lazy<IAudioPlayer>(() => ServiceLocator.Current.GetInstance<IAudioPlayer>());
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -28,7 +20,7 @@ namespace MixPlanner.Converters
                 return "";
 
             var track = (Track) value;
-            return player.IsPlaying(track) ? "Pause" : "Play";
+            return player.Value.IsPlaying(track) ? "Pause" : "Play";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
