@@ -28,15 +28,12 @@ namespace MixPlanner.Controls
             if (SelectionModifierKeys.Any(Keyboard.IsKeyDown))
                 return;
 
-            if (SelectedItems.Count > 1)
-            {
-                var row = source.TryFindParent<DataGridRow>();
+            var row = source.TryFindParent<DataGridRow>();
+            if (row == null)
+                return;
 
-                if (row == null)
-                    SelectedIndex = -1;
-                else
-                    SelectedIndex = row.GetIndex();
-            }
+            if (SelectedItems.Count > 1)
+                SelectedIndex = row.GetIndex();
 
             //[insert great code here...]
 

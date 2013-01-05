@@ -120,6 +120,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AttachedProperties\GridViewSort.cs" />
     <Compile Include="Commands\AsyncCommandBase.cs" />
     <Compile Include="Commands\ClearRecommendationsCommand.cs" />
     <Compile Include="Commands\CommandBase.cs" />
@@ -136,7 +137,7 @@
     <Compile Include="Commands\RemoveTracksFromMixCommand.cs" />
     <Compile Include="Commands\ReorderMixTrackCommand.cs" />
     <Compile Include="Commands\ShowInExplorerCommand.cs" />
-    <Compile Include="Controls\AttachedProperties.cs" />
+    <Compile Include="AttachedProperties\GridViewColumns.cs" />
     <Compile Include="Controls\ImprovedListView.cs" />
     <Compile Include="Controls\SearchTextBox.cs" />
     <Compile Include="Controls\UIHelpers.cs" />
@@ -323,6 +324,11 @@
   <ItemGroup>
     <Resource Include="Resources\search_clear.png" />
     <Resource Include="Resources\search_glyph.png" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Images\Down.png" />
+    <Resource Include="Images\Up.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -4,16 +4,16 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace MixPlanner.Controls
+namespace MixPlanner.AttachedProperties
 {
-    public static class AttachedProperties
+    public static class GridViewColumns
     {
         public static readonly DependencyProperty ColumnCollectionSourceProperty =
             DependencyProperty.RegisterAttached
                 (
                     "ColumnCollectionSource",
                     typeof (IEnumerable),
-                    typeof (AttachedProperties),
+                    typeof (GridViewColumns),
                     new UIPropertyMetadata(null, ColumnCollectionSourceChanged)
                 );
 

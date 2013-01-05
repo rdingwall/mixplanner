@@ -8,9 +8,11 @@ using System.Windows.Data;
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
+using MixPlanner.AttachedProperties;
 using MixPlanner.Commands;
 using MixPlanner.DomainModel;
 using MixPlanner.Events;
+using MoreLinq;
 
 namespace MixPlanner.ViewModels
 {
@@ -86,6 +88,8 @@ namespace MixPlanner.ViewModels
                               new GridViewColumn { Header = "Label", DisplayMemberBinding = new Binding("Label"), Width= 100},
                               new GridViewColumn { Header = "Filename", DisplayMemberBinding = new Binding("Filename")}
                           };
+
+            LibraryColumns.ForEach(c => GridViewSort.SetPropertyName(c, (string)c.Header));
 
             messenger.Register<TrackAddedToLibraryEvent>(this, OnTrackAddedToLibrary);
             messenger.Register<TrackRemovedFromLibraryEvent>(this, OnTrackRemoved);

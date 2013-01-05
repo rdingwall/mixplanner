@@ -100,7 +100,7 @@ namespace MixPlanner.ViewModels
             Items.Insert(obj.InsertIndex, viewModel);
         }
 
-        public void DragOver(DropInfo dropInfo)
+        public void DragOver(IDropInfo dropInfo)
         {
             if (!DropItemCommand.CanExecute(dropInfo))
                 return;
@@ -111,7 +111,7 @@ namespace MixPlanner.ViewModels
             }
         }
 
-        public void Drop(DropInfo dropInfo)
+        public void Drop(IDropInfo dropInfo)
         {
             DropItemCommand.Execute(dropInfo);
         }

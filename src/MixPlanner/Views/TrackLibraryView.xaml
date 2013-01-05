@@ -8,25 +8,29 @@
              xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WPF4"
              xmlns:mp="clr-namespace:MixPlanner.ViewModels"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-             xmlns:controls="clr-namespace:MixPlanner.Controls"
+             xmlns:c="clr-namespace:MixPlanner.Controls"
+             xmlns:ap="clr-namespace:MixPlanner.AttachedProperties"
              mc:Ignorable="d" 
              d:DesignHeight="300"
              d:DesignWidth="300"
              d:DataContext="{d:DesignInstance mp:TrackLibraryViewModel}">
     <GroupBox Header="Library">
         <DockPanel>
-            <controls:SearchTextBox Height="24"
+            <c:SearchTextBox Height="24"
                 AllowEmptySearches="True"
                                     SearchMode="Instant"
                                     Command="{Binding SearchCommand}"
                                     CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Text}" DockPanel.Dock="Top"/>
-            <controls:ImprovedListView x:Name="TrackLibraryDataGrid"
+            <c:ImprovedListView x:Name="TrackLibraryDataGrid"
                       ItemsSource="{Binding ItemsView}"
 					  SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
 					  AllowDrop="True"
 					  dd:DragDrop.IsDragSource="True"
 					  SelectionMode="Extended"
-                      SelectionChanged="OnSelectionChanged">
+                      SelectionChanged="OnSelectionChanged"
+                      ap:GridViewSort.AutoSort="True"
+                      ap:GridViewSort.SortGlyphAscending="/Images/Up.png"
+                      ap:GridViewSort.SortGlyphDescending="/Images/Down.png">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Drop">
                         <cmd:EventToCommand Command="{Binding ImportFilesCommand}"
@@ -42,12 +46,13 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
 
-                <controls:ImprovedListView.View>
-                    <GridView controls:AttachedProperties.ColumnCollectionSource="{Binding LibraryColumns}" AllowsColumnReorder="True">
+                <c:ImprovedListView.View>
+                    <GridView ap:GridViewColumns.ColumnCollectionSource="{Binding LibraryColumns}" 
+                              AllowsColumnReorder="True">
                     </GridView>
-                </controls:ImprovedListView.View>
+                </c:ImprovedListView.View>
 
-                <controls:ImprovedListView.ItemContainerStyle>
+                <c:ImprovedListView.ItemContainerStyle>
                     <Style TargetType="{x:Type ListViewItem}">
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding IsRecommended}" Value="True">
@@ -58,9 +63,9 @@
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
-                </controls:ImprovedListView.ItemContainerStyle>
+                </c:ImprovedListView.ItemContainerStyle>
 
-                <controls:ImprovedListView.ContextMenu>
+                <c:ImprovedListView.ContextMenu>
                     <ContextMenu>
                         <MenuItem Header="{Binding Path=PlacementTarget.SelectedItem.Track, RelativeSource={RelativeSource AncestorType=ContextMenu}, Converter={StaticResource PlayPauseCommandLabelConverter}}"
                                   Visibility="{Binding Path=PlacementTarget.DataContext.HasSingleItemSelected, RelativeSource={RelativeSource AncestorType=ContextMenu}, Converter={StaticResource BooleanToVisibilityConverter}}"
@@ -81,9 +86,9 @@
                                   CommandTarget="{Binding Path=PlacementTarget, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
                                   CommandParameter="{Binding Path=PlacementTarget.DataContext.SelectedTracks, RelativeSource={RelativeSource AncestorType=ContextMenu}}"/>
                     </ContextMenu>
-                </controls:ImprovedListView.ContextMenu>
+                </c:ImprovedListView.ContextMenu>
 
-            </controls:ImprovedListView>
+            </c:ImprovedListView>
         </DockPanel>
     </GroupBox>
 </UserControl>

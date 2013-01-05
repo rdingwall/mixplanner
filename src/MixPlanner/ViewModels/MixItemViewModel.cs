@@ -71,10 +71,15 @@ namespace MixPlanner.ViewModels
             RaisePropertyChanged(() => Transition);
         }
 
-        public void StartDrag(DragInfo dragInfo)
+        public void StartDrag(IDragInfo dragInfo)
         {
             dragInfo.Data = this;
             dragInfo.Effects = DragDropEffects.Move | DragDropEffects.Copy;
+        }
+
+        public void Dropped(IDropInfo dropInfo)
+        {
+            
         }
     }
 }
