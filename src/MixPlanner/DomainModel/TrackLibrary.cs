@@ -16,22 +16,22 @@ namespace MixPlanner.DomainModel
         readonly ITrackLoader loader;
         readonly IDispatcherMessenger messenger;
         readonly ILibraryStorage storage;
-        readonly IRecommendationFactorCalculator recommendationFactors;
+        readonly ICompatibilityFactorCalculator compatibilityFactors;
 
         public TrackLibrary(
             ITrackLoader loader, 
             IDispatcherMessenger messenger, 
             ILibraryStorage storage,
-            IRecommendationFactorCalculator recommendationFactors)
+            ICompatibilityFactorCalculator compatibilityFactors)
         {
             if (loader == null) throw new ArgumentNullException("loader");
             if (messenger == null) throw new ArgumentNullException("messenger");
             if (storage == null) throw new ArgumentNullException("storage");
-            if (recommendationFactors == null) throw new ArgumentNullException("recommendationFactors");
+            if (compatibilityFactors == null) throw new ArgumentNullException("compatibilityFactors");
             this.loader = loader;
             this.messenger = messenger;
             this.storage = storage;
-            this.recommendationFactors = recommendationFactors;
+            this.compatibilityFactors = compatibilityFactors;
         }
 
         public IEnumerable<Tuple<Track, double>> GetRecommendations(MixItem mixItem)
@@ -39,7 +39,7 @@ namespace MixPlanner.DomainModel
             if (mixItem == null) throw new ArgumentNullException("mixItem");
 
             return storage.Tracks
-                          .Select(t => Tuple.Create(t, recommendationFactors.GetRecommendationFactor(mixItem, t)))
+                          .Select(t => Tuple.Create(t, compatibilityFactors.CalculateCompatibilityFactor(mixItem, t)))
                           .Where(e => e.Item2 > 0);
         }
 

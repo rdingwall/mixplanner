@@ -4,22 +4,26 @@ using System.Linq;
 
 namespace MixPlanner.DomainModel
 {
-    public interface IRecommendationFactorCalculator
+    public interface ICompatibilityFactorCalculator
     {
-        double GetRecommendationFactor(MixItem current, Track next);
+        double CalculateCompatibilityFactor(MixItem current, Track next);
     }
 
-    public class RecommendationFactorCalculator : IRecommendationFactorCalculator
+    public class CompatibilityFactorCalculator : ICompatibilityFactorCalculator
     {
         readonly IDictionary<IMixingStrategy, double> mixingStrategyFactors;
 
-        public RecommendationFactorCalculator(IEnumerable<IMixingStrategy> preferredStrategies)
+        public CompatibilityFactorCalculator(IEnumerable<IMixingStrategy> preferredStrategies)
         {
             if (preferredStrategies == null) throw new ArgumentNullException("preferredStrategies");
 
             var strategiesList = preferredStrategies.ToList();
 
-            // Factor is simply the strategy's index divided by number of strategies.
+            // Factor is simply the strategy's index divided by number of
+            // strategies. E.g. favourite strategy is 1, next is a bit lower,
+            // etc. Note we use count + 1 so that it doesn't return zero for
+            // the last strategy. (Zero is reserved, it means "not compatible
+            // at all").
             Func<IMixingStrategy, IList<IMixingStrategy>, double> getFactor =
                 (s, strategies) => 1 - (double) strategies.IndexOf(s)/(strategies.Count + 1);
 
@@ -27,7 +31,7 @@ namespace MixPlanner.DomainModel
                 .ToDictionary(k => k, v => getFactor(v, strategiesList));
         }
 
-        public double GetRecommendationFactor(MixItem current, Track next)
+        public double CalculateCompatibilityFactor(MixItem current, Track next)
         {
             if (current == null) throw new ArgumentNullException("current");
             if (next == null) throw new ArgumentNullException("next");

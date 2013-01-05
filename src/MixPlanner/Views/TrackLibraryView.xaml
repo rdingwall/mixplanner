@@ -55,10 +55,10 @@
                 <c:ImprovedListView.ItemContainerStyle>
                     <Style TargetType="{x:Type ListViewItem}">
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding IsRecommended}" Value="True">
+                            <DataTrigger Binding="{Binding IsCompatible}" Value="True">
                                 <Setter Property="Background" Value="Yellow" />
                             </DataTrigger>
-                            <DataTrigger Binding="{Binding IsRecommended}" Value="False">
+                            <DataTrigger Binding="{Binding IsCompatible}" Value="False">
                                 <Setter Property="Background" Value="{Binding Key, Converter={StaticResource HarmonicKeyToBrushConverter}}" />
                             </DataTrigger>
                         </Style.Triggers>

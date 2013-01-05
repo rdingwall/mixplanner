@@ -37,7 +37,7 @@ namespace MixPlanner
                 Component.For<IBpmRangeChecker>().ImplementedBy<BpmRangeChecker>(),
                 Component.For<IMixingStrategiesFactory>().ImplementedBy<MixingStrategiesFactory>(),
                 Component.For<IMixItemViewModelFactory>().ImplementedBy<MixItemViewModelFactory>(),
-                Component.For<IRecommendationFactorCalculator>().ImplementedBy<RecommendationFactorCalculator>()
+                Component.For<ICompatibilityFactorCalculator>().ImplementedBy<CompatibilityFactorCalculator>()
                     .DependsOn(Property.ForKey("preferredStrategies").Is(preferredStrategies)),
                 Component.For<ITransitionDetector>().ImplementedBy<TransitionDetector>()
                          .DependsOn(Property.ForKey("strategies").Is(allStrategies)),
