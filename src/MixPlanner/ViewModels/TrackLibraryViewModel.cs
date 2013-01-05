@@ -27,6 +27,7 @@ namespace MixPlanner.ViewModels
         public PlayPauseTrackCommand PlayPauseCommand { get; private set; }
         public ICommand ShowInExplorerCommand { get; private set; }
         public ICommand SearchCommand { get; private set; }
+        public ICommand OpenSettingsCommand { get; private set; }
 
         public ObservableCollection<GridViewColumn> LibraryColumns { get; private set; }
             
@@ -64,7 +65,8 @@ namespace MixPlanner.ViewModels
             RemoveTracksFromLibraryCommand removeTracksCommand,
             PlayPauseTrackCommand playCommand,
             SearchCommand searchCommand,
-            ShowInExplorerCommand showInExplorerCommand
+            ShowInExplorerCommand showInExplorerCommand,
+            OpenSettingsCommand openSettingsCommand
             )
             : base(messenger)
         {
@@ -73,6 +75,7 @@ namespace MixPlanner.ViewModels
             if (playCommand == null) throw new ArgumentNullException("playCommand");
             if (searchCommand == null) throw new ArgumentNullException("searchCommand");
             if (showInExplorerCommand == null) throw new ArgumentNullException("showInExplorerCommand");
+            if (openSettingsCommand == null) throw new ArgumentNullException("openSettingsCommand");
 
             items = new ObservableCollection<TrackLibraryItemViewModel>();
             ItemsView = CollectionViewSource.GetDefaultView(items);
@@ -100,6 +103,7 @@ namespace MixPlanner.ViewModels
 
             SearchCommand = searchCommand;
             ShowInExplorerCommand = showInExplorerCommand;
+            OpenSettingsCommand = openSettingsCommand;
 
             ImportFilesCommand = importFilesCommand;
             RemoveCommand = removeTracksCommand;
