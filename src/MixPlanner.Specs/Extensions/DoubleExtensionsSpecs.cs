@@ -1,72 +1,38 @@
 ﻿using System;
-using Machine.Specifications;
+using System.Collections.Generic;
+using NUnit.Framework;
 
 namespace MixPlanner.Specs.Extensions
 {
-    [Subject(typeof(DoubleExtensions))]
-    public class DoubleExtensionsSpecs
+    [TestFixture]
+    public class DoubleExtensions
     {
-        public class When_it_was_just_above_the_nearest_interval
+        const double Tolerance = 0.00001;
+
+        static IEnumerable<Tuple<double, double>> GetCases()
         {
-            static double rounded;
+            yield return Tuple.Create(-0.02, 0.0);
+            yield return Tuple.Create(-0.03, -0.03);
+            yield return Tuple.Create(-0.031, -0.03);
+            yield return Tuple.Create(-0.041, -0.03);
+            yield return Tuple.Create(-0.06, -0.06);
+            yield return Tuple.Create(-0.061, -0.06);
+            yield return Tuple.Create(-0.091, -0.09);
+            yield return Tuple.Create(0.0, 0.0);
+            yield return Tuple.Create(0.02, 0.0);
+            yield return Tuple.Create(0.03, 0.03);
+            yield return Tuple.Create(0.031, 0.03);
+            yield return Tuple.Create(0.041, 0.03);
+            yield return Tuple.Create(0.06, 0.06);
+            yield return Tuple.Create(0.061, 0.06);
+            yield return Tuple.Create(0.091, 0.09);
+            }
 
-            Because of = () => rounded = 0.61.RoundToNearest(0.3);
-
-            It should_round_down = () => rounded.ShouldBeCloseTo(0.6, 000.1);
-        }
-
-        public class When_it_was_just_below_the_nearest_interval
+        [Test, TestCaseSource("GetCases")]
+        public void It_should_floor_to_the_previous_harmonic_change_interval(Tuple<double, double> p)
         {
-            static double rounded;
-
-            Because of = () => rounded = 0.59.RoundToNearest(0.3);
-
-            It should_round_up = () => rounded.ShouldBeCloseTo(0.6, 000.1);
+            var rounded = p.Item1.FloorToNearest(0.03);
+            Assert.That(rounded, Is.InRange(p.Item2 - Tolerance, p.Item2 + Tolerance));
         }
-
-        public class When_it_was_exactly_on_an_interval
-        {
-            static double rounded;
-
-            Because of = () => rounded = 0.6.RoundToNearest(0.3);
-
-            It should_not_round = () => rounded.ShouldBeCloseTo(0.6, 000.1);
-        }
-
-        public class When_it_was_exactly_on_an_interval_and_negative
-        {
-            static double rounded;
-
-            Because of = () => rounded = -0.6.RoundToNearest(0.3);
-
-            It should_not_round = () => rounded.ShouldBeCloseTo(-0.6, 000.1);
-        }
-
-        public class When_it_was_just_above_the_nearest_interval_and_negative
-        {
-            static double rounded;
-
-            Because of = () => rounded = -0.61.RoundToNearest(0.3);
-
-            It should_round_up = () => rounded.ShouldBeCloseTo(-0.6, 000.1);
-        }
-
-        public class When_it_was_just_below_the_nearest_interval_and_negative
-        {
-            static double rounded;
-
-            Because of = () => rounded = -0.59.RoundToNearest(0.3);
-
-            It should_round_down = () => rounded.ShouldBeCloseTo(-0.6, 000.1);
-        }
-
-        public class When_it_was_zero
-        {
-            static double rounded;
-
-            Because of = () => rounded = ((double)0).RoundToNearest(0.3);
-
-            It should_not_round = () => rounded.ShouldBeCloseTo(0, 000.1);
-        }
-    }
+     }
 }

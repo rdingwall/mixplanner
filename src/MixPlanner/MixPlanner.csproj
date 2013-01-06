@@ -161,6 +161,7 @@
     <Compile Include="Configuration\Config.cs" />
     <Compile Include="Configuration\ConfigProvider.cs" />
     <Compile Include="DomainModel\HarmonicKeyDisplayMode.cs" />
+    <Compile Include="DomainModel\HarmonicKeyChangeInterval.cs" />
     <Compile Include="DomainModel\IMixingStrategy.cs" />
     <Compile Include="DomainModel\InvalidPitchException.cs" />
     <Compile Include="DomainModel\InvalidScaleException.cs" />

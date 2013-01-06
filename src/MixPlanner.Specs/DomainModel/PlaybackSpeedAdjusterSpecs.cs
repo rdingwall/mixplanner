@@ -1,4 +1,5 @@
-﻿using Machine.Specifications;
+﻿using System;
+using Machine.Specifications;
 using MixPlanner.DomainModel;
 
 namespace MixPlanner.Specs.DomainModel
@@ -97,7 +98,7 @@ namespace MixPlanner.Specs.DomainModel
                      Second = TestPlaybackSpeeds.PlaybackSpeed(136);
                  };
 
-             It should_recommend_decreasing_by_6_percent = () => Increase.ShouldBeCloseTo(-0.06, 0.001);
+             It should_recommend_decreasing_by_3_percent = () => Increase.ShouldBeCloseTo(-0.03, 0.001);
          }
 
          public class When_the_second_track_needs_to_be_slowed_more_than_6_percent : FixtureBase

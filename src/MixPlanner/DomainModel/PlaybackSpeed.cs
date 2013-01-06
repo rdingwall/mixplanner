@@ -6,9 +6,6 @@ namespace MixPlanner.DomainModel
     {
         private const double DefaultSpeed = 1;
 
-        // The harmonic key changes with every +/-3% pitch change.
-        public const double HarmonicKeyChangeInterval = 0.03;
-
         public PlaybackSpeed(
             HarmonicKey originalKey, 
             double originalBpm, 
@@ -31,14 +28,12 @@ namespace MixPlanner.DomainModel
 
         HarmonicKey CalculateActualKey(double speed)
         {
-            // How many percentage points we are increasing the speed
-            // e.g. 1.03 = 103% = 3
-            //      0.94 =  -6% = 6
-            var percentIncrease = (speed - 1) * 100;
+            var increase = speed - 1;
 
-            // Pitch changes one semitone (+/- 7 on the Camelot wheel) for
-            // every 3% difference.
-            var pitchIncrease = 7 * (percentIncrease / 3);
+            // Pitch changes one semitone (+/- 7 "hours" on the Camelot wheel)
+            // for every 3% difference.
+            var numberOfHours = increase/HarmonicKeyChangeInterval.Value;
+            var pitchIncrease = 7 * numberOfHours;
 
             return originalKey.IncreasePitch((int)pitchIncrease);
         }
@@ -53,7 +48,7 @@ namespace MixPlanner.DomainModel
             if (other == null) throw new ArgumentNullException("other");
 
             var increaseRequired = GetExactIncreaseRequiredToMatch(other);
-            return Math.Abs(increaseRequired) < HarmonicKeyChangeInterval;
+            return Math.Abs(increaseRequired) < HarmonicKeyChangeInterval.Value;
         }
 
         public double GetExactIncreaseRequiredToMatch(PlaybackSpeed other)

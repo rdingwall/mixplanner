@@ -20,7 +20,7 @@ namespace MixPlanner.DomainModel
                 return 0;
 
             var increaseRequired = second.GetExactIncreaseRequiredToMatch(first);
-            var nearestInterval = increaseRequired.RoundToNearest(0.03);
+            var nearestInterval = increaseRequired.FloorToNearest(HarmonicKeyChangeInterval.Value);
 
             if (Math.Abs(nearestInterval) > MaxPermittedDifference)
                 return 0;
