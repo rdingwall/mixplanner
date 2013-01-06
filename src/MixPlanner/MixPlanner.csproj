@@ -169,7 +169,7 @@
     <Compile Include="DomainModel\Mix.cs" />
     <Compile Include="DomainModel\MixingStrategies\CompatibleBpmMixingStrategyBase.cs" />
     <Compile Include="DomainModel\MixingStrategies\IncreasePitchStrategyBase.cs" />
-    <Compile Include="DomainModel\MixingStrategies\IncrementOne.cs" />
+    <Compile Include="DomainModel\MixingStrategies\AdvanceOne.cs" />
     <Compile Include="DomainModel\MixingStrategies\ManualIncompatibleBpmsMix.cs" />
     <Compile Include="DomainModel\MixingStrategies\OneSemitoneEnergyBoost.cs" />
     <Compile Include="DomainModel\MixingStrategies\SameKey.cs" />

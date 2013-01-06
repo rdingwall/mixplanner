@@ -15,7 +15,7 @@ namespace MixPlanner.Specs
                                     new TwoSemitoneEnergyBoost(bpmRangeChecker),
                                     new SameKey(bpmRangeChecker),
                                     new OneSemitoneEnergyBoost(bpmRangeChecker),
-                                    new IncrementOne(bpmRangeChecker),
+                                    new AdvanceOne(bpmRangeChecker),
                                     new SwitchToMajorScale(bpmRangeChecker),
                                     new SwitchToMinorScale(bpmRangeChecker)
                                 };
@@ -25,7 +25,7 @@ namespace MixPlanner.Specs
                                     new TwoSemitoneEnergyBoost(bpmRangeChecker),
                                     new SameKey(bpmRangeChecker),
                                     new OneSemitoneEnergyBoost(bpmRangeChecker),
-                                    new IncrementOne(bpmRangeChecker),
+                                    new AdvanceOne(bpmRangeChecker),
                                     new SwitchToMajorScale(bpmRangeChecker),
                                     new SwitchToMinorScale(bpmRangeChecker),
                                     new ManualOutOfKeyMix(bpmRangeChecker),

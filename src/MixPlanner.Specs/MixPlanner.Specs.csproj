@@ -133,7 +133,7 @@
     <Compile Include="DomainModel\HarmonicKeySpecs.cs" />
     <Compile Include="DomainModel\MixingStrategies\ManualIncompatibleBpmsMixSpecs.cs" />
     <Compile Include="DomainModel\MixingStrategies\SwitchToMajorScaleSpecs.cs" />
-    <Compile Include="DomainModel\MixingStrategies\IncrementOneSpecs.cs" />
+    <Compile Include="DomainModel\MixingStrategies\AdvanceOneSpecs.cs" />
     <Compile Include="DomainModel\MixingStrategies\ManualOutOfKeyKeyMixSpecs.cs" />
     <Compile Include="DomainModel\MixingStrategies\OneSemitoneEnergyBoostSpecs.cs" />
     <Compile Include="DomainModel\MixingStrategies\SameKeySpecs.cs" />

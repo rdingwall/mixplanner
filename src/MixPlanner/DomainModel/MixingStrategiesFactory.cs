@@ -29,7 +29,7 @@ namespace MixPlanner.DomainModel
                            container.Resolve<TwoSemitoneEnergyBoost>(),
                            container.Resolve<SameKey>(),
                            container.Resolve<OneSemitoneEnergyBoost>(),
-                           container.Resolve<IncrementOne>(),
+                           container.Resolve<AdvanceOne>(),
                            container.Resolve<SwitchToMajorScale>(),
                            container.Resolve<SwitchToMinorScale>()
                        };
@@ -42,7 +42,7 @@ namespace MixPlanner.DomainModel
                            container.Resolve<TwoSemitoneEnergyBoost>(),
                            container.Resolve<SameKey>(),
                            container.Resolve<OneSemitoneEnergyBoost>(),
-                           container.Resolve<IncrementOne>(),
+                           container.Resolve<AdvanceOne>(),
                            container.Resolve<SwitchToMajorScale>(),
                            container.Resolve<SwitchToMinorScale>(),
                            container.Resolve<ManualOutOfKeyMix>(),

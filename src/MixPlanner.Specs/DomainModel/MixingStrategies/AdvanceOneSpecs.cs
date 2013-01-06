@@ -6,8 +6,8 @@ using MixPlanner.DomainModel.MixingStrategies;
 
 namespace MixPlanner.Specs.DomainModel.MixingStrategies
 {
-    [Subject(typeof(IncrementOne))]
-    public class IncrementOneSpecs
+    [Subject(typeof(AdvanceOne))]
+    public class AdvanceOneSpecs
     {
         public class when_deciding_which_track_to_play_next
         {
@@ -15,7 +15,7 @@ namespace MixPlanner.Specs.DomainModel.MixingStrategies
                 () =>
                     {
                         current = new PlaybackSpeed(HarmonicKey.Key9A, 128);
-                        strategy = new IncrementOne(new AlwaysInRangeBpmChecker());
+                        strategy = new AdvanceOne(new AlwaysInRangeBpmChecker());
                         unplayed = new[]
                                        {
                                            new PlaybackSpeed(HarmonicKey.Key10A, 128),
