@@ -181,11 +181,11 @@
     <Compile Include="DomainModel\Scale.cs" />
     <Compile Include="DomainModel\MixingStrategiesFactory.cs" />
     <Compile Include="DomainModel\PlaybackSpeed.cs" />
-    <Compile Include="DomainModel\StrictTransitionDetector.cs" />
+    <Compile Include="DomainModel\RecommendedTransitionDetector.cs" />
     <Compile Include="DomainModel\Track.cs" />
     <Compile Include="DomainModel\TrackLibrary.cs" />
     <Compile Include="DomainModel\Transition.cs" />
-    <Compile Include="DomainModel\RelaxedTransitionDetector.cs" />
+    <Compile Include="DomainModel\ActualTransitionDetector.cs" />
     <Compile Include="DomainModel\UnknownKey.cs" />
     <Compile Include="Events\BeganLoadingTracksEvent.cs" />
     <Compile Include="Events\ConfigSavedEvent.cs" />

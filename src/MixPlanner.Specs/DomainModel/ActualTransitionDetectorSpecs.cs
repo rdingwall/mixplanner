@@ -4,15 +4,15 @@ using MixPlanner.DomainModel.MixingStrategies;
 
 namespace MixPlanner.Specs.DomainModel
 {
-    [Subject(typeof(RelaxedTransitionDetector))]
-    public class TransitionTypeDetectorSpecs
+    [Subject(typeof(ActualTransitionDetector))]
+    public class ActualTransitionDetectorSpecs
     {
          public class When_detecting_the_type_of_transition_between_two_tracks
          {
              Establish context =
                  () =>
                      {
-                         detector = new RelaxedTransitionDetector(TestMixingStrategies.AllStrategies);
+                         detector = new ActualTransitionDetector(TestMixingStrategies.AllStrategies);
                      };
 
              Because of =
@@ -27,7 +27,7 @@ namespace MixPlanner.Specs.DomainModel
 
              It should_return_the_second_key = () => transition.ToKey.ShouldEqual(HarmonicKey.Key2A);
 
-             static RelaxedTransitionDetector detector;
+             static ActualTransitionDetector detector;
              static Transition transition;
          }
 
@@ -36,7 +36,7 @@ namespace MixPlanner.Specs.DomainModel
              Establish context =
                  () =>
                  {
-                     detector = new RelaxedTransitionDetector(TestMixingStrategies.AllStrategies);
+                     detector = new ActualTransitionDetector(TestMixingStrategies.AllStrategies);
                  };
 
              Because of =
@@ -53,7 +53,7 @@ namespace MixPlanner.Specs.DomainModel
              It should_return_the_second_key = 
                  () => transition.ToKey.ShouldEqual(HarmonicKey.Key2A);
 
-             static RelaxedTransitionDetector detector;
+             static ActualTransitionDetector detector;
              static Transition transition;
          }
 
@@ -62,7 +62,7 @@ namespace MixPlanner.Specs.DomainModel
              Establish context =
                  () =>
                  {
-                     detector = new RelaxedTransitionDetector(TestMixingStrategies.AllStrategies);
+                     detector = new ActualTransitionDetector(TestMixingStrategies.AllStrategies);
                  };
 
              Because of =
@@ -79,7 +79,7 @@ namespace MixPlanner.Specs.DomainModel
              It should_return_the_second_key =
                  () => transition.ToKey.ShouldBeNull();
 
-             static RelaxedTransitionDetector detector;
+             static ActualTransitionDetector detector;
              static Transition transition;
          }
     }

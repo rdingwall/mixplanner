@@ -16,13 +16,13 @@ namespace MixPlanner.DomainModel
         readonly ITrackLoader loader;
         readonly IDispatcherMessenger messenger;
         readonly ILibraryStorage storage;
-        readonly IStrictTransitionDetector transitionDetector;
+        readonly IRecommendedTransitionDetector transitionDetector;
 
         public TrackLibrary(
             ITrackLoader loader, 
             IDispatcherMessenger messenger, 
             ILibraryStorage storage,
-            IStrictTransitionDetector transitionDetector)
+            IRecommendedTransitionDetector transitionDetector)
         {
             if (loader == null) throw new ArgumentNullException("loader");
             if (messenger == null) throw new ArgumentNullException("messenger");

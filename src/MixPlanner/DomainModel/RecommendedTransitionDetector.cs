@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace MixPlanner.DomainModel
 {
-    public interface IStrictTransitionDetector
+    public interface IRecommendedTransitionDetector
     {
         Transition GetTransitionBetween(PlaybackSpeed first, PlaybackSpeed second);
     }
@@ -13,11 +13,11 @@ namespace MixPlanner.DomainModel
     /// Will only detect a transition between two tracks if they can be mixed
     /// using a preferred strategy (with compatible keys and BPMs).
     /// </summary>
-    public class StrictTransitionDetector : IStrictTransitionDetector
+    public class RecommendedTransitionDetector : IRecommendedTransitionDetector
     {
         readonly IEnumerable<IMixingStrategy> preferredStrategies;
 
-        public StrictTransitionDetector(
+        public RecommendedTransitionDetector(
             IEnumerable<IMixingStrategy> preferredStrategies)
         {
             if (preferredStrategies == null) throw new ArgumentNullException("preferredStrategies");

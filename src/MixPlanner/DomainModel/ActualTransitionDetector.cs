@@ -4,20 +4,20 @@ using System.Linq;
 
 namespace MixPlanner.DomainModel
 {
-    public interface IRelaxedTransitionDetector
+    public interface IActualTransitionDetector
     {
         Transition GetTransitionBetween(PlaybackSpeed first, PlaybackSpeed second);
     }
 
     /// <summary>
-    /// Will detect a transition between any two tracks, regardless if they are
+    /// Will detect the transition between any two tracks, regardless if they are
     /// compatible or not.
     /// </summary>
-    public class RelaxedTransitionDetector : IRelaxedTransitionDetector
+    public class ActualTransitionDetector : IActualTransitionDetector
     {
         readonly IEnumerable<IMixingStrategy> strategies;
 
-        public RelaxedTransitionDetector(
+        public ActualTransitionDetector(
             IEnumerable<IMixingStrategy> strategies)
         {
             if (strategies == null) throw new ArgumentNullException("strategies");

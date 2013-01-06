@@ -46,9 +46,9 @@ namespace MixPlanner
                 Component.For<IHarmonicKeyConverterFactory>().ImplementedBy<HarmonicKeyConverterFactory>(),
                 Component.For<IMixingStrategiesFactory>().ImplementedBy<MixingStrategiesFactory>(),
                 Component.For<IMixItemViewModelFactory>().ImplementedBy<MixItemViewModelFactory>(),
-                Component.For<IRelaxedTransitionDetector>().ImplementedBy<RelaxedTransitionDetector>()
+                Component.For<IActualTransitionDetector>().ImplementedBy<ActualTransitionDetector>()
                          .DependsOn(Property.ForKey("strategies").Is(allStrategies)),
-                Component.For<IStrictTransitionDetector>().ImplementedBy<StrictTransitionDetector>()
+                Component.For<IRecommendedTransitionDetector>().ImplementedBy<RecommendedTransitionDetector>()
                          .DependsOn(Property.ForKey("preferredstrategies").Is(preferredStrategies)),
                 Component.For<IMix>().ImplementedBy<Mix>(),
                 AllTypes.FromThisAssembly().InSameNamespaceAs<MainWindowViewModel>()
