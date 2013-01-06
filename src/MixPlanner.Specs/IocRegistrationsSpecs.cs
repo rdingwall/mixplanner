@@ -61,12 +61,6 @@ namespace MixPlanner.Specs
                 Assert.That(strategies, Is.Not.Empty);
             }
 
-            [Test]
-            public void It_should_be_able_to_resolve_all_tag_cleanups()
-            {
-                Assert.That(container.ResolveAll<IId3TagCleanup>(), Is.Not.Empty);
-            }
-
             static IEnumerable<Type> GetCommandTypes()
             {
                 return typeof (AddTrackToMixCommand)

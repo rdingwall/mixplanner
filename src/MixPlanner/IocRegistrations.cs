@@ -29,8 +29,8 @@ namespace MixPlanner
             container.Register(
                 Component.For<IWindsorContainer>().Instance(container),
                 Component.For<ITrackLibrary>().ImplementedBy<TrackLibrary>(),
-                Component.For<ITrackLoader>().ImplementedBy<TrackLoader>()
-                         .DependsOn(Property.ForKey("cleanups")),
+                Component.For<ITrackLoader>().ImplementedBy<TrackLoader>(),
+                Component.For<IId3TagCleanupFactory>().ImplementedBy<Id3TagCleanupFactory>(),
                 Component.For<ILibraryStorage>().ImplementedBy<InMemoryLibraryStorage>(),
                 Component.For<IConfigurationStorage>().ImplementedBy<InMemoryConfigurationStorage>(),
                 Component.For<IConfigurationProvider>().ImplementedBy<ConfigurationProvider>(),
@@ -50,7 +50,6 @@ namespace MixPlanner
                 AllTypes.FromThisAssembly().InSameNamespaceAs<MainWindowViewModel>()
                     .ConfigureFor<SettingsWindowViewModel>(c => c.LifestyleTransient()),
                 AllTypes.FromThisAssembly().BasedOn<Window>().LifestyleTransient(),
-                AllTypes.FromThisAssembly().BasedOn<IId3TagCleanup>().WithServiceBase(),
                 AllTypes.FromThisAssembly().BasedOn<ICommand>(),
                 AllTypes.FromThisAssembly().BasedOn<IValueConverter>().WithServiceSelf(),
                 AllTypes.FromThisAssembly().BasedOn<IMixingStrategy>().WithServiceSelf(),

@@ -4,6 +4,7 @@ using Machine.Specifications;
 using MixPlanner.DomainModel;
 using MixPlanner.ImportExport;
 using MixPlanner.Mp3;
+using Rhino.Mocks;
 
 namespace MixPlanner.Specs.ImportExport
 {
@@ -14,9 +15,14 @@ namespace MixPlanner.Specs.ImportExport
          {
              Establish context = () =>
                                      {
+                                         var cleanupFactory = MockRepository
+                                             .GenerateMock<IId3TagCleanupFactory>();
+                                         cleanupFactory.Stub(f => f.GetCleanups())
+                                                       .Return(new IId3TagCleanup[0]);
+
                                          filename = "DummyPlaylist.m3u";
-                                         reader = new M3uReader(new TrackLoader(new Id3Reader(), 
-                                             new IId3TagCleanup[0]));
+                                         reader = new M3uReader(new TrackLoader(new Id3Reader(),
+                                             cleanupFactory));
                                      };
 
              Because of = () => tracks = reader.Read(filename);

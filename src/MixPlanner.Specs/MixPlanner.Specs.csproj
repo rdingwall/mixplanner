@@ -149,6 +149,7 @@
     <Compile Include="ImportExport\M3uWriterSpecs.cs" />
     <Compile Include="IocRegistrationsSpecs.cs" />
     <Compile Include="Mp3\Id3ReaderSpecs.cs" />
+    <Compile Include="Mp3\Id3TagCleanupFactorySpecs.cs" />
     <Compile Include="Mp3\MixedInKeyPrefixCleanupSpecs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestMixes.cs" />

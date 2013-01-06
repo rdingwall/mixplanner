@@ -208,6 +208,7 @@
     <Compile Include="Mp3\DirectoryScanner.cs" />
     <Compile Include="Mp3\Id3Reader.cs" />
     <Compile Include="Mp3\Id3Tag.cs" />
+    <Compile Include="Mp3\Id3TagCleanupFactory.cs" />
     <Compile Include="Mp3\IId3TagCleanup.cs" />
     <Compile Include="Mp3\MixedInKeyTagCleanup.cs" />
     <Compile Include="Mp3\TrackLoader.cs" />

@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using MixPlanner.DomainModel;
-using MoreLinq;
 
 namespace MixPlanner.Mp3
 {
@@ -16,14 +14,14 @@ namespace MixPlanner.Mp3
     public class TrackLoader : ITrackLoader
     {
         readonly IId3Reader id3Reader;
-        readonly IEnumerable<IId3TagCleanup> cleanups;
+        readonly IId3TagCleanupFactory cleanupFactory;
 
-        public TrackLoader(IId3Reader id3Reader, IId3TagCleanup[] cleanups)
+        public TrackLoader(IId3Reader id3Reader, IId3TagCleanupFactory cleanupFactory)
         {
             if (id3Reader == null) throw new ArgumentNullException("id3Reader");
-            if (cleanups == null) throw new ArgumentNullException("cleanups");
+            if (cleanupFactory == null) throw new ArgumentNullException("cleanupFactory");
             this.id3Reader = id3Reader;
-            this.cleanups = cleanups;
+            this.cleanupFactory = cleanupFactory;
         }
 
         public async Task<Track> LoadAsync(string filename)
@@ -44,7 +42,7 @@ namespace MixPlanner.Mp3
 
         Track LoadTrackFromId3Tag(string filename, Id3Tag id3Tag)
         {
-            foreach (var cleanup in cleanups)
+            foreach (var cleanup in cleanupFactory.GetCleanups())
                 cleanup.Clean(id3Tag);
 
             HarmonicKey key;
