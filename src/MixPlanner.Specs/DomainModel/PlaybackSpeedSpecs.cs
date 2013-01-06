@@ -108,5 +108,59 @@ namespace MixPlanner.Specs.DomainModel
                 () => TestTracks.PlaybackSpeed(128).IsWithinBpmRange(TestTracks.PlaybackSpeed(120))
                                 .ShouldBeFalse();
         }
+
+        public class When_adjusting_the_playback_speed_to_match_a_faster_track
+        {
+            Establish context =
+                () =>
+                    {
+                        speed = TestTracks.PlaybackSpeed(128);
+                        otherSpeed = TestTracks.PlaybackSpeed(134);
+                    };
+
+
+            Because of = () => speed.AdjustToMatchSameSpeed(otherSpeed);
+
+            It should_adjust_the_speed = () => speed.ActualBpm.ShouldBeCloseTo(134, 2);
+
+            static PlaybackSpeed speed;
+            static PlaybackSpeed otherSpeed;
+        }
+
+        public class When_adjusting_the_playback_speed_to_match_a_slower_track
+        {
+            Establish context =
+                () =>
+                {
+                    speed = TestTracks.PlaybackSpeed(134);
+                    otherSpeed = TestTracks.PlaybackSpeed(128);
+                };
+
+
+            Because of = () => speed.AdjustToMatchSameSpeed(otherSpeed);
+
+            It should_adjust_the_speed = () => speed.ActualBpm.ShouldBeCloseTo(128, 2);
+
+            static PlaybackSpeed speed;
+            static PlaybackSpeed otherSpeed;
+        }
+
+        public class When_adjusting_the_playback_speed_to_match_the_same_speed_track
+        {
+            Establish context =
+                () =>
+                {
+                    speed = TestTracks.PlaybackSpeed(128);
+                    otherSpeed = TestTracks.PlaybackSpeed(128);
+                };
+
+
+            Because of = () => speed.AdjustToMatchSameSpeed(otherSpeed);
+
+            It should_keep_the_same_speed = () => speed.ActualBpm.ShouldBeCloseTo(128, 0.001);
+
+            static PlaybackSpeed speed;
+            static PlaybackSpeed otherSpeed;
+        }
     }
 }

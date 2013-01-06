@@ -85,7 +85,8 @@ namespace MixPlanner.ViewModels
 
             LibraryColumns = new ObservableCollection<GridViewColumn>
                           {
-                              new GridViewColumn { Header = "TransitionDescription", DisplayMemberBinding = new Binding("TransitionDescription"), Width= 150},
+                              new GridViewColumn { Header = "Transition", DisplayMemberBinding = new Binding("Transition") { Converter = new TransitionDescriptionConverter() }, Width= 150},
+                              new GridViewColumn { Header = "IncreaseRequired", DisplayMemberBinding = new Binding("IncreaseRequired") { Converter = new PlaySpeedIncreaseConverter() }, Width= 100},
                               new GridViewColumn { Header = "Bpm", DisplayMemberBinding = new Binding("Bpm"), Width= 100},
                               new GridViewColumn { Header = "Key", DisplayMemberBinding = new Binding("Key") { Converter = new HarmonicKeyCoverter() }, Width= 100},
                               new GridViewColumn { Header = "Artist", DisplayMemberBinding = new Binding("Artist"), Width= 100},

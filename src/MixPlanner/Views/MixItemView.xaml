@@ -24,7 +24,8 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <StackPanel Grid.ColumnSpan="4" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top">
-            <Label x:Name="Transition" Content="{Binding Transition}" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
+            <Label x:Name="Transition"
+                   Content="{Binding Transition, Converter={StaticResource TransitionDescriptionConverter}}" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
         </StackPanel>
         <DockPanel Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Top">
         	<Label x:Name="ActualKey" Content="{Binding ActualKey, Converter={StaticResource HarmonicKeyCoverter}}" HorizontalAlignment="Center" FontSize="24" DockPanel.Dock="Top"/>

@@ -29,9 +29,6 @@ namespace MixPlanner.Specs.DomainModel
             It should_notify_the_index_the_track_was_inserted_at =
                 () => ev.InsertIndex.ShouldEqual(0);
 
-            It should_notify_the_previous_transition =
-                () => ev.Item.Transition.Description.ShouldContain("Intro");
-
             static TrackAddedToMixEvent ev;
             static Track track;
             static Mix mix;

@@ -18,6 +18,7 @@
             <converters:PlayPauseCommandLabelConverter x:Key="PlayPauseCommandLabelConverter" />
             <converters:EnumToBoolConverter x:Key="EnumToBoolConverter" />
             <converters:HarmonicKeyCoverter x:Key="HarmonicKeyCoverter" />
+            <converters:TransitionDescriptionConverter x:Key="TransitionDescriptionConverter" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

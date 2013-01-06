@@ -126,8 +126,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AlwaysInRangeBpmChecker.cs" />
+    <Compile Include="Converters\PlaySpeedIncreaseConverterSpecs.cs" />
     <Compile Include="Converters\TraditionalSymbolsHarmonicKeyConverterSpecs.cs" />
     <Compile Include="Converters\PlaySpeedStringConverterSpecs.cs" />
+    <Compile Include="Converters\TransitionDescriptionConverterSpecs.cs" />
     <Compile Include="DomainModel\HarmonicKeySpecs.cs" />
     <Compile Include="DomainModel\MixingStrategies\ManualIncompatibleBpmsMixSpecs.cs" />
     <Compile Include="DomainModel\MixingStrategies\SwitchToMajorScaleSpecs.cs" />
@@ -145,6 +147,7 @@
     </Content>
     <Compile Include="DomainModel\TransitionTypeDetectorSpecs.cs" />
     <Compile Include="AssemblyContext.cs" />
+    <Compile Include="Extensions\DoubleExtensionsSpecs.cs" />
     <Compile Include="ImportExport\M3uReaderSpecs.cs" />
     <Compile Include="ImportExport\M3uWriterSpecs.cs" />
     <Compile Include="IocRegistrationsSpecs.cs" />

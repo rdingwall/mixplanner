@@ -53,9 +53,6 @@ namespace MixPlanner.Specs.DomainModel
              It should_return_the_second_key = 
                  () => transition.ToKey.ShouldEqual(HarmonicKey.Key2A);
 
-             It should_set_the_description =
-                 () => transition.Description.ShouldContain("Intro");
-
              static RelaxedTransitionDetector detector;
              static Transition transition;
          }
@@ -81,9 +78,6 @@ namespace MixPlanner.Specs.DomainModel
 
              It should_return_the_second_key =
                  () => transition.ToKey.ShouldBeNull();
-
-             It should_set_the_description =
-                 () => transition.Description.ShouldContain("Outro");
 
              static RelaxedTransitionDetector detector;
              static Transition transition;

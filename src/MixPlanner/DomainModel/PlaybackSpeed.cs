@@ -2,18 +2,24 @@
 
 namespace MixPlanner.DomainModel
 {
-    public class PlaybackSpeed : IEquatable<PlaybackSpeed>
+    public class PlaybackSpeed : IEquatable<PlaybackSpeed>, ICloneable
     {
         public const double DefaultSpeed = 1;
 
-        public PlaybackSpeed(HarmonicKey originalKey, double originalBpm)
+        // The harmonic key changes with every +/-3% pitch change.
+        public const double HarmonicKeyChangeInterval = 0.03;
+
+        public PlaybackSpeed(
+            HarmonicKey originalKey, 
+            double originalBpm, 
+            double speed = DefaultSpeed)
         {
             if (originalKey == null) throw new ArgumentNullException("originalKey");
             this.originalBpm = originalBpm;
             this.originalKey = originalKey;
             ActualBpm = originalBpm;
             ActualKey = originalKey;
-            Speed = DefaultSpeed;
+            SetSpeed(speed);
         }
 
         public void SetSpeed(double speed)
@@ -42,13 +48,30 @@ namespace MixPlanner.DomainModel
             return originalBpm * speed;
         }
 
+        public void AdjustToMatchSameSpeed(PlaybackSpeed other)
+        {
+            if (other == null) throw new ArgumentNullException("other");
+
+            var increaseRequired = GetExactIncreaseRequiredToMatch(other);
+
+            var increaseRounded = increaseRequired.RoundToNearest(HarmonicKeyChangeInterval);
+
+            Increase(increaseRounded);
+        }
+
         public bool IsWithinBpmRange(PlaybackSpeed other)
         {
             if (other == null) throw new ArgumentNullException("other");
 
+            var increaseRequired = GetExactIncreaseRequiredToMatch(other);
+            return Math.Abs(increaseRequired) < HarmonicKeyChangeInterval;
+        }
+
+        public double GetExactIncreaseRequiredToMatch(PlaybackSpeed other)
+        {
+            if (other == null) throw new ArgumentNullException("other");
             var difference = other.ActualBpm - ActualBpm;
-            var percentIncreaseRequired = difference / ActualBpm * 100;
-            return Math.Abs(percentIncreaseRequired) < 3;
+            return difference / ActualBpm;
         }
 
         readonly double originalBpm;
@@ -94,6 +117,16 @@ namespace MixPlanner.DomainModel
                 hashCode = (hashCode * 397) ^ (originalKey != null ? originalKey.GetHashCode() : 0);
                 return hashCode;
             }
+        }
+
+        public object Clone()
+        {
+            return new PlaybackSpeed(originalKey, originalBpm, Speed);
+        }
+
+        public void Increase(double amount)
+        {
+            SetSpeed(1 + amount);
         }
     }
 }

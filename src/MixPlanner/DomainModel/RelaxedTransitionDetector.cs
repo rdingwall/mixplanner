@@ -37,14 +37,8 @@ namespace MixPlanner.DomainModel
             if (first != null && second != null)
             {
                 var strategy = strategies.First(s => s.IsCompatible(first, second));
-
                 transition.Strategy = strategy;
-                transition.Description = ">>> " + strategy.Description;
             }
-            else if (first == null)
-                transition.Description = ">>> Intro";
-            else
-                transition.Description = ">>> Outro";
 
             return transition;
         }

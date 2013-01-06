@@ -29,6 +29,17 @@ namespace MixPlanner.DomainModel
             if (first == null) throw new ArgumentNullException("first");
             if (second == null) throw new ArgumentNullException("second");
 
+            double increaseRequired = 0;
+            if (!second.IsWithinBpmRange(first))
+            {
+                increaseRequired = second.GetExactIncreaseRequiredToMatch(first).RoundToNearest(0.03);
+                if (Math.Abs(increaseRequired) <= 0.0301)
+                {
+                    second = (PlaybackSpeed) second.Clone();
+                    second.Increase(increaseRequired);
+                }
+            }
+
             var strategy = preferredStrategies.FirstOrDefault(s => s.IsCompatible(first, second));
             if (strategy == null)
                 return null;
@@ -38,7 +49,7 @@ namespace MixPlanner.DomainModel
                            FromKey = first.ActualKey,
                            ToKey = second.ActualKey,
                            Strategy = strategy,
-                           Description = ">>> " + strategy.Description
+                           IncreaseRequired = increaseRequired
                        };
         }
     }

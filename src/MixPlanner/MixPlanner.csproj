@@ -148,6 +148,7 @@
     <Compile Include="Controls\UIHelpers.cs" />
     <Compile Include="Converters\HarmonicKeyConverterFactory.cs" />
     <Compile Include="Converters\HarmonicKeyCoverter.cs" />
+    <Compile Include="Converters\PlaySpeedIncreaseConverter.cs" />
     <Compile Include="Converters\TraditionalSymbolsHarmonicKeyConverter.cs" />
     <Compile Include="Converters\EnumToBoolConverter.cs" />
     <Compile Include="Converters\CamelotHarmonicKeyCoverter.cs" />
@@ -155,6 +156,7 @@
     <Compile Include="Converters\PlayPauseCommandLabelConverter.cs" />
     <Compile Include="Converters\PlaySpeedStringConverter.cs" />
     <Compile Include="Converters\TraditionalTextHarmonicKeyConverter.cs" />
+    <Compile Include="Converters\TransitionDescriptionConverter.cs" />
     <Compile Include="DomainModel\BpmRangeChecker.cs" />
     <Compile Include="Configuration\Config.cs" />
     <Compile Include="Configuration\ConfigProvider.cs" />
@@ -202,6 +204,7 @@
     <Compile Include="Events\TrackRemovedFromMixEvent.cs" />
     <Compile Include="Events\TransitionChangedEvent.cs" />
     <Compile Include="DispatcherMessenger.cs" />
+    <Compile Include="Extensions\DoubleExtensions.cs" />
     <Compile Include="ImportExport\IPlaylistWriter.cs" />
     <Compile Include="ImportExport\M3uReader.cs" />
     <Compile Include="ImportExport\M3uWriter.cs" />

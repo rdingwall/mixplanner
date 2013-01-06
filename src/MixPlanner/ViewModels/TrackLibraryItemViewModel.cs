@@ -41,9 +41,18 @@ namespace MixPlanner.ViewModels
             Transition = obj.Transition;
         }
 
-        public string TransitionDescription
+        public double? IncreaseRequired
         {
-            get { return Transition != null ? Transition.Description : null; }
+            get
+            {
+                if (Transition == null)
+                    return null;
+
+                if (Transition.IncreaseRequired == 0)
+                    return null;
+
+                return Transition.IncreaseRequired;
+            }
         }
 
         public Transition Transition
@@ -53,7 +62,7 @@ namespace MixPlanner.ViewModels
             {
                 transition = value;
                 RaisePropertyChanged(() => Transition);
-                RaisePropertyChanged(() => TransitionDescription);
+                RaisePropertyChanged(() => IncreaseRequired);
                 RaisePropertyChanged(() => IsCompatible);
             }
         }
