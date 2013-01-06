@@ -39,6 +39,7 @@ namespace MixPlanner.DomainModel
             if (mixItem == null) throw new ArgumentNullException("mixItem");
 
             return storage.Tracks
+                          .Except(new[] {mixItem.Track}) // don't recommend itself!
                           .Select(t => Tuple.Create(t, GetTransition(mixItem, t)))
                           .Where(t => t.Item2 != null);
         }
