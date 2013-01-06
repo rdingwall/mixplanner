@@ -21,8 +21,8 @@ namespace MixPlanner.Specs.DomainModel
              Establish context =
                  () =>
                      {
-                         First = TestTracks.PlaybackSpeed(128);
-                         Second = TestTracks.PlaybackSpeed(129);
+                         First = TestPlaybackSpeeds.PlaybackSpeed(128);
+                         Second = TestPlaybackSpeeds.PlaybackSpeed(129);
                      };
 
              It should_not_suggest_any_change = () => Increase.ShouldBeCloseTo(0, 0.001);
@@ -33,8 +33,8 @@ namespace MixPlanner.Specs.DomainModel
              Establish context =
                  () =>
                  {
-                     First = TestTracks.PlaybackSpeed(133);
-                     Second = TestTracks.PlaybackSpeed(128);
+                     First = TestPlaybackSpeeds.PlaybackSpeed(133);
+                     Second = TestPlaybackSpeeds.PlaybackSpeed(128);
                  };
 
              It should_recommend_increasing_by_3_percent = () => Increase.ShouldBeCloseTo(0.03, 0.001);
@@ -45,8 +45,8 @@ namespace MixPlanner.Specs.DomainModel
              Establish context =
                  () =>
                  {
-                     First = TestTracks.PlaybackSpeed(136);
-                     Second = TestTracks.PlaybackSpeed(128);
+                     First = TestPlaybackSpeeds.PlaybackSpeed(136);
+                     Second = TestPlaybackSpeeds.PlaybackSpeed(128);
                  };
 
              It should_recommend_increasing_by_6_percent = () => Increase.ShouldBeCloseTo(0.06, 0.001);
@@ -57,8 +57,8 @@ namespace MixPlanner.Specs.DomainModel
              Establish context =
                  () =>
                  {
-                     First = TestTracks.PlaybackSpeed(200);
-                     Second = TestTracks.PlaybackSpeed(128);
+                     First = TestPlaybackSpeeds.PlaybackSpeed(200);
+                     Second = TestPlaybackSpeeds.PlaybackSpeed(128);
                  };
 
              It should_not_recommend_any_increase = () => Increase.ShouldBeCloseTo(0, 0.001);
@@ -69,8 +69,8 @@ namespace MixPlanner.Specs.DomainModel
              Establish context =
                  () =>
                  {
-                     Second = TestTracks.PlaybackSpeed(129);
-                     First = TestTracks.PlaybackSpeed(128);
+                     Second = TestPlaybackSpeeds.PlaybackSpeed(129);
+                     First = TestPlaybackSpeeds.PlaybackSpeed(128);
                  };
 
              It should_not_suggest_any_change = () => Increase.ShouldBeCloseTo(0, 0.001);
@@ -81,8 +81,8 @@ namespace MixPlanner.Specs.DomainModel
              Establish context =
                  () =>
                  {
-                     First = TestTracks.PlaybackSpeed(128);
-                     Second = TestTracks.PlaybackSpeed(133);
+                     First = TestPlaybackSpeeds.PlaybackSpeed(128);
+                     Second = TestPlaybackSpeeds.PlaybackSpeed(133);
                  };
 
              It should_recommend_decreasing_by_3_percent = () => Increase.ShouldBeCloseTo(-0.03, 0.001);
@@ -93,8 +93,8 @@ namespace MixPlanner.Specs.DomainModel
              Establish context =
                  () =>
                  {
-                     First = TestTracks.PlaybackSpeed(128);
-                     Second = TestTracks.PlaybackSpeed(136);
+                     First = TestPlaybackSpeeds.PlaybackSpeed(128);
+                     Second = TestPlaybackSpeeds.PlaybackSpeed(136);
                  };
 
              It should_recommend_decreasing_by_6_percent = () => Increase.ShouldBeCloseTo(-0.06, 0.001);
@@ -105,8 +105,8 @@ namespace MixPlanner.Specs.DomainModel
              Establish context =
                  () =>
                  {
-                     First = TestTracks.PlaybackSpeed(128);
-                     Second = TestTracks.PlaybackSpeed(200);
+                     First = TestPlaybackSpeeds.PlaybackSpeed(128);
+                     Second = TestPlaybackSpeeds.PlaybackSpeed(200);
                  };
 
              It should_not_recommend_any_decrease = () => Increase.ShouldBeCloseTo(0, 0.001);

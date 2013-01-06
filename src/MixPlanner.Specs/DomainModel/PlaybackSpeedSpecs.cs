@@ -84,83 +84,29 @@ namespace MixPlanner.Specs.DomainModel
         public class When_comparing_to_see_if_the_playback_speed_is_within_range_under_plus_3
         {
             It should_be_within_range =
-                () => TestTracks.PlaybackSpeed(128).IsWithinBpmRange(TestTracks.PlaybackSpeed(131))
+                () => TestPlaybackSpeeds.PlaybackSpeed(128).IsWithinBpmRange(TestPlaybackSpeeds.PlaybackSpeed(131))
                                 .ShouldBeTrue();
         }
 
         public class When_comparing_to_see_if_the_playback_speed_is_within_range_over_plus_3
         {
             It should_not_be_within_range =
-                () => TestTracks.PlaybackSpeed(128).IsWithinBpmRange(TestTracks.PlaybackSpeed(133))
+                () => TestPlaybackSpeeds.PlaybackSpeed(128).IsWithinBpmRange(TestPlaybackSpeeds.PlaybackSpeed(133))
                                 .ShouldBeFalse();
         }
 
         public class When_comparing_to_see_if_the_playback_speed_is_within_range_over_minus_3
         {
             It should_be_within_range =
-                () => TestTracks.PlaybackSpeed(128).IsWithinBpmRange(TestTracks.PlaybackSpeed(125))
+                () => TestPlaybackSpeeds.PlaybackSpeed(128).IsWithinBpmRange(TestPlaybackSpeeds.PlaybackSpeed(125))
                                 .ShouldBeTrue();
         }
 
         public class When_comparing_to_see_if_the_playback_speed_is_within_range_under_minus_3
         {
             It should_not_be_within_range =
-                () => TestTracks.PlaybackSpeed(128).IsWithinBpmRange(TestTracks.PlaybackSpeed(120))
+                () => TestPlaybackSpeeds.PlaybackSpeed(128).IsWithinBpmRange(TestPlaybackSpeeds.PlaybackSpeed(120))
                                 .ShouldBeFalse();
-        }
-
-        public class When_adjusting_the_playback_speed_to_match_a_faster_track
-        {
-            Establish context =
-                () =>
-                    {
-                        speed = TestTracks.PlaybackSpeed(128);
-                        otherSpeed = TestTracks.PlaybackSpeed(134);
-                    };
-
-
-            Because of = () => speed.AdjustToMatchSameSpeed(otherSpeed);
-
-            It should_adjust_the_speed = () => speed.ActualBpm.ShouldBeCloseTo(134, 2);
-
-            static PlaybackSpeed speed;
-            static PlaybackSpeed otherSpeed;
-        }
-
-        public class When_adjusting_the_playback_speed_to_match_a_slower_track
-        {
-            Establish context =
-                () =>
-                {
-                    speed = TestTracks.PlaybackSpeed(134);
-                    otherSpeed = TestTracks.PlaybackSpeed(128);
-                };
-
-
-            Because of = () => speed.AdjustToMatchSameSpeed(otherSpeed);
-
-            It should_adjust_the_speed = () => speed.ActualBpm.ShouldBeCloseTo(128, 2);
-
-            static PlaybackSpeed speed;
-            static PlaybackSpeed otherSpeed;
-        }
-
-        public class When_adjusting_the_playback_speed_to_match_the_same_speed_track
-        {
-            Establish context =
-                () =>
-                {
-                    speed = TestTracks.PlaybackSpeed(128);
-                    otherSpeed = TestTracks.PlaybackSpeed(128);
-                };
-
-
-            Because of = () => speed.AdjustToMatchSameSpeed(otherSpeed);
-
-            It should_keep_the_same_speed = () => speed.ActualBpm.ShouldBeCloseTo(128, 0.001);
-
-            static PlaybackSpeed speed;
-            static PlaybackSpeed otherSpeed;
         }
     }
 }

@@ -3,6 +3,19 @@ using MixPlanner.DomainModel;
 
 namespace MixPlanner.Specs
 {
+    public static class TestPlaybackSpeeds
+    {
+        public static PlaybackSpeed PlaybackSpeed(double bpm)
+        {
+            return new PlaybackSpeed(HarmonicKey.Key6B, bpm);
+        }
+
+        public static PlaybackSpeed RandomPlaybackSpeed()
+        {
+            return new PlaybackSpeed(HarmonicKey.Key6B, TestTracks.GetRandomBpm());
+        }
+    }
+
     public static class TestTracks
     {
         static readonly Random Random = new Random();
@@ -33,11 +46,6 @@ namespace MixPlanner.Specs
             var factor = Random.NextDouble();
 
             return factor * (maxBpm - minBpm) + minBpm;
-        }
-
-        public static PlaybackSpeed PlaybackSpeed(double bpm)
-        {
-            return new PlaybackSpeed(HarmonicKey.Key6B, bpm);
         }
     }
 }

@@ -16,12 +16,16 @@ namespace MixPlanner.DomainModel
     public class RecommendedTransitionDetector : IRecommendedTransitionDetector
     {
         readonly IEnumerable<IMixingStrategy> preferredStrategies;
+        readonly IPlaybackSpeedAdjuster playbackSpeedAdjuster;
 
         public RecommendedTransitionDetector(
-            IEnumerable<IMixingStrategy> preferredStrategies)
+            IEnumerable<IMixingStrategy> preferredStrategies,
+            IPlaybackSpeedAdjuster playbackSpeedAdjuster)
         {
             if (preferredStrategies == null) throw new ArgumentNullException("preferredStrategies");
+            if (playbackSpeedAdjuster == null) throw new ArgumentNullException("playbackSpeedAdjuster");
             this.preferredStrategies = preferredStrategies;
+            this.playbackSpeedAdjuster = playbackSpeedAdjuster;
         }
 
         public Transition GetTransitionBetween(PlaybackSpeed first, PlaybackSpeed second)
@@ -29,22 +33,19 @@ namespace MixPlanner.DomainModel
             if (first == null) throw new ArgumentNullException("first");
             if (second == null) throw new ArgumentNullException("second");
 
-            double increaseRequired = 0;
-            if (!second.IsWithinBpmRange(first))
-            {
-                increaseRequired = second.GetExactIncreaseRequiredToMatch(first).RoundToNearest(0.03);
-                if (Math.Abs(increaseRequired) <= 0.0301)
-                {
-                    second = (PlaybackSpeed) second.Clone();
-                    second.Increase(increaseRequired);
-                }
-            }
+            // Adjust playback speed to match
+            var suggestedSpeedIncrease = playbackSpeedAdjuster.GetSuggestedIncrease(first, second);
+            var secondAdjusted = second.AsIncreasedBy(suggestedSpeedIncrease);
 
-            var strategy = preferredStrategies.FirstOrDefault(s => s.IsCompatible(first, second));
+            var strategy = preferredStrategies.FirstOrDefault(s => s.IsCompatible(first, secondAdjusted));
             if (strategy == null)
                 return null;
 
-            return new Transition(first.ActualKey, second.ActualKey, strategy, increaseRequired);
+            return new Transition(
+                first.ActualKey, 
+                secondAdjusted.ActualKey, 
+                strategy, 
+                suggestedSpeedIncrease);
         }
     }
 }

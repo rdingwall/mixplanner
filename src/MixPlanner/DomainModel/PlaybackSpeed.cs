@@ -4,7 +4,7 @@ namespace MixPlanner.DomainModel
 {
     public class PlaybackSpeed : IEquatable<PlaybackSpeed>, ICloneable
     {
-        public const double DefaultSpeed = 1;
+        private const double DefaultSpeed = 1;
 
         // The harmonic key changes with every +/-3% pitch change.
         public const double HarmonicKeyChangeInterval = 0.03;
@@ -46,17 +46,6 @@ namespace MixPlanner.DomainModel
         double CalculateActualBpm(double speed)
         {
             return originalBpm * speed;
-        }
-
-        public void AdjustToMatchSameSpeed(PlaybackSpeed other)
-        {
-            if (other == null) throw new ArgumentNullException("other");
-
-            var increaseRequired = GetExactIncreaseRequiredToMatch(other);
-
-            var increaseRounded = increaseRequired.RoundToNearest(HarmonicKeyChangeInterval);
-
-            Increase(increaseRounded);
         }
 
         public bool IsWithinBpmRange(PlaybackSpeed other)
@@ -126,7 +115,14 @@ namespace MixPlanner.DomainModel
 
         public void Increase(double amount)
         {
-            SetSpeed(1 + amount);
+            SetSpeed(DefaultSpeed + amount);
+        }
+
+        public PlaybackSpeed AsIncreasedBy(double amount)
+        {
+            var increased = (PlaybackSpeed) Clone();
+            increased.Increase(amount);
+            return increased;
         }
     }
 }
