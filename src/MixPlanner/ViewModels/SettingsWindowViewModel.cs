@@ -2,6 +2,7 @@
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using MixPlanner.Commands;
+using MixPlanner.Configuration;
 using MixPlanner.DomainModel;
 using MixPlanner.Events;
 
@@ -27,15 +28,15 @@ namespace MixPlanner.ViewModels
             SaveCommand = saveCommand;
             CancelCommand = cancelCommand;
 
-            messenger.Register<ConfigurationSavedEvent>(this, _ => Close = true);
+            messenger.Register<ConfigSavedEvent>(this, _ => Close = true);
         }
 
-        public void Initialize(Configuration configuration)
+        public void Initialize(Config config)
         {
-            if (configuration == null) throw new ArgumentNullException("configuration");
-            HarmonicKeyDisplayMode = configuration.HarmonicKeyDisplayMode;
-            RestrictBpmCompatibility = configuration.RestrictBpmCompatibility;
-            StripMixedInKeyPrefixes = configuration.StripMixedInKeyPrefixes;
+            if (config == null) throw new ArgumentNullException("config");
+            HarmonicKeyDisplayMode = config.HarmonicKeyDisplayMode;
+            RestrictBpmCompatibility = config.RestrictBpmCompatibility;
+            StripMixedInKeyPrefixes = config.StripMixedInKeyPrefixes;
         }
 
         public HarmonicKeyDisplayMode HarmonicKeyDisplayMode

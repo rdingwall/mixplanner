@@ -7,6 +7,7 @@ using Castle.MicroKernel.Resolvers.SpecializedResolvers;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
 using GalaSoft.MvvmLight.Messaging;
+using MixPlanner.Configuration;
 using MixPlanner.Converters;
 using MixPlanner.DomainModel;
 using MixPlanner.Mp3;
@@ -32,8 +33,8 @@ namespace MixPlanner
                 Component.For<ITrackLoader>().ImplementedBy<TrackLoader>(),
                 Component.For<IId3TagCleanupFactory>().ImplementedBy<Id3TagCleanupFactory>(),
                 Component.For<ILibraryStorage>().ImplementedBy<InMemoryLibraryStorage>(),
-                Component.For<IConfigurationStorage>().ImplementedBy<InMemoryConfigurationStorage>(),
-                Component.For<IConfigurationProvider>().ImplementedBy<ConfigurationProvider>(),
+                Component.For<IConfigStorage>().ImplementedBy<InMemoryConfigStorage>(),
+                Component.For<IConfigProvider>().ImplementedBy<ConfigProvider>(),
                 Component.For<IId3Reader>().ImplementedBy<Id3Reader>(),
                 Component.For<IMessenger>().ImplementedBy<Messenger>(),
                 Component.For<IDispatcherMessenger>().ImplementedBy<DispatcherMessenger>(),

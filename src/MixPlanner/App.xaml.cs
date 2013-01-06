@@ -4,6 +4,7 @@ using System.Windows.Threading;
 using Castle.Windsor;
 using GalaSoft.MvvmLight.Threading;
 using Microsoft.Practices.ServiceLocation;
+using MixPlanner.Configuration;
 using MixPlanner.DomainModel;
 using MixPlanner.Views;
 using log4net;
@@ -38,7 +39,7 @@ namespace MixPlanner
             container.Install(new IocRegistrations());
             ServiceLocator.SetLocatorProvider(() => new WindsorServiceLocator(container));
 
-            Task.Run(() => container.Resolve<IConfigurationProvider>().Initialize());
+            Task.Run(() => container.Resolve<IConfigProvider>().Initialize());
 
             container.Resolve<MainWindow>().ShowDialog();
         }

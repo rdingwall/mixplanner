@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using MixPlanner.Configuration;
 using MixPlanner.DomainModel;
 
 namespace MixPlanner.Mp3
@@ -11,9 +12,9 @@ namespace MixPlanner.Mp3
 
     public class Id3TagCleanupFactory : IId3TagCleanupFactory
     {
-        readonly IConfigurationProvider configProvider;
+        readonly IConfigProvider configProvider;
 
-        public Id3TagCleanupFactory(IConfigurationProvider configProvider)
+        public Id3TagCleanupFactory(IConfigProvider configProvider)
         {
             if (configProvider == null) throw new ArgumentNullException("configProvider");
             this.configProvider = configProvider;
@@ -21,7 +22,7 @@ namespace MixPlanner.Mp3
 
         public IEnumerable<IId3TagCleanup> GetCleanups()
         {
-            var config = configProvider.Configuration;
+            var config = configProvider.Config;
 
             if (!config.StripMixedInKeyPrefixes)
                 yield break;

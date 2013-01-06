@@ -1,14 +1,16 @@
-﻿namespace MixPlanner.DomainModel
+﻿using MixPlanner.DomainModel;
+
+namespace MixPlanner.Configuration
 {
-    public class Configuration
+    public class Config
     {
         public HarmonicKeyDisplayMode HarmonicKeyDisplayMode { get; set; }
         public bool RestrictBpmCompatibility { get; set; }
         public bool StripMixedInKeyPrefixes { get; set; }
 
 
-        public static readonly Configuration DefaultConfiguration = 
-            new Configuration
+        public static readonly Config DefaultConfig = 
+            new Config
                 {
                     HarmonicKeyDisplayMode = HarmonicKeyDisplayMode.Camelot,
                     RestrictBpmCompatibility = true,

@@ -9,27 +9,27 @@ namespace MixPlanner.Commands
 {
     public class OpenSettingsCommand : AsyncCommandBase
     {
-        readonly IConfigurationStorage configurationStorage;
+        readonly IConfigStorage configStorage;
         readonly IWindsorContainer container;
 
         public OpenSettingsCommand(
-            IConfigurationStorage configurationStorage,
+            IConfigStorage configStorage,
             IWindsorContainer container)
         {
-            if (configurationStorage == null) throw new ArgumentNullException("configurationStorage");
+            if (configStorage == null) throw new ArgumentNullException("configStorage");
             if (container == null) throw new ArgumentNullException("container");
-            this.configurationStorage = configurationStorage;
+            this.configStorage = configStorage;
             this.container = container;
         }
 
         protected override async Task DoExecute(object parameter)
         {
-            var configuration = await configurationStorage.GetConfiguration();
+            var config = await configStorage.GetConfig();
 
             var window = container.Resolve<SettingsWindow>();
             var viewModel = container.Resolve<SettingsWindowViewModel>();
             window.DataContext = viewModel;
-            viewModel.Initialize(configuration);
+            viewModel.Initialize(config);
             window.ShowDialog();
         }
     }

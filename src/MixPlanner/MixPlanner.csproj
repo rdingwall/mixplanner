@@ -155,8 +155,8 @@
     <Compile Include="Converters\PlaySpeedStringConverter.cs" />
     <Compile Include="Converters\TraditionalTextHarmonicKeyConverter.cs" />
     <Compile Include="DomainModel\BpmRangeChecker.cs" />
-    <Compile Include="DomainModel\Configuration.cs" />
-    <Compile Include="DomainModel\ConfigurationProvider.cs" />
+    <Compile Include="Configuration\Config.cs" />
+    <Compile Include="Configuration\ConfigProvider.cs" />
     <Compile Include="DomainModel\HarmonicKeyDisplayMode.cs" />
     <Compile Include="DomainModel\IMixingStrategy.cs" />
     <Compile Include="DomainModel\InvalidPitchException.cs" />
@@ -185,7 +185,7 @@
     <Compile Include="DomainModel\RelaxedTransitionDetector.cs" />
     <Compile Include="DomainModel\UnknownKey.cs" />
     <Compile Include="Events\BeganLoadingTracksEvent.cs" />
-    <Compile Include="Events\ConfigurationSavedEvent.cs" />
+    <Compile Include="Events\ConfigSavedEvent.cs" />
     <Compile Include="Events\RecommendationsClearedEvent.cs" />
     <Compile Include="Events\SearchTextClearedEvent.cs" />
     <Compile Include="Events\SearchRequestedEvent.cs" />
@@ -213,9 +213,9 @@
     <Compile Include="Mp3\MixedInKeyTagCleanup.cs" />
     <Compile Include="Mp3\TrackLoader.cs" />
     <Compile Include="Player\AudioPlayer.cs" />
-    <Compile Include="Storage\IConfigurationStorage.cs" />
+    <Compile Include="Storage\IConfigStorage.cs" />
     <Compile Include="Storage\ILibraryStorage.cs" />
-    <Compile Include="Storage\InMemoryConfigurationStorage.cs" />
+    <Compile Include="Storage\InMemoryConfigStorage.cs" />
     <Compile Include="Storage\InMemoryLibraryStorage.cs" />
     <Compile Include="ViewModels\CloseableViewModelBase.cs" />
     <Compile Include="ViewModels\ErrorWindowViewModel.cs" />

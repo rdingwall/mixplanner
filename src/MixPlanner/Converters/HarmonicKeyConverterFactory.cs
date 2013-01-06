@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows.Data;
-using Castle.Windsor;
+using MixPlanner.Configuration;
 using MixPlanner.DomainModel;
 
 namespace MixPlanner.Converters
@@ -12,7 +12,7 @@ namespace MixPlanner.Converters
 
     public class HarmonicKeyConverterFactory : IHarmonicKeyConverterFactory
     {
-        readonly IConfigurationProvider provider;
+        readonly IConfigProvider configProvider;
         readonly TraditionalTextHarmonicKeyConverter traditionalTextConverter;
         readonly TraditionalSymbolsHarmonicKeyConverter traditionalSymbolsConverter;
         readonly CamelotHarmonicKeyCoverter camelotConverter;
@@ -21,23 +21,23 @@ namespace MixPlanner.Converters
             TraditionalTextHarmonicKeyConverter traditionalTextConverter,
             TraditionalSymbolsHarmonicKeyConverter traditionalSymbolsConverter,
             CamelotHarmonicKeyCoverter camelotConverter,
-            IConfigurationProvider provider)
+            IConfigProvider configProvider)
         {
             if (traditionalTextConverter == null) throw new ArgumentNullException("traditionalTextConverter");
             if (traditionalSymbolsConverter == null) throw new ArgumentNullException("traditionalSymbolsConverter");
             if (camelotConverter == null) throw new ArgumentNullException("camelotConverter");
-            if (provider == null) throw new ArgumentNullException("provider");
+            if (configProvider == null) throw new ArgumentNullException("configProvider");
             this.traditionalTextConverter = traditionalTextConverter;
             this.traditionalSymbolsConverter = traditionalSymbolsConverter;
             this.camelotConverter = camelotConverter;
-            this.provider = provider;
+            this.configProvider = configProvider;
         }
 
         public IValueConverter GetConverter()
         {
-            var configuration = provider.Configuration;
+            var config = configProvider.Config;
 
-            switch (configuration.HarmonicKeyDisplayMode)
+            switch (config.HarmonicKeyDisplayMode)
             {
                 case HarmonicKeyDisplayMode.TraditionalWithText:
                     return traditionalTextConverter;

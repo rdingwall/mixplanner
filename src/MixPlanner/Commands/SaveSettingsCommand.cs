@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using MixPlanner.Configuration;
 using MixPlanner.DomainModel;
 using MixPlanner.Storage;
 using MixPlanner.ViewModels;
@@ -8,28 +9,28 @@ namespace MixPlanner.Commands
 {
     public class SaveSettingsCommand : AsyncCommandBase<SettingsWindowViewModel>
     {
-        readonly IConfigurationStorage configurationStorage;
+        readonly IConfigStorage configStorage;
 
-        public SaveSettingsCommand(IConfigurationStorage configurationStorage)
+        public SaveSettingsCommand(IConfigStorage configStorage)
         {
-            if (configurationStorage == null) throw new ArgumentNullException("configurationStorage");
-            this.configurationStorage = configurationStorage;
+            if (configStorage == null) throw new ArgumentNullException("configStorage");
+            this.configStorage = configStorage;
         }
 
         protected override async Task DoExecute(SettingsWindowViewModel parameter)
         {
             if (parameter == null) throw new ArgumentNullException("parameter");
 
-            var configuration = await configurationStorage.GetConfiguration();
-            UpdateValues(parameter, configuration);
-            await configurationStorage.Save(configuration);
+            var config = await configStorage.GetConfig();
+            UpdateValues(parameter, config);
+            await configStorage.Save(config);
         }
 
-        static void UpdateValues(SettingsWindowViewModel parameter, Configuration configuration)
+        static void UpdateValues(SettingsWindowViewModel parameter, Config config)
         {
-            configuration.HarmonicKeyDisplayMode = parameter.HarmonicKeyDisplayMode;
-            configuration.RestrictBpmCompatibility = parameter.RestrictBpmCompatibility;
-            configuration.StripMixedInKeyPrefixes = parameter.StripMixedInKeyPrefixes;
+            config.HarmonicKeyDisplayMode = parameter.HarmonicKeyDisplayMode;
+            config.RestrictBpmCompatibility = parameter.RestrictBpmCompatibility;
+            config.StripMixedInKeyPrefixes = parameter.StripMixedInKeyPrefixes;
         }
     }
 }

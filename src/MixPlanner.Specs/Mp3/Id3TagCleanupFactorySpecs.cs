@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Machine.Specifications;
+using MixPlanner.Configuration;
 using MixPlanner.DomainModel;
 using MixPlanner.Mp3;
 using Rhino.Mocks;
@@ -15,9 +16,9 @@ namespace MixPlanner.Specs.Mp3
              Establish context =
                  () =>
                      {
-                         var provider = MockRepository.GenerateMock<IConfigurationProvider>();
-                         provider.Stub(c => c.Configuration)
-                             .Return(new Configuration { StripMixedInKeyPrefixes = true });
+                         var provider = MockRepository.GenerateMock<IConfigProvider>();
+                         provider.Stub(c => c.Config)
+                             .Return(new Config { StripMixedInKeyPrefixes = true });
 
                          cleanupFactory = new Id3TagCleanupFactory(provider);
                      };
@@ -36,8 +37,8 @@ namespace MixPlanner.Specs.Mp3
              Establish context =
                  () =>
                  {
-                     var provider = MockRepository.GenerateMock<IConfigurationProvider>();
-                     provider.Stub(c => c.Configuration).Return(new Configuration());
+                     var provider = MockRepository.GenerateMock<IConfigProvider>();
+                     provider.Stub(c => c.Config).Return(new Config());
 
                      cleanupFactory = new Id3TagCleanupFactory(provider);
                  };
