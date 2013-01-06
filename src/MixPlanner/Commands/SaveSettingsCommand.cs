@@ -21,9 +21,9 @@ namespace MixPlanner.Commands
         {
             if (parameter == null) throw new ArgumentNullException("parameter");
 
-            var config = await configStorage.GetConfig();
+            var config = await configStorage.GetConfigAsync();
             UpdateValues(parameter, config);
-            await configStorage.Save(config);
+            await configStorage.SaveAsync(config);
         }
 
         static void UpdateValues(SettingsWindowViewModel parameter, Config config)

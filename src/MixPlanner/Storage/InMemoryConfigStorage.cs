@@ -18,14 +18,14 @@ namespace MixPlanner.Storage
             config = Config.DefaultConfig;
         }
 
-        public async Task Save(Config config)
+        public async Task SaveAsync(Config config)
         {
             if (config == null) throw new ArgumentNullException("config");
             this.config = config;
             await Task.Run(() => messenger.SendToUI(new ConfigSavedEvent(config)));
         }
 
-        public async Task<Config> GetConfig()
+        public async Task<Config> GetConfigAsync()
         {
             return await Task.Run(() => config);
         }

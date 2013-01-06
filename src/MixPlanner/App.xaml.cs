@@ -39,7 +39,7 @@ namespace MixPlanner
             container.Install(new IocRegistrations());
             ServiceLocator.SetLocatorProvider(() => new WindsorServiceLocator(container));
 
-            Task.Run(() => container.Resolve<IConfigProvider>().Initialize());
+            Task.Run(() => container.Resolve<IConfigProvider>().InitializeAsync());
 
             container.Resolve<MainWindow>().ShowDialog();
         }

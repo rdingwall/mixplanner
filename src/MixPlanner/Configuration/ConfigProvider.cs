@@ -8,7 +8,7 @@ namespace MixPlanner.Configuration
     public interface IConfigProvider
     {
         Config Config { get; }
-        Task Initialize();
+        Task InitializeAsync();
     }
 
     public class ConfigProvider : IConfigProvider
@@ -26,9 +26,9 @@ namespace MixPlanner.Configuration
             this.storage = storage;
         }
 
-        public async Task Initialize()
+        public async Task InitializeAsync()
         {
-            Config = await storage.GetConfig();
+            Config = await storage.GetConfigAsync();
         }
 
         public Config Config
