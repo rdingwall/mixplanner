@@ -178,6 +178,7 @@
     <Compile Include="DomainModel\MixingStrategies\TwoSemitoneEnergyBoost.cs" />
     <Compile Include="DomainModel\MixingStrategies\ManualOutOfKeyMix.cs" />
     <Compile Include="DomainModel\MixItem.cs" />
+    <Compile Include="DomainModel\PlaybackSpeedAdjuster.cs" />
     <Compile Include="DomainModel\Scale.cs" />
     <Compile Include="DomainModel\MixingStrategiesFactory.cs" />
     <Compile Include="DomainModel\PlaybackSpeed.cs" />
