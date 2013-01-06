@@ -44,13 +44,7 @@ namespace MixPlanner.DomainModel
             if (strategy == null)
                 return null;
 
-            return new Transition
-                       {
-                           FromKey = first.ActualKey,
-                           ToKey = second.ActualKey,
-                           Strategy = strategy,
-                           IncreaseRequired = increaseRequired
-                       };
+            return new Transition(first.ActualKey, second.ActualKey, strategy, increaseRequired);
         }
     }
 }

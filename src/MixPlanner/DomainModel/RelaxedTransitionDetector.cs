@@ -26,21 +26,18 @@ namespace MixPlanner.DomainModel
 
         public Transition GetTransitionBetween(PlaybackSpeed first, PlaybackSpeed second)
         {
-            var transition = new Transition();
+            if (first == null && second == null)
+                throw new ArgumentException("Cannot detect transition between two null tracks.");
 
-            if (first != null)
-                transition.FromKey = first.ActualKey;
+            if (first == null)
+                return Transition.Intro(second.ActualKey);
 
-            if (second != null)
-                transition.ToKey = second.ActualKey;
+            if (second == null)
+                return Transition.Outro(first.ActualKey);
 
-            if (first != null && second != null)
-            {
-                var strategy = strategies.First(s => s.IsCompatible(first, second));
-                transition.Strategy = strategy;
-            }
+            var strategy = strategies.First(s => s.IsCompatible(first, second));
 
-            return transition;
+            return new Transition(first.ActualKey, second.ActualKey, strategy);
         }
     }
 }

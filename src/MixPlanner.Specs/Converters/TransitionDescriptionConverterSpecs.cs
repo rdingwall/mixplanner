@@ -11,14 +11,7 @@ namespace MixPlanner.Specs.Converters
          public class When_the_previous_key_was_null
          {
              Establish context =
-                 () =>
-                     {
-                         transition = new Transition
-                                          {
-                                              FromKey = null,
-                                              ToKey = HarmonicKey.RandomKey()
-                                          };
-                     };
+                 () => transition = Transition.Intro(HarmonicKey.RandomKey());
 
              Because of = () => description = new TransitionDescriptionConverter()
                  .Convert(transition, null, null, null);
@@ -32,14 +25,7 @@ namespace MixPlanner.Specs.Converters
          public class When_the_following_key_was_null
          {
              Establish context =
-                 () =>
-                 {
-                     transition = new Transition
-                     {
-                         FromKey = HarmonicKey.RandomKey(),
-                         ToKey = null
-                     };
-                 };
+                 () => transition = Transition.Outro(HarmonicKey.RandomKey());
 
              Because of = () => description = new TransitionDescriptionConverter()
                  .Convert(transition, null, null, null);
@@ -57,14 +43,8 @@ namespace MixPlanner.Specs.Converters
                  {
                      var strategy = MockRepository.GenerateMock<IMixingStrategy>();
                      strategy.Stub(s => s.Description).Return("Test Strategy");
-                     strategy.Description.ShouldEqual("Test Strategy");
-
-                     transition = new Transition
-                     {
-                         FromKey = HarmonicKey.RandomKey(),
-                         ToKey = HarmonicKey.RandomKey(),
-                         Strategy = strategy 
-                     };
+                     transition = new Transition(HarmonicKey.RandomKey(), HarmonicKey.RandomKey(),
+                                                 strategy);
                  };
 
              Because of =
