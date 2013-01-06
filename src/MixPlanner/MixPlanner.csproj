@@ -154,7 +154,7 @@
     <Compile Include="Converters\CamelotHarmonicKeyCoverter.cs" />
     <Compile Include="Converters\HarmonicKeyToBrushConverter.cs" />
     <Compile Include="Converters\PlayPauseCommandLabelConverter.cs" />
-    <Compile Include="Converters\PlaySpeedStringConverter.cs" />
+    <Compile Include="Converters\PlaySpeedConverter.cs" />
     <Compile Include="Converters\TraditionalTextHarmonicKeyConverter.cs" />
     <Compile Include="Converters\TransitionDescriptionConverter.cs" />
     <Compile Include="DomainModel\BpmRangeChecker.cs" />
