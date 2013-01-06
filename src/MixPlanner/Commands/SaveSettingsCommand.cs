@@ -31,6 +31,7 @@ namespace MixPlanner.Commands
             config.HarmonicKeyDisplayMode = parameter.HarmonicKeyDisplayMode;
             config.RestrictBpmCompatibility = parameter.RestrictBpmCompatibility;
             config.StripMixedInKeyPrefixes = parameter.StripMixedInKeyPrefixes;
+            config.SuggestBpmAdjustedTracks = parameter.SuggestBpmAdjustedTracks;
         }
     }
 }

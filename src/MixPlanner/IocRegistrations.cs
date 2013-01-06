@@ -43,7 +43,10 @@ namespace MixPlanner
                     .DependsOn(Property.ForKey("impl").Is(typeof(BpmRangeChecker).Name)),
                 Component.For<IBpmRangeChecker>().ImplementedBy<BpmRangeChecker>()
                     .Named(typeof(BpmRangeChecker).Name),
-                Component.For<IPlaybackSpeedAdjuster>().ImplementedBy<PlaybackSpeedAdjuster>(),
+                Component.For<IPlaybackSpeedAdjuster>().ImplementedBy<ConfigSwitchingPlaybackSpeedAdjuster>()
+                    .DependsOn(Property.ForKey("impl").Is(typeof(PlaybackSpeedAdjuster).Name)),
+                Component.For<IPlaybackSpeedAdjuster>().ImplementedBy<PlaybackSpeedAdjuster>()
+                    .Named(typeof(PlaybackSpeedAdjuster).Name),
                 Component.For<IHarmonicKeyConverterFactory>().ImplementedBy<HarmonicKeyConverterFactory>(),
                 Component.For<IMixingStrategiesFactory>().ImplementedBy<MixingStrategiesFactory>(),
                 Component.For<IMixItemViewModelFactory>().ImplementedBy<MixItemViewModelFactory>(),
