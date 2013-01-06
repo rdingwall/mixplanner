@@ -34,6 +34,7 @@ namespace MixPlanner.DomainModel
             this.messenger = messenger;
             this.transitions = transitions;
             items = new List<MixItem>();
+            messenger.Register<ConfigSavedEvent>(this, _ => RecalcTransitions());
         }
 
         public IEnumerable<Track> Tracks { get { return Items.Select(i => i.Track); } }

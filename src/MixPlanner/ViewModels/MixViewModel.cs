@@ -80,6 +80,7 @@ namespace MixPlanner.ViewModels
             Items = new ObservableCollection<MixItemViewModel>();
             messenger.Register<TrackAddedToMixEvent>(this, OnTrackAdded);
             messenger.Register<TrackRemovedFromMixEvent>(this, OnTrackRemoved);
+            messenger.Register<ConfigSavedEvent>(this, _ => OnSelectionChanged());
         }
 
         public ICollection<MixItem> SelectedItems

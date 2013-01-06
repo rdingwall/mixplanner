@@ -39,7 +39,10 @@ namespace MixPlanner
                 Component.For<IMessenger>().ImplementedBy<Messenger>(),
                 Component.For<IDispatcherMessenger>().ImplementedBy<DispatcherMessenger>(),
                 Component.For<IAudioPlayer>().ImplementedBy<AudioPlayer>(),
-                Component.For<IBpmRangeChecker>().ImplementedBy<BpmRangeChecker>(),
+                    Component.For<IBpmRangeChecker>().ImplementedBy<ConfigSwitchingBpmRangeChecker>()
+                    .DependsOn(Property.ForKey("impl").Is(typeof(BpmRangeChecker).Name)),
+                Component.For<IBpmRangeChecker>().ImplementedBy<BpmRangeChecker>()
+                    .Named(typeof(BpmRangeChecker).Name),
                 Component.For<IHarmonicKeyConverterFactory>().ImplementedBy<HarmonicKeyConverterFactory>(),
                 Component.For<IMixingStrategiesFactory>().ImplementedBy<MixingStrategiesFactory>(),
                 Component.For<IMixItemViewModelFactory>().ImplementedBy<MixItemViewModelFactory>(),

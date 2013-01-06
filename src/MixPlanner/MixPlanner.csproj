@@ -142,6 +142,7 @@
     <Compile Include="Commands\ReorderMixTrackCommand.cs" />
     <Compile Include="Commands\ShowInExplorerCommand.cs" />
     <Compile Include="AttachedProperties\GridViewColumns.cs" />
+    <Compile Include="Configuration\ConfigSwitchingBpmRangeChecker.cs" />
     <Compile Include="Controls\ImprovedListView.cs" />
     <Compile Include="Controls\SearchTextBox.cs" />
     <Compile Include="Controls\UIHelpers.cs" />
