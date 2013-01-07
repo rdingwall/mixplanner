@@ -21,7 +21,7 @@ namespace MixPlanner.ViewModels
             Bpm = track.OriginalBpm;
             Year = track.Year;
             Label = track.Label;
-            Filename = track.File.FullName;
+            Filename = track.File.Name;
             Key = track.OriginalKey;
 
             messenger.Register<RecommendationsClearedEvent>(this, _ => Transition = null);
