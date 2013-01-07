@@ -155,6 +155,7 @@
     </Content>
     <Compile Include="DomainModel\ActualTransitionDetectorSpecs.cs" />
     <Compile Include="AssemblyContext.cs" />
+    <Compile Include="DummyPlaybackSpeedAdjuster.cs" />
     <Compile Include="Extensions\DoubleExtensionsSpecs.cs" />
     <Compile Include="ImportExport\M3uReaderSpecs.cs" />
     <Compile Include="ImportExport\M3uWriterSpecs.cs" />

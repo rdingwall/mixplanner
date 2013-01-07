@@ -4,14 +4,15 @@ namespace MixPlanner.DomainModel
 {
     public class MixItem
     {
-        public MixItem(Mix mix, Track track, Transition transition)
+        public MixItem(Mix mix, Track track, Transition transition, PlaybackSpeed playbackSpeed)
         {
             if (mix == null) throw new ArgumentNullException("mix");
             if (track == null) throw new ArgumentNullException("track");
+            if (playbackSpeed == null) throw new ArgumentNullException("playbackSpeed");
             Mix = mix;
             Track = track;
             Transition = transition;
-            PlaybackSpeed = track.GetDefaultPlaybackSpeed();
+            PlaybackSpeed = playbackSpeed;
         }
 
         public PlaybackSpeed PlaybackSpeed { get; private set; }

@@ -24,15 +24,20 @@ namespace MixPlanner.DomainModel
     {
         readonly IDispatcherMessenger messenger;
         readonly IActualTransitionDetector transitions;
+        readonly IPlaybackSpeedAdjuster playbackSpeedAdjuster;
         readonly IList<MixItem> items;
 
         public Mix(
             IDispatcherMessenger messenger,
-            IActualTransitionDetector transitions)
+            IActualTransitionDetector transitions,
+            IPlaybackSpeedAdjuster playbackSpeedAdjuster)
         {
             if (messenger == null) throw new ArgumentNullException("messenger");
+            if (transitions == null) throw new ArgumentNullException("transitions");
+            if (playbackSpeedAdjuster == null) throw new ArgumentNullException("playbackSpeedAdjuster");
             this.messenger = messenger;
             this.transitions = transitions;
+            this.playbackSpeedAdjuster = playbackSpeedAdjuster;
             items = new List<MixItem>();
             messenger.Register<ConfigSavedEvent>(this, _ => RecalcTransitions());
         }
@@ -147,11 +152,15 @@ namespace MixPlanner.DomainModel
 
         MixItem CreateItem(Track track, int insertIndex)
         {
-            var previousTrack = GetPlaybackSpeedAtPosition(insertIndex - 1);
-            var playbackSpeed = track.GetDefaultPlaybackSpeed();
-            var transition = transitions.GetTransitionBetween(previousTrack, playbackSpeed);
+            PlaybackSpeed previous = GetPlaybackSpeedAtPosition(insertIndex - 1);
 
-            return new MixItem(this, track, transition);
+            PlaybackSpeed next = track.GetDefaultPlaybackSpeed();
+            if (previous != null)
+                next = playbackSpeedAdjuster.AutoAdjust(previous, next);
+
+            Transition transition = transitions.GetTransitionBetween(previous, next);
+
+            return new MixItem(this, track, transition, next);
         }
 
         PlaybackSpeed GetPlaybackSpeedAtPosition(int index)

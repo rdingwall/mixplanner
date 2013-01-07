@@ -20,9 +20,18 @@ namespace MixPlanner.Configuration
 
         public double GetSuggestedIncrease(PlaybackSpeed first, PlaybackSpeed second)
         {
+            return IsBpmAdjustmentAllowed() ? impl.GetSuggestedIncrease(first, second) : 0;
+        }
+
+        bool IsBpmAdjustmentAllowed()
+        {
             var config = configProvider.Config;
-            var shouldSuggest = config.RestrictBpmCompatibility && config.SuggestBpmAdjustedTracks;
-            return shouldSuggest ? impl.GetSuggestedIncrease(first, second) : 0;
+            return config.RestrictBpmCompatibility && config.SuggestBpmAdjustedTracks;
+        }
+
+        public PlaybackSpeed AutoAdjust(PlaybackSpeed first, PlaybackSpeed second)
+        {
+            return IsBpmAdjustmentAllowed() ? impl.AutoAdjust(first, second) : second;
         }
     }
 }
