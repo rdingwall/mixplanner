@@ -7,7 +7,7 @@
         xmlns:attachedProperties="clr-namespace:MixPlanner.AttachedProperties"
         mc:Ignorable="d"
         Title="MixPlanner Settings"
-        Height="385"
+        Height="350"
         Width="600"
         ResizeMode="NoResize"
         d:DataContext="{d:DesignInstance viewModels:SettingsWindowViewModel}"
@@ -21,7 +21,6 @@
                       Width="572">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="40" />
                         <RowDefinition Height="40" />
                     </Grid.RowDefinitions>
 
@@ -57,20 +56,6 @@
                                      VerticalAlignment="Center"
                                      Margin="0,0,10,0" />
                     </StackPanel>
-
-                    <Label Grid.Row="1"
-                           Grid.Column="0"
-                           Content="Track Library Columns:"
-                           HorizontalAlignment="Right"
-                           VerticalAlignment="Center"
-                           Margin="0,0,10,0" />
-                    <Button Grid.Row="1"
-                            Grid.Column="1"
-                            Content="Configure"
-                            IsEnabled="False"
-                            VerticalAlignment="Center"
-                            HorizontalAlignment="Left"
-                            Width="100" />
                 </Grid>
             </GroupBox>
 
