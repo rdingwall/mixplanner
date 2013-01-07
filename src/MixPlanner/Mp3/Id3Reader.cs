@@ -1,8 +1,8 @@
 using System;
-using Tags.ID3;
-using Tags.ID3.ID3v2Frames.TextFrames;
-using log4net;
 using System.Linq;
+using TagLib;
+using TagLib.Id3v2;
+using log4net;
 
 namespace MixPlanner.Mp3
 {
@@ -21,17 +21,16 @@ namespace MixPlanner.Mp3
             {
                 var t = new Id3Tag();
 
-                var id3 = new ID3Info(filename, true);
+                File file = File.Create(filename);
 
-                // Reference: http://id3.org/id3v2.4.0-frames
-                t.InitialKey = GetTextFrameOrDefault(id3, "TKEY") ?? GetUserTextFrame(id3, "Initial key");
-                t.Artist = GetTextFrameOrDefault(id3, "TCOM") ?? id3.ID3v1Info.Artist ?? "Unknown Artist";
-                t.Title = GetTextFrameOrDefault(id3, "TIT2") ?? id3.ID3v1Info.Title ?? "Unknown Track";
-                t.Year = GetId3V1Year(id3) ?? GetTextFrameOrDefault(id3, "TYER");
-                t.Genre = GetTextFrameOrDefault(id3, "TCON");
-                t.Publisher = GetTextFrameOrDefault(id3, "TPUB") ?? GetUserTextFrame(id3, "Publisher");
-                t.Bpm = GetTextFrameOrDefault(id3, "TBPM") ?? GetUserTextFrame(id3, "BPM (beats per minute)");
+                if (file.TagTypes.HasFlag(TagTypes.Id3v2))
+                    TryPopulateFromId3v2(file, t);
 
+                if (file.TagTypes.HasFlag(TagTypes.Id3v1))
+                    TryPopulateFromId3v1(file, t);
+
+                TryPopulateDefaultValues(t);
+    
                 id3Tag = t;
                 return true;
             }
@@ -43,35 +42,61 @@ namespace MixPlanner.Mp3
             }
         }
 
-        static string GetTextFrameOrDefault(ID3Info id3Info, string frameId, string @default = null)
+        void TryPopulateDefaultValues(Id3Tag tag)
         {
-            if (!id3Info.ID3v2Info.HaveTag)
-                return null;
-
-            var value = id3Info.ID3v2Info.GetTextFrame(frameId);
-
-            return String.IsNullOrWhiteSpace(value) ? @default : value;
+            tag.Artist = tag.Artist ?? "Unknown Artist";
+            tag.Title = tag.Title ?? "Unknown Track";
         }
 
-        static string GetUserTextFrame(ID3Info id3Info, string description)
+        void TryPopulateFromId3v2(File file, Id3Tag tag)
         {
-            if (!id3Info.ID3v1Info.HaveTag)
-                return null;
+            var id3v2 = (TagLib.Id3v2.Tag)file.GetTag(TagTypes.Id3v2);
 
-            return id3Info.ID3v2Info.UserTextFrames
-                          .OfType<UserTextFrame>()
-                          .Where(f => f.Description == description)
-                          .Select(f => f.Text)
-                          .FirstOrDefault();
+            // ID3v2 Tags Reference: http://id3.org/id3v2.4.0-frames
+            tag.InitialKey = GetTextFrame(id3v2, "TKEY") ?? GetUserTextFrame(id3v2, "Initial key");
+            tag.Artist = id3v2.JoinedPerformers;
+            tag.Title = id3v2.Title;
+            tag.Year = ToStringOrDefault(id3v2.Year);
+            tag.Genre = id3v2.JoinedGenres;
+            tag.Publisher = GetTextFrame(id3v2, "TPUB") ?? GetUserTextFrame(id3v2, "Publisher");
+            tag.Bpm = ToStringOrDefault(id3v2.BeatsPerMinute) ?? GetUserTextFrame(id3v2, "BPM (beats per minute)");
         }
 
-        static string GetId3V1Year(ID3Info id3Info)
+        string GetTextFrame(TagLib.Id3v2.Tag id3v2, string identifier)
         {
-            if (!id3Info.ID3v1Info.HaveTag)
+            return id3v2
+                .GetFrames<TextInformationFrame>(identifier)
+                .SelectMany(f => f.Text)
+                .FirstOrDefault();
+        }
+
+        string GetUserTextFrame(TagLib.Id3v2.Tag id3v2, string description)
+        {
+            return id3v2
+                .GetFrames<UserTextInformationFrame>()
+                .Where(f => String.Equals(f.Description, description, StringComparison.CurrentCultureIgnoreCase))
+                .SelectMany(f => f.Text)
+                .FirstOrDefault();
+        }
+
+        void TryPopulateFromId3v1(File file, Id3Tag tag)
+        {
+            var id3v1 = (TagLib.Id3v1.Tag) file.GetTag(TagTypes.Id3v1);
+
+            tag.Artist = tag.Artist ?? id3v1.JoinedPerformers;
+            tag.Title = tag.Title ?? id3v1.Title;
+            tag.Year = tag.Year ?? ToStringOrDefault(id3v1.Year);
+            tag.Genre = tag.Genre ?? id3v1.JoinedGenres;
+            //tag.Publisher = tag.Publisher ?? id3v1.
+            tag.Bpm = tag.Bpm ?? ToStringOrDefault(id3v1.BeatsPerMinute);
+        }
+
+        string ToStringOrDefault(uint value)
+        {
+            if (value == 0)
                 return null;
 
-            var year = id3Info.ID3v1Info.Year;
-            return String.IsNullOrWhiteSpace(year) ? null : year;
+            return value.ToString();
         }
     }
 }

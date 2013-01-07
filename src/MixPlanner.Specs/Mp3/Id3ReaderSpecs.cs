@@ -40,7 +40,7 @@ namespace MixPlanner.Specs.Mp3
             static bool result;
         }
 
-        public class when_reading_id3_tags_from_an_mp3_file_from_mixed_in_key_4
+        public class when_reading_id3_tags_from_an_mp3_file_from_mixed_in_key_4xxx
         {
             Establish context = () => reader = new Id3Reader();
 
