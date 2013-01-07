@@ -81,6 +81,7 @@ namespace MixPlanner.ViewModels
             messenger.Register<TrackAddedToMixEvent>(this, OnTrackAdded);
             messenger.Register<TrackRemovedFromMixEvent>(this, OnTrackRemoved);
             messenger.Register<ConfigSavedEvent>(this, _ => OnSelectionChanged());
+            messenger.Register<PlaybackSpeedAdjustedEvent>(this, _ => OnSelectionChanged());
         }
 
         public ICollection<MixItem> SelectedItems
