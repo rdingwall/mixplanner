@@ -149,6 +149,7 @@
     <Compile Include="Controls\ImprovedListView.cs" />
     <Compile Include="Controls\SearchTextBox.cs" />
     <Compile Include="Controls\UIHelpers.cs" />
+    <Compile Include="Converters\ActualBpmConverter.cs" />
     <Compile Include="Converters\HarmonicKeyConverterFactory.cs" />
     <Compile Include="Converters\HarmonicKeyCoverter.cs" />
     <Compile Include="Converters\PlaySpeedIncreaseConverter.cs" />
