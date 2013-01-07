@@ -10,6 +10,20 @@ namespace MixPlanner.Configuration
         public bool SuggestBpmAdjustedTracks { get; set; }
         public bool AutoAdjustBpm { get; set; }
 
+        public bool ShouldSuggestBpmAdjustments()
+        {
+            // BPM adjustment suggestions are pointless if BPM compatibility
+            // is not being enforced.
+            return RestrictBpmCompatibility && SuggestBpmAdjustedTracks;
+        }
+
+        public bool ShouldAutoAdjustBpms()
+        {
+            // Auto adjustments don't make sense if they weren't recommended
+            // and shown to the user first.
+            return ShouldSuggestBpmAdjustments() && AutoAdjustBpm;
+        }
+
         public static readonly Config DefaultConfig = 
             new Config
                 {
