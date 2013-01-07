@@ -32,6 +32,7 @@ namespace MixPlanner.Commands
             config.RestrictBpmCompatibility = parameter.RestrictBpmCompatibility;
             config.StripMixedInKeyPrefixes = parameter.StripMixedInKeyPrefixes;
             config.SuggestBpmAdjustedTracks = parameter.SuggestBpmAdjustedTracks;
+            config.AutoAdjustBpm = parameter.AutoAdjustBpm;
         }
     }
 }

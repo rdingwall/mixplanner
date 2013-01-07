@@ -10,7 +10,7 @@
         <minimize>true</minimize>
       </controlProperties>
     </control>
-    <control controlID="65" controlTypeID="com.balsamiq.mockups::CheckBox" x="622" y="271" w="376" h="18" measuredW="368" measuredH="18" zOrder="38" locked="false" isInGroup="-1">
+    <control controlID="65" controlTypeID="com.balsamiq.mockups::CheckBox" x="619" y="269" w="376" h="18" measuredW="368" measuredH="18" zOrder="38" locked="false" isInGroup="-1">
       <controlProperties>
         <text>Suggest%20BPM%20adjustments%20to%20a%20different%20harmonic%20key</text>
         <state>selected</state>
@@ -42,6 +42,12 @@
     <control controlID="8" controlTypeID="com.balsamiq.mockups::Label" x="406" y="629" w="-1" h="-1" measuredW="356" measuredH="25" zOrder="6" locked="false" isInGroup="-1">
       <controlProperties>
         <text>Playing%3A%20Hardwell%20-%20Three%20Triangles%20%28Original%20Club%20Mix%29</text>
+      </controlProperties>
+    </control>
+    <control controlID="66" controlTypeID="com.balsamiq.mockups::CheckBox" x="619" y="279" w="555" h="48" measuredW="697" measuredH="18" zOrder="39" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>When%20adding%20a%20track%20to%20the%20mix%2C%20automatically%20adjust%20its%20pitch%20to%20match%20the%20previous%20track%27s%20harmonic%20key</text>
+        <state>selected</state>
       </controlProperties>
     </control>
     <control controlID="13" controlTypeID="com.balsamiq.mockups::Canvas" x="681" y="66" w="421" h="283" measuredW="100" measuredH="70" zOrder="7" locked="false" isInGroup="-1"/>
@@ -126,7 +132,7 @@
         <text>3%25</text>
       </controlProperties>
     </control>
-    <control controlID="39" controlTypeID="com.balsamiq.mockups::TitleWindow" x="581" y="59" w="620" h="390" measuredW="450" measuredH="400" zOrder="28" locked="false" isInGroup="-1">
+    <control controlID="39" controlTypeID="com.balsamiq.mockups::TitleWindow" x="581" y="59" w="620" h="425" measuredW="450" measuredH="400" zOrder="28" locked="false" isInGroup="-1">
       <controlProperties>
         <bottomheight>0</bottomheight>
         <topheight>26</topheight>
@@ -166,17 +172,17 @@
         <text>Display</text>
       </controlProperties>
     </control>
-    <control controlID="57" controlTypeID="com.balsamiq.mockups::FieldSet" x="598" y="210" w="576" h="102" measuredW="200" measuredH="170" zOrder="31" locked="false" isInGroup="-1">
+    <control controlID="57" controlTypeID="com.balsamiq.mockups::FieldSet" x="598" y="210" w="576" h="132" measuredW="200" measuredH="170" zOrder="31" locked="false" isInGroup="-1">
       <controlProperties>
         <text>Recommendations</text>
       </controlProperties>
     </control>
-    <control controlID="58" controlTypeID="com.balsamiq.mockups::FieldSet" x="598" y="324" w="576" h="74" measuredW="200" measuredH="170" zOrder="32" locked="false" isInGroup="-1">
+    <control controlID="58" controlTypeID="com.balsamiq.mockups::FieldSet" x="598" y="356" w="576" h="74" measuredW="200" measuredH="170" zOrder="32" locked="false" isInGroup="-1">
       <controlProperties>
         <text>Importing%20Tracks</text>
       </controlProperties>
     </control>
-    <control controlID="59" controlTypeID="__group__" x="608" y="349" w="-1" h="-1" measuredW="425" measuredH="41" zOrder="33" locked="false" isInGroup="-1">
+    <control controlID="59" controlTypeID="__group__" x="608" y="381" w="-1" h="-1" measuredW="425" measuredH="41" zOrder="33" locked="false" isInGroup="-1">
       <groupChildrenDescriptors>
         <control controlID="50" controlTypeID="com.balsamiq.mockups::CheckBox" x="0" y="0" w="425" h="18" measuredW="425" measuredH="18" zOrder="0" locked="false" isInGroup="59">
           <controlProperties>
@@ -192,7 +198,7 @@
         </control>
       </groupChildrenDescriptors>
     </control>
-    <control controlID="60" controlTypeID="__group__" x="770" y="405" w="-1" h="-1" measuredW="241" measuredH="28" zOrder="34" locked="false" isInGroup="-1">
+    <control controlID="60" controlTypeID="__group__" x="770" y="441" w="-1" h="-1" measuredW="241" measuredH="28" zOrder="34" locked="false" isInGroup="-1">
       <groupChildrenDescriptors>
         <control controlID="40" controlTypeID="com.balsamiq.mockups::Button" x="0" y="0" w="114" h="-1" measuredW="56" measuredH="28" zOrder="0" locked="false" isInGroup="60">
           <controlProperties>

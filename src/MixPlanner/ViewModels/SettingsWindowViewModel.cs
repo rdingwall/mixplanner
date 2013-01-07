@@ -14,6 +14,7 @@ namespace MixPlanner.ViewModels
         bool restrictBpmCompatibility;
         bool stripMixedInKeyPrefixes;
         bool suggestBpmAdjustedTracks;
+        bool autoAdjustBpm;
 
         public SaveSettingsCommand SaveCommand { get; private set; }
         public CloseWindowCommand CancelCommand { get; private set; }
@@ -39,6 +40,7 @@ namespace MixPlanner.ViewModels
             RestrictBpmCompatibility = config.RestrictBpmCompatibility;
             StripMixedInKeyPrefixes = config.StripMixedInKeyPrefixes;
             SuggestBpmAdjustedTracks = config.SuggestBpmAdjustedTracks;
+            AutoAdjustBpm = config.AutoAdjustBpm;
         }
 
         public HarmonicKeyDisplayMode HarmonicKeyDisplayMode
@@ -78,6 +80,16 @@ namespace MixPlanner.ViewModels
             {
                 suggestBpmAdjustedTracks = value;
                 RaisePropertyChanged(() => SuggestBpmAdjustedTracks);
+            }
+        }
+
+        public bool AutoAdjustBpm
+        {
+            get { return autoAdjustBpm; }
+            set
+            {
+                autoAdjustBpm = value;
+                RaisePropertyChanged(() => AutoAdjustBpm);
             }
         }
     }

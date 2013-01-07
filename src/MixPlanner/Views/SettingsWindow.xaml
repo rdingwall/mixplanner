@@ -7,7 +7,7 @@
         xmlns:attachedProperties="clr-namespace:MixPlanner.AttachedProperties"
         mc:Ignorable="d"
         Title="MixPlanner Settings"
-        Height="365"
+        Height="385"
         Width="600"
         ResizeMode="NoResize"
         d:DataContext="{d:DesignInstance viewModels:SettingsWindowViewModel}"
@@ -77,18 +77,23 @@
             <GroupBox Header="Recommendations"
                       HorizontalAlignment="Left"
                       Margin="10,10,0,0"
-                      Height="80.04"
                       Width="572">
                 <StackPanel Orientation="Vertical" VerticalAlignment="Center">
                     <CheckBox Content="Restrict BPM compatibility"
-                              Margin="10,0,0,5"
+                              Margin="10,5,0,5"
                               IsChecked="{Binding RestrictBpmCompatibility}"
                               HorizontalAlignment="Left"
                               VerticalAlignment="Center" />
 					<CheckBox Content="Suggest BPM adjustments to a different harmonic key"
-                              Margin="10,5,0,0"
+                              Margin="10,5,0,5"
                               IsEnabled="{Binding RestrictBpmCompatibility}"
                               IsChecked="{Binding SuggestBpmAdjustedTracks}"
+                              HorizontalAlignment="Left"
+                              VerticalAlignment="Center" />
+					<CheckBox Content="Automatically adjust pitch to match the previous track's harmonic key"
+                              Margin="10,5,0,5"
+                              IsEnabled="{Binding SuggestBpmAdjustedTracks}"
+                              IsChecked="{Binding AutoAdjustBpm}"
                               HorizontalAlignment="Left"
                               VerticalAlignment="Center" />
                 </StackPanel>
