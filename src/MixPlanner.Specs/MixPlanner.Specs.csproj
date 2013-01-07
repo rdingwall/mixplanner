@@ -144,6 +144,12 @@
     <Compile Include="DomainModel\PlaybackSpeedSpecs.cs" />
     <Compile Include="DomainModel\RecommendedTransitionDetectorSpecs.cs" />
     <Compile Include="DomainModel\TrackSpecs.cs" />
+    <Content Include="id3v2_no_key_or_bpm.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="id3v1_only.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="DummyPlaylist.m3u">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

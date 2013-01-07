@@ -17,19 +17,18 @@ namespace MixPlanner.Mp3
 
         public bool TryRead(string filename, out Id3Tag id3Tag)
         {
+            if (filename == null) throw new ArgumentNullException("filename");
             try
             {
+                var file = File.Create(filename);
+
+                LogWarnings(filename, file);
+
                 var t = new Id3Tag();
 
-                File file = File.Create(filename);
-
-                if (file.TagTypes.HasFlag(TagTypes.Id3v2))
-                    TryPopulateFromId3v2(file, t);
-
-                if (file.TagTypes.HasFlag(TagTypes.Id3v1))
-                    TryPopulateFromId3v1(file, t);
-
-                TryPopulateDefaultValues(t);
+                PopulateFromId3v2(file, t);
+                PopulateFromId3v1(file, t);
+                PopulateFallbackValues(t);
     
                 id3Tag = t;
                 return true;
@@ -42,14 +41,26 @@ namespace MixPlanner.Mp3
             }
         }
 
-        void TryPopulateDefaultValues(Id3Tag tag)
+        static void LogWarnings(string filename, File file)
+        {
+            if (!file.PossiblyCorrupt)
+                return;
+
+            foreach (var reason in file.CorruptionReasons)
+                Log.WarnFormat("{0} is possibly corrupt: {1}", filename, reason);
+        }
+
+        void PopulateFallbackValues(Id3Tag tag)
         {
             tag.Artist = tag.Artist ?? "Unknown Artist";
             tag.Title = tag.Title ?? "Unknown Track";
         }
 
-        void TryPopulateFromId3v2(File file, Id3Tag tag)
+        void PopulateFromId3v2(File file, Id3Tag tag)
         {
+            if (!file.TagTypes.HasFlag(TagTypes.Id3v2))
+                return;
+
             var id3v2 = (TagLib.Id3v2.Tag)file.GetTag(TagTypes.Id3v2);
 
             // ID3v2 Tags Reference: http://id3.org/id3v2.4.0-frames
@@ -79,8 +90,11 @@ namespace MixPlanner.Mp3
                 .FirstOrDefault();
         }
 
-        void TryPopulateFromId3v1(File file, Id3Tag tag)
+        void PopulateFromId3v1(File file, Id3Tag tag)
         {
+            if (!file.TagTypes.HasFlag(TagTypes.Id3v1))
+                return;
+
             var id3v1 = (TagLib.Id3v1.Tag) file.GetTag(TagTypes.Id3v1);
 
             tag.Artist = tag.Artist ?? id3v1.JoinedPerformers;
