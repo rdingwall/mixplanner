@@ -43,7 +43,7 @@ namespace MixPlanner.Converters
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var key = (HarmonicKey) value;
+            var key = value as HarmonicKey;
 
             Color color;
             if (key == null || !ColorWheel.TryGetValue(key, out color))

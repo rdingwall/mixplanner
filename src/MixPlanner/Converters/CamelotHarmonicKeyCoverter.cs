@@ -10,7 +10,9 @@ namespace MixPlanner.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var key = (HarmonicKey)value;
+            var key = value as HarmonicKey;
+            if (key == null)
+                return null;
 
             return key.ToString();
         }

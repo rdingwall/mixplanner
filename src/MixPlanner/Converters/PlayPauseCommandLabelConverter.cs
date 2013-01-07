@@ -17,10 +17,11 @@ namespace MixPlanner.Converters
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value == null)
+            var track = value as Track;
+
+            if (track == null)
                 return "";
 
-            var track = (Track) value;
             return player.Value.IsPlaying(track) ? "Pause" : "Play";
         }
 
