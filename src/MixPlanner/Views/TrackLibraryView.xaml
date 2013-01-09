@@ -48,7 +48,7 @@
                         <cmd:EventToCommand Command="{Binding PlayPauseCommand}" 
 											CommandParameter="{Binding SelectedItem.Track}"  />
                     </i:EventTrigger>
-                    <i:EventTrigger EventName="KeyUp">
+                    <i:EventTrigger EventName="PreviewKeyDown">
                         <cmd:EventToCommand Command="{Binding PlayPauseSpaceKeyCommand}"
                                             PassEventArgsToCommand="True"  />
                     </i:EventTrigger>

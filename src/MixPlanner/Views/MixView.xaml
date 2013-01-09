@@ -31,7 +31,7 @@
                         <cmd:EventToCommand Command="{Binding EditF2KeyCommand}"
                                             PassEventArgsToCommand="True" />
                     </i:EventTrigger>
-                    <i:EventTrigger EventName="KeyUp">
+                    <i:EventTrigger EventName="PreviewKeyDown">
                         <cmd:EventToCommand Command="{Binding PlayPauseSpaceKeyCommand}"
                                             PassEventArgsToCommand="True"  />
                     </i:EventTrigger>
