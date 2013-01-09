@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using MixPlanner.DomainModel;
 
 namespace MixPlanner.Commands
 {
-    public class RemoveTracksFromLibraryCommand : CommandBase<IEnumerable<Track>>
+    public class RemoveTracksFromLibraryCommand : AsyncCommandBase<IEnumerable<Track>>
     {
         readonly ITrackLibrary library;
 
@@ -20,9 +21,9 @@ namespace MixPlanner.Commands
             return parameter != null && parameter.Any();
         }
 
-        protected override void Execute(IEnumerable<Track> parameter)
+        protected override async Task DoExecute(IEnumerable<Track> parameter)
         {
-            library.RemoveRange(parameter);
+            await library.RemoveRangeAsync(parameter);
         }
     }
 }

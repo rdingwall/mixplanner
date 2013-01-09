@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using MixPlanner.DomainModel;
 
 namespace MixPlanner.Storage
@@ -14,14 +15,19 @@ namespace MixPlanner.Storage
 
         public IEnumerable<Track> Tracks { get { return tracks; } }
 
-        public void Add(Track track)
+        public async Task AddAsync(Track track)
         {
-            tracks.Add(track);
+            await Task.Run(() => tracks.Add(track));
         }
 
-        public void Remove(Track track)
+        public async Task RemoveAsync(Track track)
         {
-            tracks.Remove(track);
+            await Task.Run(() => tracks.Remove(track));
+        }
+
+        public async Task UpdateAsync(Track track)
+        {
+            await Task.Yield();
         }
     }
 }

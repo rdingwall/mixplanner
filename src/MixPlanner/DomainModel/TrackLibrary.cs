@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using MixPlanner.Events;
 using MixPlanner.Mp3;
 using MixPlanner.Storage;
-using MoreLinq;
 
 namespace MixPlanner.DomainModel
 {
@@ -34,7 +33,7 @@ namespace MixPlanner.DomainModel
             this.transitionDetector = transitionDetector;
         }
 
-        public IEnumerable<Tuple<Track, Transition>> GetNextTracks(MixItem mixItem)
+        public IEnumerable<Tuple<Track, Transition>> GetRecommendations(MixItem mixItem)
         {
             if (mixItem == null) throw new ArgumentNullException("mixItem");
 
@@ -46,33 +45,14 @@ namespace MixPlanner.DomainModel
 
         public async Task SaveAsync(Track track)
         {
-            await Task.Run(() => messenger.SendToUI(new TrackUpdatedEvent(track)));
+            await storage.UpdateAsync(track);
+            messenger.SendToUI(new TrackUpdatedEvent(track));
         }
 
         Transition GetTransition(MixItem mixItem, Track track)
         {
             return transitionDetector.GetTransitionBetween(mixItem.PlaybackSpeed,
                                                            track.GetDefaultPlaybackSpeed());
-        }
-
-        IEnumerable<Track> Import(string filename)
-        {
-            if (filename == null) throw new ArgumentNullException("filename");
-
-            if (IsDirectory(filename))
-                return ImportDirectory(filename);
-
-            if (!IsMp3(filename)) 
-                return Enumerable.Empty<Track>();
-
-            Track track;
-            if (TryGetTrack(filename, out track))
-                return new[] { track };
-
-            track = loader.Load(filename);
-            storage.Add(track);
-            messenger.SendToUI(new TrackAddedToLibraryEvent(track));
-            return new[] { track };
         }
 
         bool TryGetTrack(string filename, out Track track)
@@ -88,20 +68,7 @@ namespace MixPlanner.DomainModel
             return extension.Equals(".mp3", Comparison);
         }
 
-        IEnumerable<Track> Import(IEnumerable<string> filenames)
-        {
-            if (filenames == null) throw new ArgumentNullException("filenames");
-
-            messenger.SendToUI(new BeganLoadingTracksEvent());
-
-            var tracks = filenames.SelectMany(Import).ToList(); // force evaluation now
-
-            messenger.SendToUI(new FinishedLoadingTracksEvent());
-
-            return tracks;
-        }
-
-        IEnumerable<Track> ImportDirectory(string directoryName)
+        async Task<IEnumerable<Track>> ImportDirectory(string directoryName)
         {
             if (directoryName == null) throw new ArgumentNullException("directoryName");
 
@@ -110,17 +77,36 @@ namespace MixPlanner.DomainModel
             var filenames = Directory.GetFiles(directoryName, 
                 "*.mp3", SearchOption.AllDirectories);
 
-            return Import(filenames);
+            return await ImportAsync(filenames);
         }
 
         public async Task<IEnumerable<Track>> ImportAsync(string filename)
         {
-            return await Task.Run(() => Import(filename));
+            if (filename == null) throw new ArgumentNullException("filename");
+
+            if (IsDirectory(filename))
+                return await ImportDirectory(filename);
+
+            if (!IsMp3(filename))
+                return Enumerable.Empty<Track>();
+
+            Track track;
+            if (TryGetTrack(filename, out track))
+                return new[] { track };
+
+            track = loader.Load(filename);
+            await storage.AddAsync(track);
+            messenger.SendToUI(new TrackAddedToLibraryEvent(track));
+            return new[] { track };
         }
 
         public async Task<IEnumerable<Track>> ImportAsync(IEnumerable<string> filenames)
         {
-            return await Task.Run(() => Import(filenames));
+            var tracks = new List<Track>();
+            foreach (var filename in filenames)
+                tracks.AddRange(await ImportAsync(filename));
+
+            return tracks;
         }
 
         public async Task<IEnumerable<Track>> ImportDirectoryAsync(string directoryName)
@@ -134,17 +120,18 @@ namespace MixPlanner.DomainModel
             return (attributes & FileAttributes.Directory) == FileAttributes.Directory;
         }
 
-        public void Remove(Track track)
+        public async Task RemoveAsync(Track track)
         {
             if (track == null) throw new ArgumentNullException("track");
-            storage.Remove(track);
+            await storage.RemoveAsync(track);
             messenger.SendToUI(new TrackRemovedFromLibraryEvent(track));
         }
 
-        public void RemoveRange(IEnumerable<Track> tracks)
+        public async Task RemoveRangeAsync(IEnumerable<Track> tracks)
         {
             if (tracks == null) throw new ArgumentNullException("tracks");
-            tracks.ForEach(Remove);
+            foreach (var track in tracks)
+                await RemoveAsync(track);
         }
     }
 }
