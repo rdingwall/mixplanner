@@ -28,6 +28,7 @@ namespace MixPlanner.ViewModels
         public ResetPlaybackSpeedCommand ResetPlaybackSpeedCommand { get; private set; }
         public GetRecommendationsCommand GetRecommendationsCommand { get; private set; }
         public ClearRecommendationsCommand ClearRecommendationsCommand { get; private set; }
+        public EditTrackCommand EditTrackCommand { get; private set; }
 
         public MixItemViewModel SelectedItem
         {
@@ -54,7 +55,8 @@ namespace MixPlanner.ViewModels
             PlayPauseTrackCommand playPauseCommand,
             ResetPlaybackSpeedCommand resetPlaybackSpeedCommand,
             ClearRecommendationsCommand clearRecommendationsCommand,
-            GetRecommendationsCommand getRecommendationsCommand) : base(messenger)
+            GetRecommendationsCommand getRecommendationsCommand,
+            EditTrackCommand editTrackCommand) : base(messenger)
         {
             if (messenger == null) throw new ArgumentNullException("messenger");
             if (removeCommand == null) throw new ArgumentNullException("removeCommand");
@@ -65,12 +67,14 @@ namespace MixPlanner.ViewModels
             if (resetPlaybackSpeedCommand == null) throw new ArgumentNullException("resetPlaybackSpeedCommand");
             if (clearRecommendationsCommand == null) throw new ArgumentNullException("clearRecommendationsCommand");
             if (getRecommendationsCommand == null) throw new ArgumentNullException("getRecommendationsCommand");
+            if (editTrackCommand == null) throw new ArgumentNullException("editTrackCommand");
             DropItemCommand = dropItemCommand;
             DropFilesCommand = dropFilesCommand;
             PlayPauseCommand = playPauseCommand;
             ResetPlaybackSpeedCommand = resetPlaybackSpeedCommand;
             ClearRecommendationsCommand = clearRecommendationsCommand;
             GetRecommendationsCommand = getRecommendationsCommand;
+            EditTrackCommand = editTrackCommand;
             this.viewModels = viewModels;
             RemoveCommand = removeCommand;
             RemoveDelKeyCommand = new KeyEventProxyCommand(
