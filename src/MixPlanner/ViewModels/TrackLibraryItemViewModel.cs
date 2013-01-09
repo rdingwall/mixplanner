@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
 using MixPlanner.DomainModel;
@@ -45,6 +46,11 @@ namespace MixPlanner.ViewModels
             Label = track.Label;
             Filename = track.File.Name;
             Key = track.OriginalKey;
+            SearchData = String.Concat(Track.Artist,
+                                       Track.Title,
+                                       Path.GetFileNameWithoutExtension(Track.Filename),
+                                       Track.OriginalBpm.ToString(),
+                                       Track.OriginalKey.ToString());
         }
 
         void OnTrackUpdated(TrackUpdatedEvent obj)
@@ -173,6 +179,8 @@ namespace MixPlanner.ViewModels
                 RaisePropertyChanged(() => Year);
             }
         }
+
+        public string SearchData { get; set; }
 
         public Track Track { get; private set; }
         public bool IsSelected { get; set; }
