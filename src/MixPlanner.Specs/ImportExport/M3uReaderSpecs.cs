@@ -25,7 +25,7 @@ namespace MixPlanner.Specs.ImportExport
                                              cleanupFactory));
                                      };
 
-             Because of = () => tracks = reader.Read(filename);
+             Because of = () => tracks = reader.Read(filename).Result;
 
              It should_read_all_the_title_names =
                  () => tracks.Select(t => t.Title).ShouldContainOnly("Aaa", "Bbb", "Ccc");

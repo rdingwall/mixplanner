@@ -7,7 +7,6 @@ namespace MixPlanner.Mp3
 {
     public interface ITrackLoader
     {
-        Track Load(string filename);
         Task<Track> LoadAsync(string filename);
     }
 
@@ -29,7 +28,7 @@ namespace MixPlanner.Mp3
             return await Task.Run(() => Load(filename));
         }
 
-        public Track Load(string filename)
+        Track Load(string filename)
         {
             if (filename == null) throw new ArgumentNullException("filename");
 
