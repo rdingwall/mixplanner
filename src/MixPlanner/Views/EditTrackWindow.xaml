@@ -145,7 +145,7 @@
                 <Button Content="Cancel"
                         Width="100"
                         CommandParameter="{Binding}"
-                        Command="{Binding CloseWindowCommand}"
+                        Command="{Binding CancelCommand}"
                         Margin="10" />
             </StackPanel>
 

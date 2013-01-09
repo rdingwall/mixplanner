@@ -18,6 +18,8 @@ namespace MixPlanner.DomainModel
         void Reorder(MixItem item, int newIndex);
         void AdjustPlaybackSpeed(MixItem item, double value);
         void RemoveRange(IEnumerable<MixItem> items);
+        bool Contains(Track track);
+        void ResetPlaybackSpeed(MixItem item);
     }
 
     public class Mix : IMix
@@ -40,6 +42,13 @@ namespace MixPlanner.DomainModel
             this.playbackSpeedAdjuster = playbackSpeedAdjuster;
             items = new List<MixItem>();
             messenger.Register<ConfigSavedEvent>(this, _ => RecalcTransitions());
+            messenger.Register<TrackUpdatedEvent>(this, OnTrackUpdated);
+        }
+
+        void OnTrackUpdated(TrackUpdatedEvent obj)
+        {
+            items.Where(i => i.Track.Equals(obj.Track))
+                .ForEach(ResetPlaybackSpeed);
         }
 
         public IEnumerable<Track> Tracks { get { return Items.Select(i => i.Track); } }
@@ -89,6 +98,12 @@ namespace MixPlanner.DomainModel
         {
             if (items == null) throw new ArgumentNullException("items");
             items.ForEach(Remove);
+        }
+
+        public bool Contains(Track track)
+        {
+            if (track == null) throw new ArgumentNullException("track");
+            return items.Any(m => m.Track.Equals(track));
         }
 
         public void Add(Track track)

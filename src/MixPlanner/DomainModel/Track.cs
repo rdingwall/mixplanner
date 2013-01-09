@@ -22,8 +22,6 @@ namespace MixPlanner.DomainModel
             Filename = fileName;
             OriginalBpm = originalBpm;
 
-            File = new FileInfo(fileName);
-
             Label = "";
             Genre = "";
             Year = "";
@@ -37,12 +35,17 @@ namespace MixPlanner.DomainModel
 
         public string SearchData { get; private set; }
 
-        public string Artist { get; private set; }
-        public string Title { get; private set; }
-        public HarmonicKey OriginalKey { get; private set; }
-        public string Filename { get; private set; }
-        public FileInfo File { get; private set; }
-        public double OriginalBpm { get; private set; }
+        public string Artist { get; set; }
+        public string Title { get; set; }
+        public HarmonicKey OriginalKey { get; set; }
+        public string Filename { get; set; }
+
+        public FileInfo File
+        {
+            get { return String.IsNullOrEmpty(Filename) ? null : new FileInfo(Filename); }
+        }
+
+        public double OriginalBpm { get; set; }
 
         // Optional properties
         public string Label { get; set; }

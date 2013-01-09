@@ -136,6 +136,7 @@
     <Compile Include="Commands\OpenSettingsCommand.cs" />
     <Compile Include="Commands\ResetPlaybackSpeedCommand.cs" />
     <Compile Include="Commands\SaveSettingsCommand.cs" />
+    <Compile Include="Commands\SaveTrackCommand.cs" />
     <Compile Include="Commands\SearchLibraryCommand.cs" />
     <Compile Include="Commands\ImportFilesIntoLibraryCommand.cs" />
     <Compile Include="Commands\AddTrackToMixCommand.cs" />
@@ -209,6 +210,7 @@
     <Compile Include="Events\TrackRecommendedEvent.cs" />
     <Compile Include="Events\TrackRemovedFromLibraryEvent.cs" />
     <Compile Include="Events\TrackRemovedFromMixEvent.cs" />
+    <Compile Include="Events\TrackUpdatedEvent.cs" />
     <Compile Include="Events\TransitionChangedEvent.cs" />
     <Compile Include="DispatcherMessenger.cs" />
     <Compile Include="Extensions\DoubleExtensions.cs" />

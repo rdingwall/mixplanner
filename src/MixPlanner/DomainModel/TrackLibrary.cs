@@ -44,6 +44,11 @@ namespace MixPlanner.DomainModel
                           .Where(t => t.Item2 != null);
         }
 
+        public async Task SaveAsync(Track track)
+        {
+            await Task.Run(() => messenger.SendToUI(new TrackUpdatedEvent(track)));
+        }
+
         Transition GetTransition(MixItem mixItem, Track track)
         {
             return transitionDetector.GetTransitionBetween(mixItem.PlaybackSpeed,

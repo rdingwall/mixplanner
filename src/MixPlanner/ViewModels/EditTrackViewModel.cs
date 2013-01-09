@@ -8,7 +8,6 @@ namespace MixPlanner.ViewModels
 {
     public class EditTrackViewModel : CloseableViewModelBase
     {
-        readonly Track track;
         string artist;
         string genre;
         string year;
@@ -20,13 +19,16 @@ namespace MixPlanner.ViewModels
         string title;
 
         public EditTrackViewModel(
-            CloseWindowCommand closeWindowCommand,
+            SaveTrackCommand saveCommand,
+            CloseWindowCommand cancelCommand,
             Track track)
         {
-            if (closeWindowCommand == null) throw new ArgumentNullException("closeWindowCommand");
+            if (saveCommand == null) throw new ArgumentNullException("saveCommand");
+            if (cancelCommand == null) throw new ArgumentNullException("cancelCommand");
             if (track == null) throw new ArgumentNullException("track");
-            this.track = track;
-            CloseWindowCommand = closeWindowCommand;
+            SaveCommand = saveCommand;
+            Track = track;
+            CancelCommand = cancelCommand;
 
             HarmonicKey = track.OriginalKey;
             Bpm = track.OriginalBpm;
@@ -44,8 +46,8 @@ namespace MixPlanner.ViewModels
             get { return harmonicKey; }
             set
             {
-                RaisePropertyChanged(() => HarmonicKey);
                 harmonicKey = value;
+                RaisePropertyChanged(() => HarmonicKey);
             }
         }
 
@@ -54,8 +56,8 @@ namespace MixPlanner.ViewModels
             get { return bpm; }
             set
             {
-                RaisePropertyChanged(() => Bpm);
                 bpm = value;
+                RaisePropertyChanged(() => Bpm);
             }
         }
 
@@ -64,8 +66,8 @@ namespace MixPlanner.ViewModels
             get { return artist; }
             set
             {
-                RaisePropertyChanged(() => Artist);
                 artist = value;
+                RaisePropertyChanged(() => Artist);
             }
         }
 
@@ -74,8 +76,8 @@ namespace MixPlanner.ViewModels
             get { return title; }
             set
             {
-                RaisePropertyChanged(() => Title);
                 title = value;
+                RaisePropertyChanged(() => Title);
             }
         }
 
@@ -84,8 +86,8 @@ namespace MixPlanner.ViewModels
             get { return year; }
             set
             {
-                RaisePropertyChanged(() => Year);
                 year = value;
+                RaisePropertyChanged(() => Year);
             }
         }
 
@@ -94,8 +96,8 @@ namespace MixPlanner.ViewModels
             get { return genre; }
             set
             {
-                RaisePropertyChanged(() => Genre);
                 genre = value;
+                RaisePropertyChanged(() => Genre);
             }
         }
 
@@ -104,8 +106,8 @@ namespace MixPlanner.ViewModels
             get { return label; }
             set
             {
-                RaisePropertyChanged(() => Label);
                 label = value;
+                RaisePropertyChanged(() => Label);
             }
         }
 
@@ -114,8 +116,8 @@ namespace MixPlanner.ViewModels
             get { return filePath; }
             set
             {
-                RaisePropertyChanged(() => FilePath);
                 filePath = value;
+                RaisePropertyChanged(() => FilePath);
             }
         }
 
@@ -124,9 +126,9 @@ namespace MixPlanner.ViewModels
             get { return fileExists; }
             set
             {
+                fileExists = value;
                 RaisePropertyChanged(() => FileExists);
                 RaisePropertyChanged(() => FileNotFound);
-                fileExists = value;
             }
         }
 
@@ -135,7 +137,9 @@ namespace MixPlanner.ViewModels
         public IEnumerable<HarmonicKey> AllHarmonicKeys { get; private set; } 
 
         public ICommand BrowseCommand { get; private set; }
-        public ICommand SaveCommand { get; private set; }
-        public CloseWindowCommand CloseWindowCommand { get; set; }
+        public SaveTrackCommand SaveCommand { get; private set; }
+        public CloseWindowCommand CancelCommand { get; private set; }
+
+        public Track Track { get; private set; }
     }
 }

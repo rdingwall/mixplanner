@@ -45,11 +45,24 @@ namespace MixPlanner.ViewModels
             PlayPauseCommand = playPauseCommand;
             messenger.Register<TransitionChangedEvent>(this, OnTransitionChanged);
             messenger.Register<PlaybackSpeedAdjustedEvent>(this, OnPlaybackSpeedAdjusted);
+            messenger.Register<TrackUpdatedEvent>(this, OnTrackUpdated);
 
             // Required for play/pause status
             messenger.Register<PlayerPlayingEvent>(this, _ => RaisePropertyChanged(() => Track));
             messenger.Register<PlayerStoppedEvent>(this, _ => RaisePropertyChanged(() => Track));
             messenger.Register<ConfigSavedEvent>(this, _ => RaisePropertyChanged(() => ActualKey));
+        }
+
+        void OnTrackUpdated(TrackUpdatedEvent obj)
+        {
+            if (!obj.Track.Equals(Track))
+                return;
+
+            RaisePropertyChanged(() => Artist);
+            RaisePropertyChanged(() => Title);
+            RaisePropertyChanged(() => ActualBpm);
+            RaisePropertyChanged(() => ActualKey);
+            RaisePropertyChanged(() => PlaySpeed);
         }
 
         void OnPlaybackSpeedAdjusted(PlaybackSpeedAdjustedEvent obj)

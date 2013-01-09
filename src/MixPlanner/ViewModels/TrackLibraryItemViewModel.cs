@@ -9,12 +9,34 @@ namespace MixPlanner.ViewModels
     public class TrackLibraryItemViewModel : ViewModelBase
     {
         Transition transition;
+        string artist;
+        string title;
+        HarmonicKey key;
+        string genre;
+        string label;
+        string year;
+        double bpm;
+        string filename;
 
         public TrackLibraryItemViewModel(IMessenger messenger, Track track)
         {
             if (messenger == null) throw new ArgumentNullException("messenger");
             if (track == null) throw new ArgumentNullException("track");
             Track = track;
+            PopulateFields(track);
+
+            messenger.Register<RecommendationsClearedEvent>(this, _ => Transition = null);
+            messenger.Register<TrackRecommendedEvent>(this, OnTrackRecommended);
+            messenger.Register<TrackUpdatedEvent>(this, OnTrackUpdated);
+
+            // Required for play/pause status
+            messenger.Register<PlayerPlayingEvent>(this, _ => RaisePropertyChanged(() => Track));
+            messenger.Register<PlayerStoppedEvent>(this, _ => RaisePropertyChanged(() => Track));
+            messenger.Register<ConfigSavedEvent>(this, _ => RaisePropertyChanged(() => Key));
+        }
+
+        void PopulateFields(Track track)
+        {
             Artist = track.Artist;
             Title = track.Title;
             Genre = track.Genre;
@@ -23,19 +45,19 @@ namespace MixPlanner.ViewModels
             Label = track.Label;
             Filename = track.File.Name;
             Key = track.OriginalKey;
+        }
 
-            messenger.Register<RecommendationsClearedEvent>(this, _ => Transition = null);
-            messenger.Register<TrackRecommendedEvent>(this, OnTrackRecommended);
+        void OnTrackUpdated(TrackUpdatedEvent obj)
+        {
+            if (!obj.Track.Equals(Track))
+                return;
 
-            // Required for play/pause status
-            messenger.Register<PlayerPlayingEvent>(this, _ => RaisePropertyChanged(() => Track));
-            messenger.Register<PlayerStoppedEvent>(this, _ => RaisePropertyChanged(() => Track));
-            messenger.Register<ConfigSavedEvent>(this, _ => RaisePropertyChanged(() => Key));
+            PopulateFields(obj.Track);
         }
 
         void OnTrackRecommended(TrackRecommendedEvent obj)
         {
-            if (obj.Track != Track)
+            if (!obj.Track.Equals(Track))
                 return;
 
             Transition = obj.Transition;
@@ -72,19 +94,87 @@ namespace MixPlanner.ViewModels
             get { return transition != null; }
         }
 
-        public string Filename { get; set; }
+        public string Filename
+        {
+            get { return filename; }
+            private set
+            {
+                filename = value;
+                RaisePropertyChanged(() => Filename);
+            }
+        }
 
-        public string Artist { get; set; }
-        public string Title { get; set; }
+        public string Artist
+        {
+            get { return artist; }
+            private set
+            {
+                artist = value;
+                RaisePropertyChanged(() => Artist);
+            }
+        }
 
-        public HarmonicKey Key { get; set; }
+        public string Title
+        {
+            get { return title; }
+            private set
+            {
+                title = value;
+                RaisePropertyChanged(() => Title);
+            }
+        }
 
-        public string Genre { get; set; }
-        public string Label { get; set; }
-        public string Year { get; set; }
-        public double Bpm { get; set; }
+        public HarmonicKey Key
+        {
+            get { return key; }
+            private set
+            {
+                key = value;
+                RaisePropertyChanged(() => Key);
+            }
+        }
 
-        public Track Track { get; set; }
+        public string Genre
+        {
+            get { return genre; }
+            private set
+            {
+                genre = value;
+                RaisePropertyChanged(() => Genre);
+            }
+        }
+
+        public string Label
+        {
+            get { return label; }
+            private set
+            {
+                label = value;
+                RaisePropertyChanged(() => Label);
+            }
+        }
+
+        public string Year
+        {
+            get { return year; }
+            private set
+            {
+                year = value;
+                RaisePropertyChanged(() => Year);
+            }
+        }
+
+        public double Bpm
+        {
+            get { return bpm; }
+            private set
+            {
+                bpm = value;
+                RaisePropertyChanged(() => Year);
+            }
+        }
+
+        public Track Track { get; private set; }
         public bool IsSelected { get; set; }
     }
 }
