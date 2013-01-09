@@ -28,6 +28,7 @@ namespace MixPlanner.ViewModels
         public ResetPlaybackSpeedCommand ResetPlaybackSpeedCommand { get; private set; }
         public GetRecommendationsCommand GetRecommendationsCommand { get; private set; }
         public ClearRecommendationsCommand ClearRecommendationsCommand { get; private set; }
+        public KeyEventProxyCommand EditF2KeyCommand { get; private set; }
         public EditTrackCommand EditTrackCommand { get; private set; }
 
         public MixItemViewModel SelectedItem
@@ -81,12 +82,15 @@ namespace MixPlanner.ViewModels
                 removeCommand, () => SelectedItems, Key.Delete, Key.Back);
             PlayPauseSpaceKeyCommand = new KeyEventProxyCommand(
                 PlayPauseCommand, () => SelectedItem.Track, Key.Space, Key.Enter, Key.Return);
+            EditF2KeyCommand = new KeyEventProxyCommand(
+                EditTrackCommand, () => SelectedItem.Track, Key.F2);
             Items = new ObservableCollection<MixItemViewModel>();
             messenger.Register<TrackAddedToMixEvent>(this, OnTrackAdded);
             messenger.Register<TrackRemovedFromMixEvent>(this, OnTrackRemoved);
             messenger.Register<ConfigSavedEvent>(this, _ => OnSelectionChanged());
             messenger.Register<PlaybackSpeedAdjustedEvent>(this, _ => OnSelectionChanged());
         }
+
 
         public ICollection<MixItem> SelectedItems
         {

@@ -31,6 +31,7 @@ namespace MixPlanner.ViewModels
         public SearchLibraryCommand SearchCommand { get; private set; }
         public OpenSettingsCommand OpenSettingsCommand { get; private set; }
         public EditTrackCommand EditTrackCommand { get; private set; }
+        public KeyEventProxyCommand EditF2KeyCommand { get; private set; }
 
         public ObservableCollection<GridViewColumn> LibraryColumns { get; private set; }
             
@@ -118,7 +119,9 @@ namespace MixPlanner.ViewModels
                 removeTracksCommand, () => SelectedTracks, Key.Delete, Key.Back);
             PlayPauseSpaceKeyCommand = new KeyEventProxyCommand(
                 PlayPauseCommand, () => SelectedItem.Track, Key.Space, Key.Return, Key.Enter);
+            EditF2KeyCommand = new KeyEventProxyCommand(EditTrackCommand, () => SelectedItem.Track, Key.F2);
         }
+
 
         void OnSearchTextCleared(SearchTextClearedEvent obj)
         {

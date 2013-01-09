@@ -40,6 +40,10 @@
                         <cmd:EventToCommand Command="{Binding RemoveDelKeyCommand}"
 											PassEventArgsToCommand="True"  />
                     </i:EventTrigger>
+                    <i:EventTrigger EventName="PreviewKeyDown">
+                        <cmd:EventToCommand Command="{Binding EditF2KeyCommand}"
+                                            PassEventArgsToCommand="True" />
+                    </i:EventTrigger>
                     <i:EventTrigger EventName="MouseDoubleClick">
                         <cmd:EventToCommand Command="{Binding PlayPauseCommand}" 
 											CommandParameter="{Binding SelectedItem.Track}"  />
@@ -93,6 +97,7 @@
                                   Command="{Binding OpenSettingsCommand}"
                                   CommandTarget="{Binding Path=PlacementTarget, RelativeSource={RelativeSource AncestorType=ContextMenu}}"/>
                         <MenuItem Header="Edit"
+                                  InputGestureText="F2"
                                   Visibility="{Binding Path=PlacementTarget.DataContext.HasSingleItemSelected, RelativeSource={RelativeSource AncestorType=ContextMenu}, Converter={StaticResource BooleanToVisibilityConverter}}"
                                   Command="{Binding EditTrackCommand}"
                                   CommandTarget="{Binding Path=PlacementTarget, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
