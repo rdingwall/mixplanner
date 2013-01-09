@@ -92,6 +92,11 @@
                         <MenuItem Header="Settings"
                                   Command="{Binding OpenSettingsCommand}"
                                   CommandTarget="{Binding Path=PlacementTarget, RelativeSource={RelativeSource AncestorType=ContextMenu}}"/>
+                        <MenuItem Header="Edit"
+                                  Visibility="{Binding Path=PlacementTarget.DataContext.HasSingleItemSelected, RelativeSource={RelativeSource AncestorType=ContextMenu}, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                  Command="{Binding EditTrackCommand}"
+                                  CommandTarget="{Binding Path=PlacementTarget, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
+                                  CommandParameter="{Binding Path=PlacementTarget.SelectedItem.Track, RelativeSource={RelativeSource AncestorType=ContextMenu}}" />
                     </ContextMenu>
                 </c:ImprovedListView.ContextMenu>
 

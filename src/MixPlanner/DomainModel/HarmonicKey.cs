@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 
 namespace MixPlanner.DomainModel
@@ -7,6 +8,38 @@ namespace MixPlanner.DomainModel
     {
         // e.g. 12A
         private readonly ushort hexValue;
+
+        static HarmonicKey()
+        {
+            AllKeys = new[]
+                          {
+                              Key1A,
+                              Key1B,
+                              Key2A,
+                              Key2B,
+                              Key3A,
+                              Key3B,
+                              Key4A,
+                              Key4B,
+                              Key5A,
+                              Key5B,
+                              Key6A,
+                              Key6B,
+                              Key7A,
+                              Key7B,
+                              Key8A,
+                              Key8B,
+                              Key9A,
+                              Key9B,
+                              Key10A,
+                              Key10B,
+                              Key11A,
+                              Key11B,
+                              Key12A,
+                              Key12B,
+                              Unknown
+                          };
+        }
 
         public HarmonicKey(int pitch, Scale scale) : this (String.Format("{0}{1:X}", pitch, (int)scale))
         {
@@ -197,5 +230,7 @@ namespace MixPlanner.DomainModel
         {
             return CompareTo(obj as HarmonicKey);
         }
+
+        public static IEnumerable<HarmonicKey> AllKeys { get; private set; }
     }
 }

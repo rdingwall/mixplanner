@@ -128,6 +128,7 @@
     <Compile Include="Commands\ClearRecommendationsCommand.cs" />
     <Compile Include="Commands\CloseWindowCommand.cs" />
     <Compile Include="Commands\CommandBase.cs" />
+    <Compile Include="Commands\EditTrackCommand.cs" />
     <Compile Include="Commands\KeyEventProxyCommand.cs" />
     <Compile Include="Commands\DropItemIntoMixCommand.cs" />
     <Compile Include="Commands\GetRecommendationsCommand.cs" />
@@ -228,6 +229,7 @@
     <Compile Include="Storage\InMemoryConfigStorage.cs" />
     <Compile Include="Storage\InMemoryLibraryStorage.cs" />
     <Compile Include="ViewModels\CloseableViewModelBase.cs" />
+    <Compile Include="ViewModels\EditTrackViewModel.cs" />
     <Compile Include="ViewModels\ErrorWindowViewModel.cs" />
     <Compile Include="ViewModels\SettingsWindowViewModel.cs" />
     <Compile Include="ViewModels\StatusBarViewModel.cs" />
@@ -239,6 +241,9 @@
     <Compile Include="ViewModels\MixViewModel.cs" />
     <Compile Include="ViewModels\TrackLibraryViewModel.cs" />
     <Compile Include="ViewModels\TrackLibrarySearchFilter.cs" />
+    <Compile Include="Views\EditTrackWindow.xaml.cs">
+      <DependentUpon>EditTrackWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ErrorWindow.xaml.cs">
       <DependentUpon>ErrorWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -265,6 +270,10 @@
     <Page Include="Classic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\EditTrackWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ErrorWindow.xaml">
       <SubType>Designer</SubType>
