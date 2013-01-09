@@ -6,6 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModels="clr-namespace:MixPlanner.ViewModels"
         xmlns:attachedProperties="clr-namespace:MixPlanner.AttachedProperties"
+        xmlns:controls="clr-namespace:MixPlanner.Controls"
         mc:Ignorable="d"
         Title="Edit Track"
         Height="400"
@@ -83,9 +84,10 @@
                     <Label Grid.Row="0"
                            Grid.Column="0"
                            Content="Year:" />
-                    <TextBox Grid.Row="1"
-                             Grid.Column="0"
-                             Text="{Binding Year}"/>
+                    <controls:YearOnlyTextBox Grid.Row="1"
+                                              Grid.Column="0"
+                                              MaxLength="4"
+                                              Text="{Binding Year}" />
 
                     <Label Grid.Row="0"
                            Grid.Column="1"
@@ -121,7 +123,7 @@
                     <Label Content="File path:" />
                     <Label Content="File exists"
                            Foreground="Green"
-                           Visibility="{Binding FileExists, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                           Visibility="{Binding FileExists, Converter={StaticResource BooleanToVisibilityConverter}}" />
                     <Label Content="File doesn't exist"
                            Foreground="Red"
                            Visibility="{Binding FileNotFound, Converter={StaticResource BooleanToVisibilityConverter}}" />
