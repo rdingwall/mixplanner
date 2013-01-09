@@ -93,7 +93,7 @@ namespace MixPlanner.DomainModel
             Track track;
             if (TryGetTrack(filename, out track))
                 return new[] { track };
-
+            
             track = await loader.LoadAsync(filename);
             await storage.AddAsync(track);
             messenger.SendToUI(new TrackAddedToLibraryEvent(track));

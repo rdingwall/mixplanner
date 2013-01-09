@@ -176,7 +176,7 @@ namespace MixPlanner.ViewModels
             private set
             {
                 bpm = value;
-                RaisePropertyChanged(() => Year);
+                RaisePropertyChanged(() => Bpm);
             }
         }
 
