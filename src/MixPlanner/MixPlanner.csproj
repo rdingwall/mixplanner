@@ -134,6 +134,7 @@
     <Compile Include="Commands\GetRecommendationsCommand.cs" />
     <Compile Include="Commands\ImportFilesIntoMixCommand.cs" />
     <Compile Include="Commands\OpenSettingsCommand.cs" />
+    <Compile Include="Commands\ReloadTrackFileCommand.cs" />
     <Compile Include="Commands\ResetPlaybackSpeedCommand.cs" />
     <Compile Include="Commands\SaveSettingsCommand.cs" />
     <Compile Include="Commands\SaveTrackCommand.cs" />
@@ -148,6 +149,7 @@
     <Compile Include="AttachedProperties\GridViewColumns.cs" />
     <Compile Include="Configuration\ConfigSwitchingBpmRangeChecker.cs" />
     <Compile Include="Configuration\ConfigSwitchingPlaybackSpeedAdjuster.cs" />
+    <Compile Include="Controls\FileBrowseButton.cs" />
     <Compile Include="Controls\YearOnlyTextBox.cs" />
     <Compile Include="Controls\ImprovedListView.cs" />
     <Compile Include="Controls\SearchTextBox.cs" />

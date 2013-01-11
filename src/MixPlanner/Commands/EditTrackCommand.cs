@@ -9,20 +9,29 @@ namespace MixPlanner.Commands
     {
         readonly SaveTrackCommand saveTrackCommand;
         readonly CloseWindowCommand closeWindowCommand;
+        readonly ReloadTrackFileCommand reloadTrackFileCommand;
 
         public EditTrackCommand(
             SaveTrackCommand saveTrackCommand,
-            CloseWindowCommand closeWindowCommand)
+            CloseWindowCommand closeWindowCommand,
+            ReloadTrackFileCommand reloadTrackFileCommand)
         {
             if (saveTrackCommand == null) throw new ArgumentNullException("saveTrackCommand");
             if (closeWindowCommand == null) throw new ArgumentNullException("closeWindowCommand");
+            if (reloadTrackFileCommand == null) throw new ArgumentNullException("reloadTrackFileCommand");
             this.saveTrackCommand = saveTrackCommand;
             this.closeWindowCommand = closeWindowCommand;
+            this.reloadTrackFileCommand = reloadTrackFileCommand;
         }
 
         protected override void Execute(Track parameter)
         {
-            var viewModel = new EditTrackViewModel(saveTrackCommand, closeWindowCommand, parameter);
+            var viewModel = new EditTrackViewModel(
+                saveTrackCommand, 
+                closeWindowCommand, 
+                reloadTrackFileCommand, 
+                parameter);
+
             var window = new EditTrackWindow {DataContext = viewModel};
             window.ShowDialog();
         }

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows.Input;
+using System.IO;
 using MixPlanner.Commands;
 using MixPlanner.DomainModel;
 
@@ -21,14 +21,17 @@ namespace MixPlanner.ViewModels
         public EditTrackViewModel(
             SaveTrackCommand saveCommand,
             CloseWindowCommand cancelCommand,
+            ReloadTrackFileCommand reloadTrackFileCommand,
             Track track)
         {
             if (saveCommand == null) throw new ArgumentNullException("saveCommand");
             if (cancelCommand == null) throw new ArgumentNullException("cancelCommand");
+            if (reloadTrackFileCommand == null) throw new ArgumentNullException("reloadTrackFileCommand");
             if (track == null) throw new ArgumentNullException("track");
             SaveCommand = saveCommand;
             Track = track;
             CloseCommand = cancelCommand;
+            ReloadTrackFileCommand = reloadTrackFileCommand;
 
             HarmonicKey = track.OriginalKey;
             Bpm = track.OriginalBpm;
@@ -121,6 +124,11 @@ namespace MixPlanner.ViewModels
             }
         }
 
+        public string InitialDirectory
+        {
+            get { return String.IsNullOrEmpty(FilePath) ? null : Path.GetDirectoryName(FilePath); }
+        }
+
         public bool FileExists
         {
             get { return fileExists; }
@@ -134,9 +142,9 @@ namespace MixPlanner.ViewModels
 
         public bool FileNotFound { get { return !FileExists; } }
 
-        public IEnumerable<HarmonicKey> AllHarmonicKeys { get; private set; } 
+        public IEnumerable<HarmonicKey> AllHarmonicKeys { get; private set; }
 
-        public ICommand BrowseCommand { get; private set; }
+        public ReloadTrackFileCommand ReloadTrackFileCommand { get; private set; }
         public SaveTrackCommand SaveCommand { get; private set; }
         public CloseWindowCommand CloseCommand { get; private set; }
 
