@@ -158,7 +158,7 @@
     <Compile Include="Converters\PlaySpeedIncreaseConverter.cs" />
     <Compile Include="Converters\TraditionalSymbolsHarmonicKeyConverter.cs" />
     <Compile Include="Converters\EnumToBoolConverter.cs" />
-    <Compile Include="Converters\CamelotHarmonicKeyCoverter.cs" />
+    <Compile Include="Converters\KeyCodeHarmonicKeyCoverter.cs" />
     <Compile Include="Converters\HarmonicKeyToBrushConverter.cs" />
     <Compile Include="Converters\PlayPauseCommandLabelConverter.cs" />
     <Compile Include="Converters\PlaySpeedConverter.cs" />

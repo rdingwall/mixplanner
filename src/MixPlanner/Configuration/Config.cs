@@ -28,7 +28,7 @@ namespace MixPlanner.Configuration
             new Config
                 {
                     // Awesome features should be enabled by default..!
-                    HarmonicKeyDisplayMode = HarmonicKeyDisplayMode.Camelot,
+                    HarmonicKeyDisplayMode = HarmonicKeyDisplayMode.KeyCode,
                     RestrictBpmCompatibility = true,
                     StripMixedInKeyPrefixes = true,
                     SuggestBpmAdjustedTracks = true,

@@ -30,10 +30,10 @@ namespace MixPlanner.DomainModel
         {
             var increase = speed - 1;
 
-            // Pitch changes one semitone (+/- 7 "hours" on the Camelot wheel)
+            // Pitch changes one semitone (+/- 7 "hours" on the Camelot Wheel)
             // for every 3% difference.
-            var numberOfHours = increase/HarmonicKeyChangeInterval.Value;
-            var pitchIncrease = 7 * numberOfHours;
+            var positions = increase/HarmonicKeyChangeInterval.Value;
+            var pitchIncrease = 7 * positions;
 
             return originalKey.IncreasePitch((int)pitchIncrease);
         }

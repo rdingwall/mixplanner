@@ -15,21 +15,21 @@ namespace MixPlanner.Converters
         readonly IConfigProvider configProvider;
         readonly TraditionalTextHarmonicKeyConverter traditionalTextConverter;
         readonly TraditionalSymbolsHarmonicKeyConverter traditionalSymbolsConverter;
-        readonly CamelotHarmonicKeyCoverter camelotConverter;
+        readonly KeyCodeHarmonicKeyCoverter keyCodeConverter;
 
         public HarmonicKeyConverterFactory(
             TraditionalTextHarmonicKeyConverter traditionalTextConverter,
             TraditionalSymbolsHarmonicKeyConverter traditionalSymbolsConverter,
-            CamelotHarmonicKeyCoverter camelotConverter,
+            KeyCodeHarmonicKeyCoverter keyCodeConverter,
             IConfigProvider configProvider)
         {
             if (traditionalTextConverter == null) throw new ArgumentNullException("traditionalTextConverter");
             if (traditionalSymbolsConverter == null) throw new ArgumentNullException("traditionalSymbolsConverter");
-            if (camelotConverter == null) throw new ArgumentNullException("camelotConverter");
+            if (keyCodeConverter == null) throw new ArgumentNullException("keyCodeConverter");
             if (configProvider == null) throw new ArgumentNullException("configProvider");
             this.traditionalTextConverter = traditionalTextConverter;
             this.traditionalSymbolsConverter = traditionalSymbolsConverter;
-            this.camelotConverter = camelotConverter;
+            this.keyCodeConverter = keyCodeConverter;
             this.configProvider = configProvider;
         }
 
@@ -46,8 +46,8 @@ namespace MixPlanner.Converters
                     return traditionalSymbolsConverter;
 
                 default:
-                case HarmonicKeyDisplayMode.Camelot:
-                    return camelotConverter;
+                case HarmonicKeyDisplayMode.KeyCode:
+                    return keyCodeConverter;
             }
         }
     }

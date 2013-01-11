@@ -41,7 +41,7 @@
                                 Orientation="Horizontal"
                                 VerticalAlignment="Center">
                         <RadioButton Content="11A"
-                                     IsChecked="{Binding HarmonicKeyDisplayMode, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static domainModel:HarmonicKeyDisplayMode.Camelot}}"
+                                     IsChecked="{Binding HarmonicKeyDisplayMode, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static domainModel:HarmonicKeyDisplayMode.KeyCode}}"
                                      HorizontalAlignment="Left"
                                      VerticalAlignment="Center"
                                      Margin="0,0,10,0" />

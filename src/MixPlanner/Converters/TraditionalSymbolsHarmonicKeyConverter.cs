@@ -11,7 +11,7 @@ namespace MixPlanner.Converters
     public class TraditionalSymbolsHarmonicKeyConverter : IValueConverter
     {
         static readonly IDictionary<HarmonicKey, string> TradtionalKeys;
-        static readonly IDictionary<string, HarmonicKey> CamelotKeys;
+        static readonly IDictionary<string, HarmonicKey> KeyCodes;
 
         static TraditionalSymbolsHarmonicKeyConverter()
         {
@@ -44,19 +44,19 @@ namespace MixPlanner.Converters
                     {HarmonicKey.Key12B, "E Major"}
                 };
 
-            CamelotKeys = TradtionalKeys
+            KeyCodes = TradtionalKeys
                 .ToDictionary(k => k.Value, v => v.Key);
         }
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var camelotKey = value as HarmonicKey;
+            var key = value as HarmonicKey;
 
-            if (camelotKey == null)
+            if (key == null)
                 return null;
 
             string traditionalKey;
-            if (TradtionalKeys.TryGetValue(camelotKey, out traditionalKey))
+            if (TradtionalKeys.TryGetValue(key, out traditionalKey))
                 return traditionalKey;
 
             return "Unknown Key";
@@ -69,9 +69,9 @@ namespace MixPlanner.Converters
             if (traditionalKey == null)
                 return null;
 
-            HarmonicKey camelotKey;
-            if (CamelotKeys.TryGetValue(traditionalKey, out camelotKey))
-                return camelotKey;
+            HarmonicKey key;
+            if (KeyCodes.TryGetValue(traditionalKey, out key))
+                return key;
 
             return HarmonicKey.Unknown;
         }

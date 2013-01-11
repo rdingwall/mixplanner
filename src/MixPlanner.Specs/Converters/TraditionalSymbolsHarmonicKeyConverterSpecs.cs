@@ -7,7 +7,7 @@ namespace MixPlanner.Specs.Converters
     [Subject(typeof(TraditionalSymbolsHarmonicKeyConverter))]
     public class TraditionalSymbolsHarmonicKeyConverterSpecs
     {
-         public class When_mapping_from_camelot_to_traditional
+         public class When_mapping_from_keycode_to_traditional
          {
              Establish context = () => converter = new TraditionalSymbolsHarmonicKeyConverter();
 
@@ -17,7 +17,7 @@ namespace MixPlanner.Specs.Converters
              static TraditionalSymbolsHarmonicKeyConverter converter;
          }
 
-         public class When_mapping_an_unknown_camelot_key_to_traditional
+         public class When_mapping_an_unknown_key_to_traditional
          {
              Establish context = () => converter = new TraditionalSymbolsHarmonicKeyConverter();
 
@@ -27,7 +27,7 @@ namespace MixPlanner.Specs.Converters
              static TraditionalSymbolsHarmonicKeyConverter converter;
          }
 
-         public class When_mapping_from_traditional_to_camelot
+         public class When_mapping_from_traditional_to_keycode
          {
              Establish context = () => converter = new TraditionalSymbolsHarmonicKeyConverter();
 
@@ -37,7 +37,7 @@ namespace MixPlanner.Specs.Converters
              static TraditionalSymbolsHarmonicKeyConverter converter;
          }
 
-         public class When_mapping_an_unknown_traditional_key_to_camelot
+         public class When_mapping_an_unknown_traditional_key_to_keycode
          {
              Establish context = () => converter = new TraditionalSymbolsHarmonicKeyConverter();
 

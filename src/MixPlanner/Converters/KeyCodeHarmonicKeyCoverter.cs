@@ -6,7 +6,7 @@ using MixPlanner.DomainModel;
 namespace MixPlanner.Converters
 {
     [ValueConversion(typeof(HarmonicKey), typeof(string))]
-    public class CamelotHarmonicKeyCoverter : IValueConverter
+    public class KeyCodeHarmonicKeyCoverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
