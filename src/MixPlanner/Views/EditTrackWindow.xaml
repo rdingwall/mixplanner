@@ -14,6 +14,12 @@
         ResizeMode="NoResize"
         d:DataContext="{d:DesignInstance viewModels:EditTrackViewModel}"
         attachedProperties:DialogCloser.DialogResult="{Binding Close}">
+    <Window.InputBindings>
+        <KeyBinding Key="Escape"
+                    CommandParameter="{Binding}"
+                    Command="{Binding CloseCommand}" />
+    </Window.InputBindings>
+    
     <Grid>
         <StackPanel Orientation="Vertical">
 
@@ -147,7 +153,7 @@
                 <Button Content="Cancel"
                         Width="100"
                         CommandParameter="{Binding}"
-                        Command="{Binding CancelCommand}"
+                        Command="{Binding CloseCommand}"
                         Margin="10" />
             </StackPanel>
 

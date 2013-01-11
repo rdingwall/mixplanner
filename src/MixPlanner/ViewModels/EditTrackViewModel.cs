@@ -28,7 +28,7 @@ namespace MixPlanner.ViewModels
             if (track == null) throw new ArgumentNullException("track");
             SaveCommand = saveCommand;
             Track = track;
-            CancelCommand = cancelCommand;
+            CloseCommand = cancelCommand;
 
             HarmonicKey = track.OriginalKey;
             Bpm = track.OriginalBpm;
@@ -138,7 +138,7 @@ namespace MixPlanner.ViewModels
 
         public ICommand BrowseCommand { get; private set; }
         public SaveTrackCommand SaveCommand { get; private set; }
-        public CloseWindowCommand CancelCommand { get; private set; }
+        public CloseWindowCommand CloseCommand { get; private set; }
 
         public Track Track { get; private set; }
     }

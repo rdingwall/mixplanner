@@ -17,7 +17,7 @@ namespace MixPlanner.ViewModels
         bool autoAdjustBpm;
 
         public SaveSettingsCommand SaveCommand { get; private set; }
-        public CloseWindowCommand CancelCommand { get; private set; }
+        public CloseWindowCommand CloseCommand { get; private set; }
 
         public SettingsWindowViewModel(
             IDispatcherMessenger messenger,
@@ -28,7 +28,7 @@ namespace MixPlanner.ViewModels
             if (saveCommand == null) throw new ArgumentNullException("saveCommand");
             if (cancelCommand == null) throw new ArgumentNullException("cancelCommand");
             SaveCommand = saveCommand;
-            CancelCommand = cancelCommand;
+            CloseCommand = cancelCommand;
 
             messenger.Register<ConfigSavedEvent>(this, _ => Close = true);
         }
