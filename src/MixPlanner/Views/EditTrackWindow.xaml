@@ -63,8 +63,13 @@
                        Content="BPM" />
             </Grid>
 
-            <Label Content="How do I find the key and BPM of a track?"
-                   HorizontalAlignment="Center" />
+            <Label HorizontalAlignment="Center">
+                <Hyperlink NavigateUri="http://www.google.com"
+                           CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=NavigateUri}"
+                           Command="{Binding NavigateUriCommand}">
+                    <TextBlock Text="How do I find the key and BPM of a track?" />
+                </Hyperlink>
+            </Label>
 
             <StackPanel Orientation="Vertical">
                 <Label Content="Artist(s):"

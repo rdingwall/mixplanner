@@ -13,7 +13,6 @@ namespace MixPlanner.ViewModels
         string year;
         string label;
         string filePath;
-        bool fileExists;
         double bpm;
         HarmonicKey harmonicKey;
         string title;
@@ -22,16 +21,19 @@ namespace MixPlanner.ViewModels
             SaveTrackCommand saveCommand,
             CloseWindowCommand cancelCommand,
             ReloadTrackFileCommand reloadTrackFileCommand,
+            NavigateUriCommand navigateUriCommand,
             Track track)
         {
             if (saveCommand == null) throw new ArgumentNullException("saveCommand");
             if (cancelCommand == null) throw new ArgumentNullException("cancelCommand");
             if (reloadTrackFileCommand == null) throw new ArgumentNullException("reloadTrackFileCommand");
+            if (navigateUriCommand == null) throw new ArgumentNullException("navigateUriCommand");
             if (track == null) throw new ArgumentNullException("track");
             SaveCommand = saveCommand;
             Track = track;
             CloseCommand = cancelCommand;
             ReloadTrackFileCommand = reloadTrackFileCommand;
+            NavigateUriCommand = navigateUriCommand;
 
             HarmonicKey = track.OriginalKey;
             Bpm = track.OriginalBpm;
@@ -141,6 +143,7 @@ namespace MixPlanner.ViewModels
         public IEnumerable<HarmonicKey> AllHarmonicKeys { get; private set; }
 
         public ReloadTrackFileCommand ReloadTrackFileCommand { get; private set; }
+        public NavigateUriCommand NavigateUriCommand { get; set; }
         public SaveTrackCommand SaveCommand { get; private set; }
         public CloseWindowCommand CloseCommand { get; private set; }
 

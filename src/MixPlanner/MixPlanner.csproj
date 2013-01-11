@@ -133,6 +133,7 @@
     <Compile Include="Commands\DropItemIntoMixCommand.cs" />
     <Compile Include="Commands\GetRecommendationsCommand.cs" />
     <Compile Include="Commands\ImportFilesIntoMixCommand.cs" />
+    <Compile Include="Commands\NavigateUriCommand.cs" />
     <Compile Include="Commands\OpenSettingsCommand.cs" />
     <Compile Include="Commands\ReloadTrackFileCommand.cs" />
     <Compile Include="Commands\ResetPlaybackSpeedCommand.cs" />
