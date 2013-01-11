@@ -141,6 +141,7 @@
                 <controls:FileBrowseButton Grid.Row="1"
                         Grid.Column="1"
                         Content="Browse..."
+                        Filter="MP3 files|*.mp3"
                         FileName="{Binding FilePath, Mode=TwoWay}"
                         InitialDirectory="{Binding InitialDirectory}"
                         CommandParameter="{Binding}"
