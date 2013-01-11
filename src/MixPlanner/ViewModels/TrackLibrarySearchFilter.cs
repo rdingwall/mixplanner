@@ -17,7 +17,7 @@ namespace MixPlanner.ViewModels
         {
             var item = (TrackLibraryItemViewModel)obj;
 
-            return item.SearchData.IndexOf(searchText, Comparison) > -1;
+            return item.SearchIndexData.IndexOf(searchText, Comparison) > -1;
         }
     }
 }

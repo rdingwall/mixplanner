@@ -46,7 +46,7 @@ namespace MixPlanner.ViewModels
             Label = track.Label;
             Filename = track.File.Name;
             Key = track.OriginalKey;
-            SearchData = String.Concat(Track.Artist,
+            SearchIndexData = String.Concat(Track.Artist,
                                        Track.Title,
                                        Path.GetFileNameWithoutExtension(Track.Filename),
                                        Track.OriginalBpm.ToString(),
@@ -180,7 +180,7 @@ namespace MixPlanner.ViewModels
             }
         }
 
-        public string SearchData { get; set; }
+        public string SearchIndexData { get; private set; }
 
         public Track Track { get; private set; }
         public bool IsSelected { get; set; }
