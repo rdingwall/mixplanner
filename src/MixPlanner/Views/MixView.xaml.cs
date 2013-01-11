@@ -31,7 +31,7 @@ namespace MixPlanner.Views
         {
             // Bit dirty, toggle 'IsSelected' flag for virtualized list
             // See http://stackoverflow.com/a/9897347/91551
-            var removed = e.RemovedItems.OfType<MixItemViewModel>();
+           var removed = e.RemovedItems.OfType<MixItemViewModel>();
             var added = e.AddedItems.OfType<MixItemViewModel>();
 
             removed.ForEach(i => i.IsSelected = false);

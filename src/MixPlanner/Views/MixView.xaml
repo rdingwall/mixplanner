@@ -22,20 +22,27 @@
                       SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
                       SelectionMode="Extended"
                       SelectionChanged="OnSelectionChanged">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="PreviewKeyDown">
-                        <cmd:EventToCommand Command="{Binding RemoveDelKeyCommand}"
-                                            PassEventArgsToCommand="True" />
-                    </i:EventTrigger>
-                    <i:EventTrigger EventName="PreviewKeyDown">
-                        <cmd:EventToCommand Command="{Binding EditF2KeyCommand}"
-                                            PassEventArgsToCommand="True" />
-                    </i:EventTrigger>
-                    <i:EventTrigger EventName="PreviewKeyDown">
-                        <cmd:EventToCommand Command="{Binding PlayPauseSpaceKeyCommand}"
-                                            PassEventArgsToCommand="True"  />
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
+                
+                <ListView.InputBindings>
+                    <KeyBinding Key="F2" 
+                                CommandParameter="{Binding SelectedTrack}" 
+                                Command="{Binding EditTrackCommand}" />
+                    <KeyBinding Key="Delete"
+                                CommandParameter="{Binding SelectedItems}"
+                                Command="{Binding RemoveCommand}"/>
+                    <KeyBinding Key="Back"
+                                CommandParameter="{Binding SelectedItems}"
+                                Command="{Binding RemoveCommand}"/>
+                    <KeyBinding Key="Space"
+                                CommandParameter="{Binding SelectedTrack}"
+                                Command="{Binding PlayPauseCommand}"/>
+                    <KeyBinding Key="Return"
+                                CommandParameter="{Binding SelectedTrack}"
+                                Command="{Binding PlayPauseCommand}" />
+                    <KeyBinding Key="Enter"
+                                CommandParameter="{Binding SelectedTrack}"
+                                Command="{Binding PlayPauseCommand}" />
+                </ListView.InputBindings>
                 
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">

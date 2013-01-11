@@ -69,8 +69,7 @@ namespace MixPlanner.Specs
                     .Where(t => !t.IsAbstract)
                     .Except(new[]
                                 {
-                                    typeof (PlayPauseTrackCommand),
-                                    typeof (KeyEventProxyCommand)
+                                    typeof (PlayPauseTrackCommand)
                                 });
             }
 

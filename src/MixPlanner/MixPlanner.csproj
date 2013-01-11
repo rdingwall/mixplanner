@@ -129,7 +129,6 @@
     <Compile Include="Commands\CloseWindowCommand.cs" />
     <Compile Include="Commands\CommandBase.cs" />
     <Compile Include="Commands\EditTrackCommand.cs" />
-    <Compile Include="Commands\KeyEventProxyCommand.cs" />
     <Compile Include="Commands\DropItemIntoMixCommand.cs" />
     <Compile Include="Commands\GetRecommendationsCommand.cs" />
     <Compile Include="Commands\ImportFilesIntoMixCommand.cs" />

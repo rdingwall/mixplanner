@@ -33,6 +33,9 @@ namespace MixPlanner.Views
             // See http://stackoverflow.com/a/9897347/91551
             e.RemovedItems.OfType<TrackLibraryItemViewModel>().ForEach(i => i.IsSelected = false);
             e.AddedItems.OfType<TrackLibraryItemViewModel>().ForEach(i => i.IsSelected = true);
+
+            var viewModel = (TrackLibraryViewModel) DataContext;
+            viewModel.OnSelectionChanged();
         }
     }
 }

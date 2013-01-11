@@ -31,26 +31,35 @@
                       ap:GridViewSort.AutoSort="True"
                       ap:GridViewSort.SortGlyphAscending="/Images/Up.png"
                       ap:GridViewSort.SortGlyphDescending="/Images/Down.png">
+                <c:ImprovedListView.InputBindings>
+                    <KeyBinding Key="Delete"
+                                CommandParameter="{Binding SelectedTracks}"
+                                Command="{Binding RemoveCommand}" />
+                    <KeyBinding Key="Back"
+                                CommandParameter="{Binding SelectedTracks}"
+                                Command="{Binding RemoveCommand}" />
+                    <KeyBinding Key="F2"
+                                CommandParameter="{Binding SelectedTrack}"
+                                Command="{Binding EditTrackCommand}"/>   
+                    <KeyBinding Key="Space"
+                                CommandParameter="{Binding SelectedTrack}"
+                                Command="{Binding PlayPauseCommand}"/>
+                    <KeyBinding Key="Enter"
+                                CommandParameter="{Binding SelectedTrack}"
+                                Command="{Binding PlayPauseCommand}" />
+                    <KeyBinding Key="Return"
+                                CommandParameter="{Binding SelectedTrack}"
+                                Command="{Binding PlayPauseCommand}" />
+                </c:ImprovedListView.InputBindings>
+                
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Drop">
                         <cmd:EventToCommand Command="{Binding ImportFilesCommand}"
 								PassEventArgsToCommand="True" />
                     </i:EventTrigger>
-                    <i:EventTrigger EventName="PreviewKeyDown">
-                        <cmd:EventToCommand Command="{Binding RemoveDelKeyCommand}"
-											PassEventArgsToCommand="True"  />
-                    </i:EventTrigger>
-                    <i:EventTrigger EventName="PreviewKeyDown">
-                        <cmd:EventToCommand Command="{Binding EditF2KeyCommand}"
-                                            PassEventArgsToCommand="True" />
-                    </i:EventTrigger>
                     <i:EventTrigger EventName="MouseDoubleClick">
-                        <cmd:EventToCommand Command="{Binding PlayPauseCommand}" 
-											CommandParameter="{Binding SelectedItem.Track}"  />
-                    </i:EventTrigger>
-                    <i:EventTrigger EventName="PreviewKeyDown">
-                        <cmd:EventToCommand Command="{Binding PlayPauseSpaceKeyCommand}"
-                                            PassEventArgsToCommand="True"  />
+                        <cmd:EventToCommand Command="{Binding PlayPauseCommand}"
+                                            CommandParameter="{Binding SelectedItem.Track}" />
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
 

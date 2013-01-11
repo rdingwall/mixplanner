@@ -23,15 +23,12 @@ namespace MixPlanner.ViewModels
         readonly ObservableCollection<TrackLibraryItemViewModel> items;
 
         public ImportFilesIntoLibraryCommand ImportFilesCommand { get; private set; }
-        public KeyEventProxyCommand RemoveDelKeyCommand { get; private set; }
-        public KeyEventProxyCommand PlayPauseSpaceKeyCommand { get; private set; }
         public RemoveTracksFromLibraryCommand RemoveCommand { get; private set; }
         public PlayPauseTrackCommand PlayPauseCommand { get; private set; }
         public ShowInExplorerCommand ShowInExplorerCommand { get; private set; }
         public SearchLibraryCommand SearchCommand { get; private set; }
         public OpenSettingsCommand OpenSettingsCommand { get; private set; }
         public EditTrackCommand EditTrackCommand { get; private set; }
-        public KeyEventProxyCommand EditF2KeyCommand { get; private set; }
 
         public ObservableCollection<GridViewColumn> LibraryColumns { get; private set; }
             
@@ -55,7 +52,13 @@ namespace MixPlanner.ViewModels
                 RaisePropertyChanged(() => SelectedItem);
                 RaisePropertyChanged(() => SelectedItems);
                 RaisePropertyChanged(() => HasSingleItemSelected);
+                RaisePropertyChanged(() => SelectedTrack);
             }
+        }
+
+        public Track SelectedTrack
+        {
+            get { return SelectedItem != null ? SelectedItem.Track : null; }
         }
 
         public bool HasSingleItemSelected
@@ -115,11 +118,6 @@ namespace MixPlanner.ViewModels
 
             ImportFilesCommand = importFilesCommand;
             RemoveCommand = removeTracksCommand;
-            RemoveDelKeyCommand = new KeyEventProxyCommand(
-                removeTracksCommand, () => SelectedTracks, Key.Delete, Key.Back);
-            PlayPauseSpaceKeyCommand = new KeyEventProxyCommand(
-                PlayPauseCommand, () => SelectedItem.Track, Key.Space, Key.Return, Key.Enter);
-            EditF2KeyCommand = new KeyEventProxyCommand(EditTrackCommand, () => SelectedItem.Track, Key.F2);
         }
 
 
@@ -160,6 +158,12 @@ namespace MixPlanner.ViewModels
             var track = e.Track;
             var item = new TrackLibraryItemViewModel(MessengerInstance, track);
             items.Add(item);
+        }
+
+        public void OnSelectionChanged()
+        {
+            RaisePropertyChanged(() => SelectedItems);
+            RaisePropertyChanged(() => SelectedTracks);
         }
     }
 }

@@ -18,8 +18,6 @@ namespace MixPlanner.ViewModels
         MixItemViewModel selectedItem;
         readonly IMixItemViewModelFactory viewModels;
 
-        public KeyEventProxyCommand RemoveDelKeyCommand { get; private set; }
-        public KeyEventProxyCommand PlayPauseSpaceKeyCommand { get; private set; }
         public RemoveTracksFromMixCommand RemoveCommand { get; private set; }
         public ObservableCollection<MixItemViewModel> Items { get; private set; }
         public DropItemIntoMixCommand DropItemCommand { get; private set; }
@@ -28,7 +26,6 @@ namespace MixPlanner.ViewModels
         public ResetPlaybackSpeedCommand ResetPlaybackSpeedCommand { get; private set; }
         public GetRecommendationsCommand GetRecommendationsCommand { get; private set; }
         public ClearRecommendationsCommand ClearRecommendationsCommand { get; private set; }
-        public KeyEventProxyCommand EditF2KeyCommand { get; private set; }
         public EditTrackCommand EditTrackCommand { get; private set; }
 
         public MixItemViewModel SelectedItem
@@ -40,7 +37,13 @@ namespace MixPlanner.ViewModels
                 RaisePropertyChanged(() => SelectedItem);
                 RaisePropertyChanged(() => SelectedItems);
                 RaisePropertyChanged(() => HasSingleItemSelected);
+                RaisePropertyChanged(() => SelectedTrack);
             }
+        }
+
+        public Track SelectedTrack
+        {
+            get { return selectedItem != null ? selectedItem.Track : null; }
         }
 
         public bool HasSingleItemSelected
@@ -78,19 +81,12 @@ namespace MixPlanner.ViewModels
             EditTrackCommand = editTrackCommand;
             this.viewModels = viewModels;
             RemoveCommand = removeCommand;
-            RemoveDelKeyCommand = new KeyEventProxyCommand(
-                removeCommand, () => SelectedItems, Key.Delete, Key.Back);
-            PlayPauseSpaceKeyCommand = new KeyEventProxyCommand(
-                PlayPauseCommand, () => SelectedItem.Track, Key.Space, Key.Enter, Key.Return);
-            EditF2KeyCommand = new KeyEventProxyCommand(
-                EditTrackCommand, () => SelectedItem.Track, Key.F2);
             Items = new ObservableCollection<MixItemViewModel>();
             messenger.Register<TrackAddedToMixEvent>(this, OnTrackAdded);
             messenger.Register<TrackRemovedFromMixEvent>(this, OnTrackRemoved);
             messenger.Register<ConfigSavedEvent>(this, _ => OnSelectionChanged());
             messenger.Register<PlaybackSpeedAdjustedEvent>(this, _ => OnSelectionChanged());
         }
-
 
         public ICollection<MixItem> SelectedItems
         {
@@ -105,7 +101,9 @@ namespace MixPlanner.ViewModels
 
         void OnTrackRemoved(TrackRemovedFromMixEvent obj)
         {
-            var viewModel = Items.First(v => v.MixItem.Equals(obj.Item));
+            var viewModel = Items.FirstOrDefault(v => v.MixItem.Equals(obj.Item));
+            if (viewModel == null)
+                return; // shouldn't really happen but don't crash if it does
             Items.Remove(viewModel);
         }
 
@@ -133,6 +131,7 @@ namespace MixPlanner.ViewModels
 
         public void OnSelectionChanged()
         {
+            RaisePropertyChanged(() => SelectedItems);
             ClearRecommendationsCommand.Execute(null);
             GetRecommendationsCommand.Execute(SelectedItems);
         }
