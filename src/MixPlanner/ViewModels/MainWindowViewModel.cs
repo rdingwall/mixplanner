@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Windows;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Messaging;
 
 namespace MixPlanner.ViewModels
 {
@@ -11,11 +13,13 @@ namespace MixPlanner.ViewModels
         public StatusBarViewModel StatusBar { get; private set; }
 
         public MainWindowViewModel(
+            IMessenger messenger,
             MixViewModel mixViewModel,
             TrackLibraryViewModel trackLibraryViewModel,
             MiniPlayerViewModel miniPlayerViewModel,
             StatusBarViewModel statusBar)
         {
+            if (messenger == null) throw new ArgumentNullException("messenger");
             if (mixViewModel == null) throw new ArgumentNullException("mixViewModel");
             if (trackLibraryViewModel == null) throw new ArgumentNullException("trackLibraryViewModel");
             if (miniPlayerViewModel == null) throw new ArgumentNullException("miniPlayerViewModel");
@@ -25,6 +29,14 @@ namespace MixPlanner.ViewModels
             TrackLibrary = trackLibraryViewModel;
             MiniPlayer = miniPlayerViewModel;
             StatusBar = statusBar;
+
+            messenger.Register<DialogMessage>(this, OnDialogRequested);
+        }
+
+        static void OnDialogRequested(DialogMessage obj)
+        {
+            var result = MessageBox.Show(obj.Content, obj.Caption, obj.Button);
+            obj.Callback(result);
         }
     }
 }

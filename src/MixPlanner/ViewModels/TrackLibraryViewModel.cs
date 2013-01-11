@@ -5,7 +5,6 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
 using MixPlanner.AttachedProperties;
@@ -31,7 +30,7 @@ namespace MixPlanner.ViewModels
         public EditTrackCommand EditTrackCommand { get; private set; }
 
         public ObservableCollection<GridViewColumn> LibraryColumns { get; private set; }
-            
+
         ICollectionView itemsView;
         public ICollectionView ItemsView
         {
@@ -120,7 +119,6 @@ namespace MixPlanner.ViewModels
             RemoveCommand = removeTracksCommand;
         }
 
-
         void OnSearchTextCleared(SearchTextClearedEvent obj)
         {
             ItemsView.Filter = null;
@@ -134,7 +132,7 @@ namespace MixPlanner.ViewModels
         public IEnumerable<TrackLibraryItemViewModel> SelectedItems
         {
             get
-            { 
+            {
                 return items.Where(i => i.IsSelected).ToList();
             }
         }
