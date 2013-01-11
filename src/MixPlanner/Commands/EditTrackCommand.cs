@@ -30,7 +30,7 @@ namespace MixPlanner.Commands
 
         protected override void Execute(Track parameter)
         {
-            var viewModel = new EditTrackViewModel(
+            var viewModel = new EditTrackWindowViewModel(
                 saveTrackCommand, 
                 closeWindowCommand, 
                 reloadTrackFileCommand, 

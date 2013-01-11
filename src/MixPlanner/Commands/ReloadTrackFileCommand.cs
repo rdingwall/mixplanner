@@ -7,7 +7,7 @@ using MixPlanner.ViewModels;
 
 namespace MixPlanner.Commands
 {
-    public class ReloadTrackFileCommand : AsyncCommandBase<EditTrackViewModel>
+    public class ReloadTrackFileCommand : AsyncCommandBase<EditTrackWindowViewModel>
     {
         readonly ITrackLoader loader;
 
@@ -17,7 +17,7 @@ namespace MixPlanner.Commands
             this.loader = loader;
         }
 
-        protected override async Task DoExecute(EditTrackViewModel parameter)
+        protected override async Task DoExecute(EditTrackWindowViewModel parameter)
         {
             if (String.IsNullOrEmpty(parameter.FilePath))
                 return;
@@ -27,7 +27,7 @@ namespace MixPlanner.Commands
             DispatcherHelper.InvokeAsync(() => UpdateFields(parameter, track));
         }
 
-        void UpdateFields(EditTrackViewModel parameter, Track track)
+        void UpdateFields(EditTrackWindowViewModel parameter, Track track)
         {
             parameter.Artist = track.Artist;
             parameter.Title = track.Title;

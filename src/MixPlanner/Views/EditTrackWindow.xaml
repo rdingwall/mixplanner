@@ -12,7 +12,7 @@
         Height="400"
         Width="500"
         ResizeMode="NoResize"
-        d:DataContext="{d:DesignInstance viewModels:EditTrackViewModel}"
+        d:DataContext="{d:DesignInstance viewModels:EditTrackWindowViewModel}"
         attachedProperties:DialogCloser.DialogResult="{Binding Close}">
     <Window.InputBindings>
         <KeyBinding Key="Escape"

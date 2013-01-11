@@ -235,7 +235,7 @@
     <Compile Include="Storage\InMemoryConfigStorage.cs" />
     <Compile Include="Storage\InMemoryLibraryStorage.cs" />
     <Compile Include="ViewModels\CloseableViewModelBase.cs" />
-    <Compile Include="ViewModels\EditTrackViewModel.cs" />
+    <Compile Include="ViewModels\EditTrackWindowViewModel.cs" />
     <Compile Include="ViewModels\ErrorWindowViewModel.cs" />
     <Compile Include="ViewModels\SettingsWindowViewModel.cs" />
     <Compile Include="ViewModels\StatusBarViewModel.cs" />

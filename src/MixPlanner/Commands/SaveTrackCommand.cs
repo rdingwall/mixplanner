@@ -5,7 +5,7 @@ using MixPlanner.ViewModels;
 
 namespace MixPlanner.Commands
 {
-    public class SaveTrackCommand : AsyncCommandBase<EditTrackViewModel>
+    public class SaveTrackCommand : AsyncCommandBase<EditTrackWindowViewModel>
     {
         readonly ITrackLibrary library;
 
@@ -15,7 +15,7 @@ namespace MixPlanner.Commands
             this.library = library;
         }
 
-        protected override async Task DoExecute(EditTrackViewModel parameter)
+        protected override async Task DoExecute(EditTrackWindowViewModel parameter)
         {
             var track = parameter.Track;
             track.OriginalKey = parameter.HarmonicKey;
