@@ -121,6 +121,8 @@ namespace MixPlanner.ViewModels
             {
                 filePath = value;
                 RaisePropertyChanged(() => FilePath);
+                RaisePropertyChanged(() => FileExists);
+                RaisePropertyChanged(() => FileNotFound);
             }
         }
 
@@ -131,13 +133,7 @@ namespace MixPlanner.ViewModels
 
         public bool FileExists
         {
-            get { return fileExists; }
-            set
-            {
-                fileExists = value;
-                RaisePropertyChanged(() => FileExists);
-                RaisePropertyChanged(() => FileNotFound);
-            }
+            get { return File.Exists(FilePath); }
         }
 
         public bool FileNotFound { get { return !FileExists; } }
