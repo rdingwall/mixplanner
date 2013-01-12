@@ -134,37 +134,37 @@ namespace MixPlanner.Specs.DomainModel
         public class when_increasing_the_pitch
         {
             It should_add_the_pitch =
-                () => HarmonicKey.Key5A.IncreasePitch(7).ShouldEqual(HarmonicKey.Key12A);
+                () => HarmonicKey.Key5A.Advance(7).ShouldEqual(HarmonicKey.Key12A);
         }
 
         public class when_increasing_the_pitch_by_a_negative_value
         {
             It should_add_the_pitch =
-                () => HarmonicKey.Key5A.IncreasePitch(-7).ShouldEqual(HarmonicKey.Key10A);
+                () => HarmonicKey.Key5A.Advance(-7).ShouldEqual(HarmonicKey.Key10A);
         }
 
         public class when_increasing_the_pitch_past_twelve
         {
             It should_go_around_again =
-                () => HarmonicKey.Key12A.IncreasePitch(7).ShouldEqual(HarmonicKey.Key7A);
+                () => HarmonicKey.Key12A.Advance(7).ShouldEqual(HarmonicKey.Key7A);
         }
 
         public class when_increasing_the_pitch_more_than_twelve
         {
             It should_go_around_again =
-                () => HarmonicKey.Key12A.IncreasePitch(26).ShouldEqual(HarmonicKey.Key2A);
+                () => HarmonicKey.Key12A.Advance(26).ShouldEqual(HarmonicKey.Key2A);
         }
 
         public class when_increasing_the_pitch_by_a_negative_value_more_than_twelve
         {
             It should_add_the_pitch =
-                () => HarmonicKey.Key5A.IncreasePitch(-14).ShouldEqual(HarmonicKey.Key3A);
+                () => HarmonicKey.Key5A.Advance(-14).ShouldEqual(HarmonicKey.Key3A);
         }
 
         public class when_increasing_the_pitch_by_a_negative_value_more_than_twenty_four
         {
             It should_add_the_pitch =
-                () => HarmonicKey.Key5A.IncreasePitch(-26).ShouldEqual(HarmonicKey.Key3A);
+                () => HarmonicKey.Key5A.Advance(-26).ShouldEqual(HarmonicKey.Key3A);
         }
 
         public class when_switching_to_minor

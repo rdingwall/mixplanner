@@ -17,11 +17,8 @@ namespace MixPlanner.DomainModel
             if (first == null) throw new ArgumentNullException("first");
             if (second == null) throw new ArgumentNullException("second");
 
-            if (second.IsWithinBpmRange(first))
-                return 0;
-
             var increaseRequired = second.GetExactIncreaseRequiredToMatch(first);
-            var nearestInterval = increaseRequired.FloorToNearest(HarmonicKeyChangeInterval.Value);
+            var nearestInterval = increaseRequired.FloorToNearest(PitchFaderStep.Value);
 
             if (Math.Abs(nearestInterval) > MaxPermittedDifference)
                 return 0;

@@ -18,7 +18,7 @@ namespace MixPlanner.DomainModel.MixingStrategies
             if (second == null) throw new ArgumentNullException("second");
 
             return second.ActualKey.HasSameScaleAs(first.ActualKey)
-                   && second.ActualKey.Equals(first.ActualKey.IncreasePitch(increaseAmount));
+                   && second.ActualKey.Equals(first.ActualKey.Advance(increaseAmount));
         }
     }
 }

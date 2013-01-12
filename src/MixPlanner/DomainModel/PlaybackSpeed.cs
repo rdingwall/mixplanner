@@ -31,11 +31,11 @@ namespace MixPlanner.DomainModel
             var increase = speed - 1;
 
             // Pitch changes one semitone (+/- 7 "hours" on the Camelot Wheel)
-            // for every 3% difference.
-            var positions = increase/HarmonicKeyChangeInterval.Value;
-            var pitchIncrease = 7 * positions;
+            // for every 6% difference.
+            var n = increase/HarmonicKeyChangeInterval.Value;
+            var numberOfKeysToAdvance = 7 * (int)n;
 
-            return originalKey.IncreasePitch((int)pitchIncrease);
+            return originalKey.Advance(numberOfKeysToAdvance);
         }
 
         double CalculateActualBpm(double speed)

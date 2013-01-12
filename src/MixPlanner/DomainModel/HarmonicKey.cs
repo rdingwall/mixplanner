@@ -161,7 +161,8 @@ namespace MixPlanner.DomainModel
             return new HarmonicKey(pitch, scale);
         }
 
-        public HarmonicKey IncreasePitch(int value)
+        // Advances n number of positions around the Camelot wheel.
+        public HarmonicKey Advance(int value)
         {
             var newPitch = (Pitch + value) % 12;
 
