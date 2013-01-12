@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Data;
 using Machine.Specifications;
+using MixPlanner.Converters;
 using MixPlanner.DomainModel;
 using MixPlanner.ImportExport;
 using MixPlanner.Mp3;
@@ -23,9 +25,14 @@ namespace MixPlanner.Specs.ImportExport
                                          var resizer = MockRepository
                                              .GenerateMock<ITrackImageResizer>();
 
+                                         var converterFactory = MockRepository
+                                             .GenerateMock<IHarmonicKeyConverterFactory>();
+                                         converterFactory.Stub(f => f.GetAllConverters())
+                                                         .Return(new IValueConverter[0]);
+
                                          filename = "DummyPlaylist.m3u";
                                          reader = new M3uReader(new TrackLoader(new Id3Reader(),
-                                             cleanupFactory, resizer));
+                                             cleanupFactory, resizer, converterFactory));
                                      };
 
              Because of = () => tracks = reader.Read(filename).Result;

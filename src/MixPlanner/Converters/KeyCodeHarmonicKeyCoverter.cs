@@ -19,7 +19,11 @@ namespace MixPlanner.Converters
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            throw new NotImplementedException();
+            HarmonicKey key;
+            if (HarmonicKey.TryParse(value as string, out key))
+                return key;
+
+            return HarmonicKey.Unknown;
         }
     }
 }

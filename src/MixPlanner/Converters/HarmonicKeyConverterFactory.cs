@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Data;
 using MixPlanner.Configuration;
 using MixPlanner.DomainModel;
@@ -8,6 +9,7 @@ namespace MixPlanner.Converters
     public interface IHarmonicKeyConverterFactory
     {
         IValueConverter GetConverter();
+        IEnumerable<IValueConverter> GetAllConverters();
     }
 
     public class HarmonicKeyConverterFactory : IHarmonicKeyConverterFactory
@@ -63,6 +65,18 @@ namespace MixPlanner.Converters
                 case HarmonicKeyDisplayMode.KeyCode:
                     return keyCodeConverter;
             }
+        }
+
+        public IEnumerable<IValueConverter> GetAllConverters()
+        {
+            return new IValueConverter[]
+                       {
+                           keyCodeConverter,
+                           traditionalSymbolsConverter,
+                           traditionalTextConverter,
+                           id3V2TkeyConverter,
+                           openKeyNotationConverter
+                       };
         }
     }
 }

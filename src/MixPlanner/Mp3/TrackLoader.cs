@@ -1,6 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Data;
+using MixPlanner.Converters;
 using MixPlanner.DomainModel;
 
 namespace MixPlanner.Mp3
@@ -15,18 +19,22 @@ namespace MixPlanner.Mp3
         readonly IId3Reader id3Reader;
         readonly IId3TagCleanupFactory cleanupFactory;
         readonly ITrackImageResizer imageResizer;
+        IEnumerable<IValueConverter> notationConverters;
 
         public TrackLoader(
             IId3Reader id3Reader, 
             IId3TagCleanupFactory cleanupFactory,
-            ITrackImageResizer imageResizer)
+            ITrackImageResizer imageResizer, 
+            IHarmonicKeyConverterFactory converterFactory)
         {
             if (id3Reader == null) throw new ArgumentNullException("id3Reader");
             if (cleanupFactory == null) throw new ArgumentNullException("cleanupFactory");
             if (imageResizer == null) throw new ArgumentNullException("imageResizer");
+            if (converterFactory == null) throw new ArgumentNullException("converterFactory");
             this.id3Reader = id3Reader;
             this.cleanupFactory = cleanupFactory;
             this.imageResizer = imageResizer;
+            notationConverters = converterFactory.GetAllConverters();
         }
 
         public async Task<Track> LoadAsync(string filename)
@@ -50,9 +58,7 @@ namespace MixPlanner.Mp3
             foreach (var cleanup in cleanupFactory.GetCleanups())
                 cleanup.Clean(id3Tag);
 
-            HarmonicKey key;
-            if (!HarmonicKey.TryParse(id3Tag.InitialKey, out key))
-                key = HarmonicKey.Unknown;
+            HarmonicKey key = ParseHarmonicKey(id3Tag.InitialKey);
 
             double bpm;
             if (!Double.TryParse(id3Tag.Bpm, out bpm))
@@ -78,6 +84,19 @@ namespace MixPlanner.Mp3
 
             return new Track("Unknown Artist", displayName, 
                 HarmonicKey.Unknown, filename, float.NaN);
+        }
+
+        HarmonicKey ParseHarmonicKey(string str)
+        {
+            if (String.IsNullOrWhiteSpace(str))
+                return HarmonicKey.Unknown;
+
+            var key = notationConverters
+                .Select(c => c.ConvertBack(str, typeof(HarmonicKey), null, null))
+                .OfType<HarmonicKey>()
+                .FirstOrDefault(k => k != HarmonicKey.Unknown);
+
+            return key ?? HarmonicKey.Unknown;
         }
     }
 }
