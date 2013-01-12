@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using MixPlanner.Commands;
 using MixPlanner.DomainModel;
 
@@ -52,9 +51,8 @@ namespace MixPlanner.ViewModels
             Year = track.Year;
             Label = track.Label;
             FilePath = track.Filename;
-            Track.ImageData = track.ImageData;
-            image = new Lazy<ImageSource>(GetCoverArtBitmapImage);
-            RaisePropertyChanged(() => AlbumArtImageSource);
+            Track.Images = track.Images;
+            RaisePropertyChanged(() => ImageSource);
         }
 
         public HarmonicKey HarmonicKey
@@ -149,23 +147,9 @@ namespace MixPlanner.ViewModels
             get { return File.Exists(FilePath); }
         }
 
-        Lazy<ImageSource> image; 
-        public ImageSource AlbumArtImageSource
+        public ImageSource ImageSource
         {
-            get { return image.Value; }
-        }
-
-        ImageSource GetCoverArtBitmapImage()
-        {
-            var bitmap = new BitmapImage();
-            bitmap.BeginInit();
-            bitmap.CacheOption = BitmapCacheOption.OnLoad;
-            using (var stream = new MemoryStream(Track.ImageData))
-            {
-                bitmap.StreamSource = stream;
-                bitmap.EndInit();
-            }
-            return bitmap;
+            get { return Track.GetFullSizeImageSource(); }
         }
 
         public bool FileNotFound { get { return !FileExists; } }

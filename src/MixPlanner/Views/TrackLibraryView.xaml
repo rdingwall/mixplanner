@@ -96,8 +96,8 @@
                                             <ColumnDefinition />
                                         </Grid.ColumnDefinitions>
                                         <Image Grid.Column="0"
-                                               Source="{Binding AlbumArtImageSource}"
-                                               RenderOptions.BitmapScalingMode="HighQuality" />
+                                               Stretch="None"
+                                               Source="{Binding ImageSource}" />
                                         <Label Grid.Column="1" Content="{Binding Title}" />
                                     </Grid>
                                 </DataTemplate>

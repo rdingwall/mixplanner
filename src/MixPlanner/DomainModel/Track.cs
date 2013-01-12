@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Drawing;
 using System.IO;
+using System.Windows.Media;
+using MixPlanner.Mp3;
 
 namespace MixPlanner.DomainModel
 {
@@ -45,6 +47,7 @@ namespace MixPlanner.DomainModel
         public string Title { get; set; }
         public HarmonicKey OriginalKey { get; set; }
         public string Filename { get; set; }
+        public TrackImageData Images { get; set; }
 
         public FileInfo File
         {
@@ -62,9 +65,6 @@ namespace MixPlanner.DomainModel
         {
             get { return !String.IsNullOrWhiteSpace(Filename); }
         }
-
-        public Image Image { get; set; }
-        public byte[] ImageData { get; set; }
 
         public PlaybackSpeed GetDefaultPlaybackSpeed()
         {
@@ -94,6 +94,30 @@ namespace MixPlanner.DomainModel
         public override int GetHashCode()
         {
             return Id.GetHashCode();
+        }
+
+        public ImageSource GetFullSizeImageSource()
+        {
+            if (Images == null || Images.FullSize == null)
+                return null;
+
+            return Images.FullSize.ImageSource;
+        }
+
+        public ImageSource Get24x24ImageSource()
+        {
+            if (Images == null || Images.Resized24X24 == null)
+                return null;
+
+            return Images.Resized24X24.ImageSource;
+        }
+
+        public ImageSource Get64x64ImageSource()
+        {
+            if (Images == null || Images.Resized24X24 == null)
+                return null;
+
+            return Images.Resized64X64.ImageSource;
         }
     }
 }

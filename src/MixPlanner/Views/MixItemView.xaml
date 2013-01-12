@@ -31,8 +31,8 @@
                Grid.Column="0"
                Width="64"
                Height="64" 
-               Source="{Binding AlbumArtImageSource}"
-               RenderOptions.BitmapScalingMode="HighQuality"/>
+               Source="{Binding ImageSource}"
+               Stretch="None"/>
         <DockPanel Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Top">
         	<Label x:Name="ActualKey" Content="{Binding ActualKey, Converter={StaticResource HarmonicKeyCoverter}}" HorizontalAlignment="Center" FontSize="24" DockPanel.Dock="Top"/>
         	<Label x:Name="ActualBpm" Content="{Binding ActualBpm, Converter={StaticResource ActualBpmConverter}}" HorizontalAlignment="Center" DockPanel.Dock="Right"/>

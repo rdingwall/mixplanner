@@ -14,13 +14,19 @@ namespace MixPlanner.Mp3
     {
         readonly IId3Reader id3Reader;
         readonly IId3TagCleanupFactory cleanupFactory;
+        readonly ITrackImageResizer imageResizer;
 
-        public TrackLoader(IId3Reader id3Reader, IId3TagCleanupFactory cleanupFactory)
+        public TrackLoader(
+            IId3Reader id3Reader, 
+            IId3TagCleanupFactory cleanupFactory,
+            ITrackImageResizer imageResizer)
         {
             if (id3Reader == null) throw new ArgumentNullException("id3Reader");
             if (cleanupFactory == null) throw new ArgumentNullException("cleanupFactory");
+            if (imageResizer == null) throw new ArgumentNullException("imageResizer");
             this.id3Reader = id3Reader;
             this.cleanupFactory = cleanupFactory;
+            this.imageResizer = imageResizer;
         }
 
         public async Task<Track> LoadAsync(string filename)
@@ -52,12 +58,15 @@ namespace MixPlanner.Mp3
             if (!Double.TryParse(id3Tag.Bpm, out bpm))
                 bpm = double.NaN;
 
+            TrackImageData images = 
+                id3Tag.ImageData != null ? imageResizer.Process(id3Tag.ImageData) : null;
+
             var track = new Track(id3Tag.Artist, id3Tag.Title, key, filename, bpm)
                             {
                                 Label = id3Tag.Publisher ?? "",
                                 Genre = id3Tag.Genre ?? "",
                                 Year = id3Tag.Year ?? "",
-                                ImageData = id3Tag.ImageData
+                                Images = images
                             };
 
             return track;

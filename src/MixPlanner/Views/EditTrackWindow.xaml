@@ -30,7 +30,7 @@
 		<Image Grid.Column="0"
                Width="300"
                Height="300" 
-               Source="{Binding AlbumArtImageSource}" />
+               Source="{Binding ImageSource}" />
 
         <StackPanel Grid.Column="1" Orientation="Vertical">
 

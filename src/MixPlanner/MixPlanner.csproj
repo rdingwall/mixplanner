@@ -228,7 +228,10 @@
     <Compile Include="Mp3\Id3Tag.cs" />
     <Compile Include="Mp3\Id3TagCleanupFactory.cs" />
     <Compile Include="Mp3\IId3TagCleanup.cs" />
+    <Compile Include="Mp3\ImageData.cs" />
     <Compile Include="Mp3\MixedInKeyTagCleanup.cs" />
+    <Compile Include="Mp3\TrackImageResizer.cs" />
+    <Compile Include="Mp3\TrackImageData.cs" />
     <Compile Include="Mp3\TrackLoader.cs" />
     <Compile Include="Player\AudioPlayer.cs" />
     <Compile Include="Storage\IConfigStorage.cs" />

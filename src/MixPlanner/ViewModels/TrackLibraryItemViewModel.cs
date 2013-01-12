@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
 using MixPlanner.DomainModel;
@@ -48,8 +47,7 @@ namespace MixPlanner.ViewModels
             Label = track.Label;
             Filename = track.File.Name;
             Key = track.OriginalKey;
-            image = new Lazy<ImageSource>(GetCoverArtBitmapImage);
-            RaisePropertyChanged(() => AlbumArtImageSource);
+            RaisePropertyChanged(() => ImageSource);
             SearchIndexData = String.Concat(Track.Artist,
                                        Track.Title,
                                        Path.GetFileNameWithoutExtension(Track.Filename),
@@ -184,23 +182,9 @@ namespace MixPlanner.ViewModels
             }
         }
 
-        Lazy<ImageSource> image;
-        public ImageSource AlbumArtImageSource
+        public ImageSource ImageSource
         {
-            get { return image.Value; }
-        }
-
-        ImageSource GetCoverArtBitmapImage()
-        {
-            var bitmap = new BitmapImage();
-            bitmap.BeginInit();
-            //bitmap.CacheOption = BitmapCacheOption.OnLoad;
-            //using (var stream = new MemoryStream(Track.ImageData))
-            {
-                bitmap.StreamSource = new MemoryStream(Track.ImageData);
-                bitmap.EndInit();
-            }
-            return bitmap;
+            get { return Track.Get24x24ImageSource(); }
         }
 
         public string SearchIndexData { get; private set; }

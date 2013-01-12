@@ -20,9 +20,12 @@ namespace MixPlanner.Specs.ImportExport
                                          cleanupFactory.Stub(f => f.GetCleanups())
                                                        .Return(new IId3TagCleanup[0]);
 
+                                         var resizer = MockRepository
+                                             .GenerateMock<ITrackImageResizer>();
+
                                          filename = "DummyPlaylist.m3u";
                                          reader = new M3uReader(new TrackLoader(new Id3Reader(),
-                                             cleanupFactory));
+                                             cleanupFactory, resizer));
                                      };
 
              Because of = () => tracks = reader.Read(filename).Result;
