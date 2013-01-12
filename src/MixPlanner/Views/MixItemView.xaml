@@ -65,12 +65,12 @@
                     VerticalAlignment="Top"
                     Orientation="Vertical"
                     DockPanel.Dock="Right"
-                    Minimum="0.94"
+                    Minimum="{Binding PitchFaderMin}"
                     TickPlacement="TopLeft"
-                    SmallChange="0.03"
-                    TickFrequency="0.03"
-                    Maximum="1.06"
-                    LargeChange="0.03"
+                    SmallChange="{Binding PitchFaderStepSize}"
+                    TickFrequency="{Binding PitchFaderStepSize}"
+                    Maximum="{Binding PitchFaderMax}"
+                    LargeChange="{Binding PitchFaderStepSize}"
                     IsSnapToTickEnabled="True"
                     IsDirectionReversed="True"/>
         </DockPanel>

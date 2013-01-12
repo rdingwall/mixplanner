@@ -23,6 +23,10 @@ namespace MixPlanner.ViewModels
             set { mix.AdjustPlaybackSpeed(MixItem, value); }
         }
 
+        public double PitchFaderStepSize { get { return PitchFaderStep.Value; } }
+        public double PitchFaderMax { get { return 1 + (PitchFaderStep.Value*2); } }
+        public double PitchFaderMin { get { return 1 - (PitchFaderStep.Value*2); } }
+
         public Track Track { get { return MixItem.Track; }}
         public string Title { get { return MixItem.Track.Title;} }
         public string Artist { get { return MixItem.Track.Artist;} }
