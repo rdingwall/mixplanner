@@ -28,10 +28,10 @@ namespace MixPlanner.DomainModel
                        {
                            container.Resolve<TwoSemitoneEnergyBoost>(),
                            container.Resolve<SameKey>(),
-                           container.Resolve<OneSemitoneEnergyBoost>(),
-                           container.Resolve<AdvanceOne>(),
-                           container.Resolve<SwitchToMajorScale>(),
-                           container.Resolve<SwitchToMinorScale>()
+                           container.Resolve<OneSemitone>(),
+                           container.Resolve<PerfectFifth>(),
+                           container.Resolve<RelativeMajor>(),
+                           container.Resolve<RelativeMinor>()
                        };
         }
 
@@ -41,10 +41,10 @@ namespace MixPlanner.DomainModel
                        {
                            container.Resolve<TwoSemitoneEnergyBoost>(),
                            container.Resolve<SameKey>(),
-                           container.Resolve<OneSemitoneEnergyBoost>(),
-                           container.Resolve<AdvanceOne>(),
-                           container.Resolve<SwitchToMajorScale>(),
-                           container.Resolve<SwitchToMinorScale>(),
+                           container.Resolve<OneSemitone>(),
+                           container.Resolve<PerfectFifth>(),
+                           container.Resolve<RelativeMajor>(),
+                           container.Resolve<RelativeMinor>(),
                            container.Resolve<ManualOutOfKeyMix>(),
                            container.Resolve<ManualIncompatibleBpmsMix>()
                        };

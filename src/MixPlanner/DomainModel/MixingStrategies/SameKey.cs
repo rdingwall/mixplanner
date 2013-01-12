@@ -2,6 +2,7 @@ using System;
 
 namespace MixPlanner.DomainModel.MixingStrategies
 {
+    // Aka tonic
     public class SameKey : CompatibleBpmMixingStrategyBase
     {
         public SameKey(IBpmRangeChecker bpmRangeChecker)

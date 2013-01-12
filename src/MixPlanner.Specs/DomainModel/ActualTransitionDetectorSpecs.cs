@@ -21,7 +21,7 @@ namespace MixPlanner.Specs.DomainModel
                      new PlaybackSpeed(HarmonicKey.Key2A, 128));
 
              It should_give_the_correct_strategy = 
-                 () => transition.Strategy.ShouldBe(typeof(AdvanceOne));
+                 () => transition.Strategy.ShouldBe(typeof(PerfectFifth));
 
              It should_return_the_first_key = () => transition.FromKey.ShouldEqual(HarmonicKey.Key1A);
 

@@ -2,9 +2,9 @@ using System;
 
 namespace MixPlanner.DomainModel.MixingStrategies
 {
-    public class SwitchToMinorScale : CompatibleBpmMixingStrategyBase
+    public class RelativeMajor : CompatibleBpmMixingStrategyBase
     {
-        public SwitchToMinorScale(IBpmRangeChecker bpmRangeChecker) : base(bpmRangeChecker)
+        public RelativeMajor(IBpmRangeChecker bpmRangeChecker) : base(bpmRangeChecker)
         {
         }
 
@@ -17,10 +17,10 @@ namespace MixPlanner.DomainModel.MixingStrategies
             var secondKey = second.ActualKey;
 
             return firstKey.Pitch == secondKey.Pitch
-                   && firstKey.IsMajor()
-                   && secondKey.IsMinor();
+                   && firstKey.IsMinor()
+                   && secondKey.IsMajor();
         }
 
-        public override string Description { get { return "Switch to minor scale"; } }
+        public override string Description { get { return "Relative Major (A -> B)"; } }
     }
 }

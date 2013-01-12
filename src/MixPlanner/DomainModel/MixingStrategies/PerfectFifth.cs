@@ -1,13 +1,13 @@
 namespace MixPlanner.DomainModel.MixingStrategies
 {
-    public class AdvanceOne : IncreasePitchStrategyBase
+    public class PerfectFifth : IncreasePitchStrategyBase
     {
-        public AdvanceOne(IBpmRangeChecker bpmRangeChecker) 
+        public PerfectFifth(IBpmRangeChecker bpmRangeChecker) 
             : base(bpmRangeChecker, increaseAmount: 1) { }
 
         public override string Description
         {
-            get { return "Advance one (+1)"; }
+            get { return "Perfect fifth (+1)"; }
         }
     }
 }

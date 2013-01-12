@@ -14,20 +14,20 @@ namespace MixPlanner.Specs
                                 {
                                     new TwoSemitoneEnergyBoost(bpmRangeChecker),
                                     new SameKey(bpmRangeChecker),
-                                    new OneSemitoneEnergyBoost(bpmRangeChecker),
-                                    new AdvanceOne(bpmRangeChecker),
-                                    new SwitchToMajorScale(bpmRangeChecker),
-                                    new SwitchToMinorScale(bpmRangeChecker)
+                                    new OneSemitone(bpmRangeChecker),
+                                    new PerfectFifth(bpmRangeChecker),
+                                    new RelativeMajor(bpmRangeChecker),
+                                    new RelativeMinor(bpmRangeChecker)
                                 };
 
             AllStrategies = new IMixingStrategy[]
                                 {
                                     new TwoSemitoneEnergyBoost(bpmRangeChecker),
                                     new SameKey(bpmRangeChecker),
-                                    new OneSemitoneEnergyBoost(bpmRangeChecker),
-                                    new AdvanceOne(bpmRangeChecker),
-                                    new SwitchToMajorScale(bpmRangeChecker),
-                                    new SwitchToMinorScale(bpmRangeChecker),
+                                    new OneSemitone(bpmRangeChecker),
+                                    new PerfectFifth(bpmRangeChecker),
+                                    new RelativeMajor(bpmRangeChecker),
+                                    new RelativeMinor(bpmRangeChecker),
                                     new ManualOutOfKeyMix(bpmRangeChecker),
                                     new ManualIncompatibleBpmsMix(bpmRangeChecker) 
                                 };

@@ -181,12 +181,12 @@
     <Compile Include="DomainModel\Mix.cs" />
     <Compile Include="DomainModel\MixingStrategies\CompatibleBpmMixingStrategyBase.cs" />
     <Compile Include="DomainModel\MixingStrategies\IncreasePitchStrategyBase.cs" />
-    <Compile Include="DomainModel\MixingStrategies\AdvanceOne.cs" />
+    <Compile Include="DomainModel\MixingStrategies\PerfectFifth.cs" />
     <Compile Include="DomainModel\MixingStrategies\ManualIncompatibleBpmsMix.cs" />
-    <Compile Include="DomainModel\MixingStrategies\OneSemitoneEnergyBoost.cs" />
+    <Compile Include="DomainModel\MixingStrategies\OneSemitone.cs" />
     <Compile Include="DomainModel\MixingStrategies\SameKey.cs" />
-    <Compile Include="DomainModel\MixingStrategies\SwitchToMajorScale.cs" />
-    <Compile Include="DomainModel\MixingStrategies\SwitchToMinorScale.cs" />
+    <Compile Include="DomainModel\MixingStrategies\RelativeMajor.cs" />
+    <Compile Include="DomainModel\MixingStrategies\RelativeMinor.cs" />
     <Compile Include="DomainModel\MixingStrategies\TwoSemitoneEnergyBoost.cs" />
     <Compile Include="DomainModel\MixingStrategies\ManualOutOfKeyMix.cs" />
     <Compile Include="DomainModel\MixItem.cs" />

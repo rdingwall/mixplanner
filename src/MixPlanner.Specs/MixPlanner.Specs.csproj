@@ -137,12 +137,12 @@
     <Compile Include="Converters\TransitionDescriptionConverterSpecs.cs" />
     <Compile Include="DomainModel\HarmonicKeySpecs.cs" />
     <Compile Include="DomainModel\MixingStrategies\ManualIncompatibleBpmsMixSpecs.cs" />
-    <Compile Include="DomainModel\MixingStrategies\SwitchToMajorScaleSpecs.cs" />
-    <Compile Include="DomainModel\MixingStrategies\AdvanceOneSpecs.cs" />
+    <Compile Include="DomainModel\MixingStrategies\RelativeMajorSpecs.cs" />
+    <Compile Include="DomainModel\MixingStrategies\PerfectFifthSpecs.cs" />
     <Compile Include="DomainModel\MixingStrategies\ManualOutOfKeyKeyMixSpecs.cs" />
-    <Compile Include="DomainModel\MixingStrategies\OneSemitoneEnergyBoostSpecs.cs" />
+    <Compile Include="DomainModel\MixingStrategies\OneSemitoneSpecs.cs" />
     <Compile Include="DomainModel\MixingStrategies\SameKeySpecs.cs" />
-    <Compile Include="DomainModel\MixingStrategies\SwitchToMinorScaleSpecs.cs" />
+    <Compile Include="DomainModel\MixingStrategies\RelativeMinorSpecs.cs" />
     <Compile Include="DomainModel\MixingStrategies\TwoSemitoneEnergyBoostSpecs.cs" />
     <Compile Include="DomainModel\MixSpecs.cs" />
     <Compile Include="DomainModel\PlaybackSpeedAdjusterSpecs.cs" />
