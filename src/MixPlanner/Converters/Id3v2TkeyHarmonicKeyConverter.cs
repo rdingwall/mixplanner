@@ -10,7 +10,7 @@ namespace MixPlanner.Converters
     [ValueConversion(typeof(HarmonicKey), typeof(string))]
     public class Id3v2TkeyHarmonicKeyConverter : IValueConverter
     {
-        static readonly IDictionary<HarmonicKey, string> Mappings;
+        static readonly IDictionary<HarmonicKey, string> Tkeys;
         static readonly IDictionary<string, HarmonicKey> KeyCodes;
 
         static Id3v2TkeyHarmonicKeyConverter()
@@ -22,7 +22,7 @@ namespace MixPlanner.Converters
             // "F" and "G" and halfkeys represented with "b" and "#". Minor is
             // represented as "m", e.g. "Dbm" $00. Off key is represented with an
             // "o" only.
-            Mappings =
+            Tkeys =
                 new Dictionary<HarmonicKey, string>
                     {
                         {HarmonicKey.Key1A, "Abm"},
@@ -51,8 +51,14 @@ namespace MixPlanner.Converters
                         {HarmonicKey.Key12B, "E"}
                     };
 
-            KeyCodes = Mappings
-                .ToDictionary(k => k.Value, v => v.Key);
+            KeyCodes = Tkeys
+                .ToDictionary(k => k.Value, v => v.Key,
+                              StringComparer.CurrentCultureIgnoreCase);
+
+            // Enharmonic equivalents (only one way so we can read them)
+            KeyCodes.Add("D#m", HarmonicKey.Key2A);
+            KeyCodes.Add("Gb", HarmonicKey.Key2B);
+            KeyCodes.Add("C#m", HarmonicKey.Key12A);
         }
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -63,7 +69,7 @@ namespace MixPlanner.Converters
                 return null;
 
             string traditionalKey;
-            if (Mappings.TryGetValue(key, out traditionalKey))
+            if (Tkeys.TryGetValue(key, out traditionalKey))
                 return traditionalKey;
 
             return "Unknown Key";

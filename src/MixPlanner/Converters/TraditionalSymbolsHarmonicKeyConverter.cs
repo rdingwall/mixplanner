@@ -45,7 +45,13 @@ namespace MixPlanner.Converters
                 };
 
             KeyCodes = TradtionalKeys
-                .ToDictionary(k => k.Value, v => v.Key);
+                .ToDictionary(k => k.Value, v => v.Key,
+                              StringComparer.CurrentCultureIgnoreCase);
+
+            // Enharmonic equivalents (only one way so we can read them)
+            KeyCodes.Add("D♯ Minor", HarmonicKey.Key2A);
+            KeyCodes.Add("G♭ Major", HarmonicKey.Key2B);
+            KeyCodes.Add("C♯ Minor", HarmonicKey.Key12A);
         }
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

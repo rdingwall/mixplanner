@@ -57,5 +57,15 @@ namespace MixPlanner.Specs.Converters
 
              static IValueConverter converter;
          }
+
+         public class When_mapping_an_enharmonic_id3v2_tkey_key_to_keycode
+         {
+             Establish context = () => converter = new Id3v2TkeyHarmonicKeyConverter();
+
+             It should_return_the_correct_key =
+                 () => converter.ConvertBack("C#m", null, null, null).ShouldEqual(HarmonicKey.Key12A);
+
+             static IValueConverter converter;
+         }
     }
 }
