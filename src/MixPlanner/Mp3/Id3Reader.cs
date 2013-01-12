@@ -71,12 +71,19 @@ namespace MixPlanner.Mp3
 
             // ID3v2 Tags Reference: http://id3.org/id3v2.4.0-frames
             tag.InitialKey = GetTextFrame(id3v2, "TKEY") ?? GetUserTextFrame(id3v2, "Initial key");
-            tag.Artist = id3v2.JoinedPerformers;
+            tag.Artist = JoinPerformers(id3v2.Performers);
             tag.Title = id3v2.Title;
             tag.Year = ToStringOrDefault(id3v2.Year);
             tag.Genre = id3v2.JoinedGenres;
             tag.Publisher = GetTextFrame(id3v2, "TPUB") ?? GetUserTextFrame(id3v2, "Publisher");
             tag.Bpm = ToStringOrDefault(id3v2.BeatsPerMinute) ?? GetUserTextFrame(id3v2, "BPM (beats per minute)");
+        }
+
+        static string JoinPerformers(string[] performers)
+        {
+            // taglib-sharp interprets forward slashes (/) as separator but
+            // Mixed In Key uses this to denote different keys e.g. 1A/11A
+             return String.Join("/", performers);
         }
 
         static byte[] GetImageData(Tag id3v2)
@@ -114,7 +121,7 @@ namespace MixPlanner.Mp3
 
             var id3v1 = (TagLib.Id3v1.Tag) file.GetTag(TagTypes.Id3v1);
 
-            tag.Artist = tag.Artist ?? id3v1.JoinedPerformers;
+            tag.Artist = tag.Artist ?? JoinPerformers(id3v1.Performers);
             tag.Title = tag.Title ?? id3v1.Title;
             tag.Year = tag.Year ?? ToStringOrDefault(id3v1.Year);
             tag.Genre = tag.Genre ?? id3v1.JoinedGenres;

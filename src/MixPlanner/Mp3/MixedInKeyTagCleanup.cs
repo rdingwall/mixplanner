@@ -12,11 +12,11 @@ namespace MixPlanner.Mp3
 
         public MixedInKeyTagCleanup()
         {
-            keyPrefixPattern = @"^\d{1,2}(A|B)\s-\s";
-            keyAndBpmPrefixPattern = @"^\d{1,2}(A|B)\s-\s\d{1,3}(\.\d)?\s-\s";
+            keyPrefixPattern = @"^\d{1,2}(A|B)(/\d{1,2}(A|B))?\s-\s";
+            keyAndBpmPrefixPattern = @"^\d{1,2}(A|B)(/\d{1,2}(A|B))?\s-\s\d{1,3}(\.\d)?\s-\s";
 
-            keySuffixPattern = @"\s-\s\d{1,2}(A|B)$";
-            keyAndBpmSuffixPattern = @"\s-\s\d{1,2}(A|B)\s-\s\d{1,3}(\.\d)?$";
+            keySuffixPattern = @"\s-\s\d{1,2}(A|B)(/\d{1,2}(A|B))?$";
+            keyAndBpmSuffixPattern = @"\s-\s\d{1,2}(A|B)(/\d{1,2}(A|B))?\s-\s\d{1,3}(\.\d)?$";
         }
 
          public void Clean(Id3Tag tag)
