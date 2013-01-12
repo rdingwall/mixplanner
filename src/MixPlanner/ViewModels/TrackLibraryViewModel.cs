@@ -29,8 +29,6 @@ namespace MixPlanner.ViewModels
         public OpenSettingsCommand OpenSettingsCommand { get; private set; }
         public EditTrackCommand EditTrackCommand { get; private set; }
 
-        public ObservableCollection<GridViewColumn> LibraryColumns { get; private set; }
-
         ICollectionView itemsView;
         public ICollectionView ItemsView
         {
@@ -88,22 +86,6 @@ namespace MixPlanner.ViewModels
             items = new ObservableCollection<TrackLibraryItemViewModel>();
             ItemsView = CollectionViewSource.GetDefaultView(items);
             PlayPauseCommand = playCommand;
-
-            LibraryColumns = new ObservableCollection<GridViewColumn>
-                          {
-                              new GridViewColumn { Header = "Transition", DisplayMemberBinding = new Binding("Transition") { Converter = new TransitionDescriptionConverter() }, Width= 150},
-                              new GridViewColumn { Header = "IncreaseRequired", DisplayMemberBinding = new Binding("IncreaseRequired") { Converter = new PlaySpeedIncreaseConverter() }, Width= 100},
-                              new GridViewColumn { Header = "Bpm", DisplayMemberBinding = new Binding("Bpm"), Width= 100},
-                              new GridViewColumn { Header = "Key", DisplayMemberBinding = new Binding("Key") { Converter = new HarmonicKeyCoverter() }, Width= 100},
-                              new GridViewColumn { Header = "Artist", DisplayMemberBinding = new Binding("Artist"), Width= 100},
-                              new GridViewColumn { Header = "Title", DisplayMemberBinding = new Binding("Title"), Width= 100},
-                              new GridViewColumn { Header = "Year", DisplayMemberBinding = new Binding("Year"), Width= 100},
-                              new GridViewColumn { Header = "Genre", DisplayMemberBinding = new Binding("Genre"), Width= 100},
-                              new GridViewColumn { Header = "Label", DisplayMemberBinding = new Binding("Label"), Width= 100},
-                              new GridViewColumn { Header = "Filename", DisplayMemberBinding = new Binding("Filename")}
-                          };
-
-            LibraryColumns.ForEach(c => GridViewSort.SetPropertyName(c, (string)c.Header));
 
             messenger.Register<TrackAddedToLibraryEvent>(this, OnTrackAddedToLibrary);
             messenger.Register<TrackRemovedFromLibraryEvent>(this, OnTrackRemoved);

@@ -20,6 +20,7 @@
             <converters:HarmonicKeyCoverter x:Key="HarmonicKeyCoverter" />
             <converters:TransitionDescriptionConverter x:Key="TransitionDescriptionConverter" />
             <converters:ActualBpmConverter x:Key="ActualBpmConverter" />
+            <converters:PlaySpeedIncreaseConverter x:Key="PlaySpeedIncreaseConverter" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

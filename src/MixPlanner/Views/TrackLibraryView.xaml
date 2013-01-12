@@ -64,9 +64,62 @@
                 </i:Interaction.Triggers>
 
                 <c:ImprovedListView.View>
-                    <GridView ap:GridViewColumns.ColumnCollectionSource="{Binding LibraryColumns}" 
-                              AllowsColumnReorder="True">
+                    <GridView ap:GridViewSort.AutoSort="True" AllowsColumnReorder="True">
+                        <GridViewColumn Header="Transition"
+                                        ap:GridViewSort.PropertyName="Transition"
+                                        DisplayMemberBinding="{Binding Transition, Converter={StaticResource TransitionDescriptionConverter}}"
+                                        Width="200" />
+                        <GridViewColumn Header="Pitch"
+                                        ap:GridViewSort.PropertyName="IncreaseRequired"
+                                        DisplayMemberBinding="{Binding IncreaseRequired, Converter={StaticResource PlaySpeedIncreaseConverter}}"
+                                        Width="50" />
+                        <GridViewColumn Header="Bpm"
+                                        ap:GridViewSort.PropertyName="Bpm"
+                                        DisplayMemberBinding="{Binding Bpm}"
+                                        Width="50" />
+                        <GridViewColumn Header="Key"
+                                        ap:GridViewSort.PropertyName="Key"
+                                        DisplayMemberBinding="{Binding Key, Converter={StaticResource HarmonicKeyCoverter}}"
+                                        Width="50" />
+                        <GridViewColumn Header="Artist"
+                                        ap:GridViewSort.PropertyName="Artist"
+                                        DisplayMemberBinding="{Binding Artist}"
+                                        Width="150" />
+                        <GridViewColumn Header="Title"
+                                        ap:GridViewSort.PropertyName="Title"
+                                        Width="400">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="24" />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <Image Grid.Column="0"
+                                               Source="{Binding AlbumArtImageSource}"
+                                               RenderOptions.BitmapScalingMode="HighQuality" />
+                                        <Label Grid.Column="1" Content="{Binding Title}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Year"
+                                        ap:GridViewSort.PropertyName="Year"
+                                        DisplayMemberBinding="{Binding Year}"
+                                        Width="50" />
+                        <GridViewColumn Header="Genre"
+                                        ap:GridViewSort.PropertyName="Genre"
+                                        DisplayMemberBinding="{Binding Genre}"
+                                        Width="120" />
+                        <GridViewColumn Header="Label"
+                                        ap:GridViewSort.PropertyName="Label"
+                                        DisplayMemberBinding="{Binding Label}"
+                                        Width="120" />
+                        <GridViewColumn Header="Filename"
+                                        ap:GridViewSort.PropertyName="Filename"
+                                        DisplayMemberBinding="{Binding Filename}" />
                     </GridView>
+
                 </c:ImprovedListView.View>
 
                 <c:ImprovedListView.ItemContainerStyle>
