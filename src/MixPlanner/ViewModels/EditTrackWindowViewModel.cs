@@ -38,12 +38,12 @@ namespace MixPlanner.ViewModels
 
             AllHarmonicKeys = HarmonicKey.AllKeys;
 
+            Track = track;
             PopulateFrom(track);
         }
 
         public void PopulateFrom(Track track)
         {
-            Track = track;
             HarmonicKey = track.OriginalKey;
             Bpm = track.OriginalBpm;
             Artist = track.Artist;
@@ -52,6 +52,7 @@ namespace MixPlanner.ViewModels
             Year = track.Year;
             Label = track.Label;
             FilePath = track.Filename;
+            Track.ImageData = track.ImageData;
             image = new Lazy<ImageSource>(GetCoverArtBitmapImage);
             RaisePropertyChanged(() => AlbumArtImageSource);
         }

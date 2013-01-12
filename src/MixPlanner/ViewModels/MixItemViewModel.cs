@@ -1,6 +1,9 @@
 ﻿using System;
+using System.IO;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
 using GongSolutions.Wpf.DragDrop;
@@ -43,6 +46,7 @@ namespace MixPlanner.ViewModels
             if (mix == null) throw new ArgumentNullException("mix");
             MixItem = mixItem;
             PlayPauseCommand = playPauseCommand;
+            image = new Lazy<ImageSource>(GetCoverArtBitmapImage);
             messenger.Register<TransitionChangedEvent>(this, OnTransitionChanged);
             messenger.Register<PlaybackSpeedAdjustedEvent>(this, OnPlaybackSpeedAdjusted);
             messenger.Register<TrackUpdatedEvent>(this, OnTrackUpdated);
@@ -58,11 +62,13 @@ namespace MixPlanner.ViewModels
             if (!obj.Track.Equals(Track))
                 return;
 
+            image = new Lazy<ImageSource>(GetCoverArtBitmapImage);
             RaisePropertyChanged(() => Artist);
             RaisePropertyChanged(() => Title);
             RaisePropertyChanged(() => ActualBpm);
             RaisePropertyChanged(() => ActualKey);
             RaisePropertyChanged(() => PlaySpeed);
+            RaisePropertyChanged(() => AlbumArtImageSource);
         }
 
         void OnPlaybackSpeedAdjusted(PlaybackSpeedAdjustedEvent obj)
@@ -92,6 +98,25 @@ namespace MixPlanner.ViewModels
         public void Dropped(IDropInfo dropInfo)
         {
             
+        }
+
+        Lazy<ImageSource> image;
+        public ImageSource AlbumArtImageSource
+        {
+            get { return image.Value; }
+        }
+
+        ImageSource GetCoverArtBitmapImage()
+        {
+            var bitmap = new BitmapImage();
+            bitmap.BeginInit();
+            //bitmap.CacheOption = BitmapCacheOption.OnLoad;
+            //using (var stream = new MemoryStream(Track.ImageData))
+            {
+                bitmap.StreamSource = new MemoryStream(Track.ImageData);
+                bitmap.EndInit();
+            }
+            return bitmap;
         }
     }
 }

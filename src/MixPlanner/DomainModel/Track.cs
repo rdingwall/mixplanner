@@ -6,17 +6,29 @@ namespace MixPlanner.DomainModel
 {
     public class Track : IEquatable<Track>
     {
+        public Track(string artist,
+                     string title,
+                     HarmonicKey originalKey,
+                     string fileName,
+                     double originalBpm)
+            : this(Guid.NewGuid().ToString("N"), artist, title, originalKey, fileName, originalBpm)
+        {
+        }
+
         public Track(
-            string artist, 
-            string title, 
-            HarmonicKey originalKey, 
+            string id,
+            string artist,
+            string title,
+            HarmonicKey originalKey,
             string fileName,
             double originalBpm)
         {
+            if (id == null) throw new ArgumentNullException("id");
             if (artist == null) throw new ArgumentNullException("artist");
             if (title == null) throw new ArgumentNullException("title");
             if (originalKey == null) throw new ArgumentNullException("originalKey");
             if (fileName == null) throw new ArgumentNullException("fileName");
+            Id = id;
             Artist = artist;
             Title = title;
             OriginalKey = originalKey;
@@ -28,6 +40,7 @@ namespace MixPlanner.DomainModel
             Year = "";
         }
 
+        public string Id { get; private set; }
         public string Artist { get; set; }
         public string Title { get; set; }
         public HarmonicKey OriginalKey { get; set; }
@@ -67,7 +80,7 @@ namespace MixPlanner.DomainModel
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return Equals(File, other.File);
+            return string.Equals(Id, other.Id);
         }
 
         public override bool Equals(object obj)
@@ -80,7 +93,7 @@ namespace MixPlanner.DomainModel
 
         public override int GetHashCode()
         {
-            return (File != null ? File.GetHashCode() : 0);
+            return Id.GetHashCode();
         }
     }
 }

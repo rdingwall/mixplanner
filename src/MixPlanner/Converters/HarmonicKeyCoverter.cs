@@ -19,7 +19,18 @@ namespace MixPlanner.Converters
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var converter = factory.Value.GetConverter();
+            IValueConverter converter;
+            try
+            {
+                converter = factory.Value.GetConverter();
+            }
+            catch (NullReferenceException)
+            {
+                // Hacky, but allows us to use design mode in Blend where no
+                // service locator is registered.
+                return null;
+            }
+            
             return converter.Convert(value, targetType, parameter, culture);
         }
 
