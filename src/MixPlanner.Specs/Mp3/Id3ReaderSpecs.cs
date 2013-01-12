@@ -34,7 +34,7 @@ namespace MixPlanner.Specs.Mp3
 
         public class when_reading_tags_from_a_track_tagged_by_mixed_in_key_4 : FixtureBase
         {
-            Because of = () => Result = Reader.TryRead(@"..mixed_in_key_4.mp3", out Id3Tag);
+            Because of = () => Result = Reader.TryRead(@"mixed_in_key_4.mp3", out Id3Tag);
 
             It should_get_the_correct_key =
                 () => Id3Tag.InitialKey.ShouldEqual("7A");
@@ -60,7 +60,7 @@ namespace MixPlanner.Specs.Mp3
         
         public class when_reading_tags_from_a_full_track_tagged_by_mixed_in_key_4 : FixtureBase
         {
-            Because of = () => Result = Reader.TryRead(@"..\..\..\..\test_tracks\7A - 128 - 3505135_Three Triangles_Original Club Mix.mp3", out Id3Tag);
+            Because of = () => Result = Reader.TryRead(@"7A - 128 - 3505135_Three Triangles_Original Club Mix.mp3", out Id3Tag);
 
             It should_get_the_correct_key =
                 () => Id3Tag.InitialKey.ShouldEqual("7A");
@@ -84,7 +84,7 @@ namespace MixPlanner.Specs.Mp3
                 () => Id3Tag.Genre.ShouldEqual("Progressive House");
 
             It should_load_an_image =
-                () => Id3Tag.Image.ShouldNotBeNull();
+                () => Id3Tag.ImageData.ShouldNotBeNull();
         }
 
         public class when_reading_tags_from_a_track_with_only_id3v1_tag : FixtureBase

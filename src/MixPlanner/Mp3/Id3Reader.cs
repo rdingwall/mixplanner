@@ -79,18 +79,6 @@ namespace MixPlanner.Mp3
             tag.Bpm = ToStringOrDefault(id3v2.BeatsPerMinute) ?? GetUserTextFrame(id3v2, "BPM (beats per minute)");
         }
 
-        static Image GetImage(Tag id3v2)
-        {
-            var picture = id3v2.Pictures.FirstOrDefault(p => p.Description.Contains("FrontCover")) ??
-                          id3v2.Pictures.FirstOrDefault();
-
-            if (picture == null)
-                return null;
-
-            using (var memoryStream = new MemoryStream(picture.Data.Data))
-                return Image.FromStream(memoryStream);
-        }
-
         static byte[] GetImageData(Tag id3v2)
         {
             var picture = id3v2.Pictures.FirstOrDefault(p => p.Description.Contains("FrontCover")) ??

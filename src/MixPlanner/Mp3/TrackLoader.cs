@@ -57,7 +57,6 @@ namespace MixPlanner.Mp3
                                 Label = id3Tag.Publisher ?? "",
                                 Genre = id3Tag.Genre ?? "",
                                 Year = id3Tag.Year ?? "",
-                                Image = id3Tag.Image,
                                 ImageData = id3Tag.ImageData
                             };
 
