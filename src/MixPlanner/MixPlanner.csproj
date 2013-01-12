@@ -159,6 +159,7 @@
     <Compile Include="Converters\ActualBpmConverter.cs" />
     <Compile Include="Converters\HarmonicKeyConverterFactory.cs" />
     <Compile Include="Converters\HarmonicKeyCoverter.cs" />
+    <Compile Include="Converters\Id3v2TkeyHarmonicKeyConverter.cs" />
     <Compile Include="Converters\PlaySpeedIncreaseConverter.cs" />
     <Compile Include="Converters\TraditionalSymbolsHarmonicKeyConverter.cs" />
     <Compile Include="Converters\EnumToBoolConverter.cs" />
