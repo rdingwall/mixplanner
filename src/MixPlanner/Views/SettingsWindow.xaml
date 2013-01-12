@@ -47,18 +47,28 @@
                                 Grid.Column="1"
                                 Orientation="Horizontal"
                                 VerticalAlignment="Center">
-                        <RadioButton Content="11A"
+                        <RadioButton Content="12A"
                                      IsChecked="{Binding HarmonicKeyDisplayMode, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static domainModel:HarmonicKeyDisplayMode.KeyCode}}"
                                      HorizontalAlignment="Left"
                                      VerticalAlignment="Center"
                                      Margin="0,0,10,0" />
-                        <RadioButton Content="F♯ Major"
+                        <RadioButton Content="D♭ Minor"
                                      IsChecked="{Binding HarmonicKeyDisplayMode, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static domainModel:HarmonicKeyDisplayMode.TraditionalWithSymbols}}"
                                      HorizontalAlignment="Left"
                                      VerticalAlignment="Center"
                                      Margin="0,0,10,0" />
-                        <RadioButton Content="F-Sharp Major"
+                        <RadioButton Content="D-Flat Minor"
                                      IsChecked="{Binding HarmonicKeyDisplayMode, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static domainModel:HarmonicKeyDisplayMode.TraditionalWithText}}"
+                                     HorizontalAlignment="Left"
+                                     VerticalAlignment="Center"
+                                     Margin="0,0,10,0" />
+                        <RadioButton Content="Dbm"
+                                     IsChecked="{Binding HarmonicKeyDisplayMode, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static domainModel:HarmonicKeyDisplayMode.Id3Tkey}}"
+                                     HorizontalAlignment="Left"
+                                     VerticalAlignment="Center"
+                                     Margin="0,0,10,0" />
+                        <RadioButton Content="5m"
+                                     IsChecked="{Binding HarmonicKeyDisplayMode, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static domainModel:HarmonicKeyDisplayMode.OpenKeyNotation}}"
                                      HorizontalAlignment="Left"
                                      VerticalAlignment="Center"
                                      Margin="0,0,10,0" />
