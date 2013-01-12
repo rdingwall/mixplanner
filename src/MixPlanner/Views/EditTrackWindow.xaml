@@ -64,7 +64,9 @@
                                    Value="{Binding Bpm}"
                                    Width="200"
                                    Increment="0.1"
-                                   FontSize="48" />
+                                   FontSize="48"
+                                   Minimum="1"
+                                   Maximum="250" />
                 <Label Grid.Row="1"
                        Grid.Column="1"
                        HorizontalAlignment="Center"
