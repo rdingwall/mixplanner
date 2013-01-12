@@ -1,8 +1,12 @@
 using System;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using TagLib;
 using TagLib.Id3v2;
 using log4net;
+using File = TagLib.File;
+using Tag = TagLib.Id3v2.Tag;
 
 namespace MixPlanner.Mp3
 {
@@ -62,6 +66,8 @@ namespace MixPlanner.Mp3
                 return;
 
             var id3v2 = (TagLib.Id3v2.Tag)file.GetTag(TagTypes.Id3v2);
+            
+            tag.ImageData = GetImageData(id3v2);
 
             // ID3v2 Tags Reference: http://id3.org/id3v2.4.0-frames
             tag.InitialKey = GetTextFrame(id3v2, "TKEY") ?? GetUserTextFrame(id3v2, "Initial key");
@@ -71,6 +77,29 @@ namespace MixPlanner.Mp3
             tag.Genre = id3v2.JoinedGenres;
             tag.Publisher = GetTextFrame(id3v2, "TPUB") ?? GetUserTextFrame(id3v2, "Publisher");
             tag.Bpm = ToStringOrDefault(id3v2.BeatsPerMinute) ?? GetUserTextFrame(id3v2, "BPM (beats per minute)");
+        }
+
+        static Image GetImage(Tag id3v2)
+        {
+            var picture = id3v2.Pictures.FirstOrDefault(p => p.Description.Contains("FrontCover")) ??
+                          id3v2.Pictures.FirstOrDefault();
+
+            if (picture == null)
+                return null;
+
+            using (var memoryStream = new MemoryStream(picture.Data.Data))
+                return Image.FromStream(memoryStream);
+        }
+
+        static byte[] GetImageData(Tag id3v2)
+        {
+            var picture = id3v2.Pictures.FirstOrDefault(p => p.Description.Contains("FrontCover")) ??
+                          id3v2.Pictures.FirstOrDefault();
+
+            if (picture == null)
+                return null;
+
+            return picture.Data.Data;
         }
 
         string GetTextFrame(TagLib.Id3v2.Tag id3v2, string identifier)

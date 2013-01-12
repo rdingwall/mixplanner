@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.IO;
 
 namespace MixPlanner.DomainModel
@@ -48,6 +49,9 @@ namespace MixPlanner.DomainModel
         {
             get { return !String.IsNullOrWhiteSpace(Filename); }
         }
+
+        public Image Image { get; set; }
+        public byte[] ImageData { get; set; }
 
         public PlaybackSpeed GetDefaultPlaybackSpeed()
         {

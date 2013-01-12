@@ -1,3 +1,5 @@
+using System.Drawing;
+
 namespace MixPlanner.Mp3
 {
     public class Id3Tag
@@ -20,6 +22,10 @@ namespace MixPlanner.Mp3
         public string Publisher { get; set; }
         public string Title { get; set; }
         public string Year { get; set; }
+
+        public Image Image { get; set; }
+
+        public byte[] ImageData { get; set; }
 
         public override string ToString()
         {

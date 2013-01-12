@@ -24,18 +24,7 @@ namespace MixPlanner.Commands
 
             var track = await loader.LoadAsync(parameter.FilePath);
 
-            DispatcherHelper.InvokeAsync(() => UpdateFields(parameter, track));
-        }
-
-        void UpdateFields(EditTrackWindowViewModel parameter, Track track)
-        {
-            parameter.Artist = track.Artist;
-            parameter.Title = track.Title;
-            parameter.Genre = track.Genre;
-            parameter.Year = track.Year;
-            parameter.HarmonicKey = track.OriginalKey;
-            parameter.Bpm = track.OriginalBpm;
-            parameter.Label = track.Label;
+            DispatcherHelper.InvokeAsync(() => parameter.PopulateFrom(track));
         }
     }
 }
