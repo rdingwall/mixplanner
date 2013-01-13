@@ -51,7 +51,8 @@
                                      IsChecked="{Binding HarmonicKeyDisplayMode, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static domainModel:HarmonicKeyDisplayMode.KeyCode}}"
                                      HorizontalAlignment="Left"
                                      VerticalAlignment="Center"
-                                     Margin="0,0,10,0" />
+                                     Margin="0,0,10,0"
+                                     ToolTip="KeyCode"/>
                         <RadioButton Content="D♭ Minor"
                                      IsChecked="{Binding HarmonicKeyDisplayMode, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static domainModel:HarmonicKeyDisplayMode.TraditionalWithSymbols}}"
                                      HorizontalAlignment="Left"
@@ -66,12 +67,14 @@
                                      IsChecked="{Binding HarmonicKeyDisplayMode, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static domainModel:HarmonicKeyDisplayMode.Id3Tkey}}"
                                      HorizontalAlignment="Left"
                                      VerticalAlignment="Center"
-                                     Margin="0,0,10,0" />
+                                     Margin="0,0,10,0"
+                                     ToolTip="Standard ID3v2 notation"/>
                         <RadioButton Content="5m"
                                      IsChecked="{Binding HarmonicKeyDisplayMode, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static domainModel:HarmonicKeyDisplayMode.OpenKeyNotation}}"
                                      HorizontalAlignment="Left"
                                      VerticalAlignment="Center"
-                                     Margin="0,0,10,0" />
+                                     Margin="0,0,10,0"
+                                     ToolTip="Open Key Notation (OKN)"/>
                     </StackPanel>
                 </Grid>
             </GroupBox>
