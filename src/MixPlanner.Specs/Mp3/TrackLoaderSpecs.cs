@@ -13,7 +13,7 @@ namespace MixPlanner.Specs.Mp3
     {
         public class when_reading_tags_from_a_track_tagged_by_audacity : FixtureBase
         {
-            Because of = () => Track = Loader.LoadAsync(@"audacity.mp3").Result;
+            Because of = () => Track = Loader.LoadAsync("audacity.mp3").Result;
 
             It should_get_the_correct_key =
                 () => Track.OriginalKey.ShouldEqual(HarmonicKey.Key7A);
@@ -35,11 +35,17 @@ namespace MixPlanner.Specs.Mp3
 
             It should_get_the_correct_genre =
                 () => Track.Genre.ShouldEqual("Progressive House");
+
+            It should_get_the_filename = 
+                () => Track.Filename.ShouldEndWith("audacity.mp3");
+
+            It should_not_return_any_images =
+                () => Track.Images.ShouldBeNull();
         }
 
         public class when_reading_tags_from_a_track_tagged_by_mixed_in_key_4 : FixtureBase
         {
-            Because of = () => Track = Loader.LoadAsync(@"mixed_in_key_4.mp3").Result;
+            Because of = () => Track = Loader.LoadAsync("mixed_in_key_4.mp3").Result;
 
             It should_get_the_correct_key =
                 () => Track.OriginalKey.ShouldEqual(HarmonicKey.Key7A);
@@ -61,11 +67,18 @@ namespace MixPlanner.Specs.Mp3
 
             It should_get_the_correct_genre =
                 () => Track.Genre.ShouldEqual("Progressive House");
+
+            It should_get_the_filename =
+                () => Track.Filename.ShouldEndWith("mixed_in_key_4.mp3");
+
+            It should_not_return_any_images =
+                () => Track.Images.ShouldBeNull();
         }
 
         public class when_reading_tags_from_a_full_track_tagged_by_mixed_in_key_4 : FixtureBase
         {
-            Because of = () => Track = Loader.LoadAsync(@"7A - 128 - 3505135_Three Triangles_Original Club Mix.mp3").Result;
+            Because of = () => 
+                Track = Loader.LoadAsync("7A - 128 - 3505135_Three Triangles_Original Club Mix.mp3").Result;
 
             It should_get_the_correct_key =
                 () => Track.OriginalKey.ShouldEqual(HarmonicKey.Key7A);
@@ -88,7 +101,10 @@ namespace MixPlanner.Specs.Mp3
             It should_get_the_correct_genre =
                 () => Track.Genre.ShouldEqual("Progressive House");
 
-            It should_load_an_image =
+            It should_get_the_filename =
+                () => Track.Filename.ShouldEndWith("7A - 128 - 3505135_Three Triangles_Original Club Mix.mp3");
+
+            It should_get_the_images =
                 () => Track.Images.ShouldNotBeNull();
         }
 
@@ -97,7 +113,8 @@ namespace MixPlanner.Specs.Mp3
         // never mix it 2 years ago)
         public class when_reading_tags_from_a_full_track_tagged_with_two_keys_by_mixed_in_key_4 : FixtureBase
         {
-            Because of = () => Track = Loader.LoadAsync(@"1A or 11A - 132 - 1279464_Barra_Extended Mix.mp3").Result;
+            Because of = () => 
+                Track = Loader.LoadAsync("1A or 11A - 132 - 1279464_Barra_Extended Mix.mp3").Result;
 
             It should_get_the_correct_key =
                 () => Track.OriginalKey.ShouldEqual(HarmonicKey.Key1A);
@@ -120,13 +137,16 @@ namespace MixPlanner.Specs.Mp3
             It should_get_the_correct_genre =
                 () => Track.Genre.ShouldEqual("Trance");
 
-            It should_load_an_image =
+            It should_get_the_filename =
+                () => Track.Filename.ShouldEndWith("1A or 11A - 132 - 1279464_Barra_Extended Mix.mp3");
+
+            It should_get_the_images =
                 () => Track.Images.ShouldNotBeNull();
         }
 
         public class when_reading_tags_from_a_track_with_only_id3v1_tag : FixtureBase
         {
-            Because of = () => Track = Loader.LoadAsync(@"id3v1_only.mp3").Result;
+            Because of = () => Track = Loader.LoadAsync("id3v1_only.mp3").Result;
 
             It should_get_the_correct_key =
                 () => Track.OriginalKey.ShouldEqual(HarmonicKey.Unknown);
@@ -148,11 +168,17 @@ namespace MixPlanner.Specs.Mp3
 
             It should_get_the_correct_genre =
                 () => Track.Genre.ShouldEqual("Electronic");
+
+            It should_get_the_filename =
+                () => Track.Filename.ShouldEndWith("id3v1_only.mp3");
+
+            It should_not_return_any_images =
+                () => Track.Images.ShouldBeNull();
         }
 
         public class when_reading_tags_from_a_track_with_no_initial_key_or_bpm : FixtureBase
         {
-            Because of = () => Track = Loader.LoadAsync(@"id3v2_no_key_or_bpm.mp3").Result;
+            Because of = () => Track = Loader.LoadAsync("id3v2_no_key_or_bpm.mp3").Result;
 
             It should_get_the_correct_key =
                 () => Track.OriginalKey.ShouldEqual(HarmonicKey.Unknown);
@@ -174,6 +200,12 @@ namespace MixPlanner.Specs.Mp3
 
             It should_get_the_correct_genre =
                 () => Track.Genre.ShouldEqual("Rap");
+
+            It should_get_the_filename =
+                () => Track.Filename.ShouldEndWith("id3v2_no_key_or_bpm.mp3");
+
+            It should_not_return_any_images =
+                () => Track.Images.ShouldBeNull();
         }
 
         public abstract class FixtureBase
