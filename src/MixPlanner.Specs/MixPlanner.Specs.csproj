@@ -164,6 +164,7 @@
     <Compile Include="IocRegistrationsSpecs.cs" />
     <Compile Include="Mp3\Id3ReaderSpecs.cs" />
     <Compile Include="Mp3\Id3TagCleanupFactorySpecs.cs" />
+    <Compile Include="Mp3\KeyBpmFilenameParserSpecs.cs" />
     <Compile Include="Mp3\MixedInKeyPrefixCleanupSpecs.cs" />
     <Compile Include="Mp3\TrackImageResizerSpecs.cs" />
     <Compile Include="Mp3\TrackLoaderSpecs.cs" />

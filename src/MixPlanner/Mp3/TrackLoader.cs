@@ -19,7 +19,7 @@ namespace MixPlanner.Mp3
         readonly IId3Reader id3Reader;
         readonly IId3TagCleanupFactory cleanupFactory;
         readonly ITrackImageResizer imageResizer;
-        IEnumerable<IValueConverter> notationConverters;
+        readonly IEnumerable<IValueConverter> notationConverters;
 
         public TrackLoader(
             IId3Reader id3Reader, 
@@ -82,7 +82,7 @@ namespace MixPlanner.Mp3
         {
             var displayName = Path.GetFileNameWithoutExtension(filename);
 
-            return new Track("Unknown Artist", displayName, 
+            return new Track(TrackDefaults.UnknownArtist, displayName, 
                 HarmonicKey.Unknown, filename, float.NaN);
         }
 

@@ -208,6 +208,38 @@ namespace MixPlanner.Specs.Mp3
                 () => Track.Images.ShouldBeNull();
         }
 
+        public class when_reading_tags_from_a_wav_tagged_by_mixed_in_key_4 : FixtureBase
+        {
+            Because of = () => Track = Loader.LoadAsync("9A - 127 - 3813814_Your Love_Mark Knight Remix.wav").Result;
+
+            It should_get_the_correct_key =
+                () => Track.OriginalKey.ShouldEqual(HarmonicKey.Key9A);
+
+            It should_get_the_correct_artist =
+                () => Track.Artist.ShouldEqual(TrackDefaults.UnknownArtist);
+
+            It should_get_the_correct_title =
+                () => Track.Title.ShouldEqual("3813814_Your Love_Mark Knight Remix");
+
+            It should_get_the_correct_bpm =
+                () => Track.OriginalBpm.ShouldEqual(127);
+
+            It should_get_the_correct_publisher =
+                () => Track.Label.ShouldEqual("");
+
+            It should_get_the_correct_year =
+                () => Track.Year.ShouldEqual("");
+
+            It should_get_the_correct_genre =
+                () => Track.Genre.ShouldEqual("");
+
+            It should_get_the_filename =
+                () => Track.Filename.ShouldEndWith("9A - 127 - 3813814_Your Love_Mark Knight Remix.wav");
+
+            It should_not_return_any_images =
+                () => Track.Images.ShouldBeNull();
+        }
+
         public abstract class FixtureBase
         {
             Establish context =

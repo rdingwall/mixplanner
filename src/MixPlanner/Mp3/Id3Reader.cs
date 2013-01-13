@@ -1,6 +1,4 @@
 using System;
-using System.Drawing;
-using System.IO;
 using System.Linq;
 using TagLib;
 using TagLib.Id3v2;
@@ -56,8 +54,8 @@ namespace MixPlanner.Mp3
 
         void PopulateFallbackValues(Id3Tag tag)
         {
-            tag.Artist = tag.Artist ?? "Unknown Artist";
-            tag.Title = tag.Title ?? "Unknown Track";
+            tag.Artist = tag.Artist ?? TrackDefaults.UnknownArtist;
+            tag.Title = tag.Title ?? TrackDefaults.UnknownTitle;
         }
 
         void PopulateFromId3v2(File file, Id3Tag tag)

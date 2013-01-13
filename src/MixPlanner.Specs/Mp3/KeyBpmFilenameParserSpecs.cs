@@ -1,0 +1,205 @@
+﻿using System;
+using Machine.Specifications;
+using MixPlanner.DomainModel;
+using MixPlanner.Mp3;
+
+namespace MixPlanner.Specs.Mp3
+{
+    [Subject(typeof(KeyBpmFilenameParser))]
+    public class KeyBpmFilenameParserSpecs
+    {
+         public class When_the_filename_had_a_key_prefix : FixtureBase
+         {
+             Establish context = 
+                 () => Filename = "9A - 3813814_Your Love_Mark Knight Remix.wav";
+
+             It should_return_true = () => Result.ShouldBeTrue();
+
+             It should_return_the_correct_key = 
+                 () => FirstKey.ShouldEqual(HarmonicKey.Key9A);
+
+             It should_return_no_bpm =
+                 () => Bpm.ShouldEqual(Double.NaN);
+         }
+
+         public class When_the_filename_had_an_invalid_key_prefix : FixtureBase
+         {
+             Establish context =
+                 () => Filename = "99A - 3813814_Your Love_Mark Knight Remix.wav";
+
+             It should_return_false = () => Result.ShouldBeFalse();
+         }
+
+         public class When_the_filename_had_a_key_suffix : FixtureBase
+         {
+             Establish context = 
+                 () => Filename = "3813814_Your Love_Mark Knight Remix - 9A.wav";
+
+             It should_return_true = () => Result.ShouldBeTrue();
+
+             It should_return_the_correct_key =
+                 () => FirstKey.ShouldEqual(HarmonicKey.Key9A);
+
+             It should_return_no_bpm =
+                 () => Bpm.ShouldEqual(Double.NaN);
+         }
+
+         public class When_the_filename_had_an_invalid_key_suffix : FixtureBase
+         {
+             Establish context =
+                 () => Filename = "3813814_Your Love_Mark Knight Remix - 99A.wav";
+
+             It should_return_false = () => Result.ShouldBeFalse();
+         }
+
+         public class When_the_filename_had_two_keys_prefix : FixtureBase
+         {
+             Establish context =
+                 () => Filename = "9A or 11B - 3813814_Your Love_Mark Knight Remix.wav";
+
+             It should_return_true = () => Result.ShouldBeTrue();
+
+             It should_return_the_correct_key =
+                 () => FirstKey.ShouldEqual(HarmonicKey.Key9A);
+
+             It should_return_no_bpm =
+                 () => Bpm.ShouldEqual(Double.NaN);
+         }
+
+         public class When_the_filename_had_two_invalid_keys_prefix : FixtureBase
+         {
+             Establish context =
+                 () => Filename = "99A or 99B - 3813814_Your Love_Mark Knight Remix.wav";
+
+             It should_return_false = () => Result.ShouldBeFalse();
+         }
+
+         public class When_the_filename_had_two_keys_suffix : FixtureBase
+         {
+             Establish context =
+                 () => Filename = "3813814_Your Love_Mark Knight Remix - 9A or 11B.wav";
+
+             It should_return_true = () => Result.ShouldBeTrue();
+
+             It should_return_the_correct_key =
+                 () => FirstKey.ShouldEqual(HarmonicKey.Key9A);
+
+             It should_return_no_bpm =
+                 () => Bpm.ShouldEqual(Double.NaN);
+         }
+
+         public class When_the_filename_had_two_invalid_keys_suffix : FixtureBase
+         {
+             Establish context =
+                 () => Filename = "3813814_Your Love_Mark Knight Remix - 99A or 99B.wav";
+
+             It should_return_false = () => Result.ShouldBeFalse();
+         }
+
+         public class When_the_filename_had_a_key_and_bpm_prefix : FixtureBase
+         {
+             Establish context = 
+                 () => Filename = "9A - 127 - 3813814_Your Love_Mark Knight Remix.wav";
+
+             It should_return_true = () => Result.ShouldBeTrue();
+
+             It should_return_the_correct_key =
+                 () => FirstKey.ShouldEqual(HarmonicKey.Key9A);
+
+             It should_return_no_bpm =
+                 () => Bpm.ShouldEqual(127);
+         }
+
+         public class When_the_filename_had_an_invalid_key_and_bpm_prefix : FixtureBase
+         {
+             Establish context =
+                 () => Filename = "99A - 127 - 3813814_Your Love_Mark Knight Remix.wav";
+
+             It should_return_false = () => Result.ShouldBeFalse();
+         }
+
+         public class When_the_filename_had_a_key_and_bpm_suffix : FixtureBase
+         {
+             Establish context =
+                 () => Filename = "3813814_Your Love_Mark Knight Remix - 9A - 127.wav";
+
+             It should_return_true = () => Result.ShouldBeTrue();
+
+             It should_return_the_correct_key =
+                 () => FirstKey.ShouldEqual(HarmonicKey.Key9A);
+
+             It should_return_no_bpm =
+                 () => Bpm.ShouldEqual(127);
+         }
+
+         public class When_the_filename_had_an_invalid_key_and_bpm_suffix : FixtureBase
+         {
+             Establish context =
+                 () => Filename = "3813814_Your Love_Mark Knight Remix - 99A - 127.wav";
+
+             It should_return_false = () => Result.ShouldBeFalse();
+         }
+
+         public class When_the_filename_had_two_keys_and_a_bpm_prefix : FixtureBase
+         {
+             Establish context =
+                 () => Filename = "9A or 11A - 127 - 3813814_Your Love_Mark Knight Remix.wav";
+
+             It should_return_true = () => Result.ShouldBeTrue();
+
+             It should_return_the_correct_key =
+                 () => FirstKey.ShouldEqual(HarmonicKey.Key9A);
+
+             It should_return_no_bpm =
+                 () => Bpm.ShouldEqual(127);
+         }
+
+         public class When_the_filename_had_two_keys_and_an_invalid_bpm_prefix : FixtureBase
+         {
+             Establish context =
+                 () => Filename = "99A or 99A - 127 - 3813814_Your Love_Mark Knight Remix.wav";
+
+             It should_return_false = () => Result.ShouldBeFalse();
+         }
+
+         public class When_the_filename_had_two_keys_and_a_bpm_suffix : FixtureBase
+         {
+             Establish context =
+                 () => Filename = "3813814_Your Love_Mark Knight Remix - 9A or 11A - 127.wav";
+
+             It should_return_true = () => Result.ShouldBeTrue();
+
+             It should_return_the_correct_key =
+                 () => FirstKey.ShouldEqual(HarmonicKey.Key9A);
+
+             It should_return_no_bpm =
+                 () => Bpm.ShouldEqual(127);
+         }
+
+         public class When_the_filename_had_two_invalid_keys_and_a_bpm_suffix : FixtureBase
+         {
+             Establish context =
+                 () => Filename = "3813814_Your Love_Mark Knight Remix - 99A or 99A - 127.wav";
+
+             It should_return_false = () => Result.ShouldBeFalse();
+         }
+
+         public class When_the_filename_had_no_keys_or_bpms : FixtureBase
+         {
+             Establish context = () => Filename = "foo.wav";
+
+             It should_return_false = () => Result.ShouldBeFalse();
+         }
+
+        public abstract class FixtureBase
+        {
+            Because of = () => Result = 
+                new KeyBpmFilenameParser().TryParse(Filename, out FirstKey, out Bpm);
+
+            protected static bool Result;
+            protected static HarmonicKey FirstKey;
+            protected static double Bpm;
+            protected static string Filename;
+        }
+    }
+}

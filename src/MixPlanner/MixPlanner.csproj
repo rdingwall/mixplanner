@@ -232,10 +232,13 @@
     <Compile Include="Mp3\Id3TagCleanupFactory.cs" />
     <Compile Include="Mp3\IId3TagCleanup.cs" />
     <Compile Include="Mp3\ImageData.cs" />
+    <Compile Include="Mp3\KeyBpmFilenameParser.cs" />
     <Compile Include="Mp3\MixedInKeyTagCleanup.cs" />
+    <Compile Include="Mp3\TrackDefaults.cs" />
     <Compile Include="Mp3\TrackImageResizer.cs" />
     <Compile Include="Mp3\TrackImageData.cs" />
     <Compile Include="Mp3\TrackLoader.cs" />
+    <Compile Include="Mp3\WavReader.cs" />
     <Compile Include="Player\AudioPlayer.cs" />
     <Compile Include="Storage\IConfigStorage.cs" />
     <Compile Include="Storage\ILibraryStorage.cs" />
