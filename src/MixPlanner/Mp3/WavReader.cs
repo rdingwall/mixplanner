@@ -1,10 +1,25 @@
 ﻿using System;
 using System.IO;
+using MixPlanner.DomainModel;
 
 namespace MixPlanner.Mp3
 {
-    public class WavReader : IId3Reader
+    public interface IWavReader
     {
+        bool TryRead(string filename, out Id3Tag track);
+    }
+
+    public class WavReader : IWavReader
+    {
+        readonly IKeyBpmFilenameParser filenameParser;
+
+        public WavReader(
+            IKeyBpmFilenameParser filenameParser)
+        {
+            if (filenameParser == null) throw new ArgumentNullException("filenameParser");
+            this.filenameParser = filenameParser;
+        }
+
         public bool TryRead(string filename, out Id3Tag track)
         {
             if (filename == null) throw new ArgumentNullException("filename");
@@ -15,13 +30,32 @@ namespace MixPlanner.Mp3
                 return false;
             }
 
+            string key;
+            string bpm;
+            if (filenameParser.TryParse(filename, out key, out bpm))
+            {
+                track = new Id3Tag
+                            {
+                                InitialKey = key,
+                                Bpm = bpm,
+                                Artist = TrackDefaults.UnknownArtist,
+                                Title = Path.GetFileNameWithoutExtension(filename)
+                            };
+                return true;
+            }
+
             track = null;
             return false;
         }
 
         static bool IsWav(string filename)
         {
-            return String.Equals(Path.GetExtension(filename), "wav", 
+            var extension = Path.GetExtension(filename);
+
+            if (extension == null)
+                return false;
+
+            return extension.EndsWith("wav", 
                 StringComparison.CurrentCultureIgnoreCase);
         }
     }

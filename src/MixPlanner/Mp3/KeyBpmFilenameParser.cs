@@ -1,15 +1,13 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
 using System.Text.RegularExpressions;
-using MixPlanner.DomainModel;
 using log4net;
 
 namespace MixPlanner.Mp3
 {
     public interface IKeyBpmFilenameParser
     {
-        bool TryParse(string filename, out HarmonicKey firstKey, out double bpm);
+        bool TryParse(string filename, out string firstKey, out string bpm);
     }
 
     public class KeyBpmFilenameParser : IKeyBpmFilenameParser
@@ -39,10 +37,10 @@ namespace MixPlanner.Mp3
                               };
         }
 
-        public bool TryParse(string filename, out HarmonicKey firstKey, out double bpm)
+        public bool TryParse(string filename, out string firstKey, out string bpm)
         {
             firstKey = null;
-            bpm = Double.NaN;
+            bpm = null;
 
             if (filename == null)
                 return false;
@@ -57,20 +55,13 @@ namespace MixPlanner.Mp3
 
                 try
                 {
-                    var result = true;
                     if (match.Groups["key"].Success)
-                    {
-                        var keyStr = match.Groups["key"].Value;
-                        result &= HarmonicKey.TryParse(keyStr, out firstKey);
-                    }
+                        firstKey = match.Groups["key"].Value;
 
                     if (match.Groups["bpm"].Success)
-                    {
-                        var bpmStr = match.Groups["bpm"].Value;
-                        result &= Double.TryParse(bpmStr, out bpm);
-                    }
+                        bpm = match.Groups["bpm"].Value;
 
-                    return result;
+                    return true;
                 }
                 catch (Exception e)
                 {
@@ -82,7 +73,5 @@ namespace MixPlanner.Mp3
 
             return false;
         }
-
-        
     }
 }

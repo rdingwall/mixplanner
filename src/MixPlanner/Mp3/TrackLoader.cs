@@ -17,21 +17,25 @@ namespace MixPlanner.Mp3
     public class TrackLoader : ITrackLoader
     {
         readonly IId3Reader id3Reader;
+        readonly IWavReader wavReader;
         readonly IId3TagCleanupFactory cleanupFactory;
         readonly ITrackImageResizer imageResizer;
         readonly IEnumerable<IValueConverter> notationConverters;
 
         public TrackLoader(
             IId3Reader id3Reader, 
+            IWavReader wavReader,
             IId3TagCleanupFactory cleanupFactory,
             ITrackImageResizer imageResizer, 
             IHarmonicKeyConverterFactory converterFactory)
         {
             if (id3Reader == null) throw new ArgumentNullException("id3Reader");
+            if (wavReader == null) throw new ArgumentNullException("wavReader");
             if (cleanupFactory == null) throw new ArgumentNullException("cleanupFactory");
             if (imageResizer == null) throw new ArgumentNullException("imageResizer");
             if (converterFactory == null) throw new ArgumentNullException("converterFactory");
             this.id3Reader = id3Reader;
+            this.wavReader = wavReader;
             this.cleanupFactory = cleanupFactory;
             this.imageResizer = imageResizer;
             notationConverters = converterFactory.GetAllConverters();
@@ -46,11 +50,31 @@ namespace MixPlanner.Mp3
         {
             if (filename == null) throw new ArgumentNullException("filename");
 
-            Id3Tag id3Tag;
-            if (id3Reader.TryRead(filename, out id3Tag))
-                return LoadTrackFromId3Tag(filename, id3Tag);
+            var extension = Path.GetExtension(filename);
 
-            return LoadTrackWithoutId3Tags(filename);
+            if (HasExtension(extension, "mp3"))
+            {
+                Id3Tag id3Tag;
+                if (id3Reader.TryRead(filename, out id3Tag))
+                    return LoadTrackFromId3Tag(filename, id3Tag);
+            }
+            else if (HasExtension(extension, "wav"))
+            {
+                Id3Tag tag;
+                if (wavReader.TryRead(filename, out tag))
+                    return LoadTrackFromId3Tag(filename, tag);
+            }
+
+            return LoadUnknownFormat(filename);
+        }
+
+        static bool HasExtension(string extension, string expected)
+        {
+            if (extension == null)
+                return false;
+
+            return extension.EndsWith(expected, 
+                StringComparison.CurrentCultureIgnoreCase);
         }
 
         Track LoadTrackFromId3Tag(string filename, Id3Tag id3Tag)
@@ -78,7 +102,7 @@ namespace MixPlanner.Mp3
             return track;
         }
 
-        static Track LoadTrackWithoutId3Tags(string filename)
+        static Track LoadUnknownFormat(string filename)
         {
             var displayName = Path.GetFileNameWithoutExtension(filename);
 

@@ -30,9 +30,15 @@ namespace MixPlanner.Specs.ImportExport
                                          converterFactory.Stub(f => f.GetAllConverters())
                                                          .Return(new IValueConverter[0]);
 
+                                         var wavReader = MockRepository.GenerateMock<IWavReader>();
+
                                          filename = "DummyPlaylist.m3u";
-                                         reader = new M3uReader(new TrackLoader(new Id3Reader(),
-                                             cleanupFactory, resizer, converterFactory));
+                                         reader = new M3uReader(
+                                             new TrackLoader(new Id3Reader(),
+                                                             wavReader,
+                                                             cleanupFactory,
+                                                             resizer,
+                                                             converterFactory));
                                      };
 
              Because of = () => tracks = reader.Read(filename).Result;
