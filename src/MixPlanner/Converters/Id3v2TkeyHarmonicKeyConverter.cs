@@ -56,9 +56,17 @@ namespace MixPlanner.Converters
                               StringComparer.CurrentCultureIgnoreCase);
 
             // Enharmonic equivalents (only one way so we can read them)
+            KeyCodes.Add("G#m", HarmonicKey.Key1A);
             KeyCodes.Add("D#m", HarmonicKey.Key2A);
             KeyCodes.Add("Gb", HarmonicKey.Key2B);
+            KeyCodes.Add("A#m", HarmonicKey.Key3A);
+            KeyCodes.Add("C#", HarmonicKey.Key3B);
+            KeyCodes.Add("G#", HarmonicKey.Key4B);
+            KeyCodes.Add("D#", HarmonicKey.Key5B);
+            KeyCodes.Add("A#", HarmonicKey.Key6B);
+            KeyCodes.Add("Gbm", HarmonicKey.Key11A);
             KeyCodes.Add("C#m", HarmonicKey.Key12A);
+            
         }
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

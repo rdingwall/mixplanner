@@ -49,8 +49,15 @@ namespace MixPlanner.Converters
                 StringComparer.CurrentCultureIgnoreCase);
 
             // Enharmonic equivalents (only one way so we can read them)
+            KeyCodes.Add("G-Sharp Minor", HarmonicKey.Key1A);
             KeyCodes.Add("D-Sharp Minor", HarmonicKey.Key2A);
             KeyCodes.Add("G-Flat Major", HarmonicKey.Key2B);
+            KeyCodes.Add("A-Sharp Minor", HarmonicKey.Key3A);
+            KeyCodes.Add("C-Sharp Major", HarmonicKey.Key3B);
+            KeyCodes.Add("G-Sharp Major", HarmonicKey.Key4B);
+            KeyCodes.Add("D-Sharp Major", HarmonicKey.Key5B);
+            KeyCodes.Add("A-Sharp Major", HarmonicKey.Key6B);
+            KeyCodes.Add("G-Flat Minor", HarmonicKey.Key11A);
             KeyCodes.Add("C-Sharp Minor", HarmonicKey.Key12A);
         }
 
