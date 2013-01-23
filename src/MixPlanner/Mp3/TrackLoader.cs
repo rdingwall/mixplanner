@@ -11,6 +11,7 @@ namespace MixPlanner.Mp3
 {
     public interface ITrackLoader
     {
+        bool IsSupportedFileFormat(string filename);
         Task<Track> LoadAsync(string filename);
     }
 
@@ -41,6 +42,12 @@ namespace MixPlanner.Mp3
             notationConverters = converterFactory.GetAllConverters();
         }
 
+        public bool IsSupportedFileFormat(string filename)
+        {
+            return FileNameHelper.IsMp3(filename) ||
+                   FileNameHelper.IsWav(filename);
+        }
+
         public async Task<Track> LoadAsync(string filename)
         {
             return await Task.Run(() => Load(filename));
@@ -50,15 +57,13 @@ namespace MixPlanner.Mp3
         {
             if (filename == null) throw new ArgumentNullException("filename");
 
-            var extension = Path.GetExtension(filename);
-
-            if (HasExtension(extension, "mp3"))
+            if (FileNameHelper.IsMp3(filename))
             {
                 Id3Tag id3Tag;
                 if (id3Reader.TryRead(filename, out id3Tag))
                     return LoadTrackFromId3Tag(filename, id3Tag);
             }
-            else if (HasExtension(extension, "wav"))
+            else if (FileNameHelper.IsWav(filename))
             {
                 Id3Tag tag;
                 if (wavReader.TryRead(filename, out tag))
@@ -66,15 +71,6 @@ namespace MixPlanner.Mp3
             }
 
             return LoadUnknownFormat(filename);
-        }
-
-        static bool HasExtension(string extension, string expected)
-        {
-            if (extension == null)
-                return false;
-
-            return extension.EndsWith(expected, 
-                StringComparison.CurrentCultureIgnoreCase);
         }
 
         Track LoadTrackFromId3Tag(string filename, Id3Tag id3Tag)

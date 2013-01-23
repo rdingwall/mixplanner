@@ -227,6 +227,7 @@
     <Compile Include="ImportExport\M3uReader.cs" />
     <Compile Include="ImportExport\M3uWriter.cs" />
     <Compile Include="IocRegistrations.cs" />
+    <Compile Include="Mp3\FileNameHelper.cs" />
     <Compile Include="Mp3\Id3Reader.cs" />
     <Compile Include="Mp3\Id3Tag.cs" />
     <Compile Include="Mp3\Id3TagCleanupFactory.cs" />

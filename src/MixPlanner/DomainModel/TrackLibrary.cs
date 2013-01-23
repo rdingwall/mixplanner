@@ -62,20 +62,15 @@ namespace MixPlanner.DomainModel
             return track != null;
         }
 
-        static bool IsMp3(string filename)
-        {
-            var extension = Path.GetExtension(filename) ?? "";
-            return extension.Equals(".mp3", Comparison);
-        }
-
         async Task<IEnumerable<Track>> ImportDirectory(string directoryName)
         {
             if (directoryName == null) throw new ArgumentNullException("directoryName");
 
             messenger.SendToUI(new BeganScanningDirectoryEvent());
 
-            var filenames = Directory.GetFiles(directoryName, 
-                "*.mp3", SearchOption.AllDirectories);
+            var filenames = Directory
+                .GetFiles(directoryName, "*.*", SearchOption.AllDirectories)
+                .Where(loader.IsSupportedFileFormat);
 
             return await ImportAsync(filenames);
         }
@@ -87,7 +82,7 @@ namespace MixPlanner.DomainModel
             if (IsDirectory(filename))
                 return await ImportDirectory(filename);
 
-            if (!IsMp3(filename))
+            if (!loader.IsSupportedFileFormat(filename))
                 return Enumerable.Empty<Track>();
 
             Track track;

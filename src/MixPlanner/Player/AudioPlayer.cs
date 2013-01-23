@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
-using GalaSoft.MvvmLight.Messaging;
 using MixPlanner.DomainModel;
 using MixPlanner.Events;
+using MixPlanner.Mp3;
 using NAudio.Wave;
 
 namespace MixPlanner.Player
@@ -23,6 +23,9 @@ namespace MixPlanner.Player
     public class AudioPlayer : IAudioPlayer, IDisposable
     {
         readonly IDispatcherMessenger messenger;
+        WaveOut waveOutDevice;
+        WaveStream stream;
+
         public Track CurrentTrack { get; private set; }
 
         public AudioPlayer(IDispatcherMessenger messenger)
@@ -67,7 +70,8 @@ namespace MixPlanner.Player
             {
                 Stop();
                 CurrentTrack = track;
-                stream = new Mp3FileReader(track.Filename);
+                stream = new AudioFileReader(track.Filename);
+                
                 waveOutDevice.Init(stream);
             }
 
@@ -169,7 +173,5 @@ namespace MixPlanner.Player
         }
 
         bool disposed;
-        WaveOut waveOutDevice;
-        Mp3FileReader stream;
     }
 }
