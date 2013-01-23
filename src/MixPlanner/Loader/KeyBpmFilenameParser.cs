@@ -3,7 +3,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using log4net;
 
-namespace MixPlanner.Mp3
+namespace MixPlanner.Loader
 {
     public interface IKeyBpmFilenameParser
     {

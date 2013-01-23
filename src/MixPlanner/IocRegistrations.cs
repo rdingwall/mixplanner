@@ -10,7 +10,7 @@ using GalaSoft.MvvmLight.Messaging;
 using MixPlanner.Configuration;
 using MixPlanner.Converters;
 using MixPlanner.DomainModel;
-using MixPlanner.Mp3;
+using MixPlanner.Loader;
 using MixPlanner.Player;
 using MixPlanner.Storage;
 using MixPlanner.ViewModels;
@@ -31,7 +31,7 @@ namespace MixPlanner
                 Component.For<IWindsorContainer>().Instance(container),
                 Component.For<ITrackLibrary>().ImplementedBy<TrackLibrary>(),
                 Component.For<ITrackLoader>().ImplementedBy<TrackLoader>(),
-                Component.For<IId3TagCleanupFactory>().ImplementedBy<Id3TagCleanupFactory>(),
+                Component.For<ITagCleanupFactory>().ImplementedBy<TagCleanupFactory>(),
                 Component.For<IKeyBpmFilenameParser>().ImplementedBy<KeyBpmFilenameParser>(),
                 Component.For<ILibraryStorage>().ImplementedBy<InMemoryLibraryStorage>(),
                 Component.For<IConfigStorage>().ImplementedBy<InMemoryConfigStorage>(),

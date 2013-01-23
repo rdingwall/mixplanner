@@ -1,4 +1,4 @@
-namespace MixPlanner.Mp3
+namespace MixPlanner.Loader
 {
     public class TrackDefaults
     {

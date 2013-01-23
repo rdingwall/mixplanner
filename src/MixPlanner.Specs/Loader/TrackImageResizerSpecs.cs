@@ -1,11 +1,10 @@
 ﻿using System.Drawing;
 using System.IO;
 using System.Reflection;
-using System.Windows.Media.Imaging;
 using Machine.Specifications;
-using MixPlanner.Mp3;
+using MixPlanner.Loader;
 
-namespace MixPlanner.Specs.Mp3
+namespace MixPlanner.Specs.Loader
 {
     [Subject(typeof(TrackImageResizer))]
     public class TrackImageResizerSpecs

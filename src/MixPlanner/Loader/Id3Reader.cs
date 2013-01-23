@@ -3,21 +3,19 @@ using System.Linq;
 using TagLib;
 using TagLib.Id3v2;
 using log4net;
-using File = TagLib.File;
-using Tag = TagLib.Id3v2.Tag;
 
-namespace MixPlanner.Mp3
+namespace MixPlanner.Loader
 {
     public interface IId3Reader
     {
-        bool TryRead(string filename, out Id3Tag track);
+        bool TryRead(string filename, out Tag track);
     }
 
     public class Id3Reader : IId3Reader
     {
         static readonly ILog Log = LogManager.GetLogger(typeof(Id3Reader));
 
-        public bool TryRead(string filename, out Id3Tag id3Tag)
+        public bool TryRead(string filename, out Tag id3Tag)
         {
             if (filename == null) throw new ArgumentNullException("filename");
             try
@@ -26,7 +24,7 @@ namespace MixPlanner.Mp3
 
                 LogWarnings(filename, file);
 
-                var t = new Id3Tag();
+                var t = new Tag();
 
                 PopulateFromId3v2(file, t);
                 PopulateFromId3v1(file, t);
@@ -52,13 +50,13 @@ namespace MixPlanner.Mp3
                 Log.WarnFormat("{0} is possibly corrupt: {1}", filename, reason);
         }
 
-        void PopulateFallbackValues(Id3Tag tag)
+        void PopulateFallbackValues(Tag tag)
         {
             tag.Artist = tag.Artist ?? TrackDefaults.UnknownArtist;
             tag.Title = tag.Title ?? TrackDefaults.UnknownTitle;
         }
 
-        void PopulateFromId3v2(File file, Id3Tag tag)
+        void PopulateFromId3v2(File file, Tag tag)
         {
             if (!file.TagTypes.HasFlag(TagTypes.Id3v2))
                 return;
@@ -84,7 +82,7 @@ namespace MixPlanner.Mp3
              return String.Join("/", performers);
         }
 
-        static byte[] GetImageData(Tag id3v2)
+        static byte[] GetImageData(TagLib.Id3v2.Tag id3v2)
         {
             var picture = id3v2.Pictures.FirstOrDefault(p => p.Description.Contains("FrontCover")) ??
                           id3v2.Pictures.FirstOrDefault();
@@ -112,7 +110,7 @@ namespace MixPlanner.Mp3
                 .FirstOrDefault();
         }
 
-        void PopulateFromId3v1(File file, Id3Tag tag)
+        void PopulateFromId3v1(File file, Tag tag)
         {
             if (!file.TagTypes.HasFlag(TagTypes.Id3v1))
                 return;

@@ -1,9 +1,7 @@
-﻿using System;
-using Machine.Specifications;
-using MixPlanner.DomainModel;
-using MixPlanner.Mp3;
+﻿using Machine.Specifications;
+using MixPlanner.Loader;
 
-namespace MixPlanner.Specs.Mp3
+namespace MixPlanner.Specs.Loader
 {
     [Subject(typeof(KeyBpmFilenameParser))]
     public class KeyBpmFilenameParserSpecs

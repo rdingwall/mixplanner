@@ -5,7 +5,7 @@ using Machine.Specifications;
 using MixPlanner.Converters;
 using MixPlanner.DomainModel;
 using MixPlanner.ImportExport;
-using MixPlanner.Mp3;
+using MixPlanner.Loader;
 using Rhino.Mocks;
 
 namespace MixPlanner.Specs.ImportExport
@@ -18,9 +18,9 @@ namespace MixPlanner.Specs.ImportExport
              Establish context = () =>
                                      {
                                          var cleanupFactory = MockRepository
-                                             .GenerateMock<IId3TagCleanupFactory>();
+                                             .GenerateMock<ITagCleanupFactory>();
                                          cleanupFactory.Stub(f => f.GetCleanups())
-                                                       .Return(new IId3TagCleanup[0]);
+                                                       .Return(new ITagCleanup[0]);
 
                                          var resizer = MockRepository
                                              .GenerateMock<ITrackImageResizer>();

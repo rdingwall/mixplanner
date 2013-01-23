@@ -1,8 +1,8 @@
-namespace MixPlanner.Mp3
+namespace MixPlanner.Loader
 {
-    public class Id3Tag
+    public class Tag
     {
-        public Id3Tag()
+        public Tag()
         {
             Artist = "";
             Bpm = "";

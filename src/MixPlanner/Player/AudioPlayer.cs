@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using MixPlanner.DomainModel;
 using MixPlanner.Events;
-using MixPlanner.Mp3;
 using NAudio.Wave;
 
 namespace MixPlanner.Player

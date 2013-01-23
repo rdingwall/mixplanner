@@ -1,7 +1,7 @@
 using Machine.Specifications;
-using MixPlanner.Mp3;
+using MixPlanner.Loader;
 
-namespace MixPlanner.Specs.Mp3
+namespace MixPlanner.Specs.Loader
 {
     [Subject(typeof(Id3Reader))]
     public class Id3ReaderSpecs
@@ -178,7 +178,7 @@ namespace MixPlanner.Specs.Mp3
             It should_return_true = () => Result.ShouldBeTrue();
 
             protected static Id3Reader Reader;
-            protected static Id3Tag Id3Tag;
+            protected static Tag Id3Tag;
             protected static bool Result;
         }
     }

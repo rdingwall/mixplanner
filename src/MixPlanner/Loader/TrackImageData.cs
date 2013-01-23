@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MixPlanner.Mp3
+namespace MixPlanner.Loader
 {
     public class TrackImageData
     {

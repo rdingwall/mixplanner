@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using GalaSoft.MvvmLight.Threading;
 using MixPlanner.DomainModel;
-using MixPlanner.Mp3;
+using MixPlanner.Loader;
 using MixPlanner.ViewModels;
 
 namespace MixPlanner.Commands

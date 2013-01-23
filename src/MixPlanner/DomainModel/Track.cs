@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.IO;
 using System.Windows.Media;
-using MixPlanner.Mp3;
+using MixPlanner.Loader;
 
 namespace MixPlanner.DomainModel
 {

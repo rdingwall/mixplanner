@@ -1,12 +1,11 @@
 ﻿using System;
 using System.IO;
-using MixPlanner.DomainModel;
 
-namespace MixPlanner.Mp3
+namespace MixPlanner.Loader
 {
     public interface IWavReader
     {
-        bool TryRead(string filename, out Id3Tag track);
+        bool TryRead(string filename, out Tag track);
     }
 
     public class WavReader : IWavReader
@@ -20,7 +19,7 @@ namespace MixPlanner.Mp3
             this.filenameParser = filenameParser;
         }
 
-        public bool TryRead(string filename, out Id3Tag track)
+        public bool TryRead(string filename, out Tag track)
         {
             if (filename == null) throw new ArgumentNullException("filename");
 
@@ -34,7 +33,7 @@ namespace MixPlanner.Mp3
             string bpm;
             if (filenameParser.TryParse(filename, out key, out bpm))
             {
-                track = new Id3Tag
+                track = new Tag
                             {
                                 InitialKey = key,
                                 Bpm = bpm,

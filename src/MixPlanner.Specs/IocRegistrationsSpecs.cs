@@ -5,7 +5,6 @@ using System.Windows.Input;
 using Castle.Windsor;
 using MixPlanner.Commands;
 using MixPlanner.DomainModel;
-using MixPlanner.Mp3;
 using MixPlanner.ViewModels;
 using NUnit.Framework;
 

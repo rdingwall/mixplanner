@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 
-namespace MixPlanner.Mp3
+namespace MixPlanner.Loader
 {
-    public class MixedInKeyTagCleanup : IId3TagCleanup
+    public class MixedInKeyTagCleanup : ITagCleanup
     {
         readonly Regex keyPrefixPattern;
         readonly Regex keyAndBpmPrefixPattern;
@@ -21,7 +21,7 @@ namespace MixPlanner.Mp3
             keyAndBpmSuffixPattern = new Regex(@"\s-\s\d{1,2}(A|B)(/\d{1,2}(A|B))?\s-\s\d{1,3}(\.\d)?$", options);
         }
 
-         public void Clean(Id3Tag tag)
+         public void Clean(Tag tag)
          {
              if (tag == null) throw new ArgumentNullException("tag");
 

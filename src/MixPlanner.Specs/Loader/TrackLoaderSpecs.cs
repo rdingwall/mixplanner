@@ -3,9 +3,9 @@ using Castle.Windsor;
 using Machine.Specifications;
 using MixPlanner.Configuration;
 using MixPlanner.DomainModel;
-using MixPlanner.Mp3;
+using MixPlanner.Loader;
 
-namespace MixPlanner.Specs.Mp3
+namespace MixPlanner.Specs.Loader
 {
     // Full end-to-end integration tests for loading various file types.
     [Subject(typeof(TrackLoader))]

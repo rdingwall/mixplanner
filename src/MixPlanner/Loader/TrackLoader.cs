@@ -7,7 +7,7 @@ using System.Windows.Data;
 using MixPlanner.Converters;
 using MixPlanner.DomainModel;
 
-namespace MixPlanner.Mp3
+namespace MixPlanner.Loader
 {
     public interface ITrackLoader
     {
@@ -19,14 +19,14 @@ namespace MixPlanner.Mp3
     {
         readonly IId3Reader id3Reader;
         readonly IWavReader wavReader;
-        readonly IId3TagCleanupFactory cleanupFactory;
+        readonly ITagCleanupFactory cleanupFactory;
         readonly ITrackImageResizer imageResizer;
         readonly IEnumerable<IValueConverter> notationConverters;
 
         public TrackLoader(
             IId3Reader id3Reader, 
             IWavReader wavReader,
-            IId3TagCleanupFactory cleanupFactory,
+            ITagCleanupFactory cleanupFactory,
             ITrackImageResizer imageResizer, 
             IHarmonicKeyConverterFactory converterFactory)
         {
@@ -59,13 +59,13 @@ namespace MixPlanner.Mp3
 
             if (FileNameHelper.IsMp3(filename))
             {
-                Id3Tag id3Tag;
+                Tag id3Tag;
                 if (id3Reader.TryRead(filename, out id3Tag))
                     return LoadTrackFromId3Tag(filename, id3Tag);
             }
             else if (FileNameHelper.IsWav(filename))
             {
-                Id3Tag tag;
+                Tag tag;
                 if (wavReader.TryRead(filename, out tag))
                     return LoadTrackFromId3Tag(filename, tag);
             }
@@ -73,7 +73,7 @@ namespace MixPlanner.Mp3
             return LoadUnknownFormat(filename);
         }
 
-        Track LoadTrackFromId3Tag(string filename, Id3Tag id3Tag)
+        Track LoadTrackFromId3Tag(string filename, Tag id3Tag)
         {
             foreach (var cleanup in cleanupFactory.GetCleanups())
                 cleanup.Clean(id3Tag);

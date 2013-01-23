@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using MixPlanner.Events;
-using MixPlanner.Mp3;
+using MixPlanner.Loader;
 using MixPlanner.Storage;
 
 namespace MixPlanner.DomainModel
