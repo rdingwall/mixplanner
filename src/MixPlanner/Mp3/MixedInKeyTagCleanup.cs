@@ -5,18 +5,20 @@ namespace MixPlanner.Mp3
 {
     public class MixedInKeyTagCleanup : IId3TagCleanup
     {
-        readonly string keyPrefixPattern;
-        readonly string keyAndBpmPrefixPattern;
-        readonly string keySuffixPattern;
-        readonly string keyAndBpmSuffixPattern;
+        readonly Regex keyPrefixPattern;
+        readonly Regex keyAndBpmPrefixPattern;
+        readonly Regex keySuffixPattern;
+        readonly Regex keyAndBpmSuffixPattern;
 
         public MixedInKeyTagCleanup()
         {
-            keyPrefixPattern = @"^\d{1,2}(A|B)(/\d{1,2}(A|B))?\s-\s";
-            keyAndBpmPrefixPattern = @"^\d{1,2}(A|B)(/\d{1,2}(A|B))?\s-\s\d{1,3}(\.\d)?\s-\s";
+            const RegexOptions options = RegexOptions.Compiled & RegexOptions.IgnoreCase;
 
-            keySuffixPattern = @"\s-\s\d{1,2}(A|B)(/\d{1,2}(A|B))?$";
-            keyAndBpmSuffixPattern = @"\s-\s\d{1,2}(A|B)(/\d{1,2}(A|B))?\s-\s\d{1,3}(\.\d)?$";
+            keyPrefixPattern = new Regex(@"^\d{1,2}(A|B)(/\d{1,2}(A|B))?\s-\s", options);
+            keyAndBpmPrefixPattern = new Regex(@"^\d{1,2}(A|B)(/\d{1,2}(A|B))?\s-\s\d{1,3}(\.\d)?\s-\s", options);
+
+            keySuffixPattern = new Regex(@"\s-\s\d{1,2}(A|B)(/\d{1,2}(A|B))?$", options);
+            keyAndBpmSuffixPattern = new Regex(@"\s-\s\d{1,2}(A|B)(/\d{1,2}(A|B))?\s-\s\d{1,3}(\.\d)?$", options);
         }
 
          public void Clean(Id3Tag tag)
@@ -29,17 +31,10 @@ namespace MixPlanner.Mp3
 
         string Cleanup(string str)
         {
-            str = Regex.Replace(str, keyAndBpmPrefixPattern, "",
-                                       RegexOptions.Compiled | RegexOptions.IgnoreCase);
-
-            str = Regex.Replace(str, keyPrefixPattern, "",
-                                       RegexOptions.Compiled | RegexOptions.IgnoreCase);
-
-            str = Regex.Replace(str, keyAndBpmSuffixPattern, "",
-                                       RegexOptions.Compiled | RegexOptions.IgnoreCase);
-
-            return Regex.Replace(str, keySuffixPattern, "",
-                                       RegexOptions.Compiled | RegexOptions.IgnoreCase);
+            str = keyAndBpmPrefixPattern.Replace(str, "");
+            str = keyPrefixPattern.Replace(str, "");
+            str = keyAndBpmSuffixPattern.Replace(str, "");
+            return keySuffixPattern.Replace(str, "");
         }
     }
 }
