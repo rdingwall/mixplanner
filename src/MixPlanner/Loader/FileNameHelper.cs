@@ -4,6 +4,12 @@ namespace MixPlanner.Loader
 {
     public static class FileNameHelper
     {
+        public static bool IsAac(string filename)
+        {
+            return HasExtension(filename, "m4a") ||
+                   HasExtension(filename, "aac");
+        }
+
         public static bool IsAiff(string filename)
         {
             return HasExtension(filename, "aiff")

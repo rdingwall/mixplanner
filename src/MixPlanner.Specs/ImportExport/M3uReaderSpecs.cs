@@ -36,6 +36,7 @@ namespace MixPlanner.Specs.ImportExport
                                         reader = new M3uReader(
                                             new TrackLoader(new Id3Reader(),
                                                             new AiffId3Reader(),
+                                                            new AacReader(),
                                                             cleanupFactory,
                                                             resizer,
                                                             converterFactory,

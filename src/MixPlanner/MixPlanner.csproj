@@ -231,6 +231,7 @@
     <Compile Include="Loader\AiffId3Reader.cs" />
     <Compile Include="Loader\FileNameHelper.cs" />
     <Compile Include="Loader\Id3Reader.cs" />
+    <Compile Include="Loader\AacReader.cs" />
     <Compile Include="Loader\StringUtils.cs" />
     <Compile Include="Loader\Tag.cs" />
     <Compile Include="Loader\TagCleanupFactory.cs" />

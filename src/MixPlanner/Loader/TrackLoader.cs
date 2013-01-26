@@ -19,6 +19,7 @@ namespace MixPlanner.Loader
     {
         readonly IId3Reader id3Reader;
         readonly IAiffId3Reader aiffId3Reader;
+        readonly IAacReader aacReader;
         readonly ITagCleanupFactory cleanupFactory;
         readonly ITrackImageResizer imageResizer;
         readonly IEnumerable<IValueConverter> notationConverters;
@@ -27,6 +28,7 @@ namespace MixPlanner.Loader
         public TrackLoader(
             IId3Reader id3Reader, 
             IAiffId3Reader aiffId3Reader,
+            IAacReader aacReader,
             ITagCleanupFactory cleanupFactory,
             ITrackImageResizer imageResizer, 
             IHarmonicKeyConverterFactory converterFactory, 
@@ -34,12 +36,14 @@ namespace MixPlanner.Loader
         {
             if (id3Reader == null) throw new ArgumentNullException("id3Reader");
             if (aiffId3Reader == null) throw new ArgumentNullException("aiffId3Reader");
+            if (aacReader == null) throw new ArgumentNullException("aacReader");
             if (cleanupFactory == null) throw new ArgumentNullException("cleanupFactory");
             if (imageResizer == null) throw new ArgumentNullException("imageResizer");
             if (converterFactory == null) throw new ArgumentNullException("converterFactory");
             if (filenameParser == null) throw new ArgumentNullException("filenameParser");
             this.id3Reader = id3Reader;
             this.aiffId3Reader = aiffId3Reader;
+            this.aacReader = aacReader;
             this.cleanupFactory = cleanupFactory;
             this.imageResizer = imageResizer;
             this.filenameParser = filenameParser;
@@ -50,7 +54,8 @@ namespace MixPlanner.Loader
         {
             return FileNameHelper.IsMp3(filename) ||
                    FileNameHelper.IsWav(filename) ||
-                   FileNameHelper.IsAiff(filename);
+                   FileNameHelper.IsAiff(filename) ||
+                   FileNameHelper.IsAac(filename);
         }
 
         public async Task<Track> LoadAsync(string filename)
@@ -70,8 +75,11 @@ namespace MixPlanner.Loader
             if (FileNameHelper.IsMp3(filename))
                 id3Reader.TryRead(filename, out tag);
 
-            if (FileNameHelper.IsAiff(filename))
+            else if (FileNameHelper.IsAiff(filename))
                 aiffId3Reader.TryRead(filename, out tag);
+
+            else if (FileNameHelper.IsAac(filename))
+                aacReader.TryRead(filename, out tag);
 
             if (tag == null)
                 tag = CreateEmptyTag(filename);
