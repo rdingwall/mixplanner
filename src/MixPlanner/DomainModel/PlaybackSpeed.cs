@@ -47,6 +47,9 @@ namespace MixPlanner.DomainModel
         {
             if (other == null) throw new ArgumentNullException("other");
 
+            if (IsUnknownBpm || other.IsUnknownBpm)
+                return false;
+
             var increaseRequired = GetExactIncreaseRequiredToMatch(other);
             return Math.Abs(increaseRequired) < HarmonicKeyChangeInterval.Value;
         }
@@ -54,6 +57,10 @@ namespace MixPlanner.DomainModel
         public double GetExactIncreaseRequiredToMatch(PlaybackSpeed other)
         {
             if (other == null) throw new ArgumentNullException("other");
+
+            if (IsUnknownBpm || other.IsUnknownBpm)
+                return 0;
+
             var difference = other.ActualBpm - ActualBpm;
             return difference / ActualBpm;
         }

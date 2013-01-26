@@ -112,5 +112,41 @@ namespace MixPlanner.Specs.DomainModel
 
              It should_not_recommend_any_decrease = () => Increase.ShouldBeCloseTo(0, 0.001);
          }
+
+         public class When_the_first_track_was_unknown_bpm : FixtureBase
+         {
+             Establish context =
+                 () =>
+                 {
+                     First = TestPlaybackSpeeds.PlaybackSpeed(Double.NaN);
+                     Second = TestPlaybackSpeeds.PlaybackSpeed(128);
+                 };
+
+             It should_not_recommend_any_increase = () => Increase.ShouldBeCloseTo(0, 0.001);
+         }
+
+         public class When_the_second_track_was_unknown_bpm : FixtureBase
+         {
+             Establish context =
+                 () =>
+                 {
+                     First = TestPlaybackSpeeds.PlaybackSpeed(128);
+                     Second = TestPlaybackSpeeds.PlaybackSpeed(Double.NaN);
+                 };
+
+             It should_not_recommend_any_increase = () => Increase.ShouldBeCloseTo(0, 0.001);
+         }
+
+         public class When_both_tracks_had_an_unknown_bpm : FixtureBase
+         {
+             Establish context =
+                 () =>
+                 {
+                     First = TestPlaybackSpeeds.PlaybackSpeed(Double.NaN);
+                     Second = TestPlaybackSpeeds.PlaybackSpeed(Double.NaN);
+                 };
+
+             It should_not_recommend_any_increase = () => Increase.ShouldBeCloseTo(0, 0.001);
+         }
     }
 }

@@ -17,6 +17,9 @@ namespace MixPlanner.DomainModel
             if (first == null) throw new ArgumentNullException("first");
             if (second == null) throw new ArgumentNullException("second");
 
+            if (first.IsUnknownBpm || second.IsUnknownBpm)
+                return 0;
+
             var increaseRequired = second.GetExactIncreaseRequiredToMatch(first);
             var nearestInterval = increaseRequired.FloorToNearest(PitchFaderStep.Value);
 
