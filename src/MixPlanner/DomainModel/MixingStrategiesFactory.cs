@@ -40,6 +40,7 @@ namespace MixPlanner.DomainModel
             return new IMixingStrategy[]
                        {
                            container.Resolve<TwoSemitoneEnergyBoost>(),
+                           container.Resolve<TwoSemitoneDecrease>(),
                            container.Resolve<SameKey>(),
                            container.Resolve<OneSemitone>(),
                            container.Resolve<PerfectFifth>(),

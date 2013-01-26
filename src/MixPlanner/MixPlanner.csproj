@@ -183,6 +183,7 @@
     <Compile Include="DomainModel\HarmonicKey.cs" />
     <Compile Include="DomainModel\Mix.cs" />
     <Compile Include="DomainModel\MixingStrategies\CompatibleBpmMixingStrategyBase.cs" />
+    <Compile Include="DomainModel\MixingStrategies\TwoSemitoneDecrease.cs" />
     <Compile Include="DomainModel\MixingStrategies\PerfectFourth.cs" />
     <Compile Include="DomainModel\MixingStrategies\IncreasePitchStrategyBase.cs" />
     <Compile Include="DomainModel\MixingStrategies\PerfectFifth.cs" />

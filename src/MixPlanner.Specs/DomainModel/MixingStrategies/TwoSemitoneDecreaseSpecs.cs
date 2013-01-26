@@ -6,22 +6,22 @@ using MixPlanner.DomainModel.MixingStrategies;
 
 namespace MixPlanner.Specs.DomainModel.MixingStrategies
 {
-    [Subject(typeof(PerfectFourth))]
-    public class PerfectFourthSpecs
+    [Subject(typeof(TwoSemitoneDecrease))]
+    public class TwoSemitoneDecreaseSpecs
     {
         public class when_deciding_which_track_to_play_next
         {
             Establish context =
                 () =>
                     {
-                        current = new PlaybackSpeed(HarmonicKey.Key9A, 128);
-                        strategy = new PerfectFourth(new AlwaysInRangeBpmChecker());
+                        current = new PlaybackSpeed(HarmonicKey.Key1A, 128);
+                        strategy = new TwoSemitoneDecrease(new AlwaysInRangeBpmChecker());
                         unplayed = new[]
                                        {
-                                           new PlaybackSpeed(HarmonicKey.Key10A, 128),
-                                           new PlaybackSpeed(HarmonicKey.Key4A, 128),
-                                           new PlaybackSpeed(HarmonicKey.Key4B, 128),
-                                           new PlaybackSpeed(HarmonicKey.Key4A, 128),
+                                           new PlaybackSpeed(HarmonicKey.Key8B, 128),
+                                           new PlaybackSpeed(HarmonicKey.Key11A, 128),
+                                           new PlaybackSpeed(HarmonicKey.Key11B, 128),
+                                           new PlaybackSpeed(HarmonicKey.Key11A, 128),
                                            new PlaybackSpeed(HarmonicKey.Key8A, 128),
                                        };
                     };
@@ -33,8 +33,8 @@ namespace MixPlanner.Specs.DomainModel.MixingStrategies
 
             Because of = () => suggested = unplayed.Where(t => strategy.IsCompatible(current, t));
 
-            It should_suggest_tracks_that_are_one_down_from_the_current =
-                () => suggested.Select(t => t.ActualKey).ShouldContainOnly(HarmonicKey.Key8A);
+            It should_suggest_tracks_that_are_two_semitones_down_from_the_current =
+                () => suggested.Select(t => t.ActualKey).ShouldContainOnly(HarmonicKey.Key11A, HarmonicKey.Key11A);
         }
     }
 }
