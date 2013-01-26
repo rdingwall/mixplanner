@@ -32,7 +32,9 @@ namespace MixPlanner
                 Component.For<ITrackLibrary>().ImplementedBy<TrackLibrary>(),
                 Component.For<ITrackLoader>().ImplementedBy<TrackLoader>(),
                 Component.For<ITagCleanupFactory>().ImplementedBy<TagCleanupFactory>(),
-                Component.For<IFilenameParser>().ImplementedBy<FilenameParser>(),
+                Component.For<IFilenameParser>().ImplementedBy<ConfigSwitchingFilenameParser>()
+                    .DependsOn(Property.ForKey("impl").Is(typeof(FilenameParser).Name)),
+                Component.For<IFilenameParser>().ImplementedBy<FilenameParser>().Named(typeof(FilenameParser).Name),
                 Component.For<ILibraryStorage>().ImplementedBy<InMemoryLibraryStorage>(),
                 Component.For<IConfigStorage>().ImplementedBy<InMemoryConfigStorage>(),
                 Component.For<IConfigProvider>().ImplementedBy<ConfigProvider>(),

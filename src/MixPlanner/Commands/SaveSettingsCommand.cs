@@ -33,6 +33,7 @@ namespace MixPlanner.Commands
             config.StripMixedInKeyPrefixes = parameter.StripMixedInKeyPrefixes;
             config.SuggestBpmAdjustedTracks = parameter.SuggestBpmAdjustedTracks;
             config.AutoAdjustBpm = parameter.AutoAdjustBpm;
+            config.ParseKeyAndBpmFromFilename = parameter.ParseKeyAndBpmFromFilename;
         }
     }
 }

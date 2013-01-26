@@ -15,6 +15,7 @@ namespace MixPlanner.ViewModels
         bool stripMixedInKeyPrefixes;
         bool suggestBpmAdjustedTracks;
         bool autoAdjustBpm;
+        bool parseKeyAndBpmFromFilename;
 
         public SaveSettingsCommand SaveCommand { get; private set; }
         public CloseWindowCommand CloseCommand { get; private set; }
@@ -41,6 +42,7 @@ namespace MixPlanner.ViewModels
             StripMixedInKeyPrefixes = config.StripMixedInKeyPrefixes;
             SuggestBpmAdjustedTracks = config.SuggestBpmAdjustedTracks;
             AutoAdjustBpm = config.AutoAdjustBpm;
+            ParseKeyAndBpmFromFilename = config.ParseKeyAndBpmFromFilename;
         }
 
         public HarmonicKeyDisplayMode HarmonicKeyDisplayMode
@@ -90,6 +92,16 @@ namespace MixPlanner.ViewModels
             {
                 autoAdjustBpm = value;
                 RaisePropertyChanged(() => AutoAdjustBpm);
+            }
+        }
+
+        public bool ParseKeyAndBpmFromFilename
+        {
+            get { return parseKeyAndBpmFromFilename; }
+            set
+            {
+                parseKeyAndBpmFromFilename = value;
+                RaisePropertyChanged(() => ParseKeyAndBpmFromFilename);
             }
         }
     }

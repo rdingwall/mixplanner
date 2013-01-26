@@ -9,6 +9,7 @@ namespace MixPlanner.Configuration
         public bool StripMixedInKeyPrefixes { get; set; }
         public bool SuggestBpmAdjustedTracks { get; set; }
         public bool AutoAdjustBpm { get; set; }
+        public bool ParseKeyAndBpmFromFilename { get; set; }
 
         public bool ShouldSuggestBpmAdjustments()
         {
@@ -32,7 +33,8 @@ namespace MixPlanner.Configuration
                     RestrictBpmCompatibility = true,
                     StripMixedInKeyPrefixes = true,
                     SuggestBpmAdjustedTracks = true,
-                    AutoAdjustBpm = true
+                    AutoAdjustBpm = true,
+                    ParseKeyAndBpmFromFilename = true
                 };
     }
 }

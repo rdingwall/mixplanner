@@ -151,6 +151,7 @@
     <Compile Include="AttachedProperties\GridViewColumns.cs" />
     <Compile Include="Configuration\ConfigSwitchingBpmRangeChecker.cs" />
     <Compile Include="Configuration\ConfigSwitchingPlaybackSpeedAdjuster.cs" />
+    <Compile Include="Configuration\ConfigSwitchingFilenameParser.cs" />
     <Compile Include="Controls\FileBrowseButton.cs" />
     <Compile Include="Controls\YearOnlyTextBox.cs" />
     <Compile Include="Controls\ImprovedListView.cs" />
