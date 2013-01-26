@@ -38,6 +38,7 @@ namespace MixPlanner
                 Component.For<ILibraryStorage>().ImplementedBy<InMemoryLibraryStorage>(),
                 Component.For<IConfigStorage>().ImplementedBy<InMemoryConfigStorage>(),
                 Component.For<IConfigProvider>().ImplementedBy<ConfigProvider>(),
+                Component.For<IHarmonicKeySuperParser>().ImplementedBy<HarmonicKeySuperParser>(),
                 Component.For<IId3Reader>().ImplementedBy<Id3Reader>(),
                 Component.For<IAiffId3Reader>().ImplementedBy<AiffId3Reader>(),
                 Component.For<IAacReader>().ImplementedBy<AacReader>(),

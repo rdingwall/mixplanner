@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Data;
-using MixPlanner.Converters;
 using MixPlanner.DomainModel;
 
 namespace MixPlanner.Loader
@@ -22,7 +18,7 @@ namespace MixPlanner.Loader
         readonly IAacReader aacReader;
         readonly ITagCleanupFactory cleanupFactory;
         readonly ITrackImageResizer imageResizer;
-        readonly IEnumerable<IValueConverter> notationConverters;
+        readonly IHarmonicKeySuperParser keyParser;
         readonly IFilenameParser filenameParser;
 
         public TrackLoader(
@@ -31,7 +27,7 @@ namespace MixPlanner.Loader
             IAacReader aacReader,
             ITagCleanupFactory cleanupFactory,
             ITrackImageResizer imageResizer, 
-            IHarmonicKeyConverterFactory converterFactory, 
+            IHarmonicKeySuperParser keyParser, 
             IFilenameParser filenameParser)
         {
             if (id3Reader == null) throw new ArgumentNullException("id3Reader");
@@ -39,15 +35,15 @@ namespace MixPlanner.Loader
             if (aacReader == null) throw new ArgumentNullException("aacReader");
             if (cleanupFactory == null) throw new ArgumentNullException("cleanupFactory");
             if (imageResizer == null) throw new ArgumentNullException("imageResizer");
-            if (converterFactory == null) throw new ArgumentNullException("converterFactory");
+            if (keyParser == null) throw new ArgumentNullException("keyParser");
             if (filenameParser == null) throw new ArgumentNullException("filenameParser");
             this.id3Reader = id3Reader;
             this.aiffId3Reader = aiffId3Reader;
             this.aacReader = aacReader;
             this.cleanupFactory = cleanupFactory;
             this.imageResizer = imageResizer;
+            this.keyParser = keyParser;
             this.filenameParser = filenameParser;
-            notationConverters = converterFactory.GetAllConverters();
         }
 
         public bool IsSupportedFileFormat(string filename)
@@ -99,7 +95,7 @@ namespace MixPlanner.Loader
             var strKey = StringUtils.Coalesce(tag.InitialKey, filenameKey);
             var strBpm = StringUtils.Coalesce(tag.Bpm, filenameBpm);
 
-            HarmonicKey key = ParseHarmonicKey(strKey);
+            HarmonicKey key = keyParser.ParseHarmonicKey(strKey);
 
             double bpm;
             if (!Double.TryParse(strBpm, out bpm))
@@ -117,19 +113,6 @@ namespace MixPlanner.Loader
                             };
 
             return track;
-        }
-
-        HarmonicKey ParseHarmonicKey(string str)
-        {
-            if (String.IsNullOrWhiteSpace(str))
-                return HarmonicKey.Unknown;
-
-            var key = notationConverters
-                .Select(c => c.ConvertBack(str, typeof(HarmonicKey), null, null))
-                .OfType<HarmonicKey>()
-                .FirstOrDefault(k => k != HarmonicKey.Unknown);
-
-            return key ?? HarmonicKey.Unknown;
         }
 
         static Tag CreateEmptyTag(string filename)

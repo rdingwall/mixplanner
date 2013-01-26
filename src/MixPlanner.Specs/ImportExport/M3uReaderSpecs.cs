@@ -39,7 +39,7 @@ namespace MixPlanner.Specs.ImportExport
                                                             new AacReader(),
                                                             cleanupFactory,
                                                             resizer,
-                                                            converterFactory,
+                                                            new HarmonicKeySuperParser(converterFactory), 
                                                             filenameParser));
                                     };
 

@@ -162,6 +162,7 @@
     <Compile Include="ImportExport\M3uReaderSpecs.cs" />
     <Compile Include="ImportExport\M3uWriterSpecs.cs" />
     <Compile Include="IocRegistrationsSpecs.cs" />
+    <Compile Include="Loader\HarmonicKeySuperParserTests.cs" />
     <Compile Include="Loader\Id3ReaderSpecs.cs" />
     <Compile Include="Loader\TagCleanupFactorySpecs.cs" />
     <Compile Include="Loader\FilenameParserSpecs.cs" />

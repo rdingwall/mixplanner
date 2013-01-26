@@ -230,6 +230,7 @@
     <Compile Include="IocRegistrations.cs" />
     <Compile Include="Loader\AiffId3Reader.cs" />
     <Compile Include="Loader\FileNameHelper.cs" />
+    <Compile Include="Loader\HarmonicKeySuperParser.cs" />
     <Compile Include="Loader\Id3Reader.cs" />
     <Compile Include="Loader\AacReader.cs" />
     <Compile Include="Loader\StringUtils.cs" />

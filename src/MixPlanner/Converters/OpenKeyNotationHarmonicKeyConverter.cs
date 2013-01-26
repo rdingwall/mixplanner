@@ -72,7 +72,7 @@ namespace MixPlanner.Converters
                 return null;
 
             HarmonicKey key;
-            if (KeyCodes.TryGetValue(traditionalKey, out key))
+            if (KeyCodes.TryGetValue(traditionalKey.Trim(), out key))
                 return key;
 
             return HarmonicKey.Unknown;
