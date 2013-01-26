@@ -228,6 +228,7 @@
     <Compile Include="ImportExport\M3uReader.cs" />
     <Compile Include="ImportExport\M3uWriter.cs" />
     <Compile Include="IocRegistrations.cs" />
+    <Compile Include="Loader\AiffId3Reader.cs" />
     <Compile Include="Loader\FileNameHelper.cs" />
     <Compile Include="Loader\Id3Reader.cs" />
     <Compile Include="Loader\StringUtils.cs" />
@@ -241,6 +242,7 @@
     <Compile Include="Loader\TrackImageResizer.cs" />
     <Compile Include="Loader\TrackImageData.cs" />
     <Compile Include="Loader\TrackLoader.cs" />
+    <Compile Include="Loader\UnsupportedFileTypeException.cs" />
     <Compile Include="Player\AudioPlayer.cs" />
     <Compile Include="Storage\IConfigStorage.cs" />
     <Compile Include="Storage\ILibraryStorage.cs" />

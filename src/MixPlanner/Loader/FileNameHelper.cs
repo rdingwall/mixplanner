@@ -4,6 +4,12 @@ namespace MixPlanner.Loader
 {
     public static class FileNameHelper
     {
+        public static bool IsAiff(string filename)
+        {
+            return HasExtension(filename, "aiff")
+                || HasExtension(filename, "aif");
+        }
+
         public static bool IsMp3(string filename)
         {
             return HasExtension(filename, "mp3");
@@ -22,6 +28,6 @@ namespace MixPlanner.Loader
             
             return filename.EndsWith(extension, 
                 StringComparison.CurrentCultureIgnoreCase);
-        } 
+        }
     }
 }

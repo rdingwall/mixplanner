@@ -272,6 +272,39 @@ namespace MixPlanner.Specs.Loader
                 () => Track.Images.ShouldBeNull();
         }
 
+        public class when_reading_tags_from_a_beatport_aiff : FixtureBase
+        {
+            Because of = () =>
+                Track = Loader.LoadAsync("3504338_Harlem Shake_Original Mix.aiff").Result;
+
+            It should_get_the_correct_key =
+                () => Track.OriginalKey.ShouldEqual(HarmonicKey.Unknown);
+
+            It should_get_the_correct_artist =
+                () => Track.Artist.ShouldEqual("Baauer");
+
+            It should_get_the_correct_title =
+                () => Track.Title.ShouldEqual("Harlem Shake (Original Mix)");
+
+            It should_get_the_correct_bpm =
+                () => Track.OriginalBpm.ShouldEqual(93);
+
+            It should_get_the_correct_publisher =
+                () => Track.Label.ShouldEqual("Mad Decent");
+
+            It should_get_the_correct_year =
+                () => Track.Year.ShouldEqual("2012");
+
+            It should_get_the_correct_genre =
+                () => Track.Genre.ShouldEqual("Electro House");
+
+            It should_get_the_filename =
+                () => Track.Filename.ShouldEndWith("3504338_Harlem Shake_Original Mix.aiff");
+
+            It should_get_the_images =
+                () => Track.Images.ShouldNotBeNull();
+        }
+
         public abstract class FixtureBase
         {
             Establish context =

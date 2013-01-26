@@ -15,12 +15,17 @@ namespace MixPlanner.Loader
     {
         static readonly ILog Log = LogManager.GetLogger(typeof(Id3Reader));
 
+        protected virtual File OpenFile(string filename)
+        {
+            return File.Create(filename);
+        }
+
         public bool TryRead(string filename, out Tag id3Tag)
         {
             if (filename == null) throw new ArgumentNullException("filename");
             try
             {
-                var file = File.Create(filename);
+                var file = OpenFile(filename);
 
                 LogWarnings(filename, file);
 

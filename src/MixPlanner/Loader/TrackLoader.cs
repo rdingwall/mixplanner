@@ -18,6 +18,7 @@ namespace MixPlanner.Loader
     public class TrackLoader : ITrackLoader
     {
         readonly IId3Reader id3Reader;
+        readonly IAiffId3Reader aiffId3Reader;
         readonly ITagCleanupFactory cleanupFactory;
         readonly ITrackImageResizer imageResizer;
         readonly IEnumerable<IValueConverter> notationConverters;
@@ -25,17 +26,20 @@ namespace MixPlanner.Loader
 
         public TrackLoader(
             IId3Reader id3Reader, 
+            IAiffId3Reader aiffId3Reader,
             ITagCleanupFactory cleanupFactory,
             ITrackImageResizer imageResizer, 
             IHarmonicKeyConverterFactory converterFactory, 
             IFilenameParser filenameParser)
         {
             if (id3Reader == null) throw new ArgumentNullException("id3Reader");
+            if (aiffId3Reader == null) throw new ArgumentNullException("aiffId3Reader");
             if (cleanupFactory == null) throw new ArgumentNullException("cleanupFactory");
             if (imageResizer == null) throw new ArgumentNullException("imageResizer");
             if (converterFactory == null) throw new ArgumentNullException("converterFactory");
             if (filenameParser == null) throw new ArgumentNullException("filenameParser");
             this.id3Reader = id3Reader;
+            this.aiffId3Reader = aiffId3Reader;
             this.cleanupFactory = cleanupFactory;
             this.imageResizer = imageResizer;
             this.filenameParser = filenameParser;
@@ -45,7 +49,8 @@ namespace MixPlanner.Loader
         public bool IsSupportedFileFormat(string filename)
         {
             return FileNameHelper.IsMp3(filename) ||
-                   FileNameHelper.IsWav(filename);
+                   FileNameHelper.IsWav(filename) ||
+                   FileNameHelper.IsAiff(filename);
         }
 
         public async Task<Track> LoadAsync(string filename)
@@ -57,10 +62,16 @@ namespace MixPlanner.Loader
         {
             if (filename == null) throw new ArgumentNullException("filename");
 
+            if (!IsSupportedFileFormat(filename))
+                throw new UnsupportedFileTypeException(filename);
+
             Tag tag = null;
 
             if (FileNameHelper.IsMp3(filename))
                 id3Reader.TryRead(filename, out tag);
+
+            if (FileNameHelper.IsAiff(filename))
+                aiffId3Reader.TryRead(filename, out tag);
 
             if (tag == null)
                 tag = CreateEmptyTag(filename);
