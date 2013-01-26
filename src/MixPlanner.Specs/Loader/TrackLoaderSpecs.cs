@@ -337,6 +337,40 @@ namespace MixPlanner.Specs.Loader
             It should_get_the_images =
                 () => Track.Images.ShouldNotBeNull();
         }
+        
+        // NB the second key here is ficticious (added it manually)
+        public class when_reading_tags_from_a_mp3_tagged_with_two_keys_by_rapid_evolution_3 : FixtureBase
+        {
+            Because of = () =>
+                Track = Loader.LoadAsync("1896735_The Mule_Album Mix.mp3").Result;
+
+            It should_get_the_correct_key =
+                () => Track.OriginalKey.ShouldEqual(HarmonicKey.Key6B);
+
+            It should_get_the_correct_artist =
+                () => Track.Artist.ShouldEqual("Orjan Nilsen");
+
+            It should_get_the_correct_title =
+                () => Track.Title.ShouldEqual("The Mule - Album Mix");
+
+            It should_get_the_correct_bpm =
+                () => Track.OriginalBpm.ShouldEqual(128);
+
+            It should_get_the_correct_publisher =
+                () => Track.Label.ShouldEqual("");
+
+            It should_get_the_correct_year =
+                () => Track.Year.ShouldEqual("2011");
+
+            It should_get_the_correct_genre =
+                () => Track.Genre.ShouldEqual("Trance");
+
+            It should_get_the_filename =
+                () => Track.Filename.ShouldEndWith("1896735_The Mule_Album Mix.mp3");
+
+            It should_get_the_images =
+                () => Track.Images.ShouldNotBeNull();
+        }
 
         public abstract class FixtureBase
         {
