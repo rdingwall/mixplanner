@@ -48,6 +48,7 @@ namespace MixPlanner.DomainModel
                            container.Resolve<RelativeMajor>(),
                            container.Resolve<RelativeMinor>(),
                            container.Resolve<ManualOutOfKeyMix>(),
+                           container.Resolve<UnknownTransition>(), // more specific, must come first
                            container.Resolve<ManualIncompatibleBpmsMix>()
                        };
         }
