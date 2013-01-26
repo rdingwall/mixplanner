@@ -8,7 +8,7 @@ namespace MixPlanner.Loader
 {
     public interface IId3Reader
     {
-        bool TryRead(string filename, out Tag track);
+        bool TryRead(string filename, out Tag tag);
     }
 
     public class Id3Reader : IId3Reader
@@ -20,7 +20,7 @@ namespace MixPlanner.Loader
             return File.Create(filename);
         }
 
-        public bool TryRead(string filename, out Tag id3Tag)
+        public bool TryRead(string filename, out Tag tag)
         {
             if (filename == null) throw new ArgumentNullException("filename");
             try
@@ -35,13 +35,13 @@ namespace MixPlanner.Loader
                 PopulateFromId3v1(file, t);
                 PopulateFallbackValues(t);
     
-                id3Tag = t;
+                tag = t;
                 return true;
             }
             catch (Exception e)
             {
                 Log.Error(String.Format("Error reading ID3 tag from {0}.", filename), e);
-                id3Tag = null;
+                tag = null;
                 return false;
             }
         }
