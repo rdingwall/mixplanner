@@ -24,8 +24,8 @@ namespace MixPlanner.ViewModels
         }
 
         public double PitchFaderStepSize { get { return PitchFaderStep.Value; } }
-        public double PitchFaderMax { get { return 1 + (PitchFaderStep.Value*2); } }
-        public double PitchFaderMin { get { return 1 - (PitchFaderStep.Value*2); } }
+        public double PitchFaderMax { get { return 1 + (PitchFaderStep.Value * PitchFaderStep.NumberOfSteps); } }
+        public double PitchFaderMin { get { return 1 - (PitchFaderStep.Value * PitchFaderStep.NumberOfSteps); } }
 
         public Track Track { get { return MixItem.Track; }}
         public string Title { get { return MixItem.Track.Title;} }
@@ -33,6 +33,7 @@ namespace MixPlanner.ViewModels
         public PlayPauseTrackCommand PlayPauseCommand { get; private set; }
         public Transition Transition { get { return MixItem.Transition; } }
         public bool IsSelected { get; set; }
+        public bool IsPitchFaderEnabled { get { return !MixItem.PlaybackSpeed.IsUnknownBpm; } }
 
         public MixItemViewModel(
             IMessenger messenger, 
@@ -68,6 +69,7 @@ namespace MixPlanner.ViewModels
             RaisePropertyChanged(() => ActualKey);
             RaisePropertyChanged(() => PlaySpeed);
             RaisePropertyChanged(() => ImageSource);
+            RaisePropertyChanged(() => IsPitchFaderEnabled);
         }
 
         void OnPlaybackSpeedAdjusted(PlaybackSpeedAdjustedEvent obj)

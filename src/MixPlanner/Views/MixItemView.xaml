@@ -72,7 +72,8 @@
                     Maximum="{Binding PitchFaderMax}"
                     LargeChange="{Binding PitchFaderStepSize}"
                     IsSnapToTickEnabled="True"
-                    IsDirectionReversed="True"/>
+                    IsDirectionReversed="True"
+                    IsEnabled="{Binding IsPitchFaderEnabled}"/>
         </DockPanel>
         <StackPanel dd:DragDrop.IsDragSource="True"
                     dd:DragDrop.DragHandler="{Binding}"

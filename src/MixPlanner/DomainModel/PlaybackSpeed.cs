@@ -65,6 +65,8 @@ namespace MixPlanner.DomainModel
         public double ActualBpm { get; private set; }
         public HarmonicKey ActualKey { get; private set; }
 
+        public bool IsUnknownBpm { get { return Double.IsNaN(originalBpm); } }
+
         public override string ToString()
         {
             return String.Format("{0} ({1}, {2})", Speed, ActualBpm, ActualKey);
