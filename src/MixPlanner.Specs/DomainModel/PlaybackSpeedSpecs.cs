@@ -108,5 +108,16 @@ namespace MixPlanner.Specs.DomainModel
                 () => TestPlaybackSpeeds.PlaybackSpeed(128).IsWithinBpmRange(TestPlaybackSpeeds.PlaybackSpeed(120))
                                 .ShouldBeFalse();
         }
+
+        public class When_increasing_the_playback_speed_with_an_unknown_key
+        {
+            Establish context = () => speed = TestPlaybackSpeeds.PlaybackSpeed(HarmonicKey.Unknown);
+
+            Because of = () => speed.SetSpeed(1.5);
+
+            It should_still_have_an_unknown_key = () => speed.ActualKey.ShouldEqual(HarmonicKey.Unknown);
+
+            static PlaybackSpeed speed; 
+        }
     }
 }

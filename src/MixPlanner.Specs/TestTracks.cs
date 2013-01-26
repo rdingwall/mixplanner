@@ -14,6 +14,11 @@ namespace MixPlanner.Specs
         {
             return new PlaybackSpeed(HarmonicKey.Key6B, TestTracks.GetRandomBpm());
         }
+
+        public static PlaybackSpeed PlaybackSpeed(HarmonicKey key)
+        {
+            return new PlaybackSpeed(key, TestTracks.GetRandomBpm());
+        }
     }
 
     public static class TestTracks
