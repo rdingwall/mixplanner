@@ -19,7 +19,8 @@ namespace MixPlanner.Commands
         {
             var track = parameter.Track;
             track.OriginalKey = parameter.HarmonicKey;
-            track.OriginalBpm = parameter.Bpm;
+            if (!RemainsUnknownBpm(parameter, track))
+                track.OriginalBpm = parameter.Bpm;
             track.Artist = parameter.Artist;
             track.Title = parameter.Title;
             track.Year = parameter.Year;
@@ -30,6 +31,11 @@ namespace MixPlanner.Commands
             await library.SaveAsync(track);
 
             parameter.Close = true;
+        }
+
+        static bool RemainsUnknownBpm(EditTrackWindowViewModel parameter, Track track)
+        {
+            return track.IsUnknownBpm && parameter.Bpm == parameter.MinimumBpm;
         }
     }
 }

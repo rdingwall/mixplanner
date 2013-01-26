@@ -84,8 +84,8 @@
                                    Width="200"
                                    Increment="0.1"
                                    FontSize="48"
-                                   Minimum="1"
-                                   Maximum="250" />
+                                   Minimum="{Binding MinimumBpm}"
+                                   Maximum="{Binding MaximumBpm}" />
                 <Label Grid.Row="1"
                        Grid.Column="1"
                        HorizontalAlignment="Center"

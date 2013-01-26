@@ -44,7 +44,7 @@ namespace MixPlanner.ViewModels
         public void PopulateFrom(Track track)
         {
             HarmonicKey = track.OriginalKey;
-            Bpm = track.OriginalBpm;
+            Bpm = track.IsUnknownBpm ? MinimumBpm : track.OriginalBpm;
             Artist = track.Artist;
             Title = track.Title;
             Genre = track.Genre;
@@ -162,5 +162,19 @@ namespace MixPlanner.ViewModels
         public CloseWindowCommand CloseCommand { get; private set; }
 
         public Track Track { get; private set; }
+
+        public double MinimumBpm
+        {
+            get { return 1; }
+        }
+
+        public double MaximumBpm
+        {
+            get
+            {
+                // Thought for the day: do speedcore DJs use harmonic mixing?
+                return 999.9;
+            }
+        }
     }
 }

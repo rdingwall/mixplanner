@@ -66,6 +66,11 @@ namespace MixPlanner.DomainModel
             get { return !String.IsNullOrWhiteSpace(Filename); }
         }
 
+        public bool IsUnknownBpm
+        {
+            get { return Double.IsNaN(OriginalBpm); }
+        }
+
         public PlaybackSpeed GetDefaultPlaybackSpeed()
         {
             return new PlaybackSpeed(OriginalKey, OriginalBpm);
