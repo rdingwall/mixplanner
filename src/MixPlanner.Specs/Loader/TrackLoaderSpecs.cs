@@ -278,7 +278,7 @@ namespace MixPlanner.Specs.Loader
                 Track = Loader.LoadAsync("3504338_Harlem Shake_Original Mix.aiff").Result;
 
             It should_get_the_correct_key =
-                () => Track.OriginalKey.ShouldEqual(HarmonicKey.Unknown);
+                () => Track.OriginalKey.ShouldEqual(HarmonicKey.Key6B);
 
             It should_get_the_correct_artist =
                 () => Track.Artist.ShouldEqual("Baauer");
