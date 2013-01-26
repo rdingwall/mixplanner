@@ -3,8 +3,8 @@ using MixPlanner.Loader;
 
 namespace MixPlanner.Specs.Loader
 {
-    [Subject(typeof(KeyBpmFilenameParser))]
-    public class KeyBpmFilenameParserSpecs
+    [Subject(typeof(FilenameParser))]
+    public class FilenameParserSpecs
     {
          public class When_the_filename_had_a_key_prefix : FixtureBase
          {
@@ -128,7 +128,7 @@ namespace MixPlanner.Specs.Loader
         public abstract class FixtureBase
         {
             Because of = () => Result = 
-                new KeyBpmFilenameParser().TryParse(Filename, out FirstKey, out Bpm);
+                new FilenameParser().TryParse(Filename, out FirstKey, out Bpm);
 
             protected static bool Result;
             protected static string FirstKey;

@@ -5,17 +5,17 @@ using log4net;
 
 namespace MixPlanner.Loader
 {
-    public interface IKeyBpmFilenameParser
+    public interface IFilenameParser
     {
         bool TryParse(string filename, out string firstKey, out string bpm);
     }
 
-    public class KeyBpmFilenameParser : IKeyBpmFilenameParser
+    public class FilenameParser : IFilenameParser
     {
-        static readonly ILog Log = LogManager.GetLogger(typeof (KeyBpmFilenameParser));
+        static readonly ILog Log = LogManager.GetLogger(typeof (FilenameParser));
         static readonly Regex[] Expressions;
 
-        static KeyBpmFilenameParser()
+        static FilenameParser()
         {
             const RegexOptions options = RegexOptions.ExplicitCapture &
                                          RegexOptions.Compiled &

@@ -18,27 +18,27 @@ namespace MixPlanner.Loader
     public class TrackLoader : ITrackLoader
     {
         readonly IId3Reader id3Reader;
-        readonly IWavReader wavReader;
         readonly ITagCleanupFactory cleanupFactory;
         readonly ITrackImageResizer imageResizer;
         readonly IEnumerable<IValueConverter> notationConverters;
+        readonly IFilenameParser filenameParser;
 
         public TrackLoader(
             IId3Reader id3Reader, 
-            IWavReader wavReader,
             ITagCleanupFactory cleanupFactory,
             ITrackImageResizer imageResizer, 
-            IHarmonicKeyConverterFactory converterFactory)
+            IHarmonicKeyConverterFactory converterFactory, 
+            IFilenameParser filenameParser)
         {
             if (id3Reader == null) throw new ArgumentNullException("id3Reader");
-            if (wavReader == null) throw new ArgumentNullException("wavReader");
             if (cleanupFactory == null) throw new ArgumentNullException("cleanupFactory");
             if (imageResizer == null) throw new ArgumentNullException("imageResizer");
             if (converterFactory == null) throw new ArgumentNullException("converterFactory");
+            if (filenameParser == null) throw new ArgumentNullException("filenameParser");
             this.id3Reader = id3Reader;
-            this.wavReader = wavReader;
             this.cleanupFactory = cleanupFactory;
             this.imageResizer = imageResizer;
+            this.filenameParser = filenameParser;
             notationConverters = converterFactory.GetAllConverters();
         }
 
@@ -57,53 +57,47 @@ namespace MixPlanner.Loader
         {
             if (filename == null) throw new ArgumentNullException("filename");
 
-            if (FileNameHelper.IsMp3(filename))
-            {
-                Tag id3Tag;
-                if (id3Reader.TryRead(filename, out id3Tag))
-                    return LoadTrackFromId3Tag(filename, id3Tag);
-            }
-            else if (FileNameHelper.IsWav(filename))
-            {
-                Tag tag;
-                if (wavReader.TryRead(filename, out tag))
-                    return LoadTrackFromId3Tag(filename, tag);
-            }
+            Tag tag = null;
 
-            return LoadUnknownFormat(filename);
+            if (FileNameHelper.IsMp3(filename))
+                id3Reader.TryRead(filename, out tag);
+
+            if (tag == null)
+                tag = CreateEmptyTag(filename);
+
+            return CreateTrackFromTag(filename, tag);
         }
 
-        Track LoadTrackFromId3Tag(string filename, Tag id3Tag)
+        Track CreateTrackFromTag(string filename, Tag tag)
         {
             foreach (var cleanup in cleanupFactory.GetCleanups())
-                cleanup.Clean(id3Tag);
+                cleanup.Clean(tag);
 
-            HarmonicKey key = ParseHarmonicKey(id3Tag.InitialKey);
+            string filenameKey;
+            string filenameBpm;
+            filenameParser.TryParse(filename, out filenameKey, out filenameBpm);
+
+            var strKey = StringUtils.Coalesce(tag.InitialKey, filenameKey);
+            var strBpm = StringUtils.Coalesce(tag.Bpm, filenameBpm);
+
+            HarmonicKey key = ParseHarmonicKey(strKey);
 
             double bpm;
-            if (!Double.TryParse(id3Tag.Bpm, out bpm))
+            if (!Double.TryParse(strBpm, out bpm))
                 bpm = double.NaN;
 
             TrackImageData images = 
-                id3Tag.ImageData != null ? imageResizer.Process(id3Tag.ImageData) : null;
+                tag.ImageData != null ? imageResizer.Process(tag.ImageData) : null;
 
-            var track = new Track(id3Tag.Artist, id3Tag.Title, key, filename, bpm)
+            var track = new Track(tag.Artist, tag.Title, key, filename, bpm)
                             {
-                                Label = id3Tag.Publisher ?? "",
-                                Genre = id3Tag.Genre ?? "",
-                                Year = id3Tag.Year ?? "",
+                                Label = tag.Publisher ?? "",
+                                Genre = tag.Genre ?? "",
+                                Year = tag.Year ?? "",
                                 Images = images
                             };
 
             return track;
-        }
-
-        static Track LoadUnknownFormat(string filename)
-        {
-            var displayName = Path.GetFileNameWithoutExtension(filename);
-
-            return new Track(TrackDefaults.UnknownArtist, displayName, 
-                HarmonicKey.Unknown, filename, float.NaN);
         }
 
         HarmonicKey ParseHarmonicKey(string str)
@@ -117,6 +111,17 @@ namespace MixPlanner.Loader
                 .FirstOrDefault(k => k != HarmonicKey.Unknown);
 
             return key ?? HarmonicKey.Unknown;
+        }
+
+        static Tag CreateEmptyTag(string filename)
+        {
+            var title = Path.GetFileNameWithoutExtension(filename);
+
+            return new Tag
+            {
+                Artist = TrackDefaults.UnknownArtist,
+                Title = title
+            };
         }
     }
 }

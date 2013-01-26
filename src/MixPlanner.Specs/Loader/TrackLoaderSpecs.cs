@@ -240,6 +240,38 @@ namespace MixPlanner.Specs.Loader
                 () => Track.Images.ShouldBeNull();
         }
 
+        public class when_reading_tags_from_a_corrupt_mp3_with_key_and_bpm_in_filename : FixtureBase
+        {
+            Because of = () => Track = Loader.LoadAsync("12A - 128 - corrupt.mp3").Result;
+
+            It should_get_the_correct_key =
+                () => Track.OriginalKey.ShouldEqual(HarmonicKey.Key12A);
+
+            It should_get_the_correct_artist =
+                () => Track.Artist.ShouldEqual(TrackDefaults.UnknownArtist);
+
+            It should_get_the_correct_title =
+                () => Track.Title.ShouldEqual("corrupt");
+
+            It should_get_the_correct_bpm =
+                () => Track.OriginalBpm.ShouldEqual(128);
+
+            It should_get_the_correct_publisher =
+                () => Track.Label.ShouldEqual("");
+
+            It should_get_the_correct_year =
+                () => Track.Year.ShouldEqual("");
+
+            It should_get_the_correct_genre =
+                () => Track.Genre.ShouldEqual("");
+
+            It should_get_the_filename =
+                () => Track.Filename.ShouldEndWith("12A - 128 - corrupt.mp3");
+
+            It should_not_return_any_images =
+                () => Track.Images.ShouldBeNull();
+        }
+
         public abstract class FixtureBase
         {
             Establish context =
