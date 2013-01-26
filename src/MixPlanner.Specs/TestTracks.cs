@@ -1,5 +1,6 @@
 ﻿using System;
 using MixPlanner.DomainModel;
+using MixPlanner.Loader;
 
 namespace MixPlanner.Specs
 {
@@ -32,6 +33,15 @@ namespace MixPlanner.Specs
                 key,
                 string.Format("{0:N}.mp3", Guid.NewGuid()),
                 bpm);
+        }
+
+        public static Track GetFilenameOnly(string filename)
+        {
+            return new Track(TrackDefaults.UnknownArtist,
+                             TrackDefaults.UnknownTitle,
+                             HarmonicKey.Unknown,
+                             filename,
+                             double.NaN);
         }
 
         public static Track GetRandomTrack()

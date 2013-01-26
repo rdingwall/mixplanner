@@ -2,7 +2,9 @@
 using System.Threading.Tasks;
 using MixPlanner.DomainModel;
 using MixPlanner.Events;
+using MixPlanner.Loader;
 using NAudio.Wave;
+using log4net;
 
 namespace MixPlanner.Player
 {
@@ -21,6 +23,7 @@ namespace MixPlanner.Player
 
     public class AudioPlayer : IAudioPlayer, IDisposable
     {
+        static readonly ILog log = LogManager.GetLogger(typeof (AudioPlayer));
         readonly IDispatcherMessenger messenger;
         WaveOut waveOutDevice;
         WaveStream stream;
@@ -52,7 +55,14 @@ namespace MixPlanner.Player
 
         public bool CanPlay(Track track)
         {
-            return track != null && !String.IsNullOrWhiteSpace(track.Filename);
+            var filename = track.Filename;
+            if (track == null || String.IsNullOrWhiteSpace(filename))
+                return false;
+
+            return FileNameHelper.IsAiff(filename) ||
+                   FileNameHelper.IsMp3(filename) ||
+                   FileNameHelper.IsWav(filename);
+
         }
 
         public async Task PlayOrResumeAsync(Track track)
@@ -68,10 +78,20 @@ namespace MixPlanner.Player
             if (!track.Equals(CurrentTrack))
             {
                 Stop();
-                CurrentTrack = track;
-                stream = new AudioFileReader(track.Filename);
                 
+                try
+                {
+                    stream = new AudioFileReader(track.Filename);
+                }
+                catch (Exception e)
+                {
+                    log.WarnFormat("Unable to play {0}.", track.Filename);
+                    log.Warn(e);
+                    return;
+                }
+
                 waveOutDevice.Init(stream);
+                CurrentTrack = track;
             }
 
             waveOutDevice.Play();
