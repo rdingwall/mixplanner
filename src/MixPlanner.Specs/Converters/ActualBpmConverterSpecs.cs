@@ -21,5 +21,13 @@ namespace MixPlanner.Specs.Converters
              It should_not_include_any_decimal_places = () => formatted.ShouldEqual("128");
              static object formatted;
          }
+
+         public class When_converting_an_unknown_bpm
+         {
+             Because of = () => formatted = new ActualBpmConverter().Convert(double.NaN, null, null, null);
+
+             It should_format_it_as_unknown = () => formatted.ShouldEqual("Unknown BPM");
+             static object formatted;
+         }
     }
 }

@@ -14,6 +14,9 @@ namespace MixPlanner.Converters
 
             var bpm = System.Convert.ToDouble(value);
 
+            if (Double.IsNaN(bpm))
+                return "Unknown BPM";
+
             return string.Format("{0:0.#}", bpm);
         }
 
