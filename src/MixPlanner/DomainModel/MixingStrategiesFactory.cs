@@ -43,6 +43,7 @@ namespace MixPlanner.DomainModel
                            container.Resolve<SameKey>(),
                            container.Resolve<OneSemitone>(),
                            container.Resolve<PerfectFifth>(),
+                           container.Resolve<PerfectFourth>(),
                            container.Resolve<RelativeMajor>(),
                            container.Resolve<RelativeMinor>(),
                            container.Resolve<ManualOutOfKeyMix>(),
