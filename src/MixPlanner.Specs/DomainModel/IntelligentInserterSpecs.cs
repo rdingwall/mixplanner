@@ -46,6 +46,9 @@ namespace MixPlanner.Specs.DomainModel
 
             It should_be_a_success = () => result.IsSuccess.ShouldBeTrue();
 
+            It should_not_require_any_adjustment =
+                () => result.IncreaseRequired.ShouldBeCloseTo(0, 0.001);
+
             static InsertResults result;
             static IIntelligentInserter inserter;
             static Mix mix;
@@ -88,6 +91,9 @@ namespace MixPlanner.Specs.DomainModel
                 () => result.EndStrategy.ShouldBeNull();
 
             It should_be_a_success = () => result.IsSuccess.ShouldBeTrue();
+
+            It should_not_require_any_adjustment =
+                () => result.IncreaseRequired.ShouldBeCloseTo(0, 0.001);
 
             static InsertResults result;
             static IIntelligentInserter inserter;
@@ -132,6 +138,9 @@ namespace MixPlanner.Specs.DomainModel
 
             It should_be_a_success = () => result.IsSuccess.ShouldBeTrue();
 
+            It should_not_require_any_adjustment =
+                () => result.IncreaseRequired.ShouldBeCloseTo(0, 0.001);
+
             static InsertResults result;
             static IIntelligentInserter inserter;
             static Mix mix;
@@ -163,6 +172,9 @@ namespace MixPlanner.Specs.DomainModel
                 () => result.EndStrategy.ShouldBeNull();
 
             It should_be_a_success = () => result.IsSuccess.ShouldBeTrue();
+
+            It should_not_require_any_adjustment =
+                () => result.IncreaseRequired.ShouldBeCloseTo(0, 0.001);
 
             static InsertResults result;
             static IIntelligentInserter inserter;
@@ -203,6 +215,56 @@ namespace MixPlanner.Specs.DomainModel
                 () => result.EndStrategy.ShouldBeNull();
 
             It should_not_be_a_success = () => result.IsSuccess.ShouldBeFalse();
+
+            It should_not_require_any_adjustment = 
+                () => result.IncreaseRequired.ShouldBeCloseTo(0, 0.001);
+
+            static InsertResults result;
+            static IIntelligentInserter inserter;
+            static Mix mix;
+            static Track track;
+        }
+
+        public class When_an_adjustment_was_required
+        {
+            Establish context = () =>
+            {
+                using (var container = new WindsorContainer())
+                {
+                    container.Install(new IocRegistrations());
+                    container.Resolve<IConfigProvider>().InitializeAsync().Wait();
+                    inserter = container.Resolve<IIntelligentInserter>();
+                    mix = TestMixes.GetEmptyMix();
+                    track = TestTracks.Get(HarmonicKey.Key10A, 122);
+                    // will be 5A @ 106%
+
+                    // 0 
+                    mix.Add(TestTracks.Get(HarmonicKey.Key3A, 136));
+                    // 1
+                    mix.Add(TestTracks.Get(HarmonicKey.Key7A, 136));
+                    // 2
+                    mix.Add(TestTracks.Get(HarmonicKey.Key9A, 136));
+                    // 3
+                    mix.Add(TestTracks.Get(HarmonicKey.Key9A, 136));
+                    // 4c
+                }
+            };
+
+            Because of = () => result = inserter.GetBestInsertIndex(mix, track);
+
+            It should_be_a_success = () => result.IsSuccess.ShouldBeTrue();
+
+            It should_recommend_the_last_good_position = 
+                () => result.InsertIndex.ShouldEqual(1);
+
+            It should_specify_the_start_strategy_used =
+                () => result.StartStrategy.ShouldBe(typeof (TwoSemitoneEnergyBoost));
+
+            It should_specify_the_end_strategy_used =
+                () => result.EndStrategy.ShouldBe(typeof(TwoSemitoneEnergyBoost));
+
+            It should_specify_the_adjustment_required =
+                () => result.IncreaseRequired.ShouldBeCloseTo(0.06, 0.001);
 
             static InsertResults result;
             static IIntelligentInserter inserter;

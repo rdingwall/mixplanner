@@ -128,5 +128,10 @@ namespace MixPlanner.DomainModel
             increased.Increase(amount);
             return increased;
         }
+
+        public double Adjustment
+        {
+            get { return Speed - 1; }
+        }
     }
 }

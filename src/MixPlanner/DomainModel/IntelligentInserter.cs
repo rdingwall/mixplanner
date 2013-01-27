@@ -11,11 +11,16 @@ namespace MixPlanner.DomainModel
 
     public class IntelligentInserter : IIntelligentInserter
     {
+        readonly IPlaybackSpeedAdjuster adjuster;
         readonly IEnumerable<IMixingStrategy> strategies;
 
-        public IntelligentInserter(IMixingStrategiesFactory strategiesFactory)
+        public IntelligentInserter(
+            IMixingStrategiesFactory strategiesFactory,
+            IPlaybackSpeedAdjuster adjuster)
         {
+            this.adjuster = adjuster;
             if (strategiesFactory == null) throw new ArgumentNullException("strategiesFactory");
+            if (adjuster == null) throw new ArgumentNullException("adjuster");
             strategies = strategiesFactory.GetStrategiesInPreferredOrder();
         }
 
@@ -29,6 +34,41 @@ namespace MixPlanner.DomainModel
 
             var speed = track.GetDefaultPlaybackSpeed();
 
+            InsertResults insertResults;
+            if (TryInsert(mix, speed, out insertResults))
+                return insertResults;
+
+            // Brute force algo - if we couldn't shoehorn the track in anywhere
+            // at it's default playback speed, try again at -6%, -3%, +3%, +6%
+
+            IEnumerable<double> adjustmentsToTry = GetAdjustmentsToTry();
+            foreach (double adjustment in adjustmentsToTry)
+            {
+                var adjustedSpeed = speed.AsIncreasedBy(adjustment);
+                if (TryInsert(mix, adjustedSpeed, out insertResults))
+                    return insertResults;
+            }
+
+            return InsertResults.Failure();
+        }
+
+        static IEnumerable<double> GetAdjustmentsToTry()
+        {
+            var adjustmentsToTry = new List<double>();
+            for (int i = -PitchFaderStep.NumberOfSteps; i <= PitchFaderStep.NumberOfSteps; i++)
+            {
+                if (i == 0) // already tested unadjusted (0)
+                    continue;
+
+                adjustmentsToTry.Add(i*PitchFaderStep.Value);
+            }
+            
+            // Start from the smallest adjustments, and work our way out
+            return adjustmentsToTry.OrderBy(Math.Abs);
+        }
+
+        bool TryInsert(Mix mix, PlaybackSpeed speed, out InsertResults insertResults)
+        {
             for (int i = mix.Count; i >= 0; i--)
             {
                 var trackBefore = i == 0 ? null : mix[i - 1].PlaybackSpeed;
@@ -39,7 +79,7 @@ namespace MixPlanner.DomainModel
                     if (startStrategy == null)
                         continue;
                 }
-                
+
                 var trackAfter = i == mix.Count ? null : mix[i].PlaybackSpeed;
                 IMixingStrategy endStrategy = null;
                 if (trackAfter != null)
@@ -48,11 +88,12 @@ namespace MixPlanner.DomainModel
                     if (endStrategy == null)
                         continue;
                 }
-
-                return InsertResults.Success(startStrategy, i, endStrategy);
+                insertResults = InsertResults.Success(startStrategy, i, endStrategy, speed.Adjustment);
+                return true;
             }
-            return InsertResults.Failure();
 
+            insertResults = null;
+            return false;
         }
     }
 }
