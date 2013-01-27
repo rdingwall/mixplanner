@@ -177,6 +177,8 @@
     <Compile Include="DomainModel\HarmonicKeyDisplayMode.cs" />
     <Compile Include="DomainModel\HarmonicKeyChangeInterval.cs" />
     <Compile Include="DomainModel\IMixingStrategy.cs" />
+    <Compile Include="DomainModel\InsertResults.cs" />
+    <Compile Include="DomainModel\IntelligentInserter.cs" />
     <Compile Include="DomainModel\InvalidPitchException.cs" />
     <Compile Include="DomainModel\InvalidScaleException.cs" />
     <Compile Include="DomainModel\ITrackLibrary.cs" />

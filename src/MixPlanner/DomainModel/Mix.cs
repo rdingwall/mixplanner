@@ -58,6 +58,18 @@ namespace MixPlanner.DomainModel
             get { return items; }
         }
 
+        public MixItem this[int index]
+        {
+            get { return items[index]; }
+        }
+
+        public bool IsEmpty { get { return !items.Any(); } }
+
+        public int Count
+        {
+            get { return items.Count; }
+        }
+
         public void Remove(MixItem item)
         {
             if (item == null) throw new ArgumentNullException("item");

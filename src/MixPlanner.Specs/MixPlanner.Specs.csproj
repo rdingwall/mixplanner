@@ -139,6 +139,7 @@
     <Compile Include="Converters\PlaySpeedConverterSpecs.cs" />
     <Compile Include="Converters\TransitionDescriptionConverterSpecs.cs" />
     <Compile Include="DomainModel\HarmonicKeySpecs.cs" />
+    <Compile Include="DomainModel\IntelligentInserterSpecs.cs" />
     <Compile Include="DomainModel\MixingStrategies\UnknownTransitionSpecs.cs" />
     <Compile Include="DomainModel\MixingStrategies\TwoSemitoneDecreaseSpecs.cs" />
     <Compile Include="DomainModel\MixingStrategies\PerfectFourthSpecs.cs" />
