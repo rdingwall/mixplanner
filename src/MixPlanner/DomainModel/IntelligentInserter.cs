@@ -6,7 +6,7 @@ namespace MixPlanner.DomainModel
 {
     public interface IIntelligentInserter
     {
-        InsertResults GetBestInsertIndex(Mix mix, Track track);
+        InsertResults GetBestInsertIndex(IMix mix, Track track);
     }
 
     public class IntelligentInserter : IIntelligentInserter
@@ -24,7 +24,7 @@ namespace MixPlanner.DomainModel
             strategies = strategiesFactory.GetStrategiesInPreferredOrder();
         }
 
-        public InsertResults GetBestInsertIndex(Mix mix, Track track)
+        public InsertResults GetBestInsertIndex(IMix mix, Track track)
         {
             if (mix == null) throw new ArgumentNullException("mix");
             if (track == null) throw new ArgumentNullException("track");
@@ -67,7 +67,7 @@ namespace MixPlanner.DomainModel
             return adjustmentsToTry.OrderBy(Math.Abs);
         }
 
-        bool TryInsert(Mix mix, PlaybackSpeed speed, out InsertResults insertResults)
+        bool TryInsert(IMix mix, PlaybackSpeed speed, out InsertResults insertResults)
         {
             for (int i = mix.Count; i >= 0; i--)
             {

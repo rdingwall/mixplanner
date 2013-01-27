@@ -20,6 +20,9 @@ namespace MixPlanner.DomainModel
         void RemoveRange(IEnumerable<MixItem> items);
         bool Contains(Track track);
         void ResetPlaybackSpeed(MixItem item);
+        bool IsEmpty { get; }
+        MixItem this[int index] { get; }
+        int Count { get; }
     }
 
     public class Mix : IMix

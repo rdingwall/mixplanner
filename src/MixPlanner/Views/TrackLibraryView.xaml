@@ -164,6 +164,11 @@
                                   Command="{Binding EditTrackCommand}"
                                   CommandTarget="{Binding Path=PlacementTarget, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
                                   CommandParameter="{Binding Path=PlacementTarget.SelectedItem.Track, RelativeSource={RelativeSource AncestorType=ContextMenu}}" />
+                        <MenuItem Header="Intelligent add to mix"
+                                  Visibility="{Binding Path=PlacementTarget.DataContext.HasSingleItemSelected, RelativeSource={RelativeSource AncestorType=ContextMenu}, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                  Command="{Binding IntelligentAddTrackCommand}"
+                                  CommandTarget="{Binding Path=PlacementTarget, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
+                                  CommandParameter="{Binding Path=PlacementTarget.SelectedItem.Track, RelativeSource={RelativeSource AncestorType=ContextMenu}}" />
                     </ContextMenu>
                 </c:ImprovedListView.ContextMenu>
 

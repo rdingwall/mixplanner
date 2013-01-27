@@ -28,6 +28,7 @@ namespace MixPlanner.ViewModels
         public SearchLibraryCommand SearchCommand { get; private set; }
         public OpenSettingsCommand OpenSettingsCommand { get; private set; }
         public EditTrackCommand EditTrackCommand { get; private set; }
+        public IntelligentAddTrackToMixCommand IntelligentAddTrackCommand { get; private set; }
 
         ICollectionView itemsView;
         public ICollectionView ItemsView
@@ -71,7 +72,8 @@ namespace MixPlanner.ViewModels
             SearchLibraryCommand searchCommand,
             ShowInExplorerCommand showInExplorerCommand,
             OpenSettingsCommand openSettingsCommand,
-            EditTrackCommand editTrackCommand
+            EditTrackCommand editTrackCommand,
+            IntelligentAddTrackToMixCommand intelligentAddTrackCommand
             )
             : base(messenger)
         {
@@ -82,6 +84,7 @@ namespace MixPlanner.ViewModels
             if (showInExplorerCommand == null) throw new ArgumentNullException("showInExplorerCommand");
             if (openSettingsCommand == null) throw new ArgumentNullException("openSettingsCommand");
             if (editTrackCommand == null) throw new ArgumentNullException("editTrackCommand");
+            if (intelligentAddTrackCommand == null) throw new ArgumentNullException("intelligentAddTrackCommand");
 
             items = new ObservableCollection<TrackLibraryItemViewModel>();
             ItemsView = CollectionViewSource.GetDefaultView(items);
@@ -96,6 +99,7 @@ namespace MixPlanner.ViewModels
             ShowInExplorerCommand = showInExplorerCommand;
             OpenSettingsCommand = openSettingsCommand;
             EditTrackCommand = editTrackCommand;
+            IntelligentAddTrackCommand = intelligentAddTrackCommand;
 
             ImportFilesCommand = importFilesCommand;
             RemoveCommand = removeTracksCommand;
