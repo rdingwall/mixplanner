@@ -22,7 +22,8 @@ namespace MixPlanner.Specs
                                HarmonicKey.Key8A,
                                HarmonicKey.Key8A,
                                HarmonicKey.Key8A,
-                               HarmonicKey.Key10A
+                               HarmonicKey.Key10A,
+                               HarmonicKey.Key11B
                            }.Select(k => new PlaybackSpeed(k, 128));
 
             var bpmRangeChecker = new BpmRangeChecker();
@@ -42,7 +43,9 @@ namespace MixPlanner.Specs
                 where strategy.IsCompatible(endKey, startKey)
                 select new StrategyEdge(endKey, startKey, strategy);
 
-            var graph = edges.ToAdjacencyGraph<PlaybackSpeed, StrategyEdge>();
+            var graph = new AdjacencyGraph<PlaybackSpeed, StrategyEdge>();
+            graph.AddVertexRange(keys.Distinct());
+            graph.AddEdgeRange(edges);
 
             Console.WriteLine("{0} edges, {1} vertices.", 
                 graph.EdgeCount, graph.VertexCount);
