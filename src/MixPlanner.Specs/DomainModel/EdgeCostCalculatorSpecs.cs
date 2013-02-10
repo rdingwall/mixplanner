@@ -59,21 +59,7 @@ namespace MixPlanner.Specs.DomainModel
              static IOrderedEnumerable<Case> sorted;
              static Case[] expectedOrder;
 
-             static Tuple<string, PlaybackSpeed, PlaybackSpeed, double> CreateCase(
-                 string name, HarmonicKey previousKey, HarmonicKey nextKey)
-             {
-                 return Tuple.Create(name, TestPlaybackSpeeds.PlaybackSpeed(previousKey),
-                                     TestPlaybackSpeeds.PlaybackSpeed(nextKey), double.NaN);
-             }
-
-             static Tuple<string, PlaybackSpeed, PlaybackSpeed, double> CreateCase(
-                 string name, HarmonicKey previousKey, double previousBpm, HarmonicKey nextKey, double nextBpm)
-             {
-                 return Tuple.Create(name, new PlaybackSpeed(previousKey, previousBpm),
-                                     new PlaybackSpeed(nextKey, nextBpm), double.NaN);
-             }
-
-             public class Case
+            class Case
              {
                  public string Name { get; private set; }
                  public EdgeCost Cost { get; set; }
@@ -99,6 +85,5 @@ namespace MixPlanner.Specs.DomainModel
                  }
              }
          }
-
     }
 }
