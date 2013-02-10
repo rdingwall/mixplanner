@@ -126,6 +126,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\RhinoMocks.3.6.1\lib\net\Rhino.Mocks.dll</HintPath>
     </Reference>
+    <Reference Include="SharpTestsEx">
+      <HintPath>..\..\packages\SharpTestsEx.1.1.1\lib\SharpTestsEx.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpTestsEx.Mvc">
+      <HintPath>..\..\packages\SharpTestsEx.1.1.1\lib\SharpTestsEx.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -150,8 +156,10 @@
     <Compile Include="Converters\TraditionalSymbolsHarmonicKeyConverterSpecs.cs" />
     <Compile Include="Converters\PlaySpeedConverterSpecs.cs" />
     <Compile Include="Converters\TransitionDescriptionConverterSpecs.cs" />
+    <Compile Include="DomainModel\EdgeCostCalculatorSpecs.cs" />
     <Compile Include="DomainModel\HarmonicKeySpecs.cs" />
     <Compile Include="DomainModel\IntelligentInserterSpecs.cs" />
+    <Compile Include="DomainModel\MixingStrategiesFactorySpecs.cs" />
     <Compile Include="DomainModel\MixingStrategies\UnknownTransitionSpecs.cs" />
     <Compile Include="DomainModel\MixingStrategies\TwoSemitoneDecreaseSpecs.cs" />
     <Compile Include="DomainModel\MixingStrategies\PerfectFourthSpecs.cs" />
@@ -164,7 +172,7 @@
     <Compile Include="DomainModel\MixingStrategies\RelativeMinorSpecs.cs" />
     <Compile Include="DomainModel\MixingStrategies\TwoSemitoneEnergyBoostSpecs.cs" />
     <Compile Include="DomainModel\MixSpecs.cs" />
-    <Compile Include="DomainModel\PlaybackSpeedAdjusterSpecs.cs" />
+    <Compile Include="DomainModel\LimitingPlaybackSpeedAdjusterSpecs.cs" />
     <Compile Include="DomainModel\PlaybackSpeedSpecs.cs" />
     <Compile Include="DomainModel\RecommendedTransitionDetectorSpecs.cs" />
     <Compile Include="DomainModel\TrackSpecs.cs" />

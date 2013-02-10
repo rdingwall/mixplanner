@@ -2,7 +2,7 @@
 
 namespace MixPlanner.Specs
 {
-    public class DummyPlaybackSpeedAdjuster : IPlaybackSpeedAdjuster
+    public class DummyPlaybackSpeedAdjuster : ILimitingPlaybackSpeedAdjuster
     {
         public double GetSuggestedIncrease(PlaybackSpeed first, PlaybackSpeed second)
         {

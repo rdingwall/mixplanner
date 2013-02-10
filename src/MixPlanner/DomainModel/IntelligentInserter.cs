@@ -11,17 +11,17 @@ namespace MixPlanner.DomainModel
 
     public class IntelligentInserter : IIntelligentInserter
     {
-        readonly IPlaybackSpeedAdjuster adjuster;
+        readonly ILimitingPlaybackSpeedAdjuster adjuster;
         readonly IEnumerable<IMixingStrategy> strategies;
 
         public IntelligentInserter(
             IMixingStrategiesFactory strategiesFactory,
-            IPlaybackSpeedAdjuster adjuster)
+            ILimitingPlaybackSpeedAdjuster adjuster)
         {
             this.adjuster = adjuster;
             if (strategiesFactory == null) throw new ArgumentNullException("strategiesFactory");
             if (adjuster == null) throw new ArgumentNullException("adjuster");
-            strategies = strategiesFactory.GetStrategiesInPreferredOrder();
+            strategies = strategiesFactory.GetPreferredStrategiesInOrder();
         }
 
         public InsertResults GetBestInsertIndex(IMix mix, Track track)

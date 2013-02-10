@@ -10,8 +10,6 @@ namespace MixPlanner.DomainModel
 
     public class PlaybackSpeedAdjuster : IPlaybackSpeedAdjuster
     {
-        const double MaxPermittedDifference = 0.06001;
-
         public double GetSuggestedIncrease(PlaybackSpeed first, PlaybackSpeed second)
         {
             if (first == null) throw new ArgumentNullException("first");
@@ -22,9 +20,6 @@ namespace MixPlanner.DomainModel
 
             var increaseRequired = second.GetExactIncreaseRequiredToMatch(first);
             var nearestInterval = increaseRequired.FloorToNearest(PitchFaderStep.Value);
-
-            if (Math.Abs(nearestInterval) > MaxPermittedDifference)
-                return 0;
 
             return nearestInterval;
         }

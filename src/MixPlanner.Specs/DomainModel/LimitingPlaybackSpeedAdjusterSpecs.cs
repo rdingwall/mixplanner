@@ -5,7 +5,7 @@ using MixPlanner.DomainModel;
 namespace MixPlanner.Specs.DomainModel
 {
     [Subject(typeof(PlaybackSpeedAdjuster))]
-    public class PlaybackSpeedAdjusterSpecs
+    public class LimitingPlaybackSpeedAdjusterSpecs
     {
         public abstract class FixtureBase
         {
@@ -14,7 +14,7 @@ namespace MixPlanner.Specs.DomainModel
             protected static PlaybackSpeed Second;
 
             Because of =
-                 () => Increase = new PlaybackSpeedAdjuster().GetSuggestedIncrease(First, Second);
+                 () => Increase = new LimitingPlaybackSpeedAdjuster(new PlaybackSpeedAdjuster()).GetSuggestedIncrease(First, Second);
         }
 
         public class When_the_two_playback_speeds_were_within_3_percent_of_each_other : FixtureBase

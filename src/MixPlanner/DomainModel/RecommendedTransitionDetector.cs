@@ -16,11 +16,11 @@ namespace MixPlanner.DomainModel
     public class RecommendedTransitionDetector : IRecommendedTransitionDetector
     {
         readonly IEnumerable<IMixingStrategy> preferredStrategies;
-        readonly IPlaybackSpeedAdjuster playbackSpeedAdjuster;
+        readonly ILimitingPlaybackSpeedAdjuster playbackSpeedAdjuster;
 
         public RecommendedTransitionDetector(
             IEnumerable<IMixingStrategy> preferredStrategies,
-            IPlaybackSpeedAdjuster playbackSpeedAdjuster)
+            ILimitingPlaybackSpeedAdjuster playbackSpeedAdjuster)
         {
             if (preferredStrategies == null) throw new ArgumentNullException("preferredStrategies");
             if (playbackSpeedAdjuster == null) throw new ArgumentNullException("playbackSpeedAdjuster");

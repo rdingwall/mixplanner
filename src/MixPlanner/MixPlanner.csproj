@@ -175,6 +175,8 @@
     <Compile Include="DomainModel\BpmRangeChecker.cs" />
     <Compile Include="Configuration\Config.cs" />
     <Compile Include="Configuration\ConfigProvider.cs" />
+    <Compile Include="DomainModel\EdgeCost.cs" />
+    <Compile Include="DomainModel\EdgeCostCalculator.cs" />
     <Compile Include="DomainModel\HarmonicKeyDisplayMode.cs" />
     <Compile Include="DomainModel\HarmonicKeyChangeInterval.cs" />
     <Compile Include="DomainModel\IMixingStrategy.cs" />
@@ -184,6 +186,7 @@
     <Compile Include="DomainModel\InvalidScaleException.cs" />
     <Compile Include="DomainModel\ITrackLibrary.cs" />
     <Compile Include="DomainModel\HarmonicKey.cs" />
+    <Compile Include="DomainModel\LimitingPlaybackSpeedAdjuster.cs" />
     <Compile Include="DomainModel\Mix.cs" />
     <Compile Include="DomainModel\MixingStrategies\CompatibleBpmMixingStrategyBase.cs" />
     <Compile Include="DomainModel\MixingStrategies\UnknownTransition.cs" />
@@ -229,6 +232,7 @@
     <Compile Include="Events\TransitionChangedEvent.cs" />
     <Compile Include="DispatcherMessenger.cs" />
     <Compile Include="Extensions\DoubleExtensions.cs" />
+    <Compile Include="Extensions\LinqExtensions.cs" />
     <Compile Include="Extensions\PluralizationServiceExtensions.cs" />
     <Compile Include="ImportExport\IPlaylistWriter.cs" />
     <Compile Include="ImportExport\M3uReader.cs" />

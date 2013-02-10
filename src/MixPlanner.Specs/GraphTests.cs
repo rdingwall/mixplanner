@@ -53,6 +53,10 @@ namespace MixPlanner.Specs
             var pathCount = EulerianTrailAlgorithm<PlaybackSpeed, StrategyEdge>.ComputeEulerianPathCount(graph);
             Console.WriteLine("Found {0} eulerian paths.", pathCount);
 
+
+            // http://stackoverflow.com/questions/5766160/enumerate-all-hamiltonian-paths
+            //graph.TreeDepthFirstSearch(graph.Vertices.First());
+
             var algo = new EulerianTrailAlgorithm<PlaybackSpeed, StrategyEdge>(graph);
 
             algo.AddTemporaryEdges((source, target) => new StrategyEdge(source, target, null));

@@ -51,10 +51,12 @@ namespace MixPlanner
                     .DependsOn(Property.ForKey("impl").Is(typeof(BpmRangeChecker).Name)),
                 Component.For<IBpmRangeChecker>().ImplementedBy<BpmRangeChecker>()
                     .Named(typeof(BpmRangeChecker).Name),
-                Component.For<IPlaybackSpeedAdjuster>().ImplementedBy<ConfigSwitchingPlaybackSpeedAdjuster>()
+                Component.For<ILimitingPlaybackSpeedAdjuster>().ImplementedBy<ConfigSwitchingPlaybackSpeedAdjuster>()
                     .DependsOn(Property.ForKey("impl").Is(typeof(PlaybackSpeedAdjuster).Name)),
-                Component.For<IPlaybackSpeedAdjuster>().ImplementedBy<PlaybackSpeedAdjuster>()
+                Component.For<ILimitingPlaybackSpeedAdjuster>().ImplementedBy<LimitingPlaybackSpeedAdjuster>()
                     .Named(typeof(PlaybackSpeedAdjuster).Name),
+                Component.For<IPlaybackSpeedAdjuster>().ImplementedBy<PlaybackSpeedAdjuster>(),
+                Component.For<IEdgeCostCalculator>().ImplementedBy<EdgeCostCalculator>(),
                 Component.For<IHarmonicKeyConverterFactory>().ImplementedBy<HarmonicKeyConverterFactory>(),
                 Component.For<IMixingStrategiesFactory>().ImplementedBy<MixingStrategiesFactory>(),
                 Component.For<IMixItemViewModelFactory>().ImplementedBy<MixItemViewModelFactory>(),
@@ -70,7 +72,7 @@ namespace MixPlanner
                 AllTypes.FromThisAssembly().BasedOn<IValueConverter>().WithServiceSelf(),
                 AllTypes.FromThisAssembly().BasedOn<IMixingStrategy>().WithServiceSelf(),
                 Component.For<IEnumerable<IMixingStrategy>>().Named(preferredStrategies)
-                         .UsingFactoryMethod(k => k.Resolve<IMixingStrategiesFactory>().GetStrategiesInPreferredOrder()),
+                         .UsingFactoryMethod(k => k.Resolve<IMixingStrategiesFactory>().GetPreferredStrategiesInOrder()),
                 Component.For<IEnumerable<IMixingStrategy>>().Named(allStrategies)
                          .UsingFactoryMethod(k => k.Resolve<IMixingStrategiesFactory>().GetAllStrategies()));
         }

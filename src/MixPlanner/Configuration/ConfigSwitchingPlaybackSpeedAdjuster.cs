@@ -3,14 +3,14 @@ using MixPlanner.DomainModel;
 
 namespace MixPlanner.Configuration
 {
-    public class ConfigSwitchingPlaybackSpeedAdjuster : IPlaybackSpeedAdjuster
+    public class ConfigSwitchingPlaybackSpeedAdjuster : ILimitingPlaybackSpeedAdjuster
     {
         readonly IConfigProvider configProvider;
-        readonly IPlaybackSpeedAdjuster impl;
+        readonly ILimitingPlaybackSpeedAdjuster impl;
 
         public ConfigSwitchingPlaybackSpeedAdjuster(
             IConfigProvider configProvider,
-            IPlaybackSpeedAdjuster impl)
+            ILimitingPlaybackSpeedAdjuster impl)
         {
             if (configProvider == null) throw new ArgumentNullException("configProvider");
             if (impl == null) throw new ArgumentNullException("impl");

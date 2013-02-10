@@ -76,7 +76,7 @@ namespace MixPlanner.DomainModel
 
         public override string ToString()
         {
-            return String.Format("{0} ({1}, {2})", Speed, ActualBpm, ActualKey);
+            return String.Format("{0} ({1:0.#}, {2})", Speed, ActualBpm, ActualKey);
         }
 
         public void Reset()

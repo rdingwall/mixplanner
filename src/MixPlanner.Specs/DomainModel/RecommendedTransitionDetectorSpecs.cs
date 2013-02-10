@@ -26,7 +26,7 @@ namespace MixPlanner.Specs.DomainModel
                     First = TestPlaybackSpeeds.RandomPlaybackSpeed();
                     Second = TestPlaybackSpeeds.RandomPlaybackSpeed();
 
-                    var adjuster = MockRepository.GenerateStub<IPlaybackSpeedAdjuster>();
+                    var adjuster = MockRepository.GenerateStub<ILimitingPlaybackSpeedAdjuster>();
 
                     Stragegy = MockRepository.GenerateStub<IMixingStrategy>();
                     Stragegy.Stub(s => s.IsCompatible(First, Second)).Return(true);
@@ -49,7 +49,7 @@ namespace MixPlanner.Specs.DomainModel
                     First = TestPlaybackSpeeds.RandomPlaybackSpeed();
                     Second = TestPlaybackSpeeds.RandomPlaybackSpeed();
 
-                    var adjuster = MockRepository.GenerateStub<IPlaybackSpeedAdjuster>();
+                    var adjuster = MockRepository.GenerateStub<ILimitingPlaybackSpeedAdjuster>();
 
                     Stragegy = MockRepository.GenerateStub<IMixingStrategy>();
 
@@ -67,7 +67,7 @@ namespace MixPlanner.Specs.DomainModel
                     First = TestPlaybackSpeeds.RandomPlaybackSpeed();
                     Second = TestPlaybackSpeeds.RandomPlaybackSpeed();
 
-                    var adjuster = MockRepository.GenerateStub<IPlaybackSpeedAdjuster>();
+                    var adjuster = MockRepository.GenerateStub<ILimitingPlaybackSpeedAdjuster>();
                     adjuster.Stub(a => a.GetSuggestedIncrease(First, Second)).Return(0.06);
 
                     spedUp = Second.AsIncreasedBy(0.06);
@@ -94,7 +94,7 @@ namespace MixPlanner.Specs.DomainModel
                     First = TestPlaybackSpeeds.RandomPlaybackSpeed();
                     Second = TestPlaybackSpeeds.RandomPlaybackSpeed();
 
-                    var adjuster = MockRepository.GenerateStub<IPlaybackSpeedAdjuster>();
+                    var adjuster = MockRepository.GenerateStub<ILimitingPlaybackSpeedAdjuster>();
                     adjuster.Stub(a => a.GetSuggestedIncrease(First, Second)).Return(0.06);
 
                     Stragegy = MockRepository.GenerateStub<IMixingStrategy>();

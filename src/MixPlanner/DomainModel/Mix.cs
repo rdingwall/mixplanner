@@ -29,13 +29,13 @@ namespace MixPlanner.DomainModel
     {
         readonly IDispatcherMessenger messenger;
         readonly IActualTransitionDetector transitions;
-        readonly IPlaybackSpeedAdjuster playbackSpeedAdjuster;
+        readonly ILimitingPlaybackSpeedAdjuster playbackSpeedAdjuster;
         readonly IList<MixItem> items;
 
         public Mix(
             IDispatcherMessenger messenger,
             IActualTransitionDetector transitions,
-            IPlaybackSpeedAdjuster playbackSpeedAdjuster)
+            ILimitingPlaybackSpeedAdjuster playbackSpeedAdjuster)
         {
             if (messenger == null) throw new ArgumentNullException("messenger");
             if (transitions == null) throw new ArgumentNullException("transitions");
