@@ -72,7 +72,14 @@ namespace MixPlanner.DomainModel
                 .GetFiles(directoryName, "*.*", SearchOption.AllDirectories)
                 .Where(loader.IsSupportedFileFormat);
 
-            return await ImportAsync(filenames);
+            return await ImportAsync(filenames)
+                .ContinueWith<IEnumerable<Track>>(OnImportComplete);
+        }
+
+        IEnumerable<Track> OnImportComplete(Task<IEnumerable<Track>> task)
+        {
+            messenger.SendToUI(new FinishedLoadingTracksEvent());
+            return task.Result;
         }
 
         public async Task<IEnumerable<Track>> ImportAsync(string filename)
