@@ -160,6 +160,7 @@
     <Compile Include="DomainModel\HarmonicKeySpecs.cs" />
     <Compile Include="DomainModel\IntelligentInserterSpecs.cs" />
     <Compile Include="DomainModel\MixingStrategiesFactorySpecs.cs" />
+    <Compile Include="DomainModel\MixingStrategies\OneSemitoneDecreaseSpecs.cs" />
     <Compile Include="DomainModel\MixingStrategies\UnknownTransitionSpecs.cs" />
     <Compile Include="DomainModel\MixingStrategies\TwoSemitoneDecreaseSpecs.cs" />
     <Compile Include="DomainModel\MixingStrategies\PerfectFourthSpecs.cs" />

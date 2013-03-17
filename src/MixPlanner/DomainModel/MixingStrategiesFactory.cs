@@ -46,6 +46,7 @@ namespace MixPlanner.DomainModel
                            container.Resolve<TwoSemitoneDecrease>(),
                            container.Resolve<SameKey>(),
                            container.Resolve<OneSemitoneEnergyBoost>(),
+                           container.Resolve<OneSemitoneDecrease>(),
                            container.Resolve<PerfectFifth>(),
                            container.Resolve<PerfectFourth>(),
                            container.Resolve<RelativeMajor>(),
