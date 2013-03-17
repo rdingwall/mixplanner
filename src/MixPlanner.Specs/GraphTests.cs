@@ -30,7 +30,7 @@ namespace MixPlanner.Specs
             var strategies = new IMixingStrategy[]
                 {
                     new SameKey(bpmRangeChecker), 
-                    new OneSemitone(bpmRangeChecker),
+                    new OneSemitoneEnergyBoost(bpmRangeChecker),
                     new PerfectFifth(bpmRangeChecker),
                     new TwoSemitoneEnergyBoost(bpmRangeChecker)
                 };

@@ -195,7 +195,7 @@
     <Compile Include="DomainModel\MixingStrategies\IncreasePitchStrategyBase.cs" />
     <Compile Include="DomainModel\MixingStrategies\PerfectFifth.cs" />
     <Compile Include="DomainModel\MixingStrategies\ManualIncompatibleBpmsMix.cs" />
-    <Compile Include="DomainModel\MixingStrategies\OneSemitone.cs" />
+    <Compile Include="DomainModel\MixingStrategies\OneSemitoneEnergyBoost.cs" />
     <Compile Include="DomainModel\MixingStrategies\SameKey.cs" />
     <Compile Include="DomainModel\MixingStrategies\RelativeMajor.cs" />
     <Compile Include="DomainModel\MixingStrategies\RelativeMinor.cs" />

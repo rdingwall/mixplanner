@@ -6,8 +6,8 @@ using MixPlanner.DomainModel.MixingStrategies;
 
 namespace MixPlanner.Specs.DomainModel.MixingStrategies
 {
-    [Subject(typeof(OneSemitone))]
-    public class OneSemitoneSpecs
+    [Subject(typeof(OneSemitoneEnergyBoost))]
+    public class OneSemitoneEnergyBoostSpecs
     {
         public class when_deciding_which_track_to_play_next
         {
@@ -15,7 +15,7 @@ namespace MixPlanner.Specs.DomainModel.MixingStrategies
                 () =>
                     {
                         current = new PlaybackSpeed(HarmonicKey.Key9A, 128);
-                        strategy = new OneSemitone(new AlwaysInRangeBpmChecker());
+                        strategy = new OneSemitoneEnergyBoost(new AlwaysInRangeBpmChecker());
                         unplayed = new[]
                                        {
                                            new PlaybackSpeed(HarmonicKey.Key8B, 128),

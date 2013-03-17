@@ -31,7 +31,7 @@ namespace MixPlanner.DomainModel
                        {
                            container.Resolve<TwoSemitoneEnergyBoost>(),
                            container.Resolve<SameKey>(),
-                           container.Resolve<OneSemitone>(),
+                           container.Resolve<OneSemitoneEnergyBoost>(),
                            container.Resolve<PerfectFifth>(),
                            container.Resolve<RelativeMajor>(),
                            container.Resolve<RelativeMinor>()
@@ -45,7 +45,7 @@ namespace MixPlanner.DomainModel
                            container.Resolve<TwoSemitoneEnergyBoost>(),
                            container.Resolve<TwoSemitoneDecrease>(),
                            container.Resolve<SameKey>(),
-                           container.Resolve<OneSemitone>(),
+                           container.Resolve<OneSemitoneEnergyBoost>(),
                            container.Resolve<PerfectFifth>(),
                            container.Resolve<PerfectFourth>(),
                            container.Resolve<RelativeMajor>(),
