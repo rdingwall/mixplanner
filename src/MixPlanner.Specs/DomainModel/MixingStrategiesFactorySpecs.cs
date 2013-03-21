@@ -30,7 +30,10 @@ namespace MixPlanner.Specs.DomainModel
 
              It should_return_the_expected_strategies =
                  () => strategies.Select(s => s.GetType())
-                                 .ShouldContainOnly(typeof (PerfectFourth), typeof (TwoSemitoneDecrease));
+                                 .ShouldContainOnly(
+                                     typeof (PerfectFourth),
+                                     typeof (TwoSemitoneDecrease),
+                                     typeof (OneSemitoneDecrease));
          }
     }
 }
