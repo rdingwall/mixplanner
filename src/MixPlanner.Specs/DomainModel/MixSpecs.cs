@@ -13,7 +13,7 @@ namespace MixPlanner.Specs.DomainModel
             Establish context =
                 () =>
                     {
-                        track = TestTracks.Get(HarmonicKey.Key1A);
+                        track = TestTracks.GetRandomTrack(HarmonicKey.Key1A);
                         messenger = new DispatcherMessenger(new Messenger());
                         messenger.Register<TrackAddedToMixEvent>(new object(), e => ev = e);
                         mix = new Mix(messenger, 

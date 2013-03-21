@@ -77,9 +77,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
-    <Reference Include="MoreLinq, Version=1.0.11522.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="MoreLinq, Version=1.0.15631.0, Culture=neutral, PublicKeyToken=384d532d7e88985d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\morelinq.1.0\lib\net35\MoreLinq.dll</HintPath>
+      <HintPath>..\..\packages\morelinq.1.0.15631-beta\lib\net35\MoreLinq.dll</HintPath>
     </Reference>
     <Reference Include="NAudio">
       <HintPath>..\..\packages\NAudio.1.6\lib\net20\NAudio.dll</HintPath>
@@ -91,6 +91,18 @@
       <HintPath>..\..\packages\taglib.2.1.0.0\lib\policy.2.0.taglib-sharp.dll</HintPath>
     </Reference>
     <Reference Include="PresentationFramework.Classic" />
+    <Reference Include="QuickGraph">
+      <HintPath>..\..\packages\QuickGraph.3.6.61119.7\lib\net4\QuickGraph.dll</HintPath>
+    </Reference>
+    <Reference Include="QuickGraph.Data">
+      <HintPath>..\..\packages\QuickGraph.3.6.61119.7\lib\net4\QuickGraph.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="QuickGraph.Graphviz">
+      <HintPath>..\..\packages\QuickGraph.3.6.61119.7\lib\net4\QuickGraph.Graphviz.dll</HintPath>
+    </Reference>
+    <Reference Include="QuickGraph.Serialization">
+      <HintPath>..\..\packages\QuickGraph.3.6.61119.7\lib\net4\QuickGraph.Serialization.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity.Design" />
@@ -187,6 +199,7 @@
     <Compile Include="DomainModel\ITrackLibrary.cs" />
     <Compile Include="DomainModel\HarmonicKey.cs" />
     <Compile Include="DomainModel\LimitingPlaybackSpeedAdjuster.cs" />
+    <Compile Include="DomainModel\LongestPathAlgorithm.cs" />
     <Compile Include="DomainModel\Mix.cs" />
     <Compile Include="DomainModel\MixingStrategies\CompatibleBpmMixingStrategyBase.cs" />
     <Compile Include="DomainModel\MixingStrategies\OneSemitoneDecrease.cs" />

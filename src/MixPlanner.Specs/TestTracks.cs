@@ -26,7 +26,7 @@ namespace MixPlanner.Specs
     {
         static readonly Random Random = new Random();
 
-        public static Track Get(HarmonicKey key, double bpm)
+        public static Track GetRandomTrack(HarmonicKey key, double bpm)
         {
             return new Track("Test Artist",
                 key.ToString(),
@@ -46,12 +46,17 @@ namespace MixPlanner.Specs
 
         public static Track GetRandomTrack()
         {
-            return Get(HarmonicKey.RandomKey(), GetRandomBpm());
+            return GetRandomTrack(HarmonicKey.RandomKey(), GetRandomBpm());
         }
 
-        public static Track Get(HarmonicKey key)
+        public static Track GetRandomTrack(HarmonicKey key)
         {
-            return Get(key, GetRandomBpm());
+            return GetRandomTrack(key, GetRandomBpm());
+        }
+
+        public static Track GetRandomTrack(double bpm)
+        {
+            return GetRandomTrack(HarmonicKey.RandomKey(), bpm);
         }
 
         public static double GetRandomBpm()

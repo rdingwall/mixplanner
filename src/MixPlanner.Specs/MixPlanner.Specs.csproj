@@ -100,9 +100,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\MvvmLightLibs.4.1.23.0\lib\net40\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
-    <Reference Include="MoreLinq, Version=1.0.11522.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="MoreLinq, Version=1.0.15631.0, Culture=neutral, PublicKeyToken=384d532d7e88985d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\morelinq.1.0\lib\net35\MoreLinq.dll</HintPath>
+      <HintPath>..\..\packages\morelinq.1.0.15631-beta\lib\net35\MoreLinq.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework, Version=2.6.2.12296, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -156,6 +156,7 @@
     <Compile Include="Converters\TraditionalSymbolsHarmonicKeyConverterSpecs.cs" />
     <Compile Include="Converters\PlaySpeedConverterSpecs.cs" />
     <Compile Include="Converters\TransitionDescriptionConverterSpecs.cs" />
+    <Compile Include="DomainModel\LongestPathAlgorithmTests.cs" />
     <Compile Include="DomainModel\EdgeCostCalculatorSpecs.cs" />
     <Compile Include="DomainModel\HarmonicKeySpecs.cs" />
     <Compile Include="DomainModel\IntelligentInserterSpecs.cs" />
@@ -184,7 +185,6 @@
     <Compile Include="AssemblyContext.cs" />
     <Compile Include="DummyPlaybackSpeedAdjuster.cs" />
     <Compile Include="Extensions\DoubleExtensionsSpecs.cs" />
-    <Compile Include="GraphTests.cs" />
     <Compile Include="ImportExport\M3uReaderSpecs.cs" />
     <Compile Include="ImportExport\M3uWriterSpecs.cs" />
     <Compile Include="IocRegistrationsSpecs.cs" />

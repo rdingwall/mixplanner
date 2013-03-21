@@ -19,16 +19,16 @@ namespace MixPlanner.Specs.DomainModel
                     container.Resolve<IConfigProvider>().InitializeAsync().Wait();
                     inserter = container.Resolve<IIntelligentInserter>();
                     mix = TestMixes.GetEmptyMix();
-                    track = TestTracks.Get(HarmonicKey.Key8A, 128);
+                    track = TestTracks.GetRandomTrack(HarmonicKey.Key8A, 128);
 
                     // 0 
-                    mix.Add(TestTracks.Get(HarmonicKey.Key5A, 128));
+                    mix.Add(TestTracks.GetRandomTrack(HarmonicKey.Key5A, 128));
                     // 1
-                    mix.Add(TestTracks.Get(HarmonicKey.Key7A, 128));
+                    mix.Add(TestTracks.GetRandomTrack(HarmonicKey.Key7A, 128));
                     // 2
-                    mix.Add(TestTracks.Get(HarmonicKey.Key10A, 128));
+                    mix.Add(TestTracks.GetRandomTrack(HarmonicKey.Key10A, 128));
                     // 3
-                    mix.Add(TestTracks.Get(HarmonicKey.Key7A, 150));
+                    mix.Add(TestTracks.GetRandomTrack(HarmonicKey.Key7A, 150));
                     // 4
                 }
             };
@@ -65,16 +65,16 @@ namespace MixPlanner.Specs.DomainModel
                     container.Resolve<IConfigProvider>().InitializeAsync().Wait();
                     inserter = container.Resolve<IIntelligentInserter>();
                     mix = TestMixes.GetEmptyMix();
-                    track = TestTracks.Get(HarmonicKey.Key8A, 128);
+                    track = TestTracks.GetRandomTrack(HarmonicKey.Key8A, 128);
 
                     // 0 
-                    mix.Add(TestTracks.Get(HarmonicKey.Key5A, 128));
+                    mix.Add(TestTracks.GetRandomTrack(HarmonicKey.Key5A, 128));
                     // 1
-                    mix.Add(TestTracks.Get(HarmonicKey.Key7A, 128));
+                    mix.Add(TestTracks.GetRandomTrack(HarmonicKey.Key7A, 128));
                     // 2
-                    mix.Add(TestTracks.Get(HarmonicKey.Key9A, 128));
+                    mix.Add(TestTracks.GetRandomTrack(HarmonicKey.Key9A, 128));
                     // 3
-                    mix.Add(TestTracks.Get(HarmonicKey.Key7A, 128));
+                    mix.Add(TestTracks.GetRandomTrack(HarmonicKey.Key7A, 128));
                     // 4
                 }
             };
@@ -111,16 +111,16 @@ namespace MixPlanner.Specs.DomainModel
                     container.Resolve<IConfigProvider>().InitializeAsync().Wait();
                     inserter = container.Resolve<IIntelligentInserter>();
                     mix = TestMixes.GetEmptyMix();
-                    track = TestTracks.Get(HarmonicKey.Key8A, 128);
+                    track = TestTracks.GetRandomTrack(HarmonicKey.Key8A, 128);
 
                     // 0 
-                    mix.Add(TestTracks.Get(HarmonicKey.Key8A, 128));
+                    mix.Add(TestTracks.GetRandomTrack(HarmonicKey.Key8A, 128));
                     // 1
-                    mix.Add(TestTracks.Get(HarmonicKey.Key12A, 128));
+                    mix.Add(TestTracks.GetRandomTrack(HarmonicKey.Key12A, 128));
                     // 2
-                    mix.Add(TestTracks.Get(HarmonicKey.Key12A, 128));
+                    mix.Add(TestTracks.GetRandomTrack(HarmonicKey.Key12A, 128));
                     // 3
-                    mix.Add(TestTracks.Get(HarmonicKey.Key12A, 128));
+                    mix.Add(TestTracks.GetRandomTrack(HarmonicKey.Key12A, 128));
                     // 4
                 }
             };
@@ -192,16 +192,16 @@ namespace MixPlanner.Specs.DomainModel
                     container.Resolve<IConfigProvider>().InitializeAsync().Wait();
                     inserter = container.Resolve<IIntelligentInserter>();
                     mix = TestMixes.GetEmptyMix();
-                    track = TestTracks.Get(HarmonicKey.Key8A, 128);
+                    track = TestTracks.GetRandomTrack(HarmonicKey.Key8A, 128);
 
                     // 0 
-                    mix.Add(TestTracks.Get(HarmonicKey.Key11A, 128));
+                    mix.Add(TestTracks.GetRandomTrack(HarmonicKey.Key11A, 128));
                     // 1
-                    mix.Add(TestTracks.Get(HarmonicKey.Key9A, 128));
+                    mix.Add(TestTracks.GetRandomTrack(HarmonicKey.Key9A, 128));
                     // 2
-                    mix.Add(TestTracks.Get(HarmonicKey.Key9A, 128));
+                    mix.Add(TestTracks.GetRandomTrack(HarmonicKey.Key9A, 128));
                     // 3
-                    mix.Add(TestTracks.Get(HarmonicKey.Key9A, 128));
+                    mix.Add(TestTracks.GetRandomTrack(HarmonicKey.Key9A, 128));
                     // 4
                 }
             };
@@ -235,17 +235,17 @@ namespace MixPlanner.Specs.DomainModel
                     container.Resolve<IConfigProvider>().InitializeAsync().Wait();
                     inserter = container.Resolve<IIntelligentInserter>();
                     mix = TestMixes.GetEmptyMix();
-                    track = TestTracks.Get(HarmonicKey.Key10A, 122);
+                    track = TestTracks.GetRandomTrack(HarmonicKey.Key10A, 122);
                     // will be 5A @ 106%
 
                     // 0 
-                    mix.Add(TestTracks.Get(HarmonicKey.Key3A, 136));
+                    mix.Add(TestTracks.GetRandomTrack(HarmonicKey.Key3A, 136));
                     // 1
-                    mix.Add(TestTracks.Get(HarmonicKey.Key7A, 136));
+                    mix.Add(TestTracks.GetRandomTrack(HarmonicKey.Key7A, 136));
                     // 2
-                    mix.Add(TestTracks.Get(HarmonicKey.Key9A, 136));
+                    mix.Add(TestTracks.GetRandomTrack(HarmonicKey.Key9A, 136));
                     // 3
-                    mix.Add(TestTracks.Get(HarmonicKey.Key9A, 136));
+                    mix.Add(TestTracks.GetRandomTrack(HarmonicKey.Key9A, 136));
                     // 4c
                 }
             };

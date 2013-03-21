@@ -5,14 +5,13 @@ namespace MixPlanner.Specs
 {
     public static class TestMixes
     {
-        public static Mix GetRandomMix()
+        public static Mix GetRandomMix(int numberOfTracks = 5)
         {
             var mix = GetEmptyMix();
-            mix.Add(TestTracks.Get(HarmonicKey.RandomKey()));
-            mix.Add(TestTracks.Get(HarmonicKey.RandomKey()));
-            mix.Add(TestTracks.Get(HarmonicKey.RandomKey()));
-            mix.Add(TestTracks.Get(HarmonicKey.RandomKey()));
-            mix.Add(TestTracks.Get(HarmonicKey.RandomKey()));
+
+            for (int i = 0; i < numberOfTracks; i++)
+                mix.Add(TestTracks.GetRandomTrack(HarmonicKey.RandomKey()));
+            
             return mix;
         }
 
