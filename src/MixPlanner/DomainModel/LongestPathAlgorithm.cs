@@ -106,8 +106,10 @@ namespace MixPlanner.DomainModel
                 return true;
             }
 
-            IEnumerable<TEdge> outEdges = Enumerable.Where<TEdge>(VisitedGraph.OutEdges(root.Target), e => !StackContains(stack, e.Target))
-                                                        .ToList();
+            IEnumerable<TEdge> outEdges = VisitedGraph
+                .OutEdges(root.Target)
+                .Where(e => !StackContains(stack, e.Target))
+                .ToList();
 
             if (!outEdges.Any())
                 return false;
