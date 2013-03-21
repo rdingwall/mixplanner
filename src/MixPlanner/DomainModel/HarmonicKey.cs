@@ -6,6 +6,8 @@ namespace MixPlanner.DomainModel
 {
     public class HarmonicKey : IEquatable<HarmonicKey>, IComparable<HarmonicKey>, IComparable
     {
+        static readonly Random random = new Random();
+        
         // e.g. 12A
         private readonly ushort hexValue;
 
@@ -155,9 +157,8 @@ namespace MixPlanner.DomainModel
 
         public static HarmonicKey RandomKey()
         {
-            var random = new Random();
-            var pitch = random.Next(1, 12);
-            var scale = random.Next(0, 1) == 1 ? Scale.Major : Scale.Minor;
+            var pitch = random.Next(1, 13);
+            var scale = random.Next(0, 2) == 1 ? Scale.Major : Scale.Minor;
             return new HarmonicKey(pitch, scale);
         }
 
