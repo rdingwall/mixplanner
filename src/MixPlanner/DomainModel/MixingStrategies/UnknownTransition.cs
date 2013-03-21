@@ -18,5 +18,10 @@ namespace MixPlanner.DomainModel.MixingStrategies
         {
             return other != null && String.Equals(other.Description, Description);
         }
+
+        public override string ToString()
+        {
+            return Description;
+        }
     }
 }
