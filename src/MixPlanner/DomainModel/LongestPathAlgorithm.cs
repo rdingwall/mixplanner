@@ -9,8 +9,14 @@ namespace MixPlanner.DomainModel
     /// <summary>
     /// Modified depth-first search (DFS) algorithm for finding a path from
     /// one vertex to all other vertices, without visiting any vertices twice.
-    /// Designed to find a DJ mix containing all the requested tracks
-    /// (vertexes), using only preferred harmonic mixing strategies (edges).
+    /// It works by traversing unvisited vertices using DFS, until it has
+    /// reached a depth n (where n is the number of vertices in the graph).
+    /// At this point it is complete, and returns the path. While traversing,
+    /// it keeps track of visited vertices, and will not follow any cycles.
+    /// 
+    /// This is designed to find a DJ mix containing all the requested tracks
+    /// (vertexes), using only preferred harmonic mixing strategy transitions
+    /// between them (edges).
     /// 
     /// If more than one path (mix) exists, only the first is returned.
     /// 
