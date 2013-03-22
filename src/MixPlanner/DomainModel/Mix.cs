@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using GalaSoft.MvvmLight.Messaging;
 using MixPlanner.Events;
 using MoreLinq;
 
@@ -23,6 +22,7 @@ namespace MixPlanner.DomainModel
         bool IsEmpty { get; }
         MixItem this[int index] { get; }
         int Count { get; }
+        double CalculateAverageActualBpm();
     }
 
     public class Mix : IMix
@@ -71,6 +71,14 @@ namespace MixPlanner.DomainModel
         public int Count
         {
             get { return items.Count; }
+        }
+
+        public double CalculateAverageActualBpm()
+        {
+            return items
+                .Select(i => i.PlaybackSpeed.ActualBpm)
+                .Where(d => !double.IsNaN(d))
+                .Average();
         }
 
         public void Remove(MixItem item)

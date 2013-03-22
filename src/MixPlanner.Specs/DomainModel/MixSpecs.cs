@@ -1,4 +1,5 @@
-﻿using GalaSoft.MvvmLight.Messaging;
+﻿using System;
+using GalaSoft.MvvmLight.Messaging;
 using Machine.Specifications;
 using MixPlanner.DomainModel;
 using MixPlanner.Events;
@@ -35,6 +36,28 @@ namespace MixPlanner.Specs.DomainModel
             static Track track;
             static Mix mix;
             static IDispatcherMessenger messenger;
+        }
+
+        public class When_calculating_the_average_bpm_of_the_mix
+        {
+            Establish context =
+                () =>
+                {
+                    var messenger = new DispatcherMessenger(new Messenger());
+                    mix = new Mix(messenger, new ActualTransitionDetector(TestMixingStrategies.AllStrategies),
+                                      new DummyPlaybackSpeedAdjuster());
+                    mix.Add(TestTracks.GetRandomTrack(HarmonicKey.Key1A, 100));
+                    mix.Add(TestTracks.GetRandomTrack(HarmonicKey.Key1A, 200));
+                    mix.Add(TestTracks.GetRandomTrack(HarmonicKey.Key1A, Double.NaN));
+                };
+
+            Because of = () => averageBpm = mix.CalculateAverageActualBpm();
+
+            It should_correctly_calculate_the_average_bpm_ignoring_unknown_tracks =
+                () => averageBpm.ShouldBeCloseTo(150, 0.001);
+
+            static Mix mix;
+            static double averageBpm;
         }
     }
 }
