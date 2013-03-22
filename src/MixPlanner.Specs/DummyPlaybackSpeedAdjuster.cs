@@ -1,9 +1,15 @@
-﻿using MixPlanner.DomainModel;
+﻿using System.Collections.Generic;
+using MixPlanner.DomainModel;
 
 namespace MixPlanner.Specs
 {
     public class DummyPlaybackSpeedAdjuster : ILimitingPlaybackSpeedAdjuster
     {
+        public double GetSuggestedIncrease(PlaybackSpeed track, double targetBpm)
+        {
+            return 0;
+        }
+
         public double GetSuggestedIncrease(PlaybackSpeed first, PlaybackSpeed second)
         {
             return 0;
@@ -12,6 +18,16 @@ namespace MixPlanner.Specs
         public PlaybackSpeed AutoAdjust(PlaybackSpeed first, PlaybackSpeed second)
         {
             return second;
+        }
+
+        public PlaybackSpeed AutoAdjust(PlaybackSpeed track, double targetBpm)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void AutoAdjustAll(IEnumerable<PlaybackSpeed> tracks, double targetBpm)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

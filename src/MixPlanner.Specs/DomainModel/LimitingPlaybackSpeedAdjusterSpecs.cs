@@ -14,7 +14,7 @@ namespace MixPlanner.Specs.DomainModel
             protected static PlaybackSpeed Second;
 
             Because of =
-                 () => Increase = new LimitingPlaybackSpeedAdjuster(new PlaybackSpeedAdjuster()).GetSuggestedIncrease(First, Second);
+                 () => Increase = new LimitingPlaybackSpeedAdjuster().GetSuggestedIncrease(First, Second);
         }
 
         public class When_the_two_playback_speeds_were_within_3_percent_of_each_other : FixtureBase
@@ -148,5 +148,39 @@ namespace MixPlanner.Specs.DomainModel
 
              It should_not_recommend_any_increase = () => Increase.ShouldBeCloseTo(0, 0.001);
          }
+
+        public class When_adjusting_multiple_tracks_to_match_an_average_bpm
+        {
+            Establish context =
+                 () =>
+                 {
+                     first = TestPlaybackSpeeds.PlaybackSpeed(128);
+                     second = TestPlaybackSpeeds.PlaybackSpeed(132);
+                     third = TestPlaybackSpeeds.PlaybackSpeed(138);
+                     fourth = TestPlaybackSpeeds.PlaybackSpeed(Double.NaN);
+
+                     adjuster = new LimitingPlaybackSpeedAdjuster();
+                 };
+
+            Because of = () => adjuster.AutoAdjustAll(new[] {first, second, third, fourth}, 133);
+
+            It should_auto_adjust_the_first_track =
+                () => first.Adjustment.ShouldBeCloseTo(0.03);
+
+            It should_auto_adjust_the_second_track =
+                () => second.Adjustment.ShouldBeCloseTo(0);
+
+            It should_auto_adjust_the_third_track =
+                () => third.Adjustment.ShouldBeCloseTo(-0.03);
+
+            It should_not_adjust_the_last_track =
+                () => fourth.Adjustment.ShouldBeCloseTo(0);
+
+            static PlaybackSpeed first;
+            static PlaybackSpeed second;
+            static PlaybackSpeed third;
+            static PlaybackSpeed fourth;
+            static IPlaybackSpeedAdjuster adjuster;
+        }
     }
 }

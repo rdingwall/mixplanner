@@ -1,15 +1,36 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace MixPlanner.DomainModel
 {
     public interface IPlaybackSpeedAdjuster
     {
+        double GetSuggestedIncrease(PlaybackSpeed track, double targetBpm);
+
+        /// <summary>
+        /// Get adjustment required to make second track (proposed) match the
+        /// first (currently playing).
+        /// </summary>
         double GetSuggestedIncrease(PlaybackSpeed first, PlaybackSpeed second);
+
         PlaybackSpeed AutoAdjust(PlaybackSpeed first, PlaybackSpeed second);
+        PlaybackSpeed AutoAdjust(PlaybackSpeed track, double targetBpm);
+        void AutoAdjustAll(IEnumerable<PlaybackSpeed> tracks, double targetBpm);
     }
 
     public class PlaybackSpeedAdjuster : IPlaybackSpeedAdjuster
     {
+        public virtual double GetSuggestedIncrease(PlaybackSpeed track, double targetBpm)
+        {
+            if (track.IsUnknownBpm)
+                return 0;
+
+            double increaseRequired = track.GetExactIncreaseRequiredToMatch(targetBpm);
+            double nearestInterval = increaseRequired.FloorToNearest(PitchFaderStep.Value);
+
+            return nearestInterval;
+        }
+
         public double GetSuggestedIncrease(PlaybackSpeed first, PlaybackSpeed second)
         {
             if (first == null) throw new ArgumentNullException("first");
@@ -18,10 +39,7 @@ namespace MixPlanner.DomainModel
             if (first.IsUnknownBpm || second.IsUnknownBpm)
                 return 0;
 
-            var increaseRequired = second.GetExactIncreaseRequiredToMatch(first);
-            var nearestInterval = increaseRequired.FloorToNearest(PitchFaderStep.Value);
-
-            return nearestInterval;
+            return GetSuggestedIncrease(second, first.ActualBpm);
         }
 
         public PlaybackSpeed AutoAdjust(PlaybackSpeed first, PlaybackSpeed second)
@@ -29,9 +47,28 @@ namespace MixPlanner.DomainModel
             if (first == null) throw new ArgumentNullException("first");
             if (second == null) throw new ArgumentNullException("second");
 
-            var increase = GetSuggestedIncrease(first, second);
+            return AutoAdjust(second, targetBpm: first.ActualBpm);
+        }
 
-            return second.AsIncreasedBy(increase);
+        public virtual PlaybackSpeed AutoAdjust(PlaybackSpeed track, double targetBpm)
+        {
+            if (track == null) throw new ArgumentNullException("track");
+
+            double increase = GetSuggestedIncrease(track, targetBpm);
+
+            return track.AsIncreasedBy(increase);
+        }
+
+        public virtual void AutoAdjustAll(
+            IEnumerable<PlaybackSpeed> tracks, double targetBpm)
+        {
+            if (tracks == null) throw new ArgumentNullException("tracks");
+
+            foreach (var track in tracks)
+            {
+                double increase = GetSuggestedIncrease(track, targetBpm);
+                track.Increase(increase);
+            }
         }
     }
 }

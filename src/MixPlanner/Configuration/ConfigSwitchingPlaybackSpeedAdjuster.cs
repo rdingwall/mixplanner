@@ -1,33 +1,37 @@
 ﻿using System;
+using System.Collections.Generic;
 using MixPlanner.DomainModel;
 
 namespace MixPlanner.Configuration
 {
-    public class ConfigSwitchingPlaybackSpeedAdjuster : ILimitingPlaybackSpeedAdjuster
+    public class ConfigSwitchingPlaybackSpeedAdjuster : LimitingPlaybackSpeedAdjuster
     {
         readonly IConfigProvider configProvider;
-        readonly ILimitingPlaybackSpeedAdjuster impl;
 
         public ConfigSwitchingPlaybackSpeedAdjuster(
-            IConfigProvider configProvider,
-            ILimitingPlaybackSpeedAdjuster impl)
+            IConfigProvider configProvider)
         {
             if (configProvider == null) throw new ArgumentNullException("configProvider");
-            if (impl == null) throw new ArgumentNullException("impl");
             this.configProvider = configProvider;
-            this.impl = impl;
         }
 
-        public double GetSuggestedIncrease(PlaybackSpeed first, PlaybackSpeed second)
+        public override double GetSuggestedIncrease(PlaybackSpeed first, double targetBpm)
         {
             var config = configProvider.Config;
-            return config.ShouldSuggestBpmAdjustments() ? impl.GetSuggestedIncrease(first, second) : 0;
+            return config.ShouldSuggestBpmAdjustments() ? base.GetSuggestedIncrease(first, targetBpm) : 0;
         }
 
-        public PlaybackSpeed AutoAdjust(PlaybackSpeed first, PlaybackSpeed second)
+        public override PlaybackSpeed AutoAdjust(PlaybackSpeed track, double targetBpm)
         {
             var config = configProvider.Config;
-            return config.ShouldAutoAdjustBpms() ? impl.AutoAdjust(first, second) : second;
+            return config.ShouldAutoAdjustBpms() ? base.AutoAdjust(track, targetBpm) : track;
+        }
+
+        public override void AutoAdjustAll(IEnumerable<PlaybackSpeed> tracks, double targetBpm)
+        {
+            var config = configProvider.Config;
+            if (config.ShouldAutoAdjustBpms())
+                base.AutoAdjustAll(tracks, targetBpm);
         }
     }
 }
