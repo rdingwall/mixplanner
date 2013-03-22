@@ -3,7 +3,7 @@ using System.Linq;
 using QuickGraph;
 using QuickGraph.Algorithms.Services;
 
-namespace MixPlanner.DomainModel
+namespace MixPlanner.DomainModel.AutoMixing
 {
     /// <summary>
     /// Same as LongestPathAlgorithm, but doesn't stop after finding a path

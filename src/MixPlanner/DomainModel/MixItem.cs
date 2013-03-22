@@ -23,6 +23,7 @@ namespace MixPlanner.DomainModel
         public Mix Mix { get; private set; }
         public Track Track { get; private set; }
         public Transition Transition { get; set; }
+        public HarmonicKey ActualKey { get { return PlaybackSpeed.ActualKey; } }
 
         public void SetPlaybackSpeed(double value)
         {

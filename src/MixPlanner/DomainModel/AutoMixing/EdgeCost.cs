@@ -1,6 +1,6 @@
-﻿using System;
+using System;
 
-namespace MixPlanner.DomainModel
+namespace MixPlanner.DomainModel.AutoMixing
 {
     public class EdgeCost : IEquatable<EdgeCost>, IComparable<EdgeCost>, IComparable
     {

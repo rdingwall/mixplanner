@@ -4,13 +4,14 @@ using System.Diagnostics;
 using System.Linq;
 using Machine.Specifications;
 using MixPlanner.DomainModel;
+using MixPlanner.DomainModel.AutoMixing;
 using QuickGraph;
 using SharpTestsEx;
 
-namespace MixPlanner.Specs.DomainModel
+namespace MixPlanner.Specs.DomainModel.AutoMixing
 {
-    [Subject(typeof(AllLongestPathsAlgorithm<,>))]
-    public class AllLongestPathsAlgorithmSpecs
+    [Subject(typeof(LongestPathAlgorithm<,>))]
+    public class LongestPathAlgorithmSpecs
     {
         public class When_there_were_multiple_valid_paths
         {
@@ -42,7 +43,7 @@ namespace MixPlanner.Specs.DomainModel
                 () =>
                 {
                     var sw = Stopwatch.StartNew();
-                    var algo = new AllLongestPathsAlgorithm<PlaybackSpeed, StrategyEdge>(graph);
+                    var algo = new LongestPathAlgorithm<PlaybackSpeed, StrategyEdge>(graph);
                     //algo.SetRootVertex(graph.Vertices.Single(v => v.ActualKey.Equals(HarmonicKey.Key11A)));
                     algo.Compute();
                     sw.Stop();
@@ -110,7 +111,7 @@ namespace MixPlanner.Specs.DomainModel
                 () =>
                 {
                     var sw = Stopwatch.StartNew();
-                    var algo = new AllLongestPathsAlgorithm<PlaybackSpeed, StrategyEdge>(graph);
+                    var algo = new LongestPathAlgorithm<PlaybackSpeed, StrategyEdge>(graph);
                     //algo.SetRootVertex(graph.Vertices.Single(v => v.ActualKey.Equals(HarmonicKey.Key11A)));
                     algo.Compute();
                     sw.Stop();
@@ -156,7 +157,7 @@ namespace MixPlanner.Specs.DomainModel
                 () =>
                 {
                     var sw = Stopwatch.StartNew();
-                    var algo = new AllLongestPathsAlgorithm<PlaybackSpeed, StrategyEdge>(graph);
+                    var algo = new LongestPathAlgorithm<PlaybackSpeed, StrategyEdge>(graph);
                     //algo.SetRootVertex(graph.Vertices.Single(v => v.ActualKey.Equals(HarmonicKey.Key11A)));
                     algo.Compute();
                     sw.Stop();
@@ -184,6 +185,20 @@ namespace MixPlanner.Specs.DomainModel
             static AdjacencyGraph<PlaybackSpeed, StrategyEdge> graph;
             static LongestPathAlgorithmTestCase testCase;
             static IEnumerable<IMixingStrategy> strategies;
+        }
+    }
+
+    public class StrategyEdge : Edge<PlaybackSpeed>
+    {
+        public IMixingStrategy Strategy { get; private set; }
+
+        public StrategyEdge(
+            PlaybackSpeed source,
+            PlaybackSpeed target,
+            IMixingStrategy strategy)
+            : base(source, target)
+        {
+            Strategy = strategy;
         }
     }
 }

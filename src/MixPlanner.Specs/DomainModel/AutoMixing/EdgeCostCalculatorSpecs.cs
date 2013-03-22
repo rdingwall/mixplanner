@@ -1,14 +1,15 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Castle.Windsor;
 using Machine.Specifications;
 using MixPlanner.Configuration;
 using MixPlanner.DomainModel;
-using SharpTestsEx;
+using MixPlanner.DomainModel.AutoMixing;
 using MoreLinq;
+using SharpTestsEx;
 
-namespace MixPlanner.Specs.DomainModel
+namespace MixPlanner.Specs.DomainModel.AutoMixing
 {
     [Subject(typeof(EdgeCostCalculator))]
     public class EdgeCostCalculatorSpecs

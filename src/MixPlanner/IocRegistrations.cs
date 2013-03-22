@@ -10,6 +10,7 @@ using GalaSoft.MvvmLight.Messaging;
 using MixPlanner.Configuration;
 using MixPlanner.Converters;
 using MixPlanner.DomainModel;
+using MixPlanner.DomainModel.AutoMixing;
 using MixPlanner.Loader;
 using MixPlanner.Player;
 using MixPlanner.Storage;

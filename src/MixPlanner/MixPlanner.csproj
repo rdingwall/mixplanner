@@ -184,12 +184,13 @@
     <Compile Include="Converters\PlaySpeedConverter.cs" />
     <Compile Include="Converters\TraditionalTextHarmonicKeyConverter.cs" />
     <Compile Include="Converters\TransitionDescriptionConverter.cs" />
-    <Compile Include="DomainModel\AllLongestPathsAlgorithm.cs" />
+    <Compile Include="DomainModel\AutoMixing\AllLongestPathsAlgorithm.cs" />
+    <Compile Include="DomainModel\AutoMixing\EdgeCost.cs" />
+    <Compile Include="DomainModel\AutoMixing\EdgeCostCalculator.cs" />
+    <Compile Include="DomainModel\AutoMixing\LongestPathAlgorithm.cs" />
     <Compile Include="DomainModel\BpmRangeChecker.cs" />
     <Compile Include="Configuration\Config.cs" />
     <Compile Include="Configuration\ConfigProvider.cs" />
-    <Compile Include="DomainModel\EdgeCost.cs" />
-    <Compile Include="DomainModel\EdgeCostCalculator.cs" />
     <Compile Include="DomainModel\HarmonicKeyDisplayMode.cs" />
     <Compile Include="DomainModel\HarmonicKeyChangeInterval.cs" />
     <Compile Include="DomainModel\IMixingStrategy.cs" />
@@ -200,7 +201,6 @@
     <Compile Include="DomainModel\ITrackLibrary.cs" />
     <Compile Include="DomainModel\HarmonicKey.cs" />
     <Compile Include="DomainModel\LimitingPlaybackSpeedAdjuster.cs" />
-    <Compile Include="DomainModel\LongestPathAlgorithm.cs" />
     <Compile Include="DomainModel\Mix.cs" />
     <Compile Include="DomainModel\MixingStrategies\CompatibleBpmMixingStrategyBase.cs" />
     <Compile Include="DomainModel\MixingStrategies\OneSemitoneDecrease.cs" />

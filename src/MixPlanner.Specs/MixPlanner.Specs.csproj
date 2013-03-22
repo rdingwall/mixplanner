@@ -156,13 +156,14 @@
     <Compile Include="Converters\TraditionalSymbolsHarmonicKeyConverterSpecs.cs" />
     <Compile Include="Converters\PlaySpeedConverterSpecs.cs" />
     <Compile Include="Converters\TransitionDescriptionConverterSpecs.cs" />
-    <Compile Include="DomainModel\AssertExtensions.cs" />
-    <Compile Include="DomainModel\AllLongestPathsAlgorithmSpecs.cs" />
-    <Compile Include="DomainModel\LongestPathAlgorithmSpecs.cs" />
-    <Compile Include="DomainModel\EdgeCostCalculatorSpecs.cs" />
+    <Compile Include="DomainModel\AutoMixing\AllLongestPathsAlgorithmSpecs.cs" />
+    <Compile Include="DomainModel\AutoMixing\AssertExtensions.cs" />
+    <Compile Include="DomainModel\AutoMixing\EdgeCostCalculatorSpecs.cs" />
+    <Compile Include="DomainModel\AutoMixing\LongestPathAlgorithmSpecs.cs" />
+    <Compile Include="DomainModel\AutoMixing\LongestPathAlgorithmTestCase.cs" />
+    <Compile Include="DomainModel\AutoMixing\LongestPathAlgorithmTestCases.cs" />
     <Compile Include="DomainModel\HarmonicKeySpecs.cs" />
     <Compile Include="DomainModel\IntelligentInserterSpecs.cs" />
-    <Compile Include="DomainModel\LongestPathAlgorithmTestCase.cs" />
     <Compile Include="DomainModel\MixingStrategiesFactorySpecs.cs" />
     <Compile Include="DomainModel\MixingStrategies\OneSemitoneDecreaseSpecs.cs" />
     <Compile Include="DomainModel\MixingStrategies\UnknownTransitionSpecs.cs" />
@@ -180,7 +181,6 @@
     <Compile Include="DomainModel\LimitingPlaybackSpeedAdjusterSpecs.cs" />
     <Compile Include="DomainModel\PlaybackSpeedSpecs.cs" />
     <Compile Include="DomainModel\RecommendedTransitionDetectorSpecs.cs" />
-    <Compile Include="DomainModel\LongestPathAlgorithmTestCases.cs" />
     <Compile Include="DomainModel\TrackSpecs.cs" />
     <Content Include="DummyPlaylist.m3u">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -216,6 +216,7 @@
       <Name>MixPlanner</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>xcopy /y C:\dev\mixplanner_test_tracks\* $(TargetDir)</PostBuildEvent>

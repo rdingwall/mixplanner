@@ -1,6 +1,6 @@
-﻿using MixPlanner.DomainModel;
+using MixPlanner.DomainModel;
 
-namespace MixPlanner.Specs.DomainModel
+namespace MixPlanner.Specs.DomainModel.AutoMixing
 {
     public static class LongestPathAlgorithmTestCases
     {

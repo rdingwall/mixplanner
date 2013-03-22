@@ -4,7 +4,7 @@ using QuickGraph;
 using QuickGraph.Algorithms;
 using QuickGraph.Algorithms.Services;
 
-namespace MixPlanner.DomainModel
+namespace MixPlanner.DomainModel.AutoMixing
 {
     /// <summary>
     /// Modified depth-first search (DFS) algorithm for finding a path from

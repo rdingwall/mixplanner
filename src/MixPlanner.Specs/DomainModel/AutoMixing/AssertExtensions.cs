@@ -2,12 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using MixPlanner.DomainModel;
+using MixPlanner.DomainModel.AutoMixing;
 using NUnit.Framework;
-using QuickGraph;
 using SharpTestsEx;
-using MoreLinq;
 
-namespace MixPlanner.Specs.DomainModel
+namespace MixPlanner.Specs.DomainModel.AutoMixing
 {
     public static class AssertExtensions
     {

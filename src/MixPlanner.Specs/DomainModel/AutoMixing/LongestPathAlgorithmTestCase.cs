@@ -1,9 +1,9 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using MixPlanner.DomainModel;
 
-namespace MixPlanner.Specs.DomainModel
+namespace MixPlanner.Specs.DomainModel.AutoMixing
 {
     public class LongestPathAlgorithmTestCase
     {
