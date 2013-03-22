@@ -157,6 +157,7 @@
     <Compile Include="Converters\PlaySpeedConverterSpecs.cs" />
     <Compile Include="Converters\TransitionDescriptionConverterSpecs.cs" />
     <Compile Include="DomainModel\AssertExtensions.cs" />
+    <Compile Include="DomainModel\AllLongestPathsAlgorithmSpecs.cs" />
     <Compile Include="DomainModel\LongestPathAlgorithmSpecs.cs" />
     <Compile Include="DomainModel\EdgeCostCalculatorSpecs.cs" />
     <Compile Include="DomainModel\HarmonicKeySpecs.cs" />

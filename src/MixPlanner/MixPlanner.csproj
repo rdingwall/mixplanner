@@ -184,6 +184,7 @@
     <Compile Include="Converters\PlaySpeedConverter.cs" />
     <Compile Include="Converters\TraditionalTextHarmonicKeyConverter.cs" />
     <Compile Include="Converters\TransitionDescriptionConverter.cs" />
+    <Compile Include="DomainModel\AllLongestPathsAlgorithm.cs" />
     <Compile Include="DomainModel\BpmRangeChecker.cs" />
     <Compile Include="Configuration\Config.cs" />
     <Compile Include="Configuration\ConfigProvider.cs" />

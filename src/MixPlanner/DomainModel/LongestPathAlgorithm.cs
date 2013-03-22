@@ -29,7 +29,7 @@ namespace MixPlanner.DomainModel
     /// strategies gives us a nice manageable ceiling in any mix of 24 vertices
     /// and 96 edges.
     /// </summary>
-    public sealed class LongestPathAlgorithm<TVertex, TEdge> :
+    public class LongestPathAlgorithm<TVertex, TEdge> :
         RootedAlgorithmBase<TVertex, 
         IVertexListGraph<TVertex, TEdge>>
         where TEdge : IEdge<TVertex>
@@ -49,6 +49,11 @@ namespace MixPlanner.DomainModel
         }
 
         public IEnumerable<IEnumerable<TEdge>> LongestPaths { get { return longestPaths; } } 
+        
+        protected void AddResult(IEnumerable<TEdge> path)
+        {
+            longestPaths.Add(path);
+        }
 
         protected override void InternalCompute()
         {
@@ -58,7 +63,7 @@ namespace MixPlanner.DomainModel
             {
                 IEnumerable<TEdge> path;
                 if (TryFindDeepest(rootVertex, out path))
-                    longestPaths.Add(path);
+                    AddResult(path);
             }
             else
             {
@@ -71,7 +76,7 @@ namespace MixPlanner.DomainModel
 
                     IEnumerable<TEdge> path;
                     if (TryFindDeepest(u, out path))
-                        longestPaths.Add(path);
+                        AddResult(path);
                 }
             }
         }
@@ -94,7 +99,7 @@ namespace MixPlanner.DomainModel
             return false;
         }
 
-        private static bool StackContains(Stack<TEdge> stack, TVertex vertex)
+        protected static bool StackContains(Stack<TEdge> stack, TVertex vertex)
         {
             if (!stack.Any())
                 return false;
