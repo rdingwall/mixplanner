@@ -34,5 +34,15 @@ namespace MixPlanner.DomainModel
         {
             PlaybackSpeed = Track.GetDefaultPlaybackSpeed();
         }
+
+        public override string ToString()
+        {
+            return String.Format("{0} {1}", Track, PlaybackSpeed);
+        }
+
+        public PlaybackSpeed GetDefaultPlaybackSpeed()
+        {
+            return Track.GetDefaultPlaybackSpeed();
+        }
     }
 }

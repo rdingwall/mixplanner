@@ -59,5 +59,45 @@ namespace MixPlanner.Specs.DomainModel
             static Mix mix;
             static double averageBpm;
         }
+
+        public class When_auto_adjusting_all_the_tracks_playback_speeds_to_match_the_average_bpm
+        {
+            Establish context =
+                () =>
+                {
+                    first = TestTracks.GetRandomTrack(128);
+                    second = TestTracks.GetRandomTrack(132);
+                    third = TestTracks.GetRandomTrack(138);
+                    fourth = TestTracks.GetRandomTrack(Double.NaN);
+
+                    var messenger = new DispatcherMessenger(new Messenger());
+                    mix = new Mix(messenger, new ActualTransitionDetector(TestMixingStrategies.AllStrategies),
+                                      new LimitingPlaybackSpeedAdjuster());
+                    mix.Add(first);
+                    mix.Add(second);
+                    mix.Add(third);
+                    mix.Add(fourth);
+                };
+
+            Because of = () => mix.AutoAdjustBpms();
+
+            It should_auto_adjust_the_first_track =
+                () => mix.GetMixItem(first).PlaybackSpeed.Adjustment.ShouldBeCloseTo(0.03);
+
+            It should_auto_adjust_the_second_track =
+                () => mix.GetMixItem(second).PlaybackSpeed.Adjustment.ShouldBeCloseTo(0);
+
+            It should_auto_adjust_the_third_track =
+                () => mix.GetMixItem(third).PlaybackSpeed.Adjustment.ShouldBeCloseTo(-0.03);
+
+            It should_not_adjust_the_last_track =
+                () => mix.GetMixItem(fourth).PlaybackSpeed.Adjustment.ShouldBeCloseTo(0);
+
+            static Track first;
+            static Track second;
+            static Track third;
+            static Track fourth;
+            static IMix mix;
+        }
     }
 }

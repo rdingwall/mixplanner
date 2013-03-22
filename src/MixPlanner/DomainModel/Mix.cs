@@ -23,6 +23,9 @@ namespace MixPlanner.DomainModel
         MixItem this[int index] { get; }
         int Count { get; }
         double CalculateAverageActualBpm();
+        double CalculateAverageOriginalBpm();
+        void AutoAdjustBpms();
+        MixItem GetMixItem(Track track);
     }
 
     public class Mix : IMix
@@ -79,6 +82,33 @@ namespace MixPlanner.DomainModel
                 .Select(i => i.PlaybackSpeed.ActualBpm)
                 .Where(d => !double.IsNaN(d))
                 .Average();
+        }
+
+        public double CalculateAverageOriginalBpm()
+        {
+            return items
+                .Select(i => i.Track.OriginalBpm)
+                .Where(d => !double.IsNaN(d))
+                .Average();
+        }
+
+        public void AutoAdjustBpms()
+        {
+            double targetBpm = CalculateAverageOriginalBpm();
+
+            foreach (MixItem item in items)
+            {
+                double increase = 1 + playbackSpeedAdjuster
+                    .GetSuggestedIncrease(item.GetDefaultPlaybackSpeed(), targetBpm);
+
+                AdjustPlaybackSpeed(item, increase);
+            }
+        }
+
+        public MixItem GetMixItem(Track track)
+        {
+            if (track == null) throw new ArgumentNullException("track");
+            return items.FirstOrDefault(i => i.Track.Equals(track));
         }
 
         public void Remove(MixItem item)
