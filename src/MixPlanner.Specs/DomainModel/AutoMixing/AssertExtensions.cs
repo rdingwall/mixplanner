@@ -60,8 +60,11 @@ namespace MixPlanner.Specs.DomainModel.AutoMixing
 
         public static void PrintPaths(this LongestPathAlgorithm<PlaybackSpeed, StrategyEdge> algo)
         {
-            foreach (var path in algo.LongestPaths)
+            foreach (IEnumerable<StrategyEdge> path in algo.LongestPaths)
             {
+                if (!path.Any())
+                    continue;
+
                 var vertices = path.Select(e => e.Source.ActualKey).Concat(new[] { path.Last().Target.ActualKey });
                 Console.WriteLine("{0}", String.Join(" -> ", vertices));
             }

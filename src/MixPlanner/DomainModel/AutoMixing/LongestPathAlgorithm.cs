@@ -113,9 +113,7 @@ namespace MixPlanner.DomainModel.AutoMixing
         {
             if (stack.Count == VisitedGraph.VertexCount - 2)
             {
-                var result = stack.Reverse().ToList();
-                result.Add(root);
-                AddResult(result);
+                stack.Push(root);
                 return true;
             }
 
