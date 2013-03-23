@@ -32,6 +32,7 @@ namespace MixPlanner.DomainModel
         void MoveToEnd(IMixItem track);
         IMixItem GetPreceedingItem(IMixItem item);
         IMixItem GetFollowingItem(IMixItem item);
+        void AutoAdjustBpms(IEnumerable<IMixItem> items);
     }
 
     public class Mix : IMix
@@ -96,7 +97,13 @@ namespace MixPlanner.DomainModel
 
         public void AutoAdjustBpms()
         {
-            double targetBpm = CalculateAverageOriginalBpm();
+            AutoAdjustBpms(items);
+        }
+
+        public void AutoAdjustBpms(IEnumerable<IMixItem> items)
+        {
+            if (items == null) throw new ArgumentNullException("items");
+            double targetBpm = CalculateAverageActualBpm();
 
             foreach (MixItem item in items)
             {
@@ -151,6 +158,8 @@ namespace MixPlanner.DomainModel
             int followingIndex = IndexOf(item) + 1;
             return followingIndex == Count ? null : this[followingIndex];
         }
+
+        
 
         void EnableRecalcTransitions()
         {

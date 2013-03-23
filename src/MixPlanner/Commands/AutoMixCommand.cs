@@ -34,16 +34,17 @@ namespace MixPlanner.Commands
 
         protected override void Execute(IEnumerable<IMixItem> parameter)
         {
-            AutoMixingContext context = contextFactory.CreateContext(mix, parameter);
-            AutoMixingResult results = strategy.AutoMix(context);
-
-            if (!results.IsSuccess)
-                return;
-
-            int startIndex = mix.IndexOf(parameter.First());
-
             using (mix.DisableRecalcTransitions())
             {
+                mix.AutoAdjustBpms(parameter);
+                AutoMixingContext context = contextFactory.CreateContext(mix, parameter);
+                AutoMixingResult results = strategy.AutoMix(context);
+
+                if (!results.IsSuccess)
+                    return;
+
+                int startIndex = mix.IndexOf(parameter.First());
+            
                 for (int i = 0; i < results.MixedTracks.Count; i++)
                 {
                     IMixItem item = results.MixedTracks[i];

@@ -31,61 +31,18 @@ namespace MixPlanner.DomainModel.AutoMixing
         public AutoMixingResult AutoMix(AutoMixingContext context)
         {
             if (context == null) throw new ArgumentNullException("context");
-            
-            List<IMixItem> unknownTracks = context.TracksToMix.Where(c => c.IsUnknownKeyOrBpm).ToList();
+
+            IEnumerable<IMixItem> unknownTracks = context.TracksToMix.Where(c => c.IsUnknownKeyOrBpm).ToList();
             IEnumerable<IMixItem> mixableTracks = context.TracksToMix.Except(unknownTracks);
 
-            var groups = mixableTracks.GroupByBpmRange();
-
-            Log.DebugFormat("{0} mixable tracks, {1} bpm range, {2} unmixable tracks (unknown key/BPM)",
-                mixableTracks.Count(), groups.Count(), unknownTracks);
-
-            var mixedTracks = new List<IMixItem>();
-            var failedTracks = new List<IMixItem>();
-
-            bool success = false;
-
-            foreach (IGrouping<BpmRange, IMixItem> group in groups)
-            {
-                Log.DebugFormat("Auto-mixing BPM range {0}", group.Key);
-
-                IEnumerable<IMixItem> mixed;
-                if (TryAutoMixBpmGroup(context, group, out mixed))
-                {
-                    success = true;
-                    mixedTracks.AddRange(mixed);
-                }
-                else
-                    failedTracks.AddRange(group);
-            }
-
-            if (!success)
-            {
-                Log.Debug("Failed to find any auto mix paths. Returning unmodified tracks.");
-                return AutoMixingResult.Failure(context);
-            }
-
-            return AutoMixingResult.Success(context, mixedTracks, failedTracks.Concat(unknownTracks));
-        }
-
-        bool TryAutoMixBpmGroup(AutoMixingContext context, 
-            IEnumerable<IMixItem> tracks, out IEnumerable<IMixItem> mixedTracks)
-        {
-            if (tracks.Count() == 1)
-            {
-                mixedTracks = tracks;
-                return true;
-            }
-
             AutoMixingBucket optionalStartVertex;
-            AdjacencyGraph<AutoMixingBucket, AutoMixEdge> graph
-                = BuildGraph(tracks, context, out optionalStartVertex);
+            AdjacencyGraph<AutoMixingBucket, AutoMixEdge> graph 
+                = BuildGraph(mixableTracks, unknownTracks, context, out optionalStartVertex);
 
             AddPreferredEdges(graph);
 
-            IEnumerable<AutoMixingBucket> mixedBuckets = GetPreferredMix(graph,
-                                                                         optionalStartVertex,
-                                                                         context.GetOptionalEndKey());
+            IEnumerable<AutoMixingBucket> mixedBuckets = GetPreferredMix(graph, 
+                optionalStartVertex, context.GetOptionalEndKey());
 
             if (mixedBuckets == null)
             {
@@ -96,12 +53,13 @@ namespace MixPlanner.DomainModel.AutoMixing
 
             if (mixedBuckets == null)
             {
-                mixedTracks = null;
-                return false;
+                Log.Debug("Failed to find any auto mix paths. Returning unmodified tracks.");
+                return AutoMixingResult.Failure(context);
             }
 
-            mixedTracks = UnpackBuckets(mixedBuckets);
-            return true;
+            IEnumerable<IMixItem> mixedTracks = UnpackBuckets(mixedBuckets);
+
+            return AutoMixingResult.Success(context, mixedTracks, unknownTracks);
         }
 
         void AddPreferredEdges(IMutableEdgeListGraph<AutoMixingBucket, AutoMixEdge> graph)
@@ -118,6 +76,7 @@ namespace MixPlanner.DomainModel.AutoMixing
 
         static AdjacencyGraph<AutoMixingBucket, AutoMixEdge> BuildGraph(
             IEnumerable<IMixItem> mixableTracks, 
+            IEnumerable<IMixItem> unknownTracks, 
             AutoMixingContext context, out AutoMixingBucket optionalStartVertex)
         {
             IList<AutoMixingBucket> buckets = mixableTracks
@@ -125,8 +84,8 @@ namespace MixPlanner.DomainModel.AutoMixing
                 .Select(g => new AutoMixingBucket(g, g.Key))
                 .ToList();
 
-            Log.DebugFormat("{0} mixable tracks ({1} buckets aka vertices).",
-                            mixableTracks.Count(), buckets.Count());
+            Log.DebugFormat("{0} mixable tracks ({1} buckets aka vertices), {2} unmixable tracks (unknown key/BPM).",
+                            mixableTracks.Count(), buckets.Count(), unknownTracks.Count());
 
             var graph = new AdjacencyGraph<AutoMixingBucket, AutoMixEdge>();
 

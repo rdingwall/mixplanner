@@ -194,11 +194,8 @@
     <Compile Include="DomainModel\AutoMixing\AutoMixingContext.cs" />
     <Compile Include="DomainModel\AutoMixing\AutoMixingResult.cs" />
     <Compile Include="DomainModel\AutoMixing\AutoMixingStrategy.cs" />
-    <Compile Include="DomainModel\AutoMixing\BpmRange.cs" />
-    <Compile Include="DomainModel\AutoMixing\BpmRangeCalculator.cs" />
     <Compile Include="DomainModel\AutoMixing\EdgeCost.cs" />
     <Compile Include="DomainModel\AutoMixing\EdgeCostCalculator.cs" />
-    <Compile Include="DomainModel\AutoMixing\GroupByBpmRange.cs" />
     <Compile Include="DomainModel\AutoMixing\LongestPathAlgorithm.cs" />
     <Compile Include="DomainModel\AutoMixing\AutoMixEdge.cs" />
     <Compile Include="DomainModel\BpmRangeChecker.cs" />
