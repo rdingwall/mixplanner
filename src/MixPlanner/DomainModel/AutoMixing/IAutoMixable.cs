@@ -6,7 +6,7 @@
     /// </summary>
     public interface IAutoMixable
     {
-        PlaybackSpeed PlaybackSpeed { get; }
+        HarmonicKey ActualKey { get; }
         bool IsUnknownKeyOrBpm { get; }
     }
 }

@@ -40,8 +40,8 @@ namespace MixPlanner.Specs.DomainModel.AutoMixing
                 () => result.UnknownTracks.Should().Have.SameValuesAs(unknownTracks);
 
             It should_find_the_resulting_path =
-                () => result.MixedTracks.Select(t => t.PlaybackSpeed.ActualKey)
-                            .Should().Have.SameSequenceAs(testCase.ExpectedPaths[result.MixedTracks.First().PlaybackSpeed.ActualKey]);
+                () => result.MixedTracks.Select(t => t.ActualKey)
+                            .Should().Have.SameSequenceAs(testCase.ExpectedPaths[result.MixedTracks.First().ActualKey]);
 
             static IAutoMixingStrategy<TestTrack> strategy;
             static AutoMixingContext<TestTrack> mixingContext;
@@ -87,7 +87,7 @@ namespace MixPlanner.Specs.DomainModel.AutoMixing
                 () => result.UnknownTracks.Should().Have.SameValuesAs(unknownTracks);
 
             It should_find_the_resulting_using_the_specified_start_and_end_key =
-                () => result.MixedTracks.Select(t => t.PlaybackSpeed.ActualKey)
+                () => result.MixedTracks.Select(t => t.ActualKey)
                             .Should().Have.SameSequenceAs(expectedMix);
 
             static IAutoMixingStrategy<TestTrack> strategy;
@@ -137,7 +137,7 @@ namespace MixPlanner.Specs.DomainModel.AutoMixing
                 () => result.UnknownTracks.Should().Have.SameValuesAs(unknownTracks);
 
             It should_find_the_resulting_using_the_specified_start_and_end_key =
-                () => result.MixedTracks.Select(t => t.PlaybackSpeed.ActualKey)
+                () => result.MixedTracks.Select(t => t.ActualKey)
                             .Should().Have.SameSequenceAs(expectedMix);
 
             static IAutoMixingStrategy<TestTrack> strategy;
@@ -192,7 +192,7 @@ namespace MixPlanner.Specs.DomainModel.AutoMixing
 
         public class TestTrack : IAutoMixable, IEquatable<TestTrack>
         {
-            public PlaybackSpeed PlaybackSpeed { get; set; }
+            public HarmonicKey ActualKey { get; set; }
             public bool IsUnknownKeyOrBpm { get; set; }
 
             public TestTrack(bool isUnknownKeyOrBpm)
@@ -200,29 +200,29 @@ namespace MixPlanner.Specs.DomainModel.AutoMixing
                 IsUnknownKeyOrBpm = isUnknownKeyOrBpm;
             }
 
-            public TestTrack(PlaybackSpeed playbackSpeed)
-            {
-                PlaybackSpeed = playbackSpeed;
-            }
-
             public TestTrack(HarmonicKey key)
             {
-                PlaybackSpeed = new PlaybackSpeed(key, 128);
+                ActualKey = key;
+            }
+
+            public TestTrack(PlaybackSpeed playbackSpeed)
+            {
+                ActualKey = playbackSpeed.ActualKey;
             }
 
             public override string ToString()
             {
-                if (PlaybackSpeed == null)
+                if (ActualKey == null)
                     return "unknown";
 
-                return PlaybackSpeed.ActualKey.ToString();
+                return ActualKey.ToString();
             }
 
             public bool Equals(TestTrack other)
             {
                 if (ReferenceEquals(null, other)) return false;
                 if (ReferenceEquals(this, other)) return true;
-                return Equals(PlaybackSpeed, other.PlaybackSpeed) && IsUnknownKeyOrBpm.Equals(other.IsUnknownKeyOrBpm);
+                return Equals(ActualKey, other.ActualKey) && IsUnknownKeyOrBpm.Equals(other.IsUnknownKeyOrBpm);
             }
 
             public override bool Equals(object obj)
@@ -237,7 +237,7 @@ namespace MixPlanner.Specs.DomainModel.AutoMixing
             {
                 unchecked
                 {
-                    return ((PlaybackSpeed != null ? PlaybackSpeed.GetHashCode() : 0) * 397) ^ IsUnknownKeyOrBpm.GetHashCode();
+                    return ((ActualKey != null ? ActualKey.GetHashCode() : 0) * 397) ^ IsUnknownKeyOrBpm.GetHashCode();
                 }
             }
         }

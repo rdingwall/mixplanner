@@ -15,17 +15,17 @@ namespace MixPlanner.DomainModel.AutoMixing
             if (harmonicKey == null) throw new ArgumentNullException("harmonicKey");
             if (!tracks.Any()) throw new ArgumentException("Bucket cannot be empty.", "tracks");
             this.tracks = tracks;
-            PlaybackSpeed = new PlaybackSpeed(harmonicKey, 128);
+            ActualKey = harmonicKey;
         }
 
-        public PlaybackSpeed PlaybackSpeed { get; private set; }
+        public HarmonicKey ActualKey { get; private set; }
         public bool IsUnknownKeyOrBpm { get { return false; } }
 
         public bool Equals(AutoMixingBucket<T> other)
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return Equals(PlaybackSpeed, other.PlaybackSpeed);
+            return Equals(ActualKey, other.ActualKey);
         }
 
         public IEnumerator<T> GetEnumerator()
@@ -43,7 +43,7 @@ namespace MixPlanner.DomainModel.AutoMixing
 
         public override int GetHashCode()
         {
-            return (PlaybackSpeed != null ? PlaybackSpeed.GetHashCode() : 0);
+            return (ActualKey != null ? ActualKey.GetHashCode() : 0);
         }
 
         IEnumerator IEnumerable.GetEnumerator()

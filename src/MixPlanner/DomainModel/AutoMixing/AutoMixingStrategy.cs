@@ -34,7 +34,7 @@ namespace MixPlanner.DomainModel.AutoMixing
             IEnumerable<T> mixableTracks = context.TracksToMix.Except(unknownTracks);
 
             IEnumerable<AutoMixingBucket<T>> buckets = mixableTracks
-                .GroupBy(g => g.PlaybackSpeed.ActualKey)
+                .GroupBy(g => g.ActualKey)
                 .Select(g => new AutoMixingBucket<T>(g, g.Key))
                 .ToList();
 
@@ -99,12 +99,12 @@ namespace MixPlanner.DomainModel.AutoMixing
 
             if (context.PreceedingTrack != null)
             {
-                log.DebugFormat("Required preceeding track: {0}", context.PreceedingTrack.PlaybackSpeed);
+                log.DebugFormat("Required preceeding track: {0}", context.PreceedingTrack.ActualKey);
                 validPaths = validPaths.Where(p => p.First().Source.Equals(context.PreceedingTrack));
             }
             if (context.FollowingTrack != null)
             {
-                log.DebugFormat("Required following track: {0}", context.FollowingTrack.PlaybackSpeed);
+                log.DebugFormat("Required following track: {0}", context.FollowingTrack.ActualKey);
                 validPaths = validPaths.Where(p => p.Last().Target.Equals(context.FollowingTrack));
             }
 
@@ -131,8 +131,8 @@ namespace MixPlanner.DomainModel.AutoMixing
                 from followingTrack in buckets
                 where !followingTrack.Equals(preceedingTrack)
                 from strategy in strategies
-                where strategy.IsCompatible(preceedingTrack.PlaybackSpeed, followingTrack.PlaybackSpeed)
-                orderby followingTrack.PlaybackSpeed.ActualKey, preceedingTrack.PlaybackSpeed.ActualKey
+                where strategy.IsCompatible(preceedingTrack.ActualKey, followingTrack.ActualKey)
+                orderby followingTrack.ActualKey, preceedingTrack.ActualKey
                 select new AutoMixEdge<AutoMixingBucket<T>>(preceedingTrack, followingTrack, strategy);
 
             graph.AddEdgeRange(edges);
@@ -146,8 +146,8 @@ namespace MixPlanner.DomainModel.AutoMixing
 
         static string FormatPath(IEnumerable<AutoMixEdge<AutoMixingBucket<T>>> path)
         {
-            var vertices = path.Select(e => e.Source.PlaybackSpeed.ActualKey)
-                               .Concat(new[] {path.Last().Target.PlaybackSpeed.ActualKey});
+            var vertices = path.Select(e => e.Source.ActualKey)
+                               .Concat(new[] {path.Last().Target.ActualKey});
             return String.Join(" -> ", vertices);
         }
     }
