@@ -30,21 +30,14 @@ namespace MixPlanner.DomainModel.AutoMixing
             IEnumerable<IMixItem> unknownTracks = context.TracksToMix.Where(c => c.IsUnknownKeyOrBpm).ToList();
             IEnumerable<IMixItem> mixableTracks = context.TracksToMix.Except(unknownTracks);
 
-            IEnumerable<AutoMixingBucket> buckets = mixableTracks
-                .GroupBy(g => g.ActualKey)
-                .Select(g => new AutoMixingBucket(g, g.Key))
-                .ToList();
+            AdjacencyGraph<AutoMixingBucket, AutoMixEdge> graph 
+                = BuildGraph(mixableTracks, unknownTracks, context);
 
-            Log.DebugFormat("{0} mixable tracks ({1} buckets), {2} unmixable tracks (unknown key/BPM).",
-                mixableTracks.Count(), buckets.Count(), unknownTracks.Count());
-
-            var graph = new AdjacencyGraph<AutoMixingBucket, AutoMixEdge>();
-
-            graph.AddVertexRange(buckets);
-            AddEdges(graph, strategiesFactory.GetPreferredStrategiesInOrder(), buckets);
+            AddEdges(graph, strategiesFactory.GetPreferredStrategiesInOrder());
             Log.DebugFormat("Added {0} preferred edges, {1} vertices.", graph.EdgeCount, graph.VertexCount);
 
-            IEnumerable<AutoMixingBucket> mixedBuckets = GetPreferredMix(graph, context);
+            IEnumerable<AutoMixingBucket> mixedBuckets = GetPreferredMix(graph, 
+                context.GetOptionalStartKey(), context.GetOptionalEndKey());
 
             if (mixedBuckets == null)
             {
@@ -57,16 +50,68 @@ namespace MixPlanner.DomainModel.AutoMixing
             return AutoMixingResult.Success(context, mixedTracks, unknownTracks);
         }
 
+        static AdjacencyGraph<AutoMixingBucket, AutoMixEdge> BuildGraph(
+            IEnumerable<IMixItem> mixableTracks, 
+            IEnumerable<IMixItem> unknownTracks, 
+            AutoMixingContext context)
+        {
+            IList<AutoMixingBucket> buckets = mixableTracks
+                .GroupBy(g => g.ActualKey)
+                .Select(g => new AutoMixingBucket(g, g.Key))
+                .ToList();
+
+            Log.DebugFormat("{0} mixable tracks ({1} buckets), {2} unmixable tracks (unknown key/BPM).",
+                            mixableTracks.Count(), buckets.Count(), unknownTracks.Count());
+
+            var graph = new AdjacencyGraph<AutoMixingBucket, AutoMixEdge>();
+
+            graph.AddVertexRange(buckets);
+
+            // If we are auto-mixing a subset of tracks within a mix, we must
+            // keep them harmonically compatible with the tracks immediately
+            // before and after i.e. (preceeding)(tracks to mix)(following).
+            //
+            // To find such a path, we unfortunately can't just look for paths
+            // where (start = preceeding and end = following) because they
+            // might be using different keys that are not used by any of the
+            // tracks in the graph.
+            //
+            // To get around this problem, we add empty 'placeholder' buckets
+            // (vertices) to the graph for the preceeding/following keys, and
+            // look for paths that use these vertices as start/end points.
+            // This works because when we unpack the buckets, these vertices
+            // simply unpack as empty (they don't contain any tracks) so we can
+            // use them for the final path of mix items without producing any 
+            // messy placeholder/temporary tracks.
+            AddPlaceholderVertexIfRequired(graph, context.GetOptionalStartKey());
+            AddPlaceholderVertexIfRequired(graph, context.GetOptionalEndKey());
+
+            return graph;
+        }
+
+        static void AddPlaceholderVertexIfRequired(
+            AdjacencyGraph<AutoMixingBucket, AutoMixEdge> graph, HarmonicKey key)
+        {
+            if (key == null)
+                return;
+
+            if (graph.Vertices.Any(v => v.ContainsKey(key)))
+                return;
+
+            graph.AddVertex(new AutoMixingBucket(key));
+        }
+
         static IEnumerable<IMixItem> UnpackBuckets(IEnumerable<AutoMixingBucket> mixedBuckets)
         {
             return mixedBuckets.SelectMany(b => b);
         }
 
         static IEnumerable<AutoMixingBucket> GetPreferredMix(
-            IVertexListGraph<AutoMixingBucket, AutoMixEdge> graph, 
-            AutoMixingContext context)
+            IVertexListGraph<AutoMixingBucket, AutoMixEdge> graph,
+            HarmonicKey optionalStartKey,
+            HarmonicKey optionalEndKey)
         {
-            var algo = new LongestPathAlgorithm<AutoMixingBucket, AutoMixEdge>(graph);
+            var algo = new AllLongestPathsAlgorithm<AutoMixingBucket, AutoMixEdge>(graph);
 
             var stopwatch = Stopwatch.StartNew();
             algo.Compute();
@@ -78,7 +123,8 @@ namespace MixPlanner.DomainModel.AutoMixing
                 return null;
             LogPaths(algo.LongestPaths);
 
-            IEnumerable<AutoMixEdge> bestPath = GetBestPath(algo.LongestPaths, context);
+            IEnumerable<AutoMixEdge> bestPath = GetBestPath(algo.LongestPaths, 
+                optionalStartKey, optionalEndKey);
 
             if (bestPath == null)
                 return null;
@@ -90,19 +136,21 @@ namespace MixPlanner.DomainModel.AutoMixing
 
         static IEnumerable<AutoMixEdge> GetBestPath(
             IEnumerable<IEnumerable<AutoMixEdge>> paths,
-            AutoMixingContext context)
+            HarmonicKey optionalStartKey,
+            HarmonicKey optionalEndKey)
         {
             var validPaths = paths;
 
-            if (context.PreceedingTrack != null)
+            if (optionalStartKey != null)
             {
-                Log.DebugFormat("Required preceeding track: {0}", context.PreceedingTrack.ActualKey);
-                validPaths = validPaths.Where(p => p.First().Source.Equals(context.PreceedingTrack));
+                Log.DebugFormat("Required start key: {0}", optionalStartKey);
+                validPaths = validPaths.Where(p => p.First().Source.ContainsKey(optionalStartKey));
             }
-            if (context.FollowingTrack != null)
+
+            if (optionalEndKey != null)
             {
-                Log.DebugFormat("Required following track: {0}", context.FollowingTrack.ActualKey);
-                validPaths = validPaths.Where(p => p.Last().Target.Equals(context.FollowingTrack));
+                Log.DebugFormat("Required end key: {0}", optionalEndKey);
+                validPaths = validPaths.Where(p => p.Last().Target.ContainsKey(optionalEndKey));
             }
 
             return validPaths.FirstOrDefault();
@@ -111,7 +159,7 @@ namespace MixPlanner.DomainModel.AutoMixing
         static IEnumerable<AutoMixingBucket> GetVertices(IEnumerable<AutoMixEdge> path)
         {
             yield return path.First().Source;
-            foreach (var edge in path)
+            foreach (AutoMixEdge edge in path)
                 yield return edge.Target;
         }
 
@@ -120,12 +168,11 @@ namespace MixPlanner.DomainModel.AutoMixing
         /// another, using one of the specified mixing strategies.
         /// </summary>
         static void AddEdges(IMutableEdgeListGraph<AutoMixingBucket, AutoMixEdge> graph,
-            IEnumerable<IMixingStrategy> strategies,
-            IEnumerable<AutoMixingBucket> buckets)
+            IEnumerable<IMixingStrategy> strategies)
         {
             IEnumerable<AutoMixEdge> edges =
-                from preceedingTrack in buckets
-                from followingTrack in buckets
+                from preceedingTrack in graph.Vertices
+                from followingTrack in graph.Vertices
                 where !followingTrack.Equals(preceedingTrack)
                 from strategy in strategies
                 where strategy.IsCompatible(preceedingTrack.ActualKey, followingTrack.ActualKey)
@@ -143,8 +190,10 @@ namespace MixPlanner.DomainModel.AutoMixing
 
         static string FormatPath(IEnumerable<AutoMixEdge> path)
         {
-            var vertices = path.Select(e => e.Source.ActualKey)
-                               .Concat(new[] {path.Last().Target.ActualKey});
+            IEnumerable<HarmonicKey> vertices = path
+                .Select(e => e.Source.ActualKey)
+                .Concat(new[] {path.Last().Target.ActualKey});
+
             return String.Join(" -> ", vertices);
         }
     }

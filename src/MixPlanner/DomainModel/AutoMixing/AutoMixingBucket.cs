@@ -9,17 +9,26 @@ namespace MixPlanner.DomainModel.AutoMixing
     {
         private readonly IEnumerable<IMixItem> tracks;
 
+        public AutoMixingBucket(HarmonicKey harmonicKey)
+            : this(Enumerable.Empty<IMixItem>(), harmonicKey)
+        {
+        }
+
         public AutoMixingBucket(IEnumerable<IMixItem> tracks, HarmonicKey harmonicKey)
         {
             if (tracks == null) throw new ArgumentNullException("tracks");
             if (harmonicKey == null) throw new ArgumentNullException("harmonicKey");
-            if (!tracks.Any()) throw new ArgumentException("Bucket cannot be empty.", "tracks");
             this.tracks = tracks;
             ActualKey = harmonicKey;
         }
 
+        public bool ContainsKey(HarmonicKey key)
+        {
+            if (key == null) throw new ArgumentNullException("key");
+            return ActualKey.Equals(key);
+        }
+
         public HarmonicKey ActualKey { get; private set; }
-        public bool IsUnknownKeyOrBpm { get { return false; } }
 
         public bool Equals(AutoMixingBucket other)
         {

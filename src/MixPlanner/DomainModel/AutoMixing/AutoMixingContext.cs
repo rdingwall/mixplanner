@@ -31,5 +31,15 @@ namespace MixPlanner.DomainModel.AutoMixing
         public IEnumerable<IMixItem> TracksToMix { get; private set; }
         public IMixItem FollowingTrack { get; private set; }
         public int TracksToMixCount { get { return TracksToMix.Count(); } }
+
+        public HarmonicKey GetOptionalStartKey()
+        {
+            return PreceedingTrack != null ? PreceedingTrack.ActualKey : null;
+        }
+
+        public HarmonicKey GetOptionalEndKey()
+        {
+            return FollowingTrack != null ? FollowingTrack.ActualKey : null;
+        }
     }
 }

@@ -51,7 +51,6 @@ namespace MixPlanner.Specs.DomainModel.AutoMixing
             static LongestPathAlgorithmTestCase testCase;
         }
 
-        [Ignore("temp - need to rethink this")]
         public class When_a_preceeding_and_following_track_were_specified
         {
             Establish context =
@@ -101,7 +100,99 @@ namespace MixPlanner.Specs.DomainModel.AutoMixing
             static TestMixItem followingTrack;
         }
 
-        [Ignore("temp - need to rethink this")]
+        public class When_a_preceeding_and_following_track_were_specified_that_are_outside_the_mix
+        {
+            Establish context =
+                () =>
+                {
+                    testCase = LongestPathAlgorithmTestCases.MixWithMultiplePaths;
+
+                    unknownTracks = new[]
+                                         {
+                                             new TestMixItem(isUnknownKeyOrBpm: true),
+                                             new TestMixItem(isUnknownKeyOrBpm: true)
+                                         };
+
+                    tracksToMix = testCase.Tracks.Select(t => new TestMixItem(t));
+
+                    preceedingTrack = new TestMixItem(HarmonicKey.Key5A);
+                    followingTrack = new TestMixItem(HarmonicKey.Key8A);
+
+                    expectedMix = testCase.ExpectedPaths[HarmonicKey.Key6A];
+
+                    mixingContext = new AutoMixingContext(
+                        tracksToMix.Concat(unknownTracks), preceedingTrack, followingTrack);
+
+                    strategy = new AutoMixingStrategy(TestMixingStrategies.GetFactory());
+                };
+
+            Because of = () => result = strategy.AutoMix(mixingContext);
+
+            It should_return_a_successful_result =
+                () => result.IsSuccess.ShouldBeTrue();
+
+            It should_separate_the_unmixable_tracks =
+                () => result.UnknownTracks.Should().Have.SameValuesAs(unknownTracks);
+
+            It should_find_the_resulting_using_the_specified_start_and_end_key =
+                () => result.MixedTracks.Select(t => t.ActualKey)
+                            .Should().Have.SameSequenceAs(expectedMix);
+
+            static IAutoMixingStrategy strategy;
+            static AutoMixingContext mixingContext;
+            static AutoMixingResult result;
+            static IEnumerable<TestMixItem> unknownTracks;
+            static IEnumerable<TestMixItem> tracksToMix;
+            static IEnumerable<HarmonicKey> expectedMix;
+            static LongestPathAlgorithmTestCase testCase;
+            static TestMixItem preceedingTrack;
+            static TestMixItem followingTrack;
+        }
+
+        public class When_a_following_track_was_specified_that_was_outside_the_mix
+        {
+            Establish context =
+                () =>
+                {
+                    testCase = LongestPathAlgorithmTestCases.MixWithMultiplePaths;
+
+                    unknownTracks = new[]
+                                         {
+                                             new TestMixItem(isUnknownKeyOrBpm: true),
+                                             new TestMixItem(isUnknownKeyOrBpm: true)
+                                         };
+
+                    tracksToMix = testCase.Tracks.Select(t => new TestMixItem(t));
+
+                    followingTrack = new TestMixItem(HarmonicKey.Key10A);
+
+                    mixingContext = new AutoMixingContext(
+                        tracksToMix.Concat(unknownTracks), null, followingTrack);
+
+                    strategy = new AutoMixingStrategy(TestMixingStrategies.GetFactory());
+                };
+
+            Because of = () => result = strategy.AutoMix(mixingContext);
+
+            It should_return_a_successful_result =
+                () => result.IsSuccess.ShouldBeTrue();
+
+            It should_separate_the_unmixable_tracks =
+                () => result.UnknownTracks.Should().Have.SameValuesAs(unknownTracks);
+
+            It should_find_the_resulting_using_the_specified_end_key =
+                () => result.MixedTracks.Select(t => t.ActualKey).Last()
+                            .ShouldEqual(HarmonicKey.Key8A);
+
+            static IAutoMixingStrategy strategy;
+            static AutoMixingContext mixingContext;
+            static AutoMixingResult result;
+            static IEnumerable<TestMixItem> unknownTracks;
+            static IEnumerable<TestMixItem> tracksToMix;
+            static LongestPathAlgorithmTestCase testCase;
+            static TestMixItem followingTrack;
+        }
+
         public class When_a_preceeding_and_following_track_were_specified_but_no_such_paths_were_found
         {
             Establish context =
@@ -130,15 +221,14 @@ namespace MixPlanner.Specs.DomainModel.AutoMixing
 
             Because of = () => result = strategy.AutoMix(mixingContext);
 
-            It should_return_a_successful_result =
-                () => result.IsSuccess.ShouldBeTrue();
+            It should_return_a_failed_result =
+                () => result.IsSuccess.ShouldBeFalse();
 
-            It should_separate_the_unmixable_tracks =
-                () => result.UnknownTracks.Should().Have.SameValuesAs(unknownTracks);
+            It should_not_separate_the_unmixable_tracks =
+                () => result.UnknownTracks.Should().Be.Empty();
 
-            It should_find_the_resulting_using_the_specified_start_and_end_key =
-                () => result.MixedTracks.Select(t => t.ActualKey)
-                            .Should().Have.SameSequenceAs(expectedMix);
+            It should_return_the_tracks_as_is =
+                () => result.MixedTracks.Should().Have.SameSequenceAs(mixingContext.TracksToMix);
 
             static IAutoMixingStrategy strategy;
             static AutoMixingContext mixingContext;
