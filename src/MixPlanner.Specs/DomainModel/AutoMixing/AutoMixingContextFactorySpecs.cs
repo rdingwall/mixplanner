@@ -18,10 +18,10 @@ namespace MixPlanner.Specs.DomainModel.AutoMixing
                                          mix = TestMixes.GetRandomMix();
                                      };
 
-             Because of = () => mixingContext = contextFactory.CreateContext(mix, mix.Items);
+             Because of = () => mixingContext = contextFactory.CreateContext(mix, mix);
 
              It should_include_all_the_tracks_from_the_mix =
-                 () => mixingContext.TracksToMix.Should().Have.SameSequenceAs(mix.Items);
+                 () => mixingContext.TracksToMix.Should().Have.SameSequenceAs(mix);
 
              It should_not_set_any_preceeding_track =
                  () => mixingContext.PreceedingTrack.ShouldBeNull();
@@ -40,7 +40,7 @@ namespace MixPlanner.Specs.DomainModel.AutoMixing
              {
                  contextFactory = new AutoMixingContextFactory();
                  mix = TestMixes.GetRandomMix(10);
-                 itemsToAdd = mix.Items.Skip(2).Take(6);
+                 itemsToAdd = mix.Skip(2).Take(6);
              };
 
              Because of = () => mixingContext = contextFactory.CreateContext(mix, itemsToAdd);
@@ -66,7 +66,7 @@ namespace MixPlanner.Specs.DomainModel.AutoMixing
              {
                  contextFactory = new AutoMixingContextFactory();
                  mix = TestMixes.GetRandomMix(10);
-                 itemsToAdd = mix.Items.Take(6);
+                 itemsToAdd = mix.Take(6);
              };
 
              Because of = () => mixingContext = contextFactory.CreateContext(mix, itemsToAdd);
@@ -92,7 +92,7 @@ namespace MixPlanner.Specs.DomainModel.AutoMixing
              {
                  contextFactory = new AutoMixingContextFactory();
                  mix = TestMixes.GetRandomMix(10);
-                 itemsToAdd = mix.Items.Skip(4);
+                 itemsToAdd = mix.Skip(4);
              };
 
              Because of = () => mixingContext = contextFactory.CreateContext(mix, itemsToAdd);

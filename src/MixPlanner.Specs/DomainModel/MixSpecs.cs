@@ -106,13 +106,13 @@ namespace MixPlanner.Specs.DomainModel
             Establish context = () =>
                                     {
                                         mix = TestMixes.GetRandomMix();
-                                        itemToMove = mix.Items.First();
+                                        itemToMove = mix.First();
                                     };
 
             Because of = () => mix.MoveToEnd(itemToMove);
 
             It should_be_moved_to_the_end =
-                () => mix.Items.Last().ShouldEqual(itemToMove);
+                () => mix.Last().ShouldEqual(itemToMove);
 
             static IMix mix;
             static MixItem itemToMove;

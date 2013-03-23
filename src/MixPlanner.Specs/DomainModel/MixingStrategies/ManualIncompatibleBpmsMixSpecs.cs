@@ -16,7 +16,7 @@ namespace MixPlanner.Specs.DomainModel.MixingStrategies
                     {
                         current = new PlaybackSpeed(HarmonicKey.RandomKey(), 128);
                         strategy = new ManualIncompatibleBpmsMix(new AlwaysInRangeBpmChecker());
-                        unplayed = TestMixes.GetRandomMix().Items.Select(i => i.PlaybackSpeed);
+                        unplayed = TestMixes.GetRandomMix().Select(i => i.PlaybackSpeed);
                     };
 
             static PlaybackSpeed current;

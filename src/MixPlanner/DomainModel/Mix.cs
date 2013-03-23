@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using MixPlanner.Events;
@@ -6,13 +7,12 @@ using MoreLinq;
 
 namespace MixPlanner.DomainModel
 {
-    public interface IMix
+    public interface IMix : IEnumerable<MixItem>
     {
         IEnumerable<Track> Tracks { get; }
         void Add(Track track);
         void Insert(Track track, int insertIndex);
         void Insert(IEnumerable<Track> tracks, int insertIndex);
-        IEnumerable<MixItem> Items { get; }
         void Remove(MixItem item);
         void Reorder(MixItem item, int newIndex);
         void AdjustPlaybackSpeed(MixItem item, double value);
@@ -34,7 +34,7 @@ namespace MixPlanner.DomainModel
         MixItem GetFollowingItem(MixItem item);
     }
 
-    public class Mix : IMix
+    public class Mix : IMix, IEnumerable<MixItem>
     {
         readonly IDispatcherMessenger messenger;
         readonly IActualTransitionDetector transitions;
@@ -64,12 +64,7 @@ namespace MixPlanner.DomainModel
                 .ForEach(ResetPlaybackSpeed);
         }
 
-        public IEnumerable<Track> Tracks { get { return Items.Select(i => i.Track); } }
-
-        public IEnumerable<MixItem> Items
-        {
-            get { return items; }
-        }
+        public IEnumerable<Track> Tracks { get { return items.Select(i => i.Track); } }
 
         public MixItem this[int index]
         {
@@ -301,6 +296,16 @@ namespace MixPlanner.DomainModel
             item.ResetPlaybackSpeed();
             messenger.SendToUI(new PlaybackSpeedAdjustedEvent(item));
             RecalcTransitions();
+        }
+
+        public IEnumerator<MixItem> GetEnumerator()
+        {
+            return items.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
     }
 }
