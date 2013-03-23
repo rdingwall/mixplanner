@@ -18,6 +18,11 @@ namespace MixPlanner.DomainModel.MixingStrategies
             return !bpmRangeChecker.IsWithinBpmRange(first, second);
         }
 
+        public bool IsCompatible(HarmonicKey firstKey, HarmonicKey secondKey)
+        {
+            throw new InvalidOperationException("This strategy is only used to compare BPMs.");
+        }
+
         public string Description { get { return "BPMs out of range / train wreck!"; } }
 
         public bool Equals(IMixingStrategy other)

@@ -18,10 +18,10 @@ namespace MixPlanner.DomainModel.MixingStrategies
             if (second == null) throw new ArgumentNullException("second");
 
             return bpmRangeChecker.IsWithinBpmRange(first, second) &&
-                   IsCompatibleKey(first, second);
+                   IsCompatible(first, second);
         }
 
-        protected abstract bool IsCompatibleKey(PlaybackSpeed first, PlaybackSpeed second);
+        public abstract bool IsCompatible(HarmonicKey firstKey, HarmonicKey secondKey);
 
         public abstract string Description { get; }
 

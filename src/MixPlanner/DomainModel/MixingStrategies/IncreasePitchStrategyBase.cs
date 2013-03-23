@@ -12,13 +12,13 @@ namespace MixPlanner.DomainModel.MixingStrategies
             this.increaseAmount = increaseAmount;
         }
 
-        protected override bool IsCompatibleKey(PlaybackSpeed first, PlaybackSpeed second)
+        public override bool IsCompatible(HarmonicKey firstKey, HarmonicKey secondKey)
         {
-            if (first == null) throw new ArgumentNullException("first");
-            if (second == null) throw new ArgumentNullException("second");
+            if (firstKey == null) throw new ArgumentNullException("firstKey");
+            if (secondKey == null) throw new ArgumentNullException("secondKey");
 
-            return second.ActualKey.HasSameScaleAs(first.ActualKey)
-                   && second.ActualKey.Equals(first.ActualKey.Advance(increaseAmount));
+            return secondKey.HasSameScaleAs(firstKey)
+                   && secondKey.Equals(firstKey.Advance(increaseAmount));
         }
     }
 }

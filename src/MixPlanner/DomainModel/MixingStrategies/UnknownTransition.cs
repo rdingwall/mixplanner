@@ -8,8 +8,13 @@ namespace MixPlanner.DomainModel.MixingStrategies
         {
             return first.IsUnknownBpm ||
                    second.IsUnknownBpm ||
-                   HarmonicKey.Unknown.Equals(first.ActualKey) ||
-                   HarmonicKey.Unknown.Equals(second.ActualKey);
+                   IsCompatible(first.ActualKey, second.ActualKey);
+        }
+
+        public bool IsCompatible(HarmonicKey firstKey, HarmonicKey secondKey)
+        {
+            return HarmonicKey.Unknown.Equals(firstKey) ||
+                   HarmonicKey.Unknown.Equals(secondKey);
         }
 
         public string Description { get { return "Unknown transition (missing key/BPM)"; } }

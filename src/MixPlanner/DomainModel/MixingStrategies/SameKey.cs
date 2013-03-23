@@ -10,12 +10,12 @@ namespace MixPlanner.DomainModel.MixingStrategies
         {
         }
 
-        protected override bool IsCompatibleKey(PlaybackSpeed first, PlaybackSpeed second)
+        public override bool IsCompatible(HarmonicKey firstKey, HarmonicKey secondKey)
         {
-            if (first == null) throw new ArgumentNullException("first");
-            if (second == null) throw new ArgumentNullException("second");
+            if (firstKey == null) throw new ArgumentNullException("firstKey");
+            if (secondKey == null) throw new ArgumentNullException("secondKey");
 
-            return second.ActualKey.Equals(first.ActualKey);
+            return secondKey.Equals(firstKey);
         }
 
         public override string Description { get { return "Same key"; } }

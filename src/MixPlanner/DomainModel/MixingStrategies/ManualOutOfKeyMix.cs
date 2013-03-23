@@ -7,7 +7,7 @@ namespace MixPlanner.DomainModel.MixingStrategies
         {
         }
 
-        protected override bool IsCompatibleKey(PlaybackSpeed first, PlaybackSpeed second)
+        public override bool IsCompatible(HarmonicKey firstKey, HarmonicKey secondKey)
         {
             return true;
         }
