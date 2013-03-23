@@ -148,7 +148,7 @@
     <Compile Include="Commands\GetRecommendationsCommand.cs" />
     <Compile Include="Commands\ImportFilesIntoMixCommand.cs" />
     <Compile Include="Commands\IntelligentAddTrackToMixCommand.cs" />
-    <Compile Include="Commands\IntelligentRearrangeTracksInMixCommand.cs">
+    <Compile Include="Commands\AutoMixCommand.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Commands\NavigateUriCommand.cs" />

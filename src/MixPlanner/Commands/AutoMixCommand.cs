@@ -6,13 +6,13 @@ using MixPlanner.DomainModel.AutoMixing;
 
 namespace MixPlanner.Commands
 {
-    public class IntelligentRearrangeTracksInMixCommand : CommandBase<IEnumerable<MixItem>>
+    public class AutoMixCommand : CommandBase<IEnumerable<MixItem>>
     {
         readonly IMix mix;
 
         readonly IAutoMixingStrategy<MixItem> strategy;
 
-        public IntelligentRearrangeTracksInMixCommand(
+        public AutoMixCommand(
             IMix mix, IAutoMixingStrategy<MixItem> strategy)
         {
             if (mix == null) throw new ArgumentNullException("mix");

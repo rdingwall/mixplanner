@@ -69,8 +69,8 @@
                                   Command="{Binding ResetPlaybackSpeedCommand}"
                                   CommandTarget="{Binding Path=PlacementTarget, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
                                   CommandParameter="{Binding Path=PlacementTarget.DataContext.SelectedItems, RelativeSource={RelativeSource AncestorType=ContextMenu}}"/>
-                        <MenuItem Header="Intelligent Rearrange"
-                                  Command="{Binding IntelligentRearrangeTracksCommand}"
+                        <MenuItem Header="Auto Mix"
+                                  Command="{Binding AutoMixCommand}"
                                   CommandTarget="{Binding Path=PlacementTarget, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
                                   CommandParameter="{Binding Path=PlacementTarget.DataContext.SelectedItems, RelativeSource={RelativeSource AncestorType=ContextMenu}}" />
                         <Separator />

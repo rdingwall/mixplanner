@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
-using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
 using GongSolutions.Wpf.DragDrop;
@@ -27,7 +26,7 @@ namespace MixPlanner.ViewModels
         public GetRecommendationsCommand GetRecommendationsCommand { get; private set; }
         public ClearRecommendationsCommand ClearRecommendationsCommand { get; private set; }
         public EditTrackCommand EditTrackCommand { get; private set; }
-        public IntelligentRearrangeTracksInMixCommand IntelligentRearrangeTracksCommand { get; set; }
+        public AutoMixCommand AutoMixCommand { get; set; }
 
         public MixItemViewModel SelectedItem
         {
@@ -62,7 +61,7 @@ namespace MixPlanner.ViewModels
             ClearRecommendationsCommand clearRecommendationsCommand,
             GetRecommendationsCommand getRecommendationsCommand,
             EditTrackCommand editTrackCommand,
-            IntelligentRearrangeTracksInMixCommand intelligentRearrangeTracksCommand)
+            AutoMixCommand autoMixCommand)
             : base(messenger)
         {
             if (messenger == null) throw new ArgumentNullException("messenger");
@@ -75,8 +74,8 @@ namespace MixPlanner.ViewModels
             if (clearRecommendationsCommand == null) throw new ArgumentNullException("clearRecommendationsCommand");
             if (getRecommendationsCommand == null) throw new ArgumentNullException("getRecommendationsCommand");
             if (editTrackCommand == null) throw new ArgumentNullException("editTrackCommand");
-            if (intelligentRearrangeTracksCommand == null)
-                throw new ArgumentNullException("intelligentRearrangeTracksCommand");
+            if (autoMixCommand == null)
+                throw new ArgumentNullException("autoMixCommand");
             DropItemCommand = dropItemCommand;
             DropFilesCommand = dropFilesCommand;
             PlayPauseCommand = playPauseCommand;
@@ -84,7 +83,7 @@ namespace MixPlanner.ViewModels
             ClearRecommendationsCommand = clearRecommendationsCommand;
             GetRecommendationsCommand = getRecommendationsCommand;
             EditTrackCommand = editTrackCommand;
-            IntelligentRearrangeTracksCommand = intelligentRearrangeTracksCommand;
+            AutoMixCommand = autoMixCommand;
             this.viewModels = viewModels;
             RemoveCommand = removeCommand;
             Items = new ObservableCollection<MixItemViewModel>();
