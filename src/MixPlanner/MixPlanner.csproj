@@ -196,7 +196,6 @@
     <Compile Include="DomainModel\AutoMixing\AutoMixingStrategy.cs" />
     <Compile Include="DomainModel\AutoMixing\EdgeCost.cs" />
     <Compile Include="DomainModel\AutoMixing\EdgeCostCalculator.cs" />
-    <Compile Include="DomainModel\AutoMixing\IAutoMixable.cs" />
     <Compile Include="DomainModel\AutoMixing\LongestPathAlgorithm.cs" />
     <Compile Include="DomainModel\AutoMixing\AutoMixEdge.cs" />
     <Compile Include="DomainModel\BpmRangeChecker.cs" />

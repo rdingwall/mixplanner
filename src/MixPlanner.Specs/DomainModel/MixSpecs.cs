@@ -115,7 +115,7 @@ namespace MixPlanner.Specs.DomainModel
                 () => mix.Last().ShouldEqual(itemToMove);
 
             static IMix mix;
-            static MixItem itemToMove;
+            static IMixItem itemToMove;
         }
     }
 }

@@ -66,7 +66,7 @@ namespace MixPlanner
                 Component.For<IRecommendedTransitionDetector>().ImplementedBy<RecommendedTransitionDetector>()
                          .DependsOn(Property.ForKey("preferredstrategies").Is(preferredStrategies)),
                 Component.For<IAutoMixingContextFactory>().ImplementedBy<AutoMixingContextFactory>(),
-                Component.For<IAutoMixingStrategy<MixItem>>().ImplementedBy<AutoMixingStrategy<MixItem>>(),
+                Component.For<IAutoMixingStrategy>().ImplementedBy<AutoMixingStrategy>(),
                 Component.For<IMix>().ImplementedBy<Mix>(),
                 AllTypes.FromThisAssembly().InSameNamespaceAs<MainWindowViewModel>()
                     .ConfigureFor<SettingsWindowViewModel>(c => c.LifestyleTransient()),

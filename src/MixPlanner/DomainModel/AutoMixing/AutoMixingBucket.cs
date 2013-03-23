@@ -5,11 +5,11 @@ using System.Linq;
 
 namespace MixPlanner.DomainModel.AutoMixing
 {
-    public class AutoMixingBucket<T> : IAutoMixable, IEquatable<AutoMixingBucket<T>>, IEnumerable<T>
+    public class AutoMixingBucket : IEquatable<AutoMixingBucket>, IEnumerable<IMixItem>
     {
-        private readonly IEnumerable<T> tracks;
+        private readonly IEnumerable<IMixItem> tracks;
 
-        public AutoMixingBucket(IEnumerable<T> tracks, HarmonicKey harmonicKey)
+        public AutoMixingBucket(IEnumerable<IMixItem> tracks, HarmonicKey harmonicKey)
         {
             if (tracks == null) throw new ArgumentNullException("tracks");
             if (harmonicKey == null) throw new ArgumentNullException("harmonicKey");
@@ -21,14 +21,14 @@ namespace MixPlanner.DomainModel.AutoMixing
         public HarmonicKey ActualKey { get; private set; }
         public bool IsUnknownKeyOrBpm { get { return false; } }
 
-        public bool Equals(AutoMixingBucket<T> other)
+        public bool Equals(AutoMixingBucket other)
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
             return Equals(ActualKey, other.ActualKey);
         }
 
-        public IEnumerator<T> GetEnumerator()
+        public IEnumerator<IMixItem> GetEnumerator()
         {
             return tracks.GetEnumerator();
         }
@@ -38,7 +38,7 @@ namespace MixPlanner.DomainModel.AutoMixing
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((AutoMixingBucket<T>) obj);
+            return Equals((AutoMixingBucket) obj);
         }
 
         public override int GetHashCode()

@@ -7,14 +7,14 @@ using MoreLinq;
 
 namespace MixPlanner.DomainModel
 {
-    public interface IMix : IEnumerable<MixItem>
+    public interface IMix : IEnumerable<IMixItem>
     {
         IEnumerable<Track> Tracks { get; }
         void Add(Track track);
         void Insert(Track track, int insertIndex);
         void Insert(IEnumerable<Track> tracks, int insertIndex);
         void Remove(MixItem item);
-        void Reorder(MixItem item, int newIndex);
+        void Reorder(IMixItem item, int newIndex);
         void AdjustPlaybackSpeed(MixItem item, double value);
         void RemoveRange(IEnumerable<MixItem> items);
         bool Contains(Track track);
@@ -27,14 +27,14 @@ namespace MixPlanner.DomainModel
         void AutoAdjustBpms();
         MixItem GetMixItem(Track track);
         IEnumerable<MixItem> GetUnknownTracks();
-        int IndexOf(MixItem item);
+        int IndexOf(IMixItem item);
         IDisposable DisableRecalcTransitions();
-        void MoveToEnd(MixItem track);
-        MixItem GetPreceedingItem(MixItem item);
-        MixItem GetFollowingItem(MixItem item);
+        void MoveToEnd(IMixItem track);
+        IMixItem GetPreceedingItem(IMixItem item);
+        IMixItem GetFollowingItem(IMixItem item);
     }
 
-    public class Mix : IMix, IEnumerable<MixItem>
+    public class Mix : IMix
     {
         readonly IDispatcherMessenger messenger;
         readonly IActualTransitionDetector transitions;
@@ -118,9 +118,9 @@ namespace MixPlanner.DomainModel
             return items.Where(i => i.IsUnknownKeyOrBpm);
         }
 
-        public int IndexOf(MixItem item)
+        public int IndexOf(IMixItem item)
         {
-            return items.IndexOf(item);
+            return items.IndexOf((MixItem)item);
         }
 
         public IDisposable DisableRecalcTransitions()
@@ -129,14 +129,14 @@ namespace MixPlanner.DomainModel
             return new ActionOnDispose(EnableRecalcTransitions);
         }
 
-        public void MoveToEnd(MixItem track)
+        public void MoveToEnd(IMixItem track)
         {
             if (track == null) throw new ArgumentNullException("track");
             
             Reorder(track, Count);
         }
 
-        public MixItem GetPreceedingItem(MixItem item)
+        public IMixItem GetPreceedingItem(IMixItem item)
         {
             if (item == null) throw new ArgumentNullException("item");
 
@@ -144,7 +144,7 @@ namespace MixPlanner.DomainModel
             return preceedingIndex < 0 ? null : this[preceedingIndex];
         }
 
-        public MixItem GetFollowingItem(MixItem item)
+        public IMixItem GetFollowingItem(IMixItem item)
         {
             if (item == null) throw new ArgumentNullException("item");
 
@@ -166,11 +166,13 @@ namespace MixPlanner.DomainModel
             RecalcTransitions();
         }
 
-        public void Reorder(MixItem item, int newIndex)
+        public void Reorder(IMixItem item, int newIndex)
         {
             if (item == null) throw new ArgumentNullException("item");
 
-            var oldIndex = items.IndexOf(item);
+            var mixItem = (MixItem) item;
+
+            var oldIndex = items.IndexOf(mixItem);
 
             // Adjust newIndex to account for the fact we are removing an item
             // before inserting.
@@ -179,10 +181,10 @@ namespace MixPlanner.DomainModel
             else
                 newIndex = Math.Min(newIndex, items.Count);
 
-            items.Remove(item);
-            items.Insert(newIndex, item);
-            messenger.SendToUI(new TrackRemovedFromMixEvent(item));
-            messenger.SendToUI(new TrackAddedToMixEvent(item, newIndex));
+            items.Remove(mixItem);
+            items.Insert(newIndex, mixItem);
+            messenger.SendToUI(new TrackRemovedFromMixEvent(mixItem));
+            messenger.SendToUI(new TrackAddedToMixEvent(mixItem, newIndex));
             RecalcTransitions();
         }
 
@@ -298,7 +300,7 @@ namespace MixPlanner.DomainModel
             RecalcTransitions();
         }
 
-        public IEnumerator<MixItem> GetEnumerator()
+        public IEnumerator<IMixItem> GetEnumerator()
         {
             return items.GetEnumerator();
         }

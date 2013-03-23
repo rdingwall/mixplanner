@@ -8,7 +8,7 @@ using SharpTestsEx;
 
 namespace MixPlanner.Specs.DomainModel.AutoMixing
 {
-    [Subject(typeof(AutoMixingStrategy<>))]
+    [Subject(typeof(AutoMixingStrategy))]
     public class AutoMixingStrategySpecs
     {
         public class When_there_was_a_valid_mix
@@ -20,15 +20,15 @@ namespace MixPlanner.Specs.DomainModel.AutoMixing
 
                     unknownTracks = new[]
                                              {
-                                                 new TestTrack(isUnknownKeyOrBpm: true),
-                                                 new TestTrack(isUnknownKeyOrBpm: true)
+                                                 new TestMixItem(isUnknownKeyOrBpm: true),
+                                                 new TestMixItem(isUnknownKeyOrBpm: true)
                                              };
 
-                    tracksToMix = testCase.Tracks.Select(t => new TestTrack(t));
+                    tracksToMix = testCase.Tracks.Select(t => new TestMixItem(t));
 
-                    mixingContext = new AutoMixingContext<TestTrack>(tracksToMix.Concat(unknownTracks));
+                    mixingContext = new AutoMixingContext(tracksToMix.Concat(unknownTracks));
 
-                    strategy = new AutoMixingStrategy<TestTrack>(TestMixingStrategies.GetFactory());
+                    strategy = new AutoMixingStrategy(TestMixingStrategies.GetFactory());
                 };
 
             Because of = () => result = strategy.AutoMix(mixingContext);
@@ -43,11 +43,11 @@ namespace MixPlanner.Specs.DomainModel.AutoMixing
                 () => result.MixedTracks.Select(t => t.ActualKey)
                             .Should().Have.SameSequenceAs(testCase.ExpectedPaths[result.MixedTracks.First().ActualKey]);
 
-            static IAutoMixingStrategy<TestTrack> strategy;
-            static AutoMixingContext<TestTrack> mixingContext;
-            static AutoMixingResult<TestTrack> result;
-            static IEnumerable<TestTrack> unknownTracks;
-            static IEnumerable<TestTrack> tracksToMix;
+            static IAutoMixingStrategy strategy;
+            static AutoMixingContext mixingContext;
+            static AutoMixingResult result;
+            static IEnumerable<IMixItem> unknownTracks;
+            static IEnumerable<IMixItem> tracksToMix;
             static LongestPathAlgorithmTestCase testCase;
         }
 
@@ -61,21 +61,21 @@ namespace MixPlanner.Specs.DomainModel.AutoMixing
 
                     unknownTracks = new[]
                                          {
-                                             new TestTrack(isUnknownKeyOrBpm: true),
-                                             new TestTrack(isUnknownKeyOrBpm: true)
+                                             new TestMixItem(isUnknownKeyOrBpm: true),
+                                             new TestMixItem(isUnknownKeyOrBpm: true)
                                          };
 
-                    tracksToMix = testCase.Tracks.Select(t => new TestTrack(t));
+                    tracksToMix = testCase.Tracks.Select(t => new TestMixItem(t));
 
-                    preceedingTrack = new TestTrack(HarmonicKey.Key7A);
-                    followingTrack = new TestTrack(HarmonicKey.Key8A);
+                    preceedingTrack = new TestMixItem(HarmonicKey.Key7A);
+                    followingTrack = new TestMixItem(HarmonicKey.Key8A);
 
                     expectedMix = testCase.ExpectedPaths[HarmonicKey.Key7A];
 
-                    mixingContext = new AutoMixingContext<TestTrack>(
+                    mixingContext = new AutoMixingContext(
                         tracksToMix.Concat(unknownTracks), preceedingTrack, followingTrack);
 
-                    strategy = new AutoMixingStrategy<TestTrack>(TestMixingStrategies.GetFactory());
+                    strategy = new AutoMixingStrategy(TestMixingStrategies.GetFactory());
                 };
 
             Because of = () => result = strategy.AutoMix(mixingContext);
@@ -90,15 +90,15 @@ namespace MixPlanner.Specs.DomainModel.AutoMixing
                 () => result.MixedTracks.Select(t => t.ActualKey)
                             .Should().Have.SameSequenceAs(expectedMix);
 
-            static IAutoMixingStrategy<TestTrack> strategy;
-            static AutoMixingContext<TestTrack> mixingContext;
-            static AutoMixingResult<TestTrack> result;
-            static IEnumerable<TestTrack> unknownTracks;
-            static IEnumerable<TestTrack> tracksToMix;
+            static IAutoMixingStrategy strategy;
+            static AutoMixingContext mixingContext;
+            static AutoMixingResult result;
+            static IEnumerable<TestMixItem> unknownTracks;
+            static IEnumerable<TestMixItem> tracksToMix;
             static IEnumerable<HarmonicKey> expectedMix;
             static LongestPathAlgorithmTestCase testCase;
-            static TestTrack preceedingTrack;
-            static TestTrack followingTrack;
+            static TestMixItem preceedingTrack;
+            static TestMixItem followingTrack;
         }
 
         [Ignore("temp - need to rethink this")]
@@ -111,21 +111,21 @@ namespace MixPlanner.Specs.DomainModel.AutoMixing
 
                     unknownTracks = new[]
                                          {
-                                             new TestTrack(isUnknownKeyOrBpm: true),
-                                             new TestTrack(isUnknownKeyOrBpm: true)
+                                             new TestMixItem(isUnknownKeyOrBpm: true),
+                                             new TestMixItem(isUnknownKeyOrBpm: true)
                                          };
 
-                    tracksToMix = testCase.Tracks.Select(t => new TestTrack(t));
+                    tracksToMix = testCase.Tracks.Select(t => new TestMixItem(t));
 
-                    preceedingTrack = new TestTrack(HarmonicKey.Key12A);
-                    followingTrack = new TestTrack(HarmonicKey.Key12A);
+                    preceedingTrack = new TestMixItem(HarmonicKey.Key12A);
+                    followingTrack = new TestMixItem(HarmonicKey.Key12A);
 
                     expectedMix = testCase.ExpectedPaths[HarmonicKey.Key7A];
 
-                    mixingContext = new AutoMixingContext<TestTrack>(
+                    mixingContext = new AutoMixingContext(
                         tracksToMix.Concat(unknownTracks), preceedingTrack, followingTrack);
 
-                    strategy = new AutoMixingStrategy<TestTrack>(TestMixingStrategies.GetFactory());
+                    strategy = new AutoMixingStrategy(TestMixingStrategies.GetFactory());
                 };
 
             Because of = () => result = strategy.AutoMix(mixingContext);
@@ -140,15 +140,15 @@ namespace MixPlanner.Specs.DomainModel.AutoMixing
                 () => result.MixedTracks.Select(t => t.ActualKey)
                             .Should().Have.SameSequenceAs(expectedMix);
 
-            static IAutoMixingStrategy<TestTrack> strategy;
-            static AutoMixingContext<TestTrack> mixingContext;
-            static AutoMixingResult<TestTrack> result;
-            static IEnumerable<TestTrack> unknownTracks;
-            static IEnumerable<TestTrack> tracksToMix;
+            static IAutoMixingStrategy strategy;
+            static AutoMixingContext mixingContext;
+            static AutoMixingResult result;
+            static IEnumerable<IMixItem> unknownTracks;
+            static IEnumerable<IMixItem> tracksToMix;
             static IEnumerable<HarmonicKey> expectedMix;
             static LongestPathAlgorithmTestCase testCase;
-            static TestTrack preceedingTrack;
-            static TestTrack followingTrack;
+            static IMixItem preceedingTrack;
+            static IMixItem followingTrack;
         }
 
         public class When_there_was_no_valid_mix
@@ -160,15 +160,15 @@ namespace MixPlanner.Specs.DomainModel.AutoMixing
 
                     unknownTracks = new[]
                                              {
-                                                 new TestTrack(isUnknownKeyOrBpm: true),
-                                                 new TestTrack(isUnknownKeyOrBpm: true)
+                                                 new TestMixItem(isUnknownKeyOrBpm: true),
+                                                 new TestMixItem(isUnknownKeyOrBpm: true)
                                              };
 
-                    tracksToMix = testCase.Tracks.Select(t => new TestTrack(t));
+                    tracksToMix = testCase.Tracks.Select(t => new TestMixItem(t));
 
-                    mixingContext = new AutoMixingContext<TestTrack>(tracksToMix.Concat(unknownTracks));
+                    mixingContext = new AutoMixingContext(tracksToMix.Concat(unknownTracks));
 
-                    strategy = new AutoMixingStrategy<TestTrack>(TestMixingStrategies.GetFactory());
+                    strategy = new AutoMixingStrategy(TestMixingStrategies.GetFactory());
                 };
 
             Because of = () => result = strategy.AutoMix(mixingContext);
@@ -182,30 +182,33 @@ namespace MixPlanner.Specs.DomainModel.AutoMixing
             It should_return_the_tracks_as_is =
                 () => result.MixedTracks.Should().Have.SameSequenceAs(mixingContext.TracksToMix);
 
-            static IAutoMixingStrategy<TestTrack> strategy;
-            static AutoMixingContext<TestTrack> mixingContext;
-            static AutoMixingResult<TestTrack> result;
-            static IEnumerable<TestTrack> unknownTracks;
-            static IEnumerable<TestTrack> tracksToMix;
+            static IAutoMixingStrategy strategy;
+            static AutoMixingContext mixingContext;
+            static AutoMixingResult result;
+            static IEnumerable<IMixItem> unknownTracks;
+            static IEnumerable<IMixItem> tracksToMix;
             static LongestPathAlgorithmTestCase testCase;
         }
 
-        public class TestTrack : IAutoMixable, IEquatable<TestTrack>
+        public class TestMixItem : IMixItem, IEquatable<TestMixItem>
         {
+            public PlaybackSpeed PlaybackSpeed { get; private set; }
+            public Track Track { get; private set; }
+            public Transition Transition { get; set; }
             public HarmonicKey ActualKey { get; set; }
             public bool IsUnknownKeyOrBpm { get; set; }
 
-            public TestTrack(bool isUnknownKeyOrBpm)
+            public TestMixItem(bool isUnknownKeyOrBpm)
             {
                 IsUnknownKeyOrBpm = isUnknownKeyOrBpm;
             }
 
-            public TestTrack(HarmonicKey key)
+            public TestMixItem(HarmonicKey key)
             {
                 ActualKey = key;
             }
 
-            public TestTrack(PlaybackSpeed playbackSpeed)
+            public TestMixItem(PlaybackSpeed playbackSpeed)
             {
                 ActualKey = playbackSpeed.ActualKey;
             }
@@ -218,7 +221,7 @@ namespace MixPlanner.Specs.DomainModel.AutoMixing
                 return ActualKey.ToString();
             }
 
-            public bool Equals(TestTrack other)
+            public bool Equals(TestMixItem other)
             {
                 if (ReferenceEquals(null, other)) return false;
                 if (ReferenceEquals(this, other)) return true;
@@ -230,7 +233,7 @@ namespace MixPlanner.Specs.DomainModel.AutoMixing
                 if (ReferenceEquals(null, obj)) return false;
                 if (ReferenceEquals(this, obj)) return true;
                 if (obj.GetType() != this.GetType()) return false;
-                return Equals((TestTrack)obj);
+                return Equals((TestMixItem)obj);
             }
 
             public override int GetHashCode()

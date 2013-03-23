@@ -30,7 +30,7 @@ namespace MixPlanner.Specs.DomainModel.AutoMixing
                  () => mixingContext.FollowingTrack.ShouldBeNull();
 
              static IAutoMixingContextFactory contextFactory;
-             static AutoMixingContext<MixItem> mixingContext;
+             static AutoMixingContext mixingContext;
              static IMix mix;
          }
 
@@ -55,9 +55,9 @@ namespace MixPlanner.Specs.DomainModel.AutoMixing
                  () => mixingContext.FollowingTrack.ShouldEqual(mix[8]);
 
              static IAutoMixingContextFactory contextFactory;
-             static AutoMixingContext<MixItem> mixingContext;
+             static AutoMixingContext mixingContext;
              static IMix mix;
-             static IEnumerable<MixItem> itemsToAdd;
+             static IEnumerable<IMixItem> itemsToAdd;
          }
 
          public class When_a_subset_from_the_start_of_the_mix_was_selected
@@ -81,9 +81,9 @@ namespace MixPlanner.Specs.DomainModel.AutoMixing
                  () => mixingContext.FollowingTrack.ShouldEqual(mix[6]);
 
              static IAutoMixingContextFactory contextFactory;
-             static AutoMixingContext<MixItem> mixingContext;
+             static AutoMixingContext mixingContext;
              static IMix mix;
-             static IEnumerable<MixItem> itemsToAdd;
+             static IEnumerable<IMixItem> itemsToAdd;
          }
 
          public class When_a_subset_from_the_end_of_the_mix_was_selected
@@ -107,9 +107,9 @@ namespace MixPlanner.Specs.DomainModel.AutoMixing
                  () => mixingContext.FollowingTrack.ShouldBeNull();
 
              static IAutoMixingContextFactory contextFactory;
-             static AutoMixingContext<MixItem> mixingContext;
+             static AutoMixingContext mixingContext;
              static IMix mix;
-             static IEnumerable<MixItem> itemsToAdd;
+             static IEnumerable<IMixItem> itemsToAdd;
          }
     }
 }

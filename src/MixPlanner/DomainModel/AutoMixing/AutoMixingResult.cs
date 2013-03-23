@@ -4,38 +4,12 @@ using System.Linq;
 
 namespace MixPlanner.DomainModel.AutoMixing
 {
-    public static class AutoMixingResult
-    {
-        public static AutoMixingResult<T> Success<T>(
-            AutoMixingContext<T> context, 
-            IEnumerable<T> mixedTracks,
-            IEnumerable<T> unknownTracks)
-            where T : IAutoMixable
-        {
-            return new AutoMixingResult<T>(
-                mixedTracks: mixedTracks,
-                context: context,
-                unknownTracks: unknownTracks,
-                isSuccess: true);
-        }
-
-        public static AutoMixingResult<T> Failure<T>(AutoMixingContext<T> context)
-            where T : IAutoMixable
-        {
-            return new AutoMixingResult<T>(
-                mixedTracks: context.TracksToMix, 
-                context: context, 
-                unknownTracks: Enumerable.Empty<T>(),
-                isSuccess: false);
-        }
-    }
-
-    public class AutoMixingResult<T> where T : IAutoMixable
+    public class AutoMixingResult
     {
         public AutoMixingResult(
-            IEnumerable<T> mixedTracks, 
-            AutoMixingContext<T> context,
-            IEnumerable<T> unknownTracks,
+            IEnumerable<IMixItem> mixedTracks,
+            AutoMixingContext context,
+            IEnumerable<IMixItem> unknownTracks,
             bool isSuccess)
         {
             if (mixedTracks == null) throw new ArgumentNullException("mixedTracks");
@@ -48,8 +22,29 @@ namespace MixPlanner.DomainModel.AutoMixing
         }
 
         public bool IsSuccess { get; private set; }
-        public IList<T> MixedTracks { get; private set; }
-        public IEnumerable<T> UnknownTracks { get; private set; }
-        public AutoMixingContext<T> Context { get; private set; }
+        public IList<IMixItem> MixedTracks { get; private set; }
+        public IEnumerable<IMixItem> UnknownTracks { get; private set; }
+        public AutoMixingContext Context { get; private set; }
+
+        public static AutoMixingResult Success(
+            AutoMixingContext context, 
+            IEnumerable<IMixItem> mixedTracks,
+            IEnumerable<IMixItem> unknownTracks)
+        {
+            return new AutoMixingResult(
+                mixedTracks: mixedTracks,
+                context: context,
+                unknownTracks: unknownTracks,
+                isSuccess: true);
+        }
+
+        public static AutoMixingResult Failure(AutoMixingContext context)
+        {
+            return new AutoMixingResult(
+                mixedTracks: context.TracksToMix, 
+                context: context, 
+                unknownTracks: Enumerable.Empty<MixItem>(),
+                isSuccess: false);
+        }
     }
 }

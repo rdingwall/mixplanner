@@ -1,9 +1,17 @@
 ﻿using System;
-using MixPlanner.DomainModel.AutoMixing;
 
 namespace MixPlanner.DomainModel
 {
-    public class MixItem : IAutoMixable
+    public interface IMixItem
+    {
+        PlaybackSpeed PlaybackSpeed { get; }
+        Track Track { get; }
+        Transition Transition { get; set; }
+        HarmonicKey ActualKey { get; }
+        bool IsUnknownKeyOrBpm { get; }
+    }
+
+    public class MixItem : IMixItem
     {
         public MixItem(
             Mix mix, 

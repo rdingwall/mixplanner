@@ -4,12 +4,12 @@ using System.Linq;
 
 namespace MixPlanner.DomainModel.AutoMixing
 {
-    public class AutoMixingContext<T> where T : IAutoMixable
+    public class AutoMixingContext
     {
         public AutoMixingContext(
-            IEnumerable<T> tracksToMix,
-            T preceedingTrack = default(T),
-            T followingTrack = default(T))
+            IEnumerable<IMixItem> tracksToMix,
+            IMixItem preceedingTrack = null,
+            IMixItem followingTrack = null)
         {
             if (tracksToMix == null) throw new ArgumentNullException("tracksToMix");
 
@@ -27,9 +27,9 @@ namespace MixPlanner.DomainModel.AutoMixing
             FollowingTrack = followingTrack;
         }
 
-        public T PreceedingTrack { get; private set; }
-        public IEnumerable<T> TracksToMix { get; private set; }
-        public T FollowingTrack { get; private set; }
+        public IMixItem PreceedingTrack { get; private set; }
+        public IEnumerable<IMixItem> TracksToMix { get; private set; }
+        public IMixItem FollowingTrack { get; private set; }
         public int TracksToMixCount { get { return TracksToMix.Count(); } }
     }
 }

@@ -13,11 +13,12 @@ namespace MixPlanner.Commands
         readonly IMix mix;
 
         readonly IAutoMixingContextFactory contextFactory;
-        readonly IAutoMixingStrategy<MixItem> strategy;
+        readonly IAutoMixingStrategy strategy;
 
 
         public AutoMixCommand(
-            IMix mix, IAutoMixingStrategy<MixItem> strategy,
+            IMix mix,
+            IAutoMixingStrategy strategy,
             IAutoMixingContextFactory contextFactory)
         {
             if (mix == null) throw new ArgumentNullException("mix");
@@ -37,8 +38,8 @@ namespace MixPlanner.Commands
 
         protected override void Execute(IEnumerable<MixItem> parameter)
         {
-            AutoMixingContext<MixItem> context = contextFactory.CreateContext(mix, parameter);
-            AutoMixingResult<MixItem> results = strategy.AutoMix(context);
+            AutoMixingContext context = contextFactory.CreateContext(mix, parameter);
+            AutoMixingResult results = strategy.AutoMix(context);
 
             if (!results.IsSuccess)
                 return;
@@ -49,11 +50,11 @@ namespace MixPlanner.Commands
             {
                 for (int i = 0; i < results.MixedTracks.Count; i++)
                 {
-                    MixItem item = results.MixedTracks[i];
+                    IMixItem item = results.MixedTracks[i];
                     mix.Reorder(item, startIndex + i);
                 }
 
-                foreach (MixItem unknownTrack in results.UnknownTracks)
+                foreach (IMixItem unknownTrack in results.UnknownTracks)
                     mix.MoveToEnd(unknownTrack);
             }
         }
