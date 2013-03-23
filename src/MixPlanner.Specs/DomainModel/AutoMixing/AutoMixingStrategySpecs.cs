@@ -16,7 +16,7 @@ namespace MixPlanner.Specs.DomainModel.AutoMixing
              Establish context =
                  () =>
                      {
-                         var @case = LongestPathAlgorithmTestCases.MixWithMultiplePaths;
+                         testCase = LongestPathAlgorithmTestCases.MixWithMultiplePaths;
 
                          unknownTracks = new[]
                                              {
@@ -24,9 +24,9 @@ namespace MixPlanner.Specs.DomainModel.AutoMixing
                                                  new TestTrack {IsUnknownKeyOrBpm = true}
                                              };
 
-                         tracksToMix = @case.Tracks.Select(t => new TestTrack {PlaybackSpeed = t});
+                         tracksToMix = testCase.Tracks.Select(t => new TestTrack {PlaybackSpeed = t});
 
-                         expectedMix = @case.ExpectedPaths.First().Value;
+                         expectedMix = testCase.ExpectedPaths.First().Value;
 
                          mixingContext = new AutoMixingContext<TestTrack>(tracksToMix.Concat(unknownTracks));
 
@@ -40,7 +40,7 @@ namespace MixPlanner.Specs.DomainModel.AutoMixing
 
              It should_find_the_resulting_path =
                  () => result.MixedTracks.Select(t => t.PlaybackSpeed.ActualKey)
-                             .Should().Have.SameSequenceAs(expectedMix);
+                             .Should().Have.SameSequenceAs(testCase.ExpectedPaths[result.MixedTracks.First().PlaybackSpeed.ActualKey]);
 
              static IAutoMixingStrategy<TestTrack> strategy;
              static AutoMixingContext<TestTrack> mixingContext;
@@ -48,6 +48,7 @@ namespace MixPlanner.Specs.DomainModel.AutoMixing
              static IEnumerable<TestTrack> unknownTracks;
              static IEnumerable<TestTrack> tracksToMix;
              static IEnumerable<HarmonicKey> expectedMix;
+             static LongestPathAlgorithmTestCase testCase;
          }
 
          public class TestTrack : IAutoMixable, IEquatable<TestTrack>

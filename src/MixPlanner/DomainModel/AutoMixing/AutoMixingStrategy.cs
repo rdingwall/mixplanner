@@ -39,6 +39,18 @@ namespace MixPlanner.DomainModel.AutoMixing
             AddEdges(graph, strategiesFactory.GetPreferredStrategiesInOrder(), mixableTracks);
             log.DebugFormat("Added {0} preferred edges, {1} vertices.", graph.EdgeCount, graph.VertexCount);
 
+            IEnumerable<T> mixedTracks = GetPreferredMix(graph, context);
+
+            if (mixedTracks == null)
+                return new AutoMixingResult<T>(context.TracksToMix, context);
+
+            return new AutoMixingResult<T>(mixedTracks, context, unknownTracks);
+        }
+
+        static IEnumerable<T> GetPreferredMix(
+            IVertexListGraph<T, AutoMixEdge<T>> graph, 
+            AutoMixingContext<T> context)
+        {
             var algo = new LongestPathAlgorithm<T, AutoMixEdge<T>>(graph);
 
             var stopwatch = Stopwatch.StartNew();
@@ -47,19 +59,15 @@ namespace MixPlanner.DomainModel.AutoMixing
 
             log.DebugFormat("Found {0} paths in {1}.", algo.LongestPaths.Count(), stopwatch.Elapsed);
 
-            if (algo.LongestPaths.Any())
-            {
-                LogPaths(algo.LongestPaths);
-                IEnumerable<AutoMixEdge<T>> bestPath = GetBestPath(algo.LongestPaths, context);
+            if (!algo.LongestPaths.Any())
+                return null;
+            LogPaths(algo.LongestPaths);
 
-                log.DebugFormat("Using path: {0}", FormatPath(bestPath));
+            IEnumerable<AutoMixEdge<T>> bestPath = GetBestPath(algo.LongestPaths, context);
 
-                IEnumerable<T> vertices = GetVertices(bestPath);
+            log.DebugFormat("Using path: {0}", FormatPath(bestPath));
 
-                return new AutoMixingResult<T>(vertices, unknownTracks, context);
-            }
-
-            return null;
+            return GetVertices(bestPath);
         }
 
         static IEnumerable<AutoMixEdge<T>> GetBestPath(
