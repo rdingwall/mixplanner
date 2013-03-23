@@ -22,6 +22,7 @@ namespace MixPlanner.Commands
         protected override bool CanExecute(DropInfo parameter)
         {
             if (parameter == null) return false;
+            if (mix.IsLocked) return false;
             var data = (IDataObject)parameter.Data;
             return data.GetDataPresent(DataFormats.FileDrop); 
         }

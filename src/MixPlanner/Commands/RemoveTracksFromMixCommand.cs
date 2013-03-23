@@ -17,7 +17,7 @@ namespace MixPlanner.Commands
 
         protected override bool CanExecute(IEnumerable<IMixItem> parameter)
         {
-            return parameter != null && parameter.Any();
+            return !mix.IsLocked && parameter != null && parameter.Any();
         }
 
         protected override void Execute(IEnumerable<IMixItem> parameter)

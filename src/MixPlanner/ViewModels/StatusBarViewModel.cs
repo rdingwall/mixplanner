@@ -24,6 +24,8 @@ namespace MixPlanner.ViewModels
             if (messenger == null) throw new ArgumentNullException("messenger");
             messenger.Register<BeganScanningDirectoryEvent>(this, _ => Message = "Scanning directory...");
             messenger.Register<BeganLoadingTracksEvent>(this, _ => Message = "Importing tracks...");
+            messenger.Register<BeganAutoMixingEvent>(this, _ => Message = "Calculating best mix...");
+            messenger.Register<MixUnlockedEvent>(this, _ => Message = "");
             messenger.Register<FinishedLoadingTracksEvent>(this, _ => Message = "");
         }
     }

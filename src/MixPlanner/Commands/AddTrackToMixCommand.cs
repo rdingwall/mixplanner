@@ -22,6 +22,9 @@ namespace MixPlanner.Commands
             if (parameter == null)
                 return false;
 
+            if (mix.IsLocked)
+                return false;
+
             return parameter.Data is TrackLibraryItemViewModel || IsCollection(parameter.Data);
         }
 

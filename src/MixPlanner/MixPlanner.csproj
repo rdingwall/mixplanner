@@ -240,6 +240,9 @@
     <Compile Include="DomainModel\UnknownKey.cs" />
     <Compile Include="Events\BeganLoadingTracksEvent.cs" />
     <Compile Include="Events\ConfigSavedEvent.cs" />
+    <Compile Include="Events\BeganAutoMixingEvent.cs" />
+    <Compile Include="Events\MixLockedEvent.cs" />
+    <Compile Include="Events\MixUnlockedEvent.cs" />
     <Compile Include="Events\RecommendationsClearedEvent.cs" />
     <Compile Include="Events\SearchTextClearedEvent.cs" />
     <Compile Include="Events\SearchRequestedEvent.cs" />

@@ -17,6 +17,11 @@ namespace MixPlanner.Commands
             this.mix = mix;
         }
 
+        protected override bool CanExecute(Track parameter)
+        {
+            return !mix.IsLocked;
+        }
+
         protected override void Execute(Track parameter)
         {
             var result = inserter.GetBestInsertIndex(mix, parameter);

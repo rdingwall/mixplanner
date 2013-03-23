@@ -13,6 +13,7 @@ namespace MixPlanner.ViewModels
     public class MixItemViewModel : ViewModelBase, IDragSource
     {
         readonly IMix mix;
+        bool isLocked;
         public IMixItem MixItem { get; private set; }
         public HarmonicKey ActualKey { get { return MixItem.PlaybackSpeed.ActualKey; } }
         public double ActualBpm { get { return MixItem.PlaybackSpeed.ActualBpm; } }
@@ -33,7 +34,14 @@ namespace MixPlanner.ViewModels
         public PlayPauseTrackCommand PlayPauseCommand { get; private set; }
         public Transition Transition { get { return MixItem.Transition; } }
         public bool IsSelected { get; set; }
-        public bool IsPitchFaderEnabled { get { return !MixItem.PlaybackSpeed.IsUnknownBpm; } }
+
+        public bool IsPitchFaderEnabled
+        {
+            get
+            {
+                return !mix.IsLocked && !MixItem.PlaybackSpeed.IsUnknownBpm;
+            }
+        }
 
         public MixItemViewModel(
             IMessenger messenger, 
@@ -51,6 +59,9 @@ namespace MixPlanner.ViewModels
             messenger.Register<TransitionChangedEvent>(this, OnTransitionChanged);
             messenger.Register<PlaybackSpeedAdjustedEvent>(this, OnPlaybackSpeedAdjusted);
             messenger.Register<TrackUpdatedEvent>(this, OnTrackUpdated);
+
+            messenger.Register<MixLockedEvent>(this, _ => RaisePropertyChanged(() => IsPitchFaderEnabled));
+            messenger.Register<MixUnlockedEvent>(this, _ => RaisePropertyChanged(() => IsPitchFaderEnabled));
 
             // Required for play/pause status
             messenger.Register<PlayerPlayingEvent>(this, _ => RaisePropertyChanged(() => Track));
@@ -92,6 +103,9 @@ namespace MixPlanner.ViewModels
 
         public void StartDrag(IDragInfo dragInfo)
         {
+            if (isLocked)
+                return;
+
             dragInfo.Data = this;
             dragInfo.Effects = DragDropEffects.Move | DragDropEffects.Copy;
         }

@@ -22,13 +22,14 @@ namespace MixPlanner.DomainModel
         bool IsEmpty { get; }
         IMixItem this[int index] { get; }
         int Count { get; }
+        bool IsLocked { get; }
         double CalculateAverageActualBpm();
         double CalculateAverageOriginalBpm();
         void AutoAdjustBpms();
         IMixItem GetMixItem(Track track);
         IEnumerable<IMixItem> GetUnknownTracks();
         int IndexOf(IMixItem item);
-        IDisposable DisableRecalcTransitions();
+        IDisposable Lock();
         void MoveToEnd(IMixItem track);
         IMixItem GetPreceedingItem(IMixItem item);
         IMixItem GetFollowingItem(IMixItem item);
@@ -78,6 +79,8 @@ namespace MixPlanner.DomainModel
         {
             get { return items.Count; }
         }
+
+        public bool IsLocked { get { return !isRecalcTransitionsEnabled; } }
 
         public double CalculateAverageActualBpm()
         {
@@ -130,10 +133,11 @@ namespace MixPlanner.DomainModel
             return items.IndexOf((MixItem)item);
         }
 
-        public IDisposable DisableRecalcTransitions()
+        public IDisposable Lock()
         {
+            messenger.SendToUI(new MixLockedEvent(this));
             isRecalcTransitionsEnabled = false;
-            return new ActionOnDispose(EnableRecalcTransitions);
+            return new ActionOnDispose(Unlock);
         }
 
         public void MoveToEnd(IMixItem track)
@@ -159,12 +163,11 @@ namespace MixPlanner.DomainModel
             return followingIndex == Count ? null : this[followingIndex];
         }
 
-        
-
-        void EnableRecalcTransitions()
+        void Unlock()
         {
             isRecalcTransitionsEnabled = true;
             RecalcTransitions();
+            messenger.SendToUI(new MixUnlockedEvent(this));
         }
 
         public void Remove(IMixItem item)
