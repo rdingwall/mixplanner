@@ -34,6 +34,9 @@ namespace MixPlanner.Commands
 
             AutoMixingResult<MixItem> results = strategy.AutoMix(context);
 
+            if (!results.IsSuccess)
+                return;
+
             int startIndex = mix.IndexOf(parameter.First());
 
             using (mix.DisableRecalcTransitions())

@@ -30,31 +30,46 @@ namespace MixPlanner.DomainModel.AutoMixing
         {
             if (context == null) throw new ArgumentNullException("context");
 
-            var unknownTracks = context.TracksToMix.Where(c => c.IsUnknownKeyOrBpm).ToList();
-            var mixableTracks = context.TracksToMix.Except(unknownTracks);
+            IEnumerable<T> unknownTracks = context.TracksToMix.Where(c => c.IsUnknownKeyOrBpm).ToList();
+            IEnumerable<T> mixableTracks = context.TracksToMix.Except(unknownTracks);
 
-            var graph = new AdjacencyGraph<T, AutoMixEdge<T>>();
+            IEnumerable<AutoMixingBucket<T>> buckets = mixableTracks
+                .GroupBy(g => g.PlaybackSpeed.ActualKey)
+                .Select(g => new AutoMixingBucket<T>(g, g.Key))
+                .ToList();
 
-            graph.AddVertexRange(mixableTracks);
-            AddEdges(graph, strategiesFactory.GetPreferredStrategiesInOrder(), mixableTracks);
+            log.DebugFormat("{0} mixable tracks ({1} buckets), {2} unmixable tracks (unknown key/BPM).",
+                mixableTracks.Count(), buckets.Count(), unknownTracks.Count());
+
+            var graph = new AdjacencyGraph<AutoMixingBucket<T>, AutoMixEdge<AutoMixingBucket<T>>>();
+
+            graph.AddVertexRange(buckets);
+            AddEdges(graph, strategiesFactory.GetPreferredStrategiesInOrder(), buckets);
             log.DebugFormat("Added {0} preferred edges, {1} vertices.", graph.EdgeCount, graph.VertexCount);
 
-            IEnumerable<T> mixedTracks = GetPreferredMix(graph, context);
+            IEnumerable<AutoMixingBucket<T>> mixedBuckets = GetPreferredMix(graph, context);
 
-            if (mixedTracks == null)
+            if (mixedBuckets == null)
             {
                 log.Debug("Failed to find any auto mix paths. Returning unmodified tracks.");
-                return new AutoMixingResult<T>(context.TracksToMix, context);
+                return AutoMixingResult.Failure(context);
             }
 
-            return new AutoMixingResult<T>(mixedTracks, context, unknownTracks);
+            IEnumerable<T> mixedTracks = UnpackBuckets(mixedBuckets);
+
+            return AutoMixingResult.Success(context, mixedTracks, unknownTracks);
         }
 
-        static IEnumerable<T> GetPreferredMix(
-            IVertexListGraph<T, AutoMixEdge<T>> graph, 
+        static IEnumerable<T> UnpackBuckets(IEnumerable<AutoMixingBucket<T>> mixedBuckets)
+        {
+            return mixedBuckets.SelectMany(b => b.Tracks);
+        }
+
+        static IEnumerable<AutoMixingBucket<T>> GetPreferredMix(
+            IVertexListGraph<AutoMixingBucket<T>, AutoMixEdge<AutoMixingBucket<T>>> graph, 
             AutoMixingContext<T> context)
         {
-            var algo = new LongestPathAlgorithm<T, AutoMixEdge<T>>(graph);
+            var algo = new LongestPathAlgorithm<AutoMixingBucket<T>, AutoMixEdge<AutoMixingBucket<T>>>(graph);
 
             var stopwatch = Stopwatch.StartNew();
             algo.Compute();
@@ -66,15 +81,15 @@ namespace MixPlanner.DomainModel.AutoMixing
                 return null;
             LogPaths(algo.LongestPaths);
 
-            IEnumerable<AutoMixEdge<T>> bestPath = GetBestPath(algo.LongestPaths, context);
+            IEnumerable<AutoMixEdge<AutoMixingBucket<T>>> bestPath = GetBestPath(algo.LongestPaths, context);
 
             log.DebugFormat("Using path: {0}", FormatPath(bestPath));
 
             return GetVertices(bestPath);
         }
 
-        static IEnumerable<AutoMixEdge<T>> GetBestPath(
-            IEnumerable<IEnumerable<AutoMixEdge<T>>> paths,
+        static IEnumerable<AutoMixEdge<AutoMixingBucket<T>>> GetBestPath(
+            IEnumerable<IEnumerable<AutoMixEdge<AutoMixingBucket<T>>>> paths,
             AutoMixingContext<T> context)
         {
             var validPaths = paths;
@@ -88,7 +103,7 @@ namespace MixPlanner.DomainModel.AutoMixing
             return validPaths.FirstOrDefault();
         }
 
-        static IEnumerable<T> GetVertices(IEnumerable<AutoMixEdge<T>> path)
+        static IEnumerable<AutoMixingBucket<T>> GetVertices(IEnumerable<AutoMixEdge<AutoMixingBucket<T>>> path)
         {
             yield return path.First().Source;
             foreach (var edge in path)
@@ -99,29 +114,29 @@ namespace MixPlanner.DomainModel.AutoMixing
         /// Add any graph edge where there is any transition from one track to
         /// another, using one of the specified mixing strategies.
         /// </summary>
-        static void AddEdges(IMutableEdgeListGraph<T, AutoMixEdge<T>> graph,
+        static void AddEdges(IMutableEdgeListGraph<AutoMixingBucket<T>, AutoMixEdge<AutoMixingBucket<T>>> graph,
             IEnumerable<IMixingStrategy> strategies,
-            IEnumerable<T> tracks)
+            IEnumerable<AutoMixingBucket<T>> buckets)
         {
-            IEnumerable<AutoMixEdge<T>> edges =
-                from preceedingTrack in tracks
-                from followingTrack in tracks
+            IEnumerable<AutoMixEdge<AutoMixingBucket<T>>> edges =
+                from preceedingTrack in buckets
+                from followingTrack in buckets
                 where !followingTrack.Equals(preceedingTrack)
                 from strategy in strategies
                 where strategy.IsCompatible(preceedingTrack.PlaybackSpeed, followingTrack.PlaybackSpeed)
                 orderby followingTrack.PlaybackSpeed.ActualKey, preceedingTrack.PlaybackSpeed.ActualKey
-                select new AutoMixEdge<T>(preceedingTrack, followingTrack, strategy);
+                select new AutoMixEdge<AutoMixingBucket<T>>(preceedingTrack, followingTrack, strategy);
 
             graph.AddEdgeRange(edges);
         }
 
-        static void LogPaths(IEnumerable<IEnumerable<AutoMixEdge<T>>> paths)
+        static void LogPaths(IEnumerable<IEnumerable<AutoMixEdge<AutoMixingBucket<T>>>> paths)
         {
-            foreach (IEnumerable<AutoMixEdge<T>> path in paths)
+            foreach (IEnumerable<AutoMixEdge<AutoMixingBucket<T>>> path in paths)
                 log.DebugFormat(FormatPath(path));
         }
 
-        static string FormatPath(IEnumerable<AutoMixEdge<T>> path)
+        static string FormatPath(IEnumerable<AutoMixEdge<AutoMixingBucket<T>>> path)
         {
             var vertices = path.Select(e => e.Source.PlaybackSpeed.ActualKey)
                                .Concat(new[] {path.Last().Target.PlaybackSpeed.ActualKey});

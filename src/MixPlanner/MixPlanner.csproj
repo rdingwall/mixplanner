@@ -189,6 +189,7 @@
     <Compile Include="Converters\TraditionalTextHarmonicKeyConverter.cs" />
     <Compile Include="Converters\TransitionDescriptionConverter.cs" />
     <Compile Include="DomainModel\AutoMixing\AllLongestPathsAlgorithm.cs" />
+    <Compile Include="DomainModel\AutoMixing\AutoMixingBucket.cs" />
     <Compile Include="DomainModel\AutoMixing\AutoMixingContext.cs" />
     <Compile Include="DomainModel\AutoMixing\AutoMixingResult.cs" />
     <Compile Include="DomainModel\AutoMixing\AutoMixingStrategy.cs" />

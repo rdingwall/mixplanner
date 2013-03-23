@@ -35,6 +35,9 @@ namespace MixPlanner.Specs.DomainModel.AutoMixing
 
              Because of = () => result = strategy.AutoMix(mixingContext);
 
+             It should_return_a_successful_result =
+                 () => result.IsSuccess.ShouldBeTrue();
+
              It should_separate_the_unmixable_tracks =
                  () => result.UnknownTracks.Should().Have.SameValuesAs(unknownTracks);
 
@@ -51,10 +54,57 @@ namespace MixPlanner.Specs.DomainModel.AutoMixing
              static LongestPathAlgorithmTestCase testCase;
          }
 
+         public class When_there_was_no_valid_mix
+         {
+             Establish context =
+                 () =>
+                 {
+                     testCase = LongestPathAlgorithmTestCases.MixWithNoPaths;
+
+                     unknownTracks = new[]
+                                             {
+                                                 new TestTrack {IsUnknownKeyOrBpm = true},
+                                                 new TestTrack {IsUnknownKeyOrBpm = true}
+                                             };
+
+                     tracksToMix = testCase.Tracks.Select(t => new TestTrack { PlaybackSpeed = t });
+
+                     mixingContext = new AutoMixingContext<TestTrack>(tracksToMix.Concat(unknownTracks));
+
+                     strategy = new AutoMixingStrategy<TestTrack>(TestMixingStrategies.GetFactory());
+                 };
+
+             Because of = () => result = strategy.AutoMix(mixingContext);
+
+             It should_return_a_failed_result =
+                 () => result.IsSuccess.ShouldBeFalse();
+
+             It should_not_separate_the_unmixable_tracks =
+                 () => result.UnknownTracks.Should().Be.Empty();
+
+             It should_return_the_tracks_as_is =
+                 () => result.MixedTracks.Should().Have.SameSequenceAs(mixingContext.TracksToMix);
+
+             static IAutoMixingStrategy<TestTrack> strategy;
+             static AutoMixingContext<TestTrack> mixingContext;
+             static AutoMixingResult<TestTrack> result;
+             static IEnumerable<TestTrack> unknownTracks;
+             static IEnumerable<TestTrack> tracksToMix;
+             static LongestPathAlgorithmTestCase testCase;
+         }
+
          public class TestTrack : IAutoMixable, IEquatable<TestTrack>
          {
              public PlaybackSpeed PlaybackSpeed { get; set; }
              public bool IsUnknownKeyOrBpm { get; set; }
+
+             public override string ToString()
+             {
+                 if (PlaybackSpeed == null)
+                     return "unknown";
+
+                 return PlaybackSpeed.ActualKey.ToString();
+             }
 
              public bool Equals(TestTrack other)
              {
