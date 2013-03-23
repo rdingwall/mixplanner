@@ -7,7 +7,7 @@ using MoreLinq;
 
 namespace MixPlanner.Commands
 {
-    public class GetRecommendationsCommand : CommandBase<IEnumerable<MixItem>>
+    public class GetRecommendationsCommand : CommandBase<IEnumerable<IMixItem>>
     {
         readonly IDispatcherMessenger messenger;
         readonly ITrackLibrary trackLibrary;
@@ -22,12 +22,12 @@ namespace MixPlanner.Commands
             this.trackLibrary = trackLibrary;
         }
 
-        protected override bool CanExecute(IEnumerable<MixItem> parameter)
+        protected override bool CanExecute(IEnumerable<IMixItem> parameter)
         {
             return parameter.Count() == 1;
         }
 
-        protected override void Execute(IEnumerable<MixItem> parameter)
+        protected override void Execute(IEnumerable<IMixItem> parameter)
         {
             if (!CanExecute(parameter))
                 return;

@@ -43,7 +43,7 @@ namespace MixPlanner.DomainModel.AutoMixing
             return new AutoMixingResult(
                 mixedTracks: context.TracksToMix, 
                 context: context, 
-                unknownTracks: Enumerable.Empty<MixItem>(),
+                unknownTracks: Enumerable.Empty<IMixItem>(),
                 isSuccess: false);
         }
     }

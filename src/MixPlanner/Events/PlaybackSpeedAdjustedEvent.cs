@@ -5,9 +5,9 @@ namespace MixPlanner.Events
 {
     public class PlaybackSpeedAdjustedEvent
     {
-        public MixItem MixItem { get; private set; }
+        public IMixItem MixItem { get; private set; }
 
-        public PlaybackSpeedAdjustedEvent(MixItem item)
+        public PlaybackSpeedAdjustedEvent(IMixItem item)
         {
             if (item == null) throw new ArgumentNullException("item");
             MixItem = item;

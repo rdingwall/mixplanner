@@ -93,7 +93,7 @@ namespace MixPlanner.ViewModels
             messenger.Register<PlaybackSpeedAdjustedEvent>(this, _ => OnSelectionChanged());
         }
 
-        public ICollection<MixItem> SelectedItems
+        public ICollection<IMixItem> SelectedItems
         {
             get
             {

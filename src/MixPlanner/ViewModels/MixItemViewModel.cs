@@ -13,7 +13,7 @@ namespace MixPlanner.ViewModels
     public class MixItemViewModel : ViewModelBase, IDragSource
     {
         readonly IMix mix;
-        public MixItem MixItem { get; private set; }
+        public IMixItem MixItem { get; private set; }
         public HarmonicKey ActualKey { get { return MixItem.PlaybackSpeed.ActualKey; } }
         public double ActualBpm { get { return MixItem.PlaybackSpeed.ActualBpm; } }
 
@@ -37,7 +37,7 @@ namespace MixPlanner.ViewModels
 
         public MixItemViewModel(
             IMessenger messenger, 
-            MixItem mixItem,
+            IMixItem mixItem,
             PlayPauseTrackCommand playPauseCommand,
             IMix mix) : base(messenger)
         {

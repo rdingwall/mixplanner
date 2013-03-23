@@ -12,7 +12,7 @@ namespace MixPlanner.DomainModel
 
         Task RemoveAsync(Track track);
         Task RemoveRangeAsync(IEnumerable<Track> tracks);
-        IEnumerable<Tuple<Track, Transition>> GetRecommendations(MixItem mixItem);
+        IEnumerable<Tuple<Track, Transition>> GetRecommendations(IMixItem mixItem);
         Task SaveAsync(Track track);
     }
 }

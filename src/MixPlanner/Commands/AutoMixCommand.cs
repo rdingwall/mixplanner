@@ -6,15 +6,11 @@ using MixPlanner.DomainModel.AutoMixing;
 
 namespace MixPlanner.Commands
 {
-    
-
-    public class AutoMixCommand : CommandBase<IEnumerable<MixItem>>
+    public class AutoMixCommand : CommandBase<IEnumerable<IMixItem>>
     {
         readonly IMix mix;
-
         readonly IAutoMixingContextFactory contextFactory;
         readonly IAutoMixingStrategy strategy;
-
 
         public AutoMixCommand(
             IMix mix,
@@ -29,14 +25,14 @@ namespace MixPlanner.Commands
             this.contextFactory = contextFactory;
         }
 
-        protected override bool CanExecute(IEnumerable<MixItem> parameter)
+        protected override bool CanExecute(IEnumerable<IMixItem> parameter)
         {
             return parameter != null && parameter.Any();
 
             // todo: only contiguous blocks?
         }
 
-        protected override void Execute(IEnumerable<MixItem> parameter)
+        protected override void Execute(IEnumerable<IMixItem> parameter)
         {
             AutoMixingContext context = contextFactory.CreateContext(mix, parameter);
             AutoMixingResult results = strategy.AutoMix(context);

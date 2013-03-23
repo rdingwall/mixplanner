@@ -13,20 +13,20 @@ namespace MixPlanner.DomainModel
         void Add(Track track);
         void Insert(Track track, int insertIndex);
         void Insert(IEnumerable<Track> tracks, int insertIndex);
-        void Remove(MixItem item);
+        void Remove(IMixItem item);
         void Reorder(IMixItem item, int newIndex);
-        void AdjustPlaybackSpeed(MixItem item, double value);
-        void RemoveRange(IEnumerable<MixItem> items);
+        void AdjustPlaybackSpeed(IMixItem item, double value);
+        void RemoveRange(IEnumerable<IMixItem> items);
         bool Contains(Track track);
-        void ResetPlaybackSpeed(MixItem item);
+        void ResetPlaybackSpeed(IMixItem item);
         bool IsEmpty { get; }
-        MixItem this[int index] { get; }
+        IMixItem this[int index] { get; }
         int Count { get; }
         double CalculateAverageActualBpm();
         double CalculateAverageOriginalBpm();
         void AutoAdjustBpms();
-        MixItem GetMixItem(Track track);
-        IEnumerable<MixItem> GetUnknownTracks();
+        IMixItem GetMixItem(Track track);
+        IEnumerable<IMixItem> GetUnknownTracks();
         int IndexOf(IMixItem item);
         IDisposable DisableRecalcTransitions();
         void MoveToEnd(IMixItem track);
@@ -66,7 +66,7 @@ namespace MixPlanner.DomainModel
 
         public IEnumerable<Track> Tracks { get { return items.Select(i => i.Track); } }
 
-        public MixItem this[int index]
+        public IMixItem this[int index]
         {
             get { return items[index]; }
         }
@@ -107,13 +107,13 @@ namespace MixPlanner.DomainModel
             }
         }
 
-        public MixItem GetMixItem(Track track)
+        public IMixItem GetMixItem(Track track)
         {
             if (track == null) throw new ArgumentNullException("track");
             return items.FirstOrDefault(i => i.Track.Equals(track));
         }
 
-        public IEnumerable<MixItem> GetUnknownTracks()
+        public IEnumerable<IMixItem> GetUnknownTracks()
         {
             return items.Where(i => i.IsUnknownKeyOrBpm);
         }
@@ -158,10 +158,10 @@ namespace MixPlanner.DomainModel
             RecalcTransitions();
         }
 
-        public void Remove(MixItem item)
+        public void Remove(IMixItem item)
         {
             if (item == null) throw new ArgumentNullException("item");
-            items.Remove(item);
+            items.Remove((MixItem)item);
             messenger.SendToUI(new TrackRemovedFromMixEvent(item));
             RecalcTransitions();
         }
@@ -183,20 +183,20 @@ namespace MixPlanner.DomainModel
 
             items.Remove(mixItem);
             items.Insert(newIndex, mixItem);
-            messenger.SendToUI(new TrackRemovedFromMixEvent(mixItem));
-            messenger.SendToUI(new TrackAddedToMixEvent(mixItem, newIndex));
+            messenger.SendToUI(new TrackRemovedFromMixEvent(item));
+            messenger.SendToUI(new TrackAddedToMixEvent(item, newIndex));
             RecalcTransitions();
         }
 
-        public void AdjustPlaybackSpeed(MixItem item, double value)
+        public void AdjustPlaybackSpeed(IMixItem item, double value)
         {
             if (item == null) throw new ArgumentNullException("item");
-            item.SetPlaybackSpeed(value);
+            ((MixItem)item).SetPlaybackSpeed(value);
             messenger.SendToUI(new PlaybackSpeedAdjustedEvent(item));
             RecalcTransitions();
         }
 
-        public void RemoveRange(IEnumerable<MixItem> items)
+        public void RemoveRange(IEnumerable<IMixItem> items)
         {
             if (items == null) throw new ArgumentNullException("items");
             items.ForEach(Remove);
@@ -291,12 +291,13 @@ namespace MixPlanner.DomainModel
             return items[index].PlaybackSpeed;
         }
 
-        public void ResetPlaybackSpeed(MixItem item)
+        public void ResetPlaybackSpeed(IMixItem item)
         {
             if (item == null) throw new ArgumentNullException("item");
 
-            item.ResetPlaybackSpeed();
-            messenger.SendToUI(new PlaybackSpeedAdjustedEvent(item));
+            var mixItem = (MixItem) item;
+            mixItem.ResetPlaybackSpeed();
+            messenger.SendToUI(new PlaybackSpeedAdjustedEvent(mixItem));
             RecalcTransitions();
         }
 

@@ -33,7 +33,7 @@ namespace MixPlanner.DomainModel
             this.transitionDetector = transitionDetector;
         }
 
-        public IEnumerable<Tuple<Track, Transition>> GetRecommendations(MixItem mixItem)
+        public IEnumerable<Tuple<Track, Transition>> GetRecommendations(IMixItem mixItem)
         {
             if (mixItem == null) throw new ArgumentNullException("mixItem");
 
@@ -49,7 +49,7 @@ namespace MixPlanner.DomainModel
             messenger.SendToUI(new TrackUpdatedEvent(track));
         }
 
-        Transition GetTransition(MixItem mixItem, Track track)
+        Transition GetTransition(IMixItem mixItem, Track track)
         {
             return transitionDetector.GetTransitionBetween(mixItem.PlaybackSpeed,
                                                            track.GetDefaultPlaybackSpeed());

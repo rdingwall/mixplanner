@@ -5,9 +5,9 @@ namespace MixPlanner.Events
 {
     public class TransitionChangedEvent
     {
-        public MixItem MixItem { get; private set; }
+        public IMixItem MixItem { get; private set; }
 
-        public TransitionChangedEvent(MixItem mixItem)
+        public TransitionChangedEvent(IMixItem mixItem)
         {
             if (mixItem == null) throw new ArgumentNullException("mixItem");
             MixItem = mixItem;

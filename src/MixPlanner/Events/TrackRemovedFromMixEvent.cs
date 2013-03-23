@@ -5,9 +5,9 @@ namespace MixPlanner.Events
 {
     public class TrackRemovedFromMixEvent
     {
-        public MixItem Item { get; private set; }
+        public IMixItem Item { get; private set; }
 
-        public TrackRemovedFromMixEvent(MixItem item)
+        public TrackRemovedFromMixEvent(IMixItem item)
         {
             if (item == null) throw new ArgumentNullException("item");
             Item = item;

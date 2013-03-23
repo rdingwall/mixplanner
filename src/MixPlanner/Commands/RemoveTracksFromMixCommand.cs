@@ -5,7 +5,7 @@ using MixPlanner.DomainModel;
 
 namespace MixPlanner.Commands
 {
-    public class RemoveTracksFromMixCommand : CommandBase<IEnumerable<MixItem>>
+    public class RemoveTracksFromMixCommand : CommandBase<IEnumerable<IMixItem>>
     {
         readonly IMix mix;
 
@@ -15,12 +15,12 @@ namespace MixPlanner.Commands
             this.mix = mix;
         }
 
-        protected override bool CanExecute(IEnumerable<MixItem> parameter)
+        protected override bool CanExecute(IEnumerable<IMixItem> parameter)
         {
             return parameter != null && parameter.Any();
         }
 
-        protected override void Execute(IEnumerable<MixItem> parameter)
+        protected override void Execute(IEnumerable<IMixItem> parameter)
         {
             mix.RemoveRange(parameter);
         }
