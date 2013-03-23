@@ -158,6 +158,7 @@
     <Compile Include="Converters\TransitionDescriptionConverterSpecs.cs" />
     <Compile Include="DomainModel\AutoMixing\AllLongestPathsAlgorithmSpecs.cs" />
     <Compile Include="DomainModel\AutoMixing\AssertExtensions.cs" />
+    <Compile Include="DomainModel\AutoMixing\AutoMixingStrategySpecs.cs" />
     <Compile Include="DomainModel\AutoMixing\EdgeCostCalculatorSpecs.cs" />
     <Compile Include="DomainModel\AutoMixing\LongestPathAlgorithmSpecs.cs" />
     <Compile Include="DomainModel\AutoMixing\LongestPathAlgorithmTestCase.cs" />

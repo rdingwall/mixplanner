@@ -234,5 +234,10 @@ namespace MixPlanner.DomainModel
         }
 
         public static IEnumerable<HarmonicKey> AllKeys { get; private set; }
+
+        public static bool IsUnknown(HarmonicKey key)
+        {
+            return key == null || Unknown.Equals(key);
+        }
     }
 }

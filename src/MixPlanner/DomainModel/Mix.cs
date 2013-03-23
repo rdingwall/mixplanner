@@ -26,6 +26,7 @@ namespace MixPlanner.DomainModel
         double CalculateAverageOriginalBpm();
         void AutoAdjustBpms();
         MixItem GetMixItem(Track track);
+        IEnumerable<MixItem> GetUnknownTracks();
     }
 
     public class Mix : IMix
@@ -109,6 +110,11 @@ namespace MixPlanner.DomainModel
         {
             if (track == null) throw new ArgumentNullException("track");
             return items.FirstOrDefault(i => i.Track.Equals(track));
+        }
+
+        public IEnumerable<MixItem> GetUnknownTracks()
+        {
+            return items.Where(i => i.IsUnknownKeyOrBpm);
         }
 
         public void Remove(MixItem item)

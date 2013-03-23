@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using Castle.MicroKernel.Registration;
+using Castle.Windsor;
 using MixPlanner.DomainModel;
 using MixPlanner.DomainModel.MixingStrategies;
 
@@ -31,6 +33,19 @@ namespace MixPlanner.Specs
                                     new ManualOutOfKeyMix(bpmRangeChecker),
                                     new ManualIncompatibleBpmsMix(bpmRangeChecker) 
                                 };
+        }
+
+        public static IMixingStrategiesFactory GetFactory()
+        {
+            using (var container = new WindsorContainer())
+            {
+                container.Register(Component.For<IBpmRangeChecker>().ImplementedBy<AlwaysInRangeBpmChecker>(),
+                                   AllTypes.FromAssemblyContaining<SameKey>()
+                                           .BasedOn<IMixingStrategy>()
+                                           .WithServiceSelf());
+
+                return new MixingStrategiesFactory(container);
+            }
         }
 
         public static IEnumerable<IMixingStrategy> AllStrategies { get; private set; }

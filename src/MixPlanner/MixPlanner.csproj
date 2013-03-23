@@ -185,9 +185,14 @@
     <Compile Include="Converters\TraditionalTextHarmonicKeyConverter.cs" />
     <Compile Include="Converters\TransitionDescriptionConverter.cs" />
     <Compile Include="DomainModel\AutoMixing\AllLongestPathsAlgorithm.cs" />
+    <Compile Include="DomainModel\AutoMixing\AutoMixingContext.cs" />
+    <Compile Include="DomainModel\AutoMixing\AutoMixingResult.cs" />
+    <Compile Include="DomainModel\AutoMixing\AutoMixingStrategy.cs" />
     <Compile Include="DomainModel\AutoMixing\EdgeCost.cs" />
     <Compile Include="DomainModel\AutoMixing\EdgeCostCalculator.cs" />
+    <Compile Include="DomainModel\AutoMixing\IAutoMixable.cs" />
     <Compile Include="DomainModel\AutoMixing\LongestPathAlgorithm.cs" />
+    <Compile Include="DomainModel\AutoMixing\AutoMixEdge.cs" />
     <Compile Include="DomainModel\BpmRangeChecker.cs" />
     <Compile Include="Configuration\Config.cs" />
     <Compile Include="Configuration\ConfigProvider.cs" />

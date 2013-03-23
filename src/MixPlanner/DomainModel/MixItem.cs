@@ -1,8 +1,9 @@
 ﻿using System;
+using MixPlanner.DomainModel.AutoMixing;
 
 namespace MixPlanner.DomainModel
 {
-    public class MixItem
+    public class MixItem : IAutoMixable
     {
         public MixItem(
             Mix mix, 
@@ -24,6 +25,11 @@ namespace MixPlanner.DomainModel
         public Track Track { get; private set; }
         public Transition Transition { get; set; }
         public HarmonicKey ActualKey { get { return PlaybackSpeed.ActualKey; } }
+
+        public bool IsUnknownKeyOrBpm
+        {
+            get { return Track.IsUnknownBpm || Track.IsUnknownKey; }
+        }
 
         public void SetPlaybackSpeed(double value)
         {

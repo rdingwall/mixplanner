@@ -71,6 +71,11 @@ namespace MixPlanner.DomainModel
             get { return Double.IsNaN(OriginalBpm); }
         }
 
+        public bool IsUnknownKey
+        {
+            get { return HarmonicKey.IsUnknown(OriginalKey); }
+        }
+
         public PlaybackSpeed GetDefaultPlaybackSpeed()
         {
             return new PlaybackSpeed(OriginalKey, OriginalBpm);
