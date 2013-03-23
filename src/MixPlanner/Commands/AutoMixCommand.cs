@@ -6,19 +6,26 @@ using MixPlanner.DomainModel.AutoMixing;
 
 namespace MixPlanner.Commands
 {
+    
+
     public class AutoMixCommand : CommandBase<IEnumerable<MixItem>>
     {
         readonly IMix mix;
 
+        readonly IAutoMixingContextFactory contextFactory;
         readonly IAutoMixingStrategy<MixItem> strategy;
 
+
         public AutoMixCommand(
-            IMix mix, IAutoMixingStrategy<MixItem> strategy)
+            IMix mix, IAutoMixingStrategy<MixItem> strategy,
+            IAutoMixingContextFactory contextFactory)
         {
             if (mix == null) throw new ArgumentNullException("mix");
             if (strategy == null) throw new ArgumentNullException("strategy");
+            if (contextFactory == null) throw new ArgumentNullException("contextFactory");
             this.mix = mix;
             this.strategy = strategy;
+            this.contextFactory = contextFactory;
         }
 
         protected override bool CanExecute(IEnumerable<MixItem> parameter)
@@ -30,8 +37,7 @@ namespace MixPlanner.Commands
 
         protected override void Execute(IEnumerable<MixItem> parameter)
         {
-            var context = new AutoMixingContext<MixItem>(parameter);
-
+            AutoMixingContext<MixItem> context = contextFactory.CreateContext(mix, parameter);
             AutoMixingResult<MixItem> results = strategy.AutoMix(context);
 
             if (!results.IsSuccess)

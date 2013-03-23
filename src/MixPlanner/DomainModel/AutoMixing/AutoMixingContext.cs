@@ -30,5 +30,6 @@ namespace MixPlanner.DomainModel.AutoMixing
         public T PreceedingTrack { get; private set; }
         public IEnumerable<T> TracksToMix { get; private set; }
         public T FollowingTrack { get; private set; }
+        public int TracksToMixCount { get { return TracksToMix.Count(); } }
     }
 }

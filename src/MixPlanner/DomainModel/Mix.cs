@@ -30,6 +30,8 @@ namespace MixPlanner.DomainModel
         int IndexOf(MixItem item);
         IDisposable DisableRecalcTransitions();
         void MoveToEnd(MixItem track);
+        MixItem GetPreceedingItem(MixItem item);
+        MixItem GetFollowingItem(MixItem item);
     }
 
     public class Mix : IMix
@@ -137,6 +139,22 @@ namespace MixPlanner.DomainModel
             if (track == null) throw new ArgumentNullException("track");
             
             Reorder(track, Count);
+        }
+
+        public MixItem GetPreceedingItem(MixItem item)
+        {
+            if (item == null) throw new ArgumentNullException("item");
+
+            int preceedingIndex = IndexOf(item) - 1;
+            return preceedingIndex < 0 ? null : this[preceedingIndex];
+        }
+
+        public MixItem GetFollowingItem(MixItem item)
+        {
+            if (item == null) throw new ArgumentNullException("item");
+
+            int followingIndex = IndexOf(item) + 1;
+            return followingIndex == Count ? null : this[followingIndex];
         }
 
         void EnableRecalcTransitions()
