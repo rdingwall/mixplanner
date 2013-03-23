@@ -27,6 +27,7 @@ namespace MixPlanner.ViewModels
         public GetRecommendationsCommand GetRecommendationsCommand { get; private set; }
         public ClearRecommendationsCommand ClearRecommendationsCommand { get; private set; }
         public EditTrackCommand EditTrackCommand { get; private set; }
+        public IntelligentRearrangeTracksInMixCommand IntelligentRearrangeTracksCommand { get; set; }
 
         public MixItemViewModel SelectedItem
         {
@@ -51,7 +52,7 @@ namespace MixPlanner.ViewModels
             get { return SelectedItems.Count() == 1; }
         }
 
-        public MixViewModel(IMessenger messenger, 
+        public MixViewModel(IMessenger messenger,
             RemoveTracksFromMixCommand removeCommand,
             IMixItemViewModelFactory viewModels,
             DropItemIntoMixCommand dropItemCommand,
@@ -60,7 +61,9 @@ namespace MixPlanner.ViewModels
             ResetPlaybackSpeedCommand resetPlaybackSpeedCommand,
             ClearRecommendationsCommand clearRecommendationsCommand,
             GetRecommendationsCommand getRecommendationsCommand,
-            EditTrackCommand editTrackCommand) : base(messenger)
+            EditTrackCommand editTrackCommand,
+            IntelligentRearrangeTracksInMixCommand intelligentRearrangeTracksCommand)
+            : base(messenger)
         {
             if (messenger == null) throw new ArgumentNullException("messenger");
             if (removeCommand == null) throw new ArgumentNullException("removeCommand");
@@ -72,6 +75,8 @@ namespace MixPlanner.ViewModels
             if (clearRecommendationsCommand == null) throw new ArgumentNullException("clearRecommendationsCommand");
             if (getRecommendationsCommand == null) throw new ArgumentNullException("getRecommendationsCommand");
             if (editTrackCommand == null) throw new ArgumentNullException("editTrackCommand");
+            if (intelligentRearrangeTracksCommand == null)
+                throw new ArgumentNullException("intelligentRearrangeTracksCommand");
             DropItemCommand = dropItemCommand;
             DropFilesCommand = dropFilesCommand;
             PlayPauseCommand = playPauseCommand;
@@ -79,6 +84,7 @@ namespace MixPlanner.ViewModels
             ClearRecommendationsCommand = clearRecommendationsCommand;
             GetRecommendationsCommand = getRecommendationsCommand;
             EditTrackCommand = editTrackCommand;
+            IntelligentRearrangeTracksCommand = intelligentRearrangeTracksCommand;
             this.viewModels = viewModels;
             RemoveCommand = removeCommand;
             Items = new ObservableCollection<MixItemViewModel>();

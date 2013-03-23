@@ -42,7 +42,10 @@ namespace MixPlanner.DomainModel.AutoMixing
             IEnumerable<T> mixedTracks = GetPreferredMix(graph, context);
 
             if (mixedTracks == null)
+            {
+                log.Debug("Failed to find any auto mix paths. Returning unmodified tracks.");
                 return new AutoMixingResult<T>(context.TracksToMix, context);
+            }
 
             return new AutoMixingResult<T>(mixedTracks, context, unknownTracks);
         }

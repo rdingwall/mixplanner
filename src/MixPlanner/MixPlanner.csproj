@@ -136,6 +136,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ActionOnDispose.cs" />
     <Compile Include="AttachedProperties\DialogCloser.cs" />
     <Compile Include="AttachedProperties\GridViewSort.cs" />
     <Compile Include="Commands\AsyncCommandBase.cs" />
@@ -147,6 +148,9 @@
     <Compile Include="Commands\GetRecommendationsCommand.cs" />
     <Compile Include="Commands\ImportFilesIntoMixCommand.cs" />
     <Compile Include="Commands\IntelligentAddTrackToMixCommand.cs" />
+    <Compile Include="Commands\IntelligentRearrangeTracksInMixCommand.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Commands\NavigateUriCommand.cs" />
     <Compile Include="Commands\OpenSettingsCommand.cs" />
     <Compile Include="Commands\ReloadTrackFileCommand.cs" />

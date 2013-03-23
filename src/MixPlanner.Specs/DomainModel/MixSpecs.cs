@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using GalaSoft.MvvmLight.Messaging;
 using Machine.Specifications;
 using MixPlanner.DomainModel;
@@ -6,7 +7,7 @@ using MixPlanner.Events;
 
 namespace MixPlanner.Specs.DomainModel
 {
-    [Subject(typeof(Mix)), Ignore("A bit brittle, will wait")]
+    [Subject(typeof(Mix))]
     public class MixSpecs
     {
         public class When_adding_the_opening_track_for_an_empty_mix
@@ -98,6 +99,23 @@ namespace MixPlanner.Specs.DomainModel
             static Track third;
             static Track fourth;
             static IMix mix;
+        }
+
+        public class When_moving_a_track_to_the_end
+        {
+            Establish context = () =>
+                                    {
+                                        mix = TestMixes.GetRandomMix();
+                                        itemToMove = mix.Items.First();
+                                    };
+
+            Because of = () => mix.MoveToEnd(itemToMove);
+
+            It should_be_moved_to_the_end =
+                () => mix.Items.Last().ShouldEqual(itemToMove);
+
+            static IMix mix;
+            static MixItem itemToMove;
         }
     }
 }

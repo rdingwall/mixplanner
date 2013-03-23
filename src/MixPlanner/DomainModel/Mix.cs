@@ -27,6 +27,9 @@ namespace MixPlanner.DomainModel
         void AutoAdjustBpms();
         MixItem GetMixItem(Track track);
         IEnumerable<MixItem> GetUnknownTracks();
+        int IndexOf(MixItem item);
+        IDisposable DisableRecalcTransitions();
+        void MoveToEnd(MixItem track);
     }
 
     public class Mix : IMix
@@ -35,6 +38,7 @@ namespace MixPlanner.DomainModel
         readonly IActualTransitionDetector transitions;
         readonly ILimitingPlaybackSpeedAdjuster playbackSpeedAdjuster;
         readonly IList<MixItem> items;
+        bool isRecalcTransitionsEnabled = true;
 
         public Mix(
             IDispatcherMessenger messenger,
@@ -117,6 +121,30 @@ namespace MixPlanner.DomainModel
             return items.Where(i => i.IsUnknownKeyOrBpm);
         }
 
+        public int IndexOf(MixItem item)
+        {
+            return items.IndexOf(item);
+        }
+
+        public IDisposable DisableRecalcTransitions()
+        {
+            isRecalcTransitionsEnabled = false;
+            return new ActionOnDispose(EnableRecalcTransitions);
+        }
+
+        public void MoveToEnd(MixItem track)
+        {
+            if (track == null) throw new ArgumentNullException("track");
+            
+            Reorder(track, Count);
+        }
+
+        void EnableRecalcTransitions()
+        {
+            isRecalcTransitionsEnabled = true;
+            RecalcTransitions();
+        }
+
         public void Remove(MixItem item)
         {
             if (item == null) throw new ArgumentNullException("item");
@@ -194,6 +222,9 @@ namespace MixPlanner.DomainModel
 
         public void RecalcTransitions()
         {
+            if (!isRecalcTransitionsEnabled)
+                return;
+
             if (!items.Any())
                 return;
 

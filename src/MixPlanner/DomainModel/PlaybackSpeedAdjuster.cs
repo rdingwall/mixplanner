@@ -22,7 +22,7 @@ namespace MixPlanner.DomainModel
     {
         public virtual double GetSuggestedIncrease(PlaybackSpeed track, double targetBpm)
         {
-            if (track.IsUnknownBpm)
+            if (Double.IsNaN(targetBpm) || track.IsUnknownBpm)
                 return 0;
 
             double increaseRequired = track.GetExactIncreaseRequiredToMatch(targetBpm);
@@ -47,12 +47,18 @@ namespace MixPlanner.DomainModel
             if (first == null) throw new ArgumentNullException("first");
             if (second == null) throw new ArgumentNullException("second");
 
+            if (first.IsUnknownBpm || second.IsUnknownBpm)
+                return second;
+
             return AutoAdjust(second, targetBpm: first.ActualBpm);
         }
 
         public virtual PlaybackSpeed AutoAdjust(PlaybackSpeed track, double targetBpm)
         {
             if (track == null) throw new ArgumentNullException("track");
+
+            if (track.IsUnknownBpm || Double.IsNaN(targetBpm))
+                return track;
 
             double increase = GetSuggestedIncrease(track, targetBpm);
 
@@ -63,6 +69,8 @@ namespace MixPlanner.DomainModel
             IEnumerable<PlaybackSpeed> tracks, double targetBpm)
         {
             if (tracks == null) throw new ArgumentNullException("tracks");
+            if (Double.IsNaN(targetBpm))
+                return;
 
             foreach (var track in tracks)
             {

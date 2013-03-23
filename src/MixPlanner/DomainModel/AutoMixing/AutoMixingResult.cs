@@ -21,12 +21,12 @@ namespace MixPlanner.DomainModel.AutoMixing
             if (mixedTracks == null) throw new ArgumentNullException("mixedTracks");
             if (unknownTracks == null) throw new ArgumentNullException("unknownTracks");
             if (context == null) throw new ArgumentNullException("context");
-            MixedTracks = mixedTracks;
+            MixedTracks = mixedTracks.ToList();
             UnknownTracks = unknownTracks;
             Context = context;
         }
 
-        public IEnumerable<T> MixedTracks { get; private set; }
+        public IList<T> MixedTracks { get; private set; }
         public IEnumerable<T> UnknownTracks { get; private set; }
         public AutoMixingContext<T> Context { get; private set; }
     }
