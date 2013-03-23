@@ -62,7 +62,7 @@ namespace MixPlanner.DomainModel.AutoMixing
 
         static IEnumerable<T> UnpackBuckets(IEnumerable<AutoMixingBucket<T>> mixedBuckets)
         {
-            return mixedBuckets.SelectMany(b => b.Tracks);
+            return mixedBuckets.SelectMany(b => b);
         }
 
         static IEnumerable<AutoMixingBucket<T>> GetPreferredMix(
