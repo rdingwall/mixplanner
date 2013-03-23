@@ -12,7 +12,7 @@ namespace MixPlanner.DomainModel.AutoMixing
         AutoMixingResult<T> AutoMix(AutoMixingContext<T> context);
     }
 
-    public abstract class AutoMixingStrategy {}
+    public abstract class AutoMixingStrategy {} // just for Logger name
 
     public class AutoMixingStrategy<T> : AutoMixingStrategy, IAutoMixingStrategy<T> 
         where T : IAutoMixable
@@ -83,6 +83,9 @@ namespace MixPlanner.DomainModel.AutoMixing
 
             IEnumerable<AutoMixEdge<AutoMixingBucket<T>>> bestPath = GetBestPath(algo.LongestPaths, context);
 
+            if (bestPath == null)
+                return null;
+
             log.DebugFormat("Using path: {0}", FormatPath(bestPath));
 
             return GetVertices(bestPath);
@@ -95,10 +98,15 @@ namespace MixPlanner.DomainModel.AutoMixing
             var validPaths = paths;
 
             if (context.PreceedingTrack != null)
+            {
+                log.DebugFormat("Required preceeding track: {0}", context.PreceedingTrack.PlaybackSpeed);
                 validPaths = validPaths.Where(p => p.First().Source.Equals(context.PreceedingTrack));
-
+            }
             if (context.FollowingTrack != null)
+            {
+                log.DebugFormat("Required following track: {0}", context.FollowingTrack.PlaybackSpeed);
                 validPaths = validPaths.Where(p => p.Last().Target.Equals(context.FollowingTrack));
+            }
 
             return validPaths.FirstOrDefault();
         }
