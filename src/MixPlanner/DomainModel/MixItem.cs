@@ -9,6 +9,7 @@ namespace MixPlanner.DomainModel
         Transition Transition { get; set; }
         HarmonicKey ActualKey { get; }
         bool IsUnknownKeyOrBpm { get; }
+        double ActualBpm { get; }
     }
 
     public class MixItem : IMixItem
@@ -38,6 +39,8 @@ namespace MixPlanner.DomainModel
         {
             get { return Track.IsUnknownBpm || Track.IsUnknownKey; }
         }
+
+        public double ActualBpm { get { return PlaybackSpeed.ActualBpm; } }
 
         public void SetPlaybackSpeed(double value)
         {

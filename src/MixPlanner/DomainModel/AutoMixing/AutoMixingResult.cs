@@ -16,7 +16,7 @@ namespace MixPlanner.DomainModel.AutoMixing
             if (unknownTracks == null) throw new ArgumentNullException("unknownTracks");
             if (context == null) throw new ArgumentNullException("context");
             MixedTracks = mixedTracks.ToList();
-            UnknownTracks = unknownTracks;
+            UnknownTracks = unknownTracks.ToList();
             IsSuccess = isSuccess;
             Context = context;
         }

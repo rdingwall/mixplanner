@@ -311,6 +311,7 @@ namespace MixPlanner.Specs.DomainModel.AutoMixing
             public Transition Transition { get; set; }
             public HarmonicKey ActualKey { get; set; }
             public bool IsUnknownKeyOrBpm { get; set; }
+            public double ActualBpm { get { return 128; } }
 
             public TestMixItem(bool isUnknownKeyOrBpm)
             {
