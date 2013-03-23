@@ -59,6 +59,19 @@ namespace MixPlanner.Specs.DomainModel.AutoMixing
                                                                HarmonicKey.Key7A,
                                                                HarmonicKey.Key8A
                                                            }
+                                },
+                                {
+                                    HarmonicKey.Key7A, new[]
+                                                           {
+                                                               HarmonicKey.Key7A,
+                                                               HarmonicKey.Key2A,
+                                                               HarmonicKey.Key3A,
+                                                               HarmonicKey.Key4A,
+                                                               HarmonicKey.Key11A,
+                                                               HarmonicKey.Key6A,
+                                                               HarmonicKey.Key1A,
+                                                               HarmonicKey.Key8A
+                                                           }
                                 }
                             }
                     };
