@@ -5,6 +5,7 @@ using MixPlanner.DomainModel;
 using MixPlanner.DomainModel.AutoMixing;
 using NUnit.Framework;
 using SharpTestsEx;
+using MoreLinq;
 
 namespace MixPlanner.Specs.DomainModel.AutoMixing
 {
@@ -83,6 +84,36 @@ namespace MixPlanner.Specs.DomainModel.AutoMixing
                     }
                 }
             }
+        }
+
+        public static void ShouldAllBeValidTransitions(
+            this IEnumerable<IMixItem> path,
+            IEnumerable<IMixingStrategy> mixingStrategies)
+        {
+            path.Pairwise((first, second) => new { first, second })
+                .ForEach(p =>
+                             {
+                                 var isHarmonic =
+                                     mixingStrategies.Any(s => s.IsCompatible(p.first.ActualKey, p.second.ActualKey));
+                                 if (!isHarmonic)
+                                 {
+                                     var mix = String.Join(" -> ", path.Select(t => t.ActualKey));
+                                     Assert.Fail("Mix {0} is not harmonic between edge {1} -> {2}",
+                                                 mix, p.first.ActualKey, p.second.ActualKey);
+                                 }
+                             });
+        }
+
+        public static void ShouldFollowKey(this HarmonicKey key, HarmonicKey previous,
+                                           IEnumerable<IMixingStrategy> strategies)
+        {
+            strategies.Any(s => s.IsCompatible(previous, key)).Should().Be.True();
+        }
+
+        public static void ShouldPreceedKey(this HarmonicKey key, HarmonicKey next,
+                                           IEnumerable<IMixingStrategy> strategies)
+        {
+            strategies.Any(s => s.IsCompatible(key, next)).Should().Be.True();
         }
     }
 }

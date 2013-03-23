@@ -3,6 +3,7 @@ using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using MixPlanner.DomainModel;
 using MixPlanner.DomainModel.MixingStrategies;
+using System.Linq;
 
 namespace MixPlanner.Specs
 {
@@ -33,7 +34,17 @@ namespace MixPlanner.Specs
                                     new ManualOutOfKeyMix(bpmRangeChecker),
                                     new ManualIncompatibleBpmsMix(bpmRangeChecker) 
                                 };
+
+            AllCompatibleStrategies = PreferredStrategies.Concat(
+                new IMixingStrategy[]
+                    {
+                        new OneSemitoneDecrease(bpmRangeChecker),
+                        new TwoSemitoneDecrease(bpmRangeChecker),
+                        new PerfectFourth(bpmRangeChecker) 
+                    });
         }
+
+        public static IEnumerable<IMixingStrategy> AllCompatibleStrategies { get; private set; }
 
         public static IMixingStrategiesFactory GetFactory()
         {

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using QuickGraph;
 using QuickGraph.Algorithms.Services;
@@ -38,7 +39,6 @@ namespace MixPlanner.DomainModel.AutoMixing
                     if (cancelManager.IsCancelling)
                         return;
 
-                    IEnumerable<TEdge> path;
                     TryFindDeepest(u);
                 }
             }
@@ -59,8 +59,9 @@ namespace MixPlanner.DomainModel.AutoMixing
         {
             if (stack.Count == VisitedGraph.VertexCount - 2)
             {
-                stack.Push(root);
-                AddResult(stack.Reverse().ToList());
+                var result = stack.Reverse().ToList();
+                result.Add(root);
+                AddResult(result);
                 return;
             }
 

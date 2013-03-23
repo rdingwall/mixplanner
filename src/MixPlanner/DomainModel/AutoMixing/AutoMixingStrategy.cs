@@ -16,11 +16,16 @@ namespace MixPlanner.DomainModel.AutoMixing
     {
         static readonly ILog Log = LogManager.GetLogger(typeof (AutoMixingStrategy)); 
         readonly IMixingStrategiesFactory strategiesFactory;
+        readonly IEdgeCostCalculator edgeCostCalculator;
 
-        public AutoMixingStrategy(IMixingStrategiesFactory strategiesFactory)
+        public AutoMixingStrategy(
+            IMixingStrategiesFactory strategiesFactory,
+            IEdgeCostCalculator edgeCostCalculator)
         {
             if (strategiesFactory == null) throw new ArgumentNullException("strategiesFactory");
+            if (edgeCostCalculator == null) throw new ArgumentNullException("edgeCostCalculator");
             this.strategiesFactory = strategiesFactory;
+            this.edgeCostCalculator = edgeCostCalculator;
         }
 
         public AutoMixingResult AutoMix(AutoMixingContext context)
@@ -30,14 +35,21 @@ namespace MixPlanner.DomainModel.AutoMixing
             IEnumerable<IMixItem> unknownTracks = context.TracksToMix.Where(c => c.IsUnknownKeyOrBpm).ToList();
             IEnumerable<IMixItem> mixableTracks = context.TracksToMix.Except(unknownTracks);
 
+            AutoMixingBucket optionalStartVertex;
             AdjacencyGraph<AutoMixingBucket, AutoMixEdge> graph 
-                = BuildGraph(mixableTracks, unknownTracks, context);
+                = BuildGraph(mixableTracks, unknownTracks, context, out optionalStartVertex);
 
-            AddEdges(graph, strategiesFactory.GetPreferredStrategiesInOrder());
-            Log.DebugFormat("Added {0} preferred edges, {1} vertices.", graph.EdgeCount, graph.VertexCount);
+            AddPreferredEdges(graph);
 
             IEnumerable<AutoMixingBucket> mixedBuckets = GetPreferredMix(graph, 
-                context.GetOptionalStartKey(), context.GetOptionalEndKey());
+                optionalStartVertex, context.GetOptionalEndKey());
+
+            if (mixedBuckets == null)
+            {
+                AddFallbackEdges(graph);
+                mixedBuckets = GetPreferredMix(graph, optionalStartVertex,
+                                               context.GetOptionalEndKey());
+            }
 
             if (mixedBuckets == null)
             {
@@ -50,17 +62,29 @@ namespace MixPlanner.DomainModel.AutoMixing
             return AutoMixingResult.Success(context, mixedTracks, unknownTracks);
         }
 
+        void AddPreferredEdges(IMutableEdgeListGraph<AutoMixingBucket, AutoMixEdge> graph)
+        {
+            AddEdges(graph, strategiesFactory.GetPreferredStrategiesInOrder());
+            Log.DebugFormat("Added {0} preferred edges.", graph.EdgeCount);
+        }
+
+        void AddFallbackEdges(IMutableEdgeListGraph<AutoMixingBucket, AutoMixEdge> graph)
+        {
+            AddEdges(graph, strategiesFactory.GetNonPreferredCompatibleStrategies());
+            Log.DebugFormat("Added {0} fallback edges (harmonic but not preferred).", graph.EdgeCount);
+        }
+
         static AdjacencyGraph<AutoMixingBucket, AutoMixEdge> BuildGraph(
             IEnumerable<IMixItem> mixableTracks, 
             IEnumerable<IMixItem> unknownTracks, 
-            AutoMixingContext context)
+            AutoMixingContext context, out AutoMixingBucket optionalStartVertex)
         {
             IList<AutoMixingBucket> buckets = mixableTracks
                 .GroupBy(g => g.ActualKey)
                 .Select(g => new AutoMixingBucket(g, g.Key))
                 .ToList();
 
-            Log.DebugFormat("{0} mixable tracks ({1} buckets), {2} unmixable tracks (unknown key/BPM).",
+            Log.DebugFormat("{0} mixable tracks ({1} buckets aka vertices), {2} unmixable tracks (unknown key/BPM).",
                             mixableTracks.Count(), buckets.Count(), unknownTracks.Count());
 
             var graph = new AdjacencyGraph<AutoMixingBucket, AutoMixEdge>();
@@ -83,22 +107,21 @@ namespace MixPlanner.DomainModel.AutoMixing
             // simply unpack as empty (they don't contain any tracks) so we can
             // use them for the final path of mix items without producing any 
             // messy placeholder/temporary tracks.
-            AddPlaceholderVertexIfRequired(graph, context.GetOptionalStartKey());
+            optionalStartVertex = AddPlaceholderVertexIfRequired(graph, context.GetOptionalStartKey());
             AddPlaceholderVertexIfRequired(graph, context.GetOptionalEndKey());
 
             return graph;
         }
 
-        static void AddPlaceholderVertexIfRequired(
+        static AutoMixingBucket AddPlaceholderVertexIfRequired(
             AdjacencyGraph<AutoMixingBucket, AutoMixEdge> graph, HarmonicKey key)
         {
             if (key == null)
-                return;
+                return null;
 
-            if (graph.Vertices.Any(v => v.ContainsKey(key)))
-                return;
-
-            graph.AddVertex(new AutoMixingBucket(key));
+            var vertex = new AutoMixingBucket(key);
+            graph.AddVertex(vertex);
+            return vertex;
         }
 
         static IEnumerable<IMixItem> UnpackBuckets(IEnumerable<AutoMixingBucket> mixedBuckets)
@@ -108,10 +131,17 @@ namespace MixPlanner.DomainModel.AutoMixing
 
         static IEnumerable<AutoMixingBucket> GetPreferredMix(
             IVertexListGraph<AutoMixingBucket, AutoMixEdge> graph,
-            HarmonicKey optionalStartKey,
+            AutoMixingBucket optionalStartVertex,
             HarmonicKey optionalEndKey)
         {
             var algo = new AllLongestPathsAlgorithm<AutoMixingBucket, AutoMixEdge>(graph);
+
+            HarmonicKey optionalStartKey = null;
+            if (optionalStartVertex != null)
+            {
+                algo.SetRootVertex(optionalStartVertex);
+                optionalStartKey = optionalStartVertex.ActualKey;
+            }
 
             var stopwatch = Stopwatch.StartNew();
             algo.Compute();
@@ -123,7 +153,7 @@ namespace MixPlanner.DomainModel.AutoMixing
                 return null;
             LogPaths(algo.LongestPaths);
 
-            IEnumerable<AutoMixEdge> bestPath = GetBestPath(algo.LongestPaths, 
+            IEnumerable<AutoMixEdge> bestPath = GetPathSatisfyingOptionalStartAndEndKey(algo.LongestPaths,
                 optionalStartKey, optionalEndKey);
 
             if (bestPath == null)
@@ -134,7 +164,7 @@ namespace MixPlanner.DomainModel.AutoMixing
             return GetVertices(bestPath);
         }
 
-        static IEnumerable<AutoMixEdge> GetBestPath(
+        static IEnumerable<AutoMixEdge> GetPathSatisfyingOptionalStartAndEndKey(
             IEnumerable<IEnumerable<AutoMixEdge>> paths,
             HarmonicKey optionalStartKey,
             HarmonicKey optionalEndKey)
@@ -153,7 +183,9 @@ namespace MixPlanner.DomainModel.AutoMixing
                 validPaths = validPaths.Where(p => p.Last().Target.ContainsKey(optionalEndKey));
             }
 
-            return validPaths.FirstOrDefault();
+            return validPaths
+                .OrderBy(p => p.Sum(e => e.Cost))
+                .FirstOrDefault();
         }
 
         static IEnumerable<AutoMixingBucket> GetVertices(IEnumerable<AutoMixEdge> path)
@@ -167,7 +199,7 @@ namespace MixPlanner.DomainModel.AutoMixing
         /// Add any graph edge where there is any transition from one track to
         /// another, using one of the specified mixing strategies.
         /// </summary>
-        static void AddEdges(IMutableEdgeListGraph<AutoMixingBucket, AutoMixEdge> graph,
+        void AddEdges(IMutableEdgeListGraph<AutoMixingBucket, AutoMixEdge> graph,
             IEnumerable<IMixingStrategy> strategies)
         {
             IEnumerable<AutoMixEdge> edges =
@@ -177,7 +209,8 @@ namespace MixPlanner.DomainModel.AutoMixing
                 from strategy in strategies
                 where strategy.IsCompatible(preceedingTrack.ActualKey, followingTrack.ActualKey)
                 orderby followingTrack.ActualKey, preceedingTrack.ActualKey
-                select new AutoMixEdge(preceedingTrack, followingTrack, strategy);
+                let cost = edgeCostCalculator.CalculateCost(strategy)
+                select new AutoMixEdge(preceedingTrack, followingTrack, strategy, cost);
 
             graph.AddEdgeRange(edges);
         }
@@ -194,7 +227,8 @@ namespace MixPlanner.DomainModel.AutoMixing
                 .Select(e => e.Source.ActualKey)
                 .Concat(new[] {path.Last().Target.ActualKey});
 
-            return String.Join(" -> ", vertices);
+            return String.Format("{0} (cost: {1})", String.Join(" -> ", vertices), 
+                path.Sum(e => e.Cost)); 
         }
     }
 }

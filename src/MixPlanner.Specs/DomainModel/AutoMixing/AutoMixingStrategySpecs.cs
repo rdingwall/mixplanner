@@ -28,7 +28,8 @@ namespace MixPlanner.Specs.DomainModel.AutoMixing
 
                     mixingContext = new AutoMixingContext(tracksToMix.Concat(unknownTracks));
 
-                    strategy = new AutoMixingStrategy(TestMixingStrategies.GetFactory());
+                    var strategiesFactory = TestMixingStrategies.GetFactory();
+                    strategy = new AutoMixingStrategy(strategiesFactory, new EdgeCostCalculator(strategiesFactory));
                 };
 
             Because of = () => result = strategy.AutoMix(mixingContext);
@@ -42,6 +43,9 @@ namespace MixPlanner.Specs.DomainModel.AutoMixing
             It should_find_the_resulting_path =
                 () => result.MixedTracks.Select(t => t.ActualKey)
                             .Should().Have.SameSequenceAs(testCase.ExpectedPaths[result.MixedTracks.First().ActualKey]);
+
+            It should_be_a_valid_harmonic_mix =
+                () => result.MixedTracks.ShouldAllBeValidTransitions(TestMixingStrategies.PreferredStrategies);
 
             static IAutoMixingStrategy strategy;
             static AutoMixingContext mixingContext;
@@ -74,7 +78,8 @@ namespace MixPlanner.Specs.DomainModel.AutoMixing
                     mixingContext = new AutoMixingContext(
                         tracksToMix.Concat(unknownTracks), preceedingTrack, followingTrack);
 
-                    strategy = new AutoMixingStrategy(TestMixingStrategies.GetFactory());
+                    var strategiesFactory = TestMixingStrategies.GetFactory();
+                    strategy = new AutoMixingStrategy(strategiesFactory, new EdgeCostCalculator(strategiesFactory));
                 };
 
             Because of = () => result = strategy.AutoMix(mixingContext);
@@ -88,6 +93,9 @@ namespace MixPlanner.Specs.DomainModel.AutoMixing
             It should_find_the_resulting_using_the_specified_start_and_end_key =
                 () => result.MixedTracks.Select(t => t.ActualKey)
                             .Should().Have.SameSequenceAs(expectedMix);
+
+            It should_be_a_valid_harmonic_mix =
+                () => result.MixedTracks.ShouldAllBeValidTransitions(TestMixingStrategies.PreferredStrategies);
 
             static IAutoMixingStrategy strategy;
             static AutoMixingContext mixingContext;
@@ -123,7 +131,8 @@ namespace MixPlanner.Specs.DomainModel.AutoMixing
                     mixingContext = new AutoMixingContext(
                         tracksToMix.Concat(unknownTracks), preceedingTrack, followingTrack);
 
-                    strategy = new AutoMixingStrategy(TestMixingStrategies.GetFactory());
+                    var strategiesFactory = TestMixingStrategies.GetFactory();
+                    strategy = new AutoMixingStrategy(strategiesFactory, new EdgeCostCalculator(strategiesFactory));
                 };
 
             Because of = () => result = strategy.AutoMix(mixingContext);
@@ -137,6 +146,9 @@ namespace MixPlanner.Specs.DomainModel.AutoMixing
             It should_find_the_resulting_using_the_specified_start_and_end_key =
                 () => result.MixedTracks.Select(t => t.ActualKey)
                             .Should().Have.SameSequenceAs(expectedMix);
+
+            It should_be_a_valid_harmonic_mix =
+                () => result.MixedTracks.ShouldAllBeValidTransitions(TestMixingStrategies.PreferredStrategies);
 
             static IAutoMixingStrategy strategy;
             static AutoMixingContext mixingContext;
@@ -169,7 +181,8 @@ namespace MixPlanner.Specs.DomainModel.AutoMixing
                     mixingContext = new AutoMixingContext(
                         tracksToMix.Concat(unknownTracks), null, followingTrack);
 
-                    strategy = new AutoMixingStrategy(TestMixingStrategies.GetFactory());
+                    var strategiesFactory = TestMixingStrategies.GetFactory();
+                    strategy = new AutoMixingStrategy(strategiesFactory, new EdgeCostCalculator(strategiesFactory));
                 };
 
             Because of = () => result = strategy.AutoMix(mixingContext);
@@ -184,6 +197,9 @@ namespace MixPlanner.Specs.DomainModel.AutoMixing
                 () => result.MixedTracks.Select(t => t.ActualKey).Last()
                             .ShouldEqual(HarmonicKey.Key8A);
 
+            It should_be_a_valid_harmonic_mix =
+                () => result.MixedTracks.ShouldAllBeValidTransitions(TestMixingStrategies.PreferredStrategies);
+
             static IAutoMixingStrategy strategy;
             static AutoMixingContext mixingContext;
             static AutoMixingResult result;
@@ -193,7 +209,7 @@ namespace MixPlanner.Specs.DomainModel.AutoMixing
             static TestMixItem followingTrack;
         }
 
-        public class When_a_preceeding_and_following_track_were_specified_but_no_such_paths_were_found
+        public class When_the_preceeding_and_following_track_were_the_same_and_required_fallback_strategies
         {
             Establish context =
                 () =>
@@ -211,31 +227,38 @@ namespace MixPlanner.Specs.DomainModel.AutoMixing
                     preceedingTrack = new TestMixItem(HarmonicKey.Key12A);
                     followingTrack = new TestMixItem(HarmonicKey.Key12A);
 
-                    expectedMix = testCase.ExpectedPaths[HarmonicKey.Key7A];
-
                     mixingContext = new AutoMixingContext(
                         tracksToMix.Concat(unknownTracks), preceedingTrack, followingTrack);
 
-                    strategy = new AutoMixingStrategy(TestMixingStrategies.GetFactory());
+                    var strategiesFactory = TestMixingStrategies.GetFactory();
+                    strategy = new AutoMixingStrategy(strategiesFactory, new EdgeCostCalculator(strategiesFactory));
                 };
 
             Because of = () => result = strategy.AutoMix(mixingContext);
 
-            It should_return_a_failed_result =
-                () => result.IsSuccess.ShouldBeFalse();
+            It should_return_a_successful_result =
+                () => result.IsSuccess.ShouldBeTrue();
 
-            It should_not_separate_the_unmixable_tracks =
-                () => result.UnknownTracks.Should().Be.Empty();
+            It should_separate_the_unmixable_tracks =
+                () => result.UnknownTracks.Should().Have.SameValuesAs(unknownTracks);
 
-            It should_return_the_tracks_as_is =
-                () => result.MixedTracks.Should().Have.SameSequenceAs(mixingContext.TracksToMix);
+            It should_return_the_correct_number_of_tracks =
+                () => result.MixedTracks.Should().Have.SameValuesAs(tracksToMix);
+
+            It should_find_a_mix_starting_with_the_correct_key =
+                () => result.MixedTracks.First().ActualKey.ShouldFollowKey(HarmonicKey.Key12A, TestMixingStrategies.AllCompatibleStrategies);
+
+            It should_find_a_mix_ending_with_the_correct_key =
+                () => result.MixedTracks.Last().ActualKey.ShouldPreceedKey(HarmonicKey.Key12A, TestMixingStrategies.AllCompatibleStrategies);
+
+            It should_be_a_valid_harmonic_mix =
+                () => result.MixedTracks.ShouldAllBeValidTransitions(TestMixingStrategies.AllCompatibleStrategies);
 
             static IAutoMixingStrategy strategy;
             static AutoMixingContext mixingContext;
             static AutoMixingResult result;
             static IEnumerable<IMixItem> unknownTracks;
             static IEnumerable<IMixItem> tracksToMix;
-            static IEnumerable<HarmonicKey> expectedMix;
             static LongestPathAlgorithmTestCase testCase;
             static IMixItem preceedingTrack;
             static IMixItem followingTrack;
@@ -258,7 +281,8 @@ namespace MixPlanner.Specs.DomainModel.AutoMixing
 
                     mixingContext = new AutoMixingContext(tracksToMix.Concat(unknownTracks));
 
-                    strategy = new AutoMixingStrategy(TestMixingStrategies.GetFactory());
+                    var strategiesFactory = TestMixingStrategies.GetFactory();
+                    strategy = new AutoMixingStrategy(strategiesFactory, new EdgeCostCalculator(strategiesFactory));
                 };
 
             Because of = () => result = strategy.AutoMix(mixingContext);

@@ -59,10 +59,12 @@ namespace MixPlanner.DomainModel
 
         public IEnumerable<IMixingStrategy> GetNonPreferredCompatibleStrategies()
         {
-            return GetAllStrategies()
-                .Except(GetPreferredStrategiesInOrder())
-                .Except(GetIncompatibleStrategies())
-                .ToList();
+            return new IMixingStrategy[]
+                       {
+                           container.Resolve<TwoSemitoneDecrease>(),
+                           container.Resolve<OneSemitoneDecrease>(),
+                           container.Resolve<PerfectFourth>()
+                       };
         }
 
         public IEnumerable<IMixingStrategy> GetIncompatibleStrategies()
