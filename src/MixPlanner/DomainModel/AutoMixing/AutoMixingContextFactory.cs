@@ -19,11 +19,20 @@ namespace MixPlanner.DomainModel.AutoMixing
             if (selectedTracks.Count() == mix.Count)
                 return new AutoMixingContext(selectedTracks);
 
-            var preceeding = mix.GetPreceedingItem(selectedTracks.First());
-            var following = mix.GetFollowingItem(selectedTracks.Last());
+            IMixItem preceeding = mix.GetPreceedingItem(selectedTracks.First());
+            IMixItem following = mix.GetFollowingItem(selectedTracks.Last());
+
+            IgnoreIfUnknownKeyOrBpm(ref preceeding);
+            IgnoreIfUnknownKeyOrBpm(ref following);
 
             return new AutoMixingContext(selectedTracks, preceeding, following);
 
+        }
+
+        void IgnoreIfUnknownKeyOrBpm(ref IMixItem track)
+        {
+            if (track != null && track.IsUnknownKeyOrBpm)
+                track = null;
         }
     }
 }

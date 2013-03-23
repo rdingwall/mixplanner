@@ -111,5 +111,51 @@ namespace MixPlanner.Specs.DomainModel.AutoMixing
              static IMix mix;
              static IEnumerable<IMixItem> itemsToAdd;
          }
+
+         public class When_the_preceeding_track_had_an_unknown_key_or_bpm
+         {
+             Establish context = () =>
+             {
+                 contextFactory = new AutoMixingContextFactory();
+                 mix = TestMixes.Create(HarmonicKey.Unknown, HarmonicKey.Key1A, HarmonicKey.Key2A);
+                 itemsToAdd = mix.Skip(1);
+             };
+
+             Because of = () => mixingContext = contextFactory.CreateContext(mix, itemsToAdd);
+
+             It should_add_the_expected_tracks =
+                 () => mixingContext.TracksToMix.Should().Have.SameSequenceAs(itemsToAdd);
+
+             It should_not_specify_any_preceeding_track =
+                 () => mixingContext.PreceedingTrack.ShouldBeNull();
+
+             static IAutoMixingContextFactory contextFactory;
+             static AutoMixingContext mixingContext;
+             static IMix mix;
+             static IEnumerable<IMixItem> itemsToAdd;
+         }
+
+         public class When_the_following_track_had_an_unknown_key_or_bpm
+         {
+             Establish context = () =>
+             {
+                 contextFactory = new AutoMixingContextFactory();
+                 mix = TestMixes.Create(HarmonicKey.Key1A, HarmonicKey.Key2A, HarmonicKey.Unknown);
+                 itemsToAdd = mix.Take(2);
+             };
+
+             Because of = () => mixingContext = contextFactory.CreateContext(mix, itemsToAdd);
+
+             It should_add_the_expected_tracks =
+                 () => mixingContext.TracksToMix.Should().Have.SameSequenceAs(itemsToAdd);
+
+             It should_not_specify_any_following_track =
+                 () => mixingContext.FollowingTrack.ShouldBeNull();
+
+             static IAutoMixingContextFactory contextFactory;
+             static AutoMixingContext mixingContext;
+             static IMix mix;
+             static IEnumerable<IMixItem> itemsToAdd;
+         }
     }
 }

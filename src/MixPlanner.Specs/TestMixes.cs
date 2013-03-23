@@ -15,6 +15,16 @@ namespace MixPlanner.Specs
             return mix;
         }
 
+        public static Mix Create(params HarmonicKey[] keys)
+        {
+            var mix = GetEmptyMix();
+
+            foreach (HarmonicKey key in keys)
+                mix.Add(TestTracks.GetRandomTrack(key));
+
+            return mix;
+        }
+
         public static Mix GetEmptyMix()
         {
             return new Mix(
