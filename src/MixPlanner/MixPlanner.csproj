@@ -140,6 +140,7 @@
     <Compile Include="AttachedProperties\DialogCloser.cs" />
     <Compile Include="AttachedProperties\GridViewSort.cs" />
     <Compile Include="Commands\AsyncCommandBase.cs" />
+    <Compile Include="Deque.cs" />
     <Compile Include="DomainModel\AutoMixing\AutoMixingContextFactory.cs" />
     <Compile Include="Commands\ClearRecommendationsCommand.cs" />
     <Compile Include="Commands\CloseWindowCommand.cs" />
@@ -198,6 +199,7 @@
     <Compile Include="DomainModel\AutoMixing\EdgeCostCalculator.cs" />
     <Compile Include="DomainModel\AutoMixing\LongestPathAlgorithm.cs" />
     <Compile Include="DomainModel\AutoMixing\AutoMixEdge.cs" />
+    <Compile Include="DomainModel\AutoMixing\SuperStack.cs" />
     <Compile Include="DomainModel\BpmRangeChecker.cs" />
     <Compile Include="Configuration\Config.cs" />
     <Compile Include="Configuration\ConfigProvider.cs" />

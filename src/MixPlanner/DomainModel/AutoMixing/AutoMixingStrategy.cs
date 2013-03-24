@@ -41,14 +41,15 @@ namespace MixPlanner.DomainModel.AutoMixing
 
             AddPreferredEdges(graph);
 
-            IEnumerable<AutoMixingBucket> mixedBuckets = GetPreferredMix(graph, 
-                optionalStartVertex, context.GetOptionalEndKey());
+            IEnumerable<AutoMixingBucket> mixedBuckets = GetPreferredMix(graph,
+                optionalStartVertex, context.GetOptionalEndKey(), computeAll: false);
 
             if (mixedBuckets == null)
             {
                 AddFallbackEdges(graph);
                 mixedBuckets = GetPreferredMix(graph, optionalStartVertex,
-                                               context.GetOptionalEndKey());
+                                               context.GetOptionalEndKey(),
+                                               computeAll: true);
             }
 
             if (mixedBuckets == null)
@@ -132,9 +133,14 @@ namespace MixPlanner.DomainModel.AutoMixing
         static IEnumerable<AutoMixingBucket> GetPreferredMix(
             IVertexListGraph<AutoMixingBucket, AutoMixEdge> graph,
             AutoMixingBucket optionalStartVertex,
-            HarmonicKey optionalEndKey)
+            HarmonicKey optionalEndKey,
+            bool computeAll)
         {
-            var algo = new AllLongestPathsAlgorithm<AutoMixingBucket, AutoMixEdge>(graph);
+            LongestPathAlgorithm<AutoMixingBucket, AutoMixEdge> algo;
+            if (!computeAll && (optionalEndKey == null && optionalStartVertex == null))
+                algo = new LongestPathAlgorithm<AutoMixingBucket, AutoMixEdge>(graph);
+            else
+                algo = new AllLongestPathsAlgorithm<AutoMixingBucket, AutoMixEdge>(graph);
 
             HarmonicKey optionalStartKey = null;
             if (optionalStartVertex != null)

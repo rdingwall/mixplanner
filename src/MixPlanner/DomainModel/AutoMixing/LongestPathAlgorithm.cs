@@ -83,7 +83,7 @@ namespace MixPlanner.DomainModel.AutoMixing
 
         private bool TryFindDeepest(TVertex root, out IEnumerable<TEdge> path)
         {
-            var stack = new Stack<TEdge>(VisitedGraph.VertexCount);
+            var stack = new SuperStack<TVertex, TEdge>(VisitedGraph.VertexCount);
             IEnumerable<TEdge> outEdges = VisitedGraph.OutEdges(root);
 
             foreach (TEdge edge in outEdges)
@@ -99,17 +99,17 @@ namespace MixPlanner.DomainModel.AutoMixing
             return false;
         }
 
-        protected static bool StackContains(Stack<TEdge> stack, TVertex vertex)
+        protected static bool StackContains(SuperStack<TVertex, TEdge> stack, TVertex vertex)
         {
-            if (!stack.Any())
+            if (stack.IsEmpty())
                 return false;
 
-            var bottomOfStack = stack.Last();
+            var bottomOfStack = stack.PeekBottom();
             return bottomOfStack.Source.Equals(vertex) ||
-                   stack.Any(e => e.Target.Equals(vertex));
+                   stack.ContainsVertex(vertex);
         }
 
-        private bool FindDeepestRecursive(Stack<TEdge> stack, TEdge root)
+        private bool FindDeepestRecursive(SuperStack<TVertex, TEdge> stack, TEdge root)
         {
             if (stack.Count == VisitedGraph.VertexCount - 2)
             {
