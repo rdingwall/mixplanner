@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using MixPlanner.DomainModel;
 using MixPlanner.DomainModel.AutoMixing;
@@ -40,7 +41,7 @@ namespace MixPlanner.Commands
 
         protected override async Task DoExecute(IEnumerable<IMixItem> parameter)
         {
-            await new TaskFactory().StartNew(() => DoExecuteSync(parameter));
+            await Task.Factory.StartNew(() => DoExecuteSync(parameter));
         }
 
         void DoExecuteSync(IEnumerable<IMixItem> parameter)
