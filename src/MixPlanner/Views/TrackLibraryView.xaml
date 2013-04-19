@@ -19,8 +19,11 @@
             <c:SearchTextBox Height="24"
                 AllowEmptySearches="True"
                                     SearchMode="Instant"
+                                    Text="{Binding SearchText, Mode=TwoWay}"
                                     Command="{Binding SearchCommand}"
-                                    CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Text}" DockPanel.Dock="Top"/>
+                                    CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Text}"
+                                    DockPanel.Dock="Top"
+                                    ap:FocusExtension.IsFocused="{Binding IsSearchBoxFocused, Mode=TwoWay}"/>
             <c:ImprovedListView x:Name="TrackLibraryDataGrid"
                       ItemsSource="{Binding ItemsView}"
 					  SelectedItem="{Binding SelectedItem, Mode=TwoWay}"

@@ -30,6 +30,28 @@ namespace MixPlanner.ViewModels
         public EditTrackCommand EditTrackCommand { get; private set; }
         public IntelligentAddTrackToMixCommand IntelligentAddTrackCommand { get; private set; }
 
+        bool isSearchBoxFocused;
+        public bool IsSearchBoxFocused
+        {
+            get { return isSearchBoxFocused; }
+            set
+            {
+                isSearchBoxFocused = value;
+                RaisePropertyChanged(() => IsSearchBoxFocused);
+            }
+        }
+
+        string searchText;
+        public string SearchText
+        {
+            get { return searchText; }
+            set
+            {
+                searchText = value;
+                RaisePropertyChanged(() => SearchText);
+            }
+        }
+
         ICollectionView itemsView;
         public ICollectionView ItemsView
         {
@@ -94,6 +116,7 @@ namespace MixPlanner.ViewModels
             messenger.Register<TrackRemovedFromLibraryEvent>(this, OnTrackRemoved);
             messenger.Register<SearchRequestedEvent>(this, OnSearchRequested);
             messenger.Register<SearchTextClearedEvent>(this, OnSearchTextCleared);
+            messenger.Register<SearchBoxFocusRequestedEvent>(this, OnSearchBoxFocusRequested);
 
             SearchCommand = searchCommand;
             ShowInExplorerCommand = showInExplorerCommand;
@@ -103,6 +126,11 @@ namespace MixPlanner.ViewModels
 
             ImportFilesCommand = importFilesCommand;
             RemoveCommand = removeTracksCommand;
+        }
+
+        void OnSearchBoxFocusRequested(SearchBoxFocusRequestedEvent obj)
+        {
+            IsSearchBoxFocused = true;
         }
 
         void OnSearchTextCleared(SearchTextClearedEvent obj)

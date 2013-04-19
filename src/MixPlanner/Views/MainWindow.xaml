@@ -15,6 +15,11 @@
         Width="525" 
         d:DataContext="{d:DesignInstance vm:MainWindowViewModel}"
         AllowDrop="True">
+    
+    <Window.InputBindings>
+        <KeyBinding Key="F3" Command="{Binding FocusSearchBoxCommand}" />
+    </Window.InputBindings>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50*" />
