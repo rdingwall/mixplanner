@@ -142,6 +142,7 @@
     <Compile Include="AttachedProperties\FocusExtension.cs" />
     <Compile Include="Commands\AsyncCommandBase.cs" />
     <Compile Include="Commands\FocusSearchBoxCommand.cs" />
+    <Compile Include="Commands\DisableRecommendationsScope.cs" />
     <Compile Include="DomainModel\AutoMixing\AutoMixingContextFactory.cs" />
     <Compile Include="Commands\ClearRecommendationsCommand.cs" />
     <Compile Include="Commands\CloseWindowCommand.cs" />
@@ -237,12 +238,15 @@
     <Compile Include="DomainModel\TrackLibrary.cs" />
     <Compile Include="DomainModel\Transition.cs" />
     <Compile Include="DomainModel\ActualTransitionDetector.cs" />
+    <Compile Include="Events\AllTracksRemovedFromMixEvent.cs" />
     <Compile Include="Events\BeganLoadingTracksEvent.cs" />
     <Compile Include="Events\ConfigSavedEvent.cs" />
     <Compile Include="Events\BeganAutoMixingEvent.cs" />
     <Compile Include="Events\MixLockedEvent.cs" />
     <Compile Include="Events\MixUnlockedEvent.cs" />
     <Compile Include="Events\RecommendationsClearedEvent.cs" />
+    <Compile Include="Events\RecommendationsDisabledEvent.cs" />
+    <Compile Include="Events\RecommendationsEnabledEvent.cs" />
     <Compile Include="Events\SearchBoxFocusRequestedEvent.cs" />
     <Compile Include="Events\SearchTextClearedEvent.cs" />
     <Compile Include="Events\SearchRequestedEvent.cs" />
@@ -256,6 +260,7 @@
     <Compile Include="Events\TrackRecommendedEvent.cs" />
     <Compile Include="Events\TrackRemovedFromLibraryEvent.cs" />
     <Compile Include="Events\TrackRemovedFromMixEvent.cs" />
+    <Compile Include="Events\TracksRemovedFromMixEvent.cs" />
     <Compile Include="Events\TrackUpdatedEvent.cs" />
     <Compile Include="Events\TransitionChangedEvent.cs" />
     <Compile Include="DispatcherMessenger.cs" />

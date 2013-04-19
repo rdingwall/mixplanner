@@ -47,9 +47,10 @@ namespace MixPlanner.Commands
         void DoExecuteSync(IEnumerable<IMixItem> parameter)
         {
             using (mix.Lock())
+            using (new DisableRecommendationsScope(messenger))
             {
                 messenger.SendToUI(new BeganAutoMixingEvent());
-
+                
                 mix.AutoAdjustBpms(parameter);
                 AutoMixingContext context = contextFactory.CreateContext(mix, parameter);
                 AutoMixingResult results = strategy.AutoMix(context);
@@ -57,17 +58,25 @@ namespace MixPlanner.Commands
                 if (!results.IsSuccess)
                     return;
 
-                int startIndex = mix.IndexOf(parameter.First());
-
-                for (int i = 0; i < results.MixedTracks.Count; i++)
-                {
-                    IMixItem item = results.MixedTracks[i];
-                    mix.Reorder(item, startIndex + i);
-                }
-
-                foreach (IMixItem unknownTrack in results.UnknownTracks)
-                    mix.MoveToEnd(unknownTrack);
+                ApplyNewOrdering(results, originalOrder: parameter);
             }
+        }
+
+        void ApplyNewOrdering(AutoMixingResult results, IEnumerable<IMixItem> originalOrder)
+        {
+            // Automixed results will be moved to a contiguous block starting
+            // at the index of the first track in the original un-mixed
+            // selection.
+            int startIndex = mix.IndexOf(originalOrder.First());
+
+            for (int i = 0; i < results.MixedTracks.Count; i++)
+            {
+                IMixItem item = results.MixedTracks[i];
+                mix.Reorder(item, startIndex + i);
+            }
+
+            foreach (IMixItem unknownTrack in results.UnknownTracks)
+                mix.MoveToEnd(unknownTrack);
         }
     }
 }

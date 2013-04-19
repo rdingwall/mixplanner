@@ -17,9 +17,10 @@ namespace MixPlanner.ViewModels
     {
         MixItemViewModel selectedItem;
         readonly IMixItemViewModelFactory viewModels;
+        bool isRecommendationsEnabled;
 
         public RemoveTracksFromMixCommand RemoveCommand { get; private set; }
-        public ObservableCollection<MixItemViewModel> Items { get; private set; }
+        public ObservableCollectionEx<MixItemViewModel> Items { get; private set; }
         public DropItemIntoMixCommand DropItemCommand { get; private set; }
         public ImportFilesIntoMixCommand DropFilesCommand { get; private set; }
         public PlayPauseTrackCommand PlayPauseCommand { get; private set; }
@@ -77,6 +78,7 @@ namespace MixPlanner.ViewModels
             if (editTrackCommand == null) throw new ArgumentNullException("editTrackCommand");
             if (autoMixCommand == null)
                 throw new ArgumentNullException("autoMixCommand");
+            isRecommendationsEnabled = true;
             DropItemCommand = dropItemCommand;
             DropFilesCommand = dropFilesCommand;
             PlayPauseCommand = playPauseCommand;
@@ -87,15 +89,29 @@ namespace MixPlanner.ViewModels
             AutoMixCommand = autoMixCommand;
             this.viewModels = viewModels;
             RemoveCommand = removeCommand;
-            Items = new ObservableCollection<MixItemViewModel>();
+            Items = new ObservableCollectionEx<MixItemViewModel>();
             messenger.Register<TrackAddedToMixEvent>(this, OnTrackAdded);
             messenger.Register<TrackRemovedFromMixEvent>(this, OnTrackRemoved);
+            messenger.Register<AllTracksRemovedFromMixEvent>(this, OnAllTracksRemoved);
             messenger.Register<ConfigSavedEvent>(this, _ => OnSelectionChanged());
             messenger.Register<PlaybackSpeedAdjustedEvent>(this, _ => OnSelectionChanged());
             messenger.Register<MixLockedEvent>(this, _ => CommandManager.InvalidateRequerySuggested());
             messenger.Register<MixUnlockedEvent>(this, _ => CommandManager.InvalidateRequerySuggested());
+            messenger.Register<RecommendationsDisabledEvent>(this, _ => isRecommendationsEnabled = false);
+            messenger.Register<RecommendationsEnabledEvent>(this, _ => EnableRecommendations());
         }
 
+        void EnableRecommendations()
+        {
+            isRecommendationsEnabled = true;
+            ClearRecommendationsCommand.Execute(null);
+            GetRecommendationsCommand.Execute(SelectedItems);
+        }
+
+        void OnAllTracksRemoved(AllTracksRemovedFromMixEvent obj)
+        {
+            Items.Clear();
+        }
 
         public ICollection<IMixItem> SelectedItems
         {
@@ -110,10 +126,7 @@ namespace MixPlanner.ViewModels
 
         void OnTrackRemoved(TrackRemovedFromMixEvent obj)
         {
-            var viewModel = Items.FirstOrDefault(v => v.MixItem.Equals(obj.Item));
-            if (viewModel == null)
-                return; // shouldn't really happen but don't crash if it does
-            Items.Remove(viewModel);
+            Items.RemoveAt(obj.Index);
         }
 
         void OnTrackAdded(TrackAddedToMixEvent obj)
@@ -141,6 +154,10 @@ namespace MixPlanner.ViewModels
         public void OnSelectionChanged()
         {
             RaisePropertyChanged(() => SelectedItems);
+
+            if (!isRecommendationsEnabled)
+                return;
+
             ClearRecommendationsCommand.Execute(null);
             GetRecommendationsCommand.Execute(SelectedItems);
         }

@@ -34,6 +34,7 @@ namespace MixPlanner.DomainModel
         IMixItem GetPreceedingItem(IMixItem item);
         IMixItem GetFollowingItem(IMixItem item);
         void AutoAdjustBpms(IEnumerable<IMixItem> items);
+        void Clear();
     }
 
     public class Mix : IMix
@@ -117,6 +118,12 @@ namespace MixPlanner.DomainModel
             }
         }
 
+        public void Clear()
+        {
+            items.Clear();
+            messenger.SendToUI(new AllTracksRemovedFromMixEvent());
+        }
+
         public IMixItem GetMixItem(Track track)
         {
             if (track == null) throw new ArgumentNullException("track");
@@ -170,14 +177,6 @@ namespace MixPlanner.DomainModel
             messenger.SendToUI(new MixUnlockedEvent(this));
         }
 
-        public void Remove(IMixItem item)
-        {
-            if (item == null) throw new ArgumentNullException("item");
-            items.Remove((MixItem)item);
-            messenger.SendToUI(new TrackRemovedFromMixEvent(item));
-            RecalcTransitions();
-        }
-
         public void Reorder(IMixItem item, int newIndex)
         {
             if (item == null) throw new ArgumentNullException("item");
@@ -195,7 +194,7 @@ namespace MixPlanner.DomainModel
 
             items.Remove(mixItem);
             items.Insert(newIndex, mixItem);
-            messenger.SendToUI(new TrackRemovedFromMixEvent(item));
+            messenger.SendToUI(new TrackRemovedFromMixEvent(item, oldIndex));
             messenger.SendToUI(new TrackAddedToMixEvent(item, newIndex));
             RecalcTransitions();
         }
@@ -211,7 +210,18 @@ namespace MixPlanner.DomainModel
         public void RemoveRange(IEnumerable<IMixItem> items)
         {
             if (items == null) throw new ArgumentNullException("items");
-            items.ForEach(Remove);
+            
+            using (Lock())
+                items.ForEach(Remove);
+        }
+
+        public void Remove(IMixItem item)
+        {
+            if (item == null) throw new ArgumentNullException("item");
+            var index = items.IndexOf((MixItem)item);
+            items.RemoveAt(index);
+            messenger.SendToUI(new TrackRemovedFromMixEvent(item, index));
+            RecalcTransitions();
         }
 
         public bool Contains(Track track)
