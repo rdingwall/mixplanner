@@ -5,12 +5,12 @@ namespace MixPlanner.Specs
 {
     public class DummyPlaybackSpeedAdjuster : ILimitingPlaybackSpeedAdjuster
     {
-        public double GetSuggestedIncrease(PlaybackSpeed track, double targetBpm)
+        public double CalculateSuggestedIncrease(PlaybackSpeed track, double targetBpm)
         {
             return 0;
         }
 
-        public double GetSuggestedIncrease(PlaybackSpeed first, PlaybackSpeed second)
+        public double CalculateSuggestedIncrease(PlaybackSpeed first, PlaybackSpeed second)
         {
             return 0;
         }

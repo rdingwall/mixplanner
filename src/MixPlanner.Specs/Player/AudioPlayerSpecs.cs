@@ -14,7 +14,7 @@ namespace MixPlanner.Specs.Player
             Establish context =
                 () =>
                     {
-                        track = TestTracks.GetFilenameOnly("12A - 128 - corrupt.mp3");
+                        track = TestTracks.CreateTrackWithFilenameOnly("12A - 128 - corrupt.mp3");
                         player = new AudioPlayer(new DispatcherMessenger(new Messenger()));
                     };
 

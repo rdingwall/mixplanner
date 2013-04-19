@@ -34,7 +34,7 @@ namespace MixPlanner.DomainModel
             if (second == null) throw new ArgumentNullException("second");
 
             // Adjust playback speed to match
-            var suggestedSpeedIncrease = playbackSpeedAdjuster.GetSuggestedIncrease(first, second);
+            var suggestedSpeedIncrease = playbackSpeedAdjuster.CalculateSuggestedIncrease(first, second);
             var secondAdjusted = second.AsIncreasedBy(suggestedSpeedIncrease);
 
             var strategy = preferredStrategies.FirstOrDefault(s => s.IsCompatible(first, secondAdjusted));

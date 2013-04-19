@@ -12,9 +12,9 @@ namespace MixPlanner.DomainModel
     {
         const double MaxPermittedDifference = 0.06001;
 
-        public override double GetSuggestedIncrease(PlaybackSpeed track, double targetBpm)
+        public override double CalculateSuggestedIncrease(PlaybackSpeed track, double targetBpm)
         {
-            double increase = base.GetSuggestedIncrease(track, targetBpm);
+            double increase = base.CalculateSuggestedIncrease(track, targetBpm);
 
             if (Math.Abs(increase) > MaxPermittedDifference)
                 return 0;

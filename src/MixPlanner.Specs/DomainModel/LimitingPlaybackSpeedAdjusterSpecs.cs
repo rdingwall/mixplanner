@@ -14,7 +14,7 @@ namespace MixPlanner.Specs.DomainModel
             protected static PlaybackSpeed Second;
 
             Because of =
-                 () => Increase = new LimitingPlaybackSpeedAdjuster().GetSuggestedIncrease(First, Second);
+                 () => Increase = new LimitingPlaybackSpeedAdjuster().CalculateSuggestedIncrease(First, Second);
         }
 
         public class When_the_two_playback_speeds_were_within_3_percent_of_each_other : FixtureBase
@@ -22,8 +22,8 @@ namespace MixPlanner.Specs.DomainModel
              Establish context =
                  () =>
                      {
-                         First = TestPlaybackSpeeds.PlaybackSpeed(128);
-                         Second = TestPlaybackSpeeds.PlaybackSpeed(129);
+                         First = TestPlaybackSpeeds.Create(128);
+                         Second = TestPlaybackSpeeds.Create(129);
                      };
 
              It should_not_suggest_any_change = () => Increase.ShouldBeCloseTo(0, 0.001);
@@ -34,8 +34,8 @@ namespace MixPlanner.Specs.DomainModel
              Establish context =
                  () =>
                  {
-                     First = TestPlaybackSpeeds.PlaybackSpeed(133);
-                     Second = TestPlaybackSpeeds.PlaybackSpeed(128);
+                     First = TestPlaybackSpeeds.Create(133);
+                     Second = TestPlaybackSpeeds.Create(128);
                  };
 
              It should_recommend_increasing_by_3_percent = () => Increase.ShouldBeCloseTo(0.03, 0.001);
@@ -46,8 +46,8 @@ namespace MixPlanner.Specs.DomainModel
              Establish context =
                  () =>
                  {
-                     First = TestPlaybackSpeeds.PlaybackSpeed(136);
-                     Second = TestPlaybackSpeeds.PlaybackSpeed(128);
+                     First = TestPlaybackSpeeds.Create(136);
+                     Second = TestPlaybackSpeeds.Create(128);
                  };
 
              It should_recommend_increasing_by_6_percent = () => Increase.ShouldBeCloseTo(0.06, 0.001);
@@ -58,8 +58,8 @@ namespace MixPlanner.Specs.DomainModel
              Establish context =
                  () =>
                  {
-                     First = TestPlaybackSpeeds.PlaybackSpeed(200);
-                     Second = TestPlaybackSpeeds.PlaybackSpeed(128);
+                     First = TestPlaybackSpeeds.Create(200);
+                     Second = TestPlaybackSpeeds.Create(128);
                  };
 
              It should_not_recommend_any_increase = () => Increase.ShouldBeCloseTo(0, 0.001);
@@ -70,8 +70,8 @@ namespace MixPlanner.Specs.DomainModel
              Establish context =
                  () =>
                  {
-                     Second = TestPlaybackSpeeds.PlaybackSpeed(129);
-                     First = TestPlaybackSpeeds.PlaybackSpeed(128);
+                     Second = TestPlaybackSpeeds.Create(129);
+                     First = TestPlaybackSpeeds.Create(128);
                  };
 
              It should_not_suggest_any_change = () => Increase.ShouldBeCloseTo(0, 0.001);
@@ -82,8 +82,8 @@ namespace MixPlanner.Specs.DomainModel
              Establish context =
                  () =>
                  {
-                     First = TestPlaybackSpeeds.PlaybackSpeed(128);
-                     Second = TestPlaybackSpeeds.PlaybackSpeed(133);
+                     First = TestPlaybackSpeeds.Create(128);
+                     Second = TestPlaybackSpeeds.Create(133);
                  };
 
              It should_recommend_decreasing_by_3_percent = () => Increase.ShouldBeCloseTo(-0.03, 0.001);
@@ -94,8 +94,8 @@ namespace MixPlanner.Specs.DomainModel
              Establish context =
                  () =>
                  {
-                     First = TestPlaybackSpeeds.PlaybackSpeed(128);
-                     Second = TestPlaybackSpeeds.PlaybackSpeed(136);
+                     First = TestPlaybackSpeeds.Create(128);
+                     Second = TestPlaybackSpeeds.Create(136);
                  };
 
              It should_recommend_decreasing_by_3_percent = () => Increase.ShouldBeCloseTo(-0.03, 0.001);
@@ -106,8 +106,8 @@ namespace MixPlanner.Specs.DomainModel
              Establish context =
                  () =>
                  {
-                     First = TestPlaybackSpeeds.PlaybackSpeed(128);
-                     Second = TestPlaybackSpeeds.PlaybackSpeed(200);
+                     First = TestPlaybackSpeeds.Create(128);
+                     Second = TestPlaybackSpeeds.Create(200);
                  };
 
              It should_not_recommend_any_decrease = () => Increase.ShouldBeCloseTo(0, 0.001);
@@ -118,8 +118,8 @@ namespace MixPlanner.Specs.DomainModel
              Establish context =
                  () =>
                  {
-                     First = TestPlaybackSpeeds.PlaybackSpeed(Double.NaN);
-                     Second = TestPlaybackSpeeds.PlaybackSpeed(128);
+                     First = TestPlaybackSpeeds.Create(Double.NaN);
+                     Second = TestPlaybackSpeeds.Create(128);
                  };
 
              It should_not_recommend_any_increase = () => Increase.ShouldBeCloseTo(0, 0.001);
@@ -130,8 +130,8 @@ namespace MixPlanner.Specs.DomainModel
              Establish context =
                  () =>
                  {
-                     First = TestPlaybackSpeeds.PlaybackSpeed(128);
-                     Second = TestPlaybackSpeeds.PlaybackSpeed(Double.NaN);
+                     First = TestPlaybackSpeeds.Create(128);
+                     Second = TestPlaybackSpeeds.Create(Double.NaN);
                  };
 
              It should_not_recommend_any_increase = () => Increase.ShouldBeCloseTo(0, 0.001);
@@ -142,8 +142,8 @@ namespace MixPlanner.Specs.DomainModel
              Establish context =
                  () =>
                  {
-                     First = TestPlaybackSpeeds.PlaybackSpeed(Double.NaN);
-                     Second = TestPlaybackSpeeds.PlaybackSpeed(Double.NaN);
+                     First = TestPlaybackSpeeds.Create(Double.NaN);
+                     Second = TestPlaybackSpeeds.Create(Double.NaN);
                  };
 
              It should_not_recommend_any_increase = () => Increase.ShouldBeCloseTo(0, 0.001);
@@ -154,10 +154,10 @@ namespace MixPlanner.Specs.DomainModel
             Establish context =
                  () =>
                  {
-                     first = TestPlaybackSpeeds.PlaybackSpeed(128);
-                     second = TestPlaybackSpeeds.PlaybackSpeed(132);
-                     third = TestPlaybackSpeeds.PlaybackSpeed(138);
-                     fourth = TestPlaybackSpeeds.PlaybackSpeed(Double.NaN);
+                     first = TestPlaybackSpeeds.Create(128);
+                     second = TestPlaybackSpeeds.Create(132);
+                     third = TestPlaybackSpeeds.Create(138);
+                     fourth = TestPlaybackSpeeds.Create(Double.NaN);
 
                      adjuster = new LimitingPlaybackSpeedAdjuster();
                  };

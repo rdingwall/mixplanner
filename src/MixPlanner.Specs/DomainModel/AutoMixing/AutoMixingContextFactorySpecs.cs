@@ -15,7 +15,7 @@ namespace MixPlanner.Specs.DomainModel.AutoMixing
              Establish context = () =>
                                      {
                                          contextFactory = new AutoMixingContextFactory();
-                                         mix = TestMixes.GetRandomMix();
+                                         mix = TestMixes.CreateRandomMix();
                                      };
 
              Because of = () => mixingContext = contextFactory.CreateContext(mix, mix);
@@ -39,7 +39,7 @@ namespace MixPlanner.Specs.DomainModel.AutoMixing
              Establish context = () =>
              {
                  contextFactory = new AutoMixingContextFactory();
-                 mix = TestMixes.GetRandomMix(10);
+                 mix = TestMixes.CreateRandomMix(10);
                  itemsToAdd = mix.Skip(2).Take(6);
              };
 
@@ -65,7 +65,7 @@ namespace MixPlanner.Specs.DomainModel.AutoMixing
              Establish context = () =>
              {
                  contextFactory = new AutoMixingContextFactory();
-                 mix = TestMixes.GetRandomMix(10);
+                 mix = TestMixes.CreateRandomMix(10);
                  itemsToAdd = mix.Take(6);
              };
 
@@ -91,7 +91,7 @@ namespace MixPlanner.Specs.DomainModel.AutoMixing
              Establish context = () =>
              {
                  contextFactory = new AutoMixingContextFactory();
-                 mix = TestMixes.GetRandomMix(10);
+                 mix = TestMixes.CreateRandomMix(10);
                  itemsToAdd = mix.Skip(4);
              };
 

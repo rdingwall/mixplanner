@@ -14,7 +14,7 @@ namespace MixPlanner.Specs.DomainModel.AutoMixing
             ExpectedPaths = new Dictionary<HarmonicKey, IEnumerable<HarmonicKey>>();
             Keys = harmonicKeys;
             Tracks = Keys
-                //.Concat(TestMixes.GetRandomMix(1000).Items.Select(i => i.PlaybackSpeed.ActualKey))
+                //.Concat(TestMixes.CreateRandomMix(1000).Items.Select(i => i.PlaybackSpeed.ActualKey))
                 .Distinct()
                 .OrderBy(_ => Random.Next())
                 .Select(k => new PlaybackSpeed(k, 128))

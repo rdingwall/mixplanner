@@ -15,7 +15,7 @@ namespace MixPlanner.Specs.DomainModel
             Establish context =
                 () =>
                     {
-                        track = TestTracks.GetRandomTrack(HarmonicKey.Key1A);
+                        track = TestTracks.CreateRandomTrack(HarmonicKey.Key1A);
                         messenger = new DispatcherMessenger(new Messenger());
                         messenger.Register<TrackAddedToMixEvent>(new object(), e => ev = e);
                         mix = new Mix(messenger, 
@@ -47,9 +47,9 @@ namespace MixPlanner.Specs.DomainModel
                     var messenger = new DispatcherMessenger(new Messenger());
                     mix = new Mix(messenger, new ActualTransitionDetector(TestMixingStrategies.AllStrategies),
                                       new DummyPlaybackSpeedAdjuster());
-                    mix.Add(TestTracks.GetRandomTrack(HarmonicKey.Key1A, 100));
-                    mix.Add(TestTracks.GetRandomTrack(HarmonicKey.Key1A, 200));
-                    mix.Add(TestTracks.GetRandomTrack(HarmonicKey.Key1A, Double.NaN));
+                    mix.Add(TestTracks.CreateRandomTrack(HarmonicKey.Key1A, 100));
+                    mix.Add(TestTracks.CreateRandomTrack(HarmonicKey.Key1A, 200));
+                    mix.Add(TestTracks.CreateRandomTrack(HarmonicKey.Key1A, Double.NaN));
                 };
 
             Because of = () => averageBpm = mix.CalculateAverageActualBpm();
@@ -66,10 +66,10 @@ namespace MixPlanner.Specs.DomainModel
             Establish context =
                 () =>
                 {
-                    first = TestTracks.GetRandomTrack(120);
-                    second = TestTracks.GetRandomTrack(132);
-                    third = TestTracks.GetRandomTrack(137);
-                    fourth = TestTracks.GetRandomTrack(Double.NaN);
+                    first = TestTracks.CreateRandomTrack(120);
+                    second = TestTracks.CreateRandomTrack(132);
+                    third = TestTracks.CreateRandomTrack(137);
+                    fourth = TestTracks.CreateRandomTrack(Double.NaN);
 
                     var messenger = new DispatcherMessenger(new Messenger());
                     mix = new Mix(messenger, new ActualTransitionDetector(TestMixingStrategies.AllStrategies),
@@ -105,7 +105,7 @@ namespace MixPlanner.Specs.DomainModel
         {
             Establish context = () =>
                                     {
-                                        mix = TestMixes.GetRandomMix();
+                                        mix = TestMixes.CreateRandomMix();
                                         itemToMove = mix.First();
                                     };
 

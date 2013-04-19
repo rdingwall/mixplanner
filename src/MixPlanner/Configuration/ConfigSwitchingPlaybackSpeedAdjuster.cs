@@ -15,10 +15,10 @@ namespace MixPlanner.Configuration
             this.configProvider = configProvider;
         }
 
-        public override double GetSuggestedIncrease(PlaybackSpeed first, double targetBpm)
+        public override double CalculateSuggestedIncrease(PlaybackSpeed first, double targetBpm)
         {
             var config = configProvider.Config;
-            return config.ShouldSuggestBpmAdjustments() ? base.GetSuggestedIncrease(first, targetBpm) : 0;
+            return config.ShouldSuggestBpmAdjustments() ? base.CalculateSuggestedIncrease(first, targetBpm) : 0;
         }
 
         public override PlaybackSpeed AutoAdjust(PlaybackSpeed track, double targetBpm)

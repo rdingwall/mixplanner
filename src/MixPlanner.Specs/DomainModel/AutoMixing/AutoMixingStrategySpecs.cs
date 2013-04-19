@@ -28,7 +28,7 @@ namespace MixPlanner.Specs.DomainModel.AutoMixing
 
                     mixingContext = new AutoMixingContext(tracksToMix.Concat(unknownTracks));
 
-                    var strategiesFactory = TestMixingStrategies.GetFactory();
+                    var strategiesFactory = TestMixingStrategies.CreateFactory();
                     strategy = new AutoMixingStrategy(strategiesFactory, new EdgeCostCalculator(strategiesFactory));
                 };
 
@@ -78,7 +78,7 @@ namespace MixPlanner.Specs.DomainModel.AutoMixing
                     mixingContext = new AutoMixingContext(
                         tracksToMix.Concat(unknownTracks), preceedingTrack, followingTrack);
 
-                    var strategiesFactory = TestMixingStrategies.GetFactory();
+                    var strategiesFactory = TestMixingStrategies.CreateFactory();
                     strategy = new AutoMixingStrategy(strategiesFactory, new EdgeCostCalculator(strategiesFactory));
                 };
 
@@ -131,7 +131,7 @@ namespace MixPlanner.Specs.DomainModel.AutoMixing
                     mixingContext = new AutoMixingContext(
                         tracksToMix.Concat(unknownTracks), preceedingTrack, followingTrack);
 
-                    var strategiesFactory = TestMixingStrategies.GetFactory();
+                    var strategiesFactory = TestMixingStrategies.CreateFactory();
                     strategy = new AutoMixingStrategy(strategiesFactory, new EdgeCostCalculator(strategiesFactory));
                 };
 
@@ -181,7 +181,7 @@ namespace MixPlanner.Specs.DomainModel.AutoMixing
                     mixingContext = new AutoMixingContext(
                         tracksToMix.Concat(unknownTracks), null, followingTrack);
 
-                    var strategiesFactory = TestMixingStrategies.GetFactory();
+                    var strategiesFactory = TestMixingStrategies.CreateFactory();
                     strategy = new AutoMixingStrategy(strategiesFactory, new EdgeCostCalculator(strategiesFactory));
                 };
 
@@ -230,7 +230,7 @@ namespace MixPlanner.Specs.DomainModel.AutoMixing
                     mixingContext = new AutoMixingContext(
                         tracksToMix.Concat(unknownTracks), preceedingTrack, followingTrack);
 
-                    var strategiesFactory = TestMixingStrategies.GetFactory();
+                    var strategiesFactory = TestMixingStrategies.CreateFactory();
                     strategy = new AutoMixingStrategy(strategiesFactory, new EdgeCostCalculator(strategiesFactory));
                 };
 
@@ -281,7 +281,7 @@ namespace MixPlanner.Specs.DomainModel.AutoMixing
 
                     mixingContext = new AutoMixingContext(tracksToMix.Concat(unknownTracks));
 
-                    var strategiesFactory = TestMixingStrategies.GetFactory();
+                    var strategiesFactory = TestMixingStrategies.CreateFactory();
                     strategy = new AutoMixingStrategy(strategiesFactory, new EdgeCostCalculator(strategiesFactory));
                 };
 

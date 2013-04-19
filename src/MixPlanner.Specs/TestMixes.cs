@@ -5,27 +5,27 @@ namespace MixPlanner.Specs
 {
     public static class TestMixes
     {
-        public static Mix GetRandomMix(int numberOfTracks = 5)
+        public static Mix CreateRandomMix(int numberOfTracks = 5)
         {
-            var mix = GetEmptyMix();
+            var mix = CreateEmptyMix();
 
             for (int i = 0; i < numberOfTracks; i++)
-                mix.Add(TestTracks.GetRandomTrack(HarmonicKey.RandomKey()));
+                mix.Add(TestTracks.CreateRandomTrack(HarmonicKey.RandomKey()));
             
             return mix;
         }
 
         public static Mix Create(params HarmonicKey[] keys)
         {
-            var mix = GetEmptyMix();
+            var mix = CreateEmptyMix();
 
             foreach (HarmonicKey key in keys)
-                mix.Add(TestTracks.GetRandomTrack(key));
+                mix.Add(TestTracks.CreateRandomTrack(key));
 
             return mix;
         }
 
-        public static Mix GetEmptyMix()
+        public static Mix CreateEmptyMix()
         {
             return new Mix(
                 MockRepository.GenerateMock<IDispatcherMessenger>(),

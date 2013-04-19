@@ -5,13 +5,13 @@ namespace MixPlanner.DomainModel
 {
     public interface IPlaybackSpeedAdjuster
     {
-        double GetSuggestedIncrease(PlaybackSpeed track, double targetBpm);
+        double CalculateSuggestedIncrease(PlaybackSpeed track, double targetBpm);
 
         /// <summary>
         /// Get adjustment required to make second track (proposed) match the
         /// first (currently playing).
         /// </summary>
-        double GetSuggestedIncrease(PlaybackSpeed first, PlaybackSpeed second);
+        double CalculateSuggestedIncrease(PlaybackSpeed first, PlaybackSpeed second);
 
         PlaybackSpeed AutoAdjust(PlaybackSpeed first, PlaybackSpeed second);
         PlaybackSpeed AutoAdjust(PlaybackSpeed track, double targetBpm);
@@ -20,18 +20,18 @@ namespace MixPlanner.DomainModel
 
     public class PlaybackSpeedAdjuster : IPlaybackSpeedAdjuster
     {
-        public virtual double GetSuggestedIncrease(PlaybackSpeed track, double targetBpm)
+        public virtual double CalculateSuggestedIncrease(PlaybackSpeed track, double targetBpm)
         {
             if (Double.IsNaN(targetBpm) || track.IsUnknownBpm)
                 return 0;
 
-            double increaseRequired = track.GetExactIncreaseRequiredToMatch(targetBpm);
+            double increaseRequired = track.CalculateExactIncreaseRequiredToMatch(targetBpm);
             double nearestInterval = increaseRequired.FloorToNearest(PitchFaderStep.Value);
 
             return nearestInterval;
         }
 
-        public double GetSuggestedIncrease(PlaybackSpeed first, PlaybackSpeed second)
+        public double CalculateSuggestedIncrease(PlaybackSpeed first, PlaybackSpeed second)
         {
             if (first == null) throw new ArgumentNullException("first");
             if (second == null) throw new ArgumentNullException("second");
@@ -39,7 +39,7 @@ namespace MixPlanner.DomainModel
             if (first.IsUnknownBpm || second.IsUnknownBpm)
                 return 0;
 
-            return GetSuggestedIncrease(second, first.ActualBpm);
+            return CalculateSuggestedIncrease(second, first.ActualBpm);
         }
 
         public PlaybackSpeed AutoAdjust(PlaybackSpeed first, PlaybackSpeed second)
@@ -60,7 +60,7 @@ namespace MixPlanner.DomainModel
             if (track.IsUnknownBpm || Double.IsNaN(targetBpm))
                 return track;
 
-            double increase = GetSuggestedIncrease(track, targetBpm);
+            double increase = CalculateSuggestedIncrease(track, targetBpm);
 
             return track.AsIncreasedBy(increase);
         }
@@ -74,7 +74,7 @@ namespace MixPlanner.DomainModel
 
             foreach (var track in tracks)
             {
-                double increase = GetSuggestedIncrease(track, targetBpm);
+                double increase = CalculateSuggestedIncrease(track, targetBpm);
                 track.Increase(increase);
             }
         }

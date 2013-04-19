@@ -23,8 +23,8 @@ namespace MixPlanner.Specs.DomainModel
             Establish context =
                 () =>
                 {
-                    First = TestPlaybackSpeeds.RandomPlaybackSpeed();
-                    Second = TestPlaybackSpeeds.RandomPlaybackSpeed();
+                    First = TestPlaybackSpeeds.Random();
+                    Second = TestPlaybackSpeeds.Random();
 
                     var adjuster = MockRepository.GenerateStub<ILimitingPlaybackSpeedAdjuster>();
 
@@ -46,8 +46,8 @@ namespace MixPlanner.Specs.DomainModel
             Establish context =
                 () =>
                 {
-                    First = TestPlaybackSpeeds.RandomPlaybackSpeed();
-                    Second = TestPlaybackSpeeds.RandomPlaybackSpeed();
+                    First = TestPlaybackSpeeds.Random();
+                    Second = TestPlaybackSpeeds.Random();
 
                     var adjuster = MockRepository.GenerateStub<ILimitingPlaybackSpeedAdjuster>();
 
@@ -64,11 +64,11 @@ namespace MixPlanner.Specs.DomainModel
             Establish context =
                 () =>
                 {
-                    First = TestPlaybackSpeeds.RandomPlaybackSpeed();
-                    Second = TestPlaybackSpeeds.RandomPlaybackSpeed();
+                    First = TestPlaybackSpeeds.Random();
+                    Second = TestPlaybackSpeeds.Random();
 
                     var adjuster = MockRepository.GenerateStub<ILimitingPlaybackSpeedAdjuster>();
-                    adjuster.Stub(a => a.GetSuggestedIncrease(First, Second)).Return(0.06);
+                    adjuster.Stub(a => a.CalculateSuggestedIncrease(First, Second)).Return(0.06);
 
                     spedUp = Second.AsIncreasedBy(0.06);
 
@@ -91,11 +91,11 @@ namespace MixPlanner.Specs.DomainModel
             Establish context =
                 () =>
                 {
-                    First = TestPlaybackSpeeds.RandomPlaybackSpeed();
-                    Second = TestPlaybackSpeeds.RandomPlaybackSpeed();
+                    First = TestPlaybackSpeeds.Random();
+                    Second = TestPlaybackSpeeds.Random();
 
                     var adjuster = MockRepository.GenerateStub<ILimitingPlaybackSpeedAdjuster>();
-                    adjuster.Stub(a => a.GetSuggestedIncrease(First, Second)).Return(0.06);
+                    adjuster.Stub(a => a.CalculateSuggestedIncrease(First, Second)).Return(0.06);
 
                     Stragegy = MockRepository.GenerateStub<IMixingStrategy>();
 

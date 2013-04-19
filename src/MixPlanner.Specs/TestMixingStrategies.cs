@@ -46,7 +46,7 @@ namespace MixPlanner.Specs
 
         public static IEnumerable<IMixingStrategy> AllCompatibleStrategies { get; private set; }
 
-        public static IMixingStrategiesFactory GetFactory()
+        public static IMixingStrategiesFactory CreateFactory()
         {
             using (var container = new WindsorContainer())
             {

@@ -111,7 +111,7 @@ namespace MixPlanner.DomainModel
             foreach (MixItem item in items)
             {
                 double increase = 1 + playbackSpeedAdjuster
-                    .GetSuggestedIncrease(item.GetDefaultPlaybackSpeed(), targetBpm);
+                    .CalculateSuggestedIncrease(item.GetDefaultPlaybackSpeed(), targetBpm);
 
                 AdjustPlaybackSpeed(item, increase);
             }

@@ -16,7 +16,7 @@ namespace MixPlanner.Specs.ImportExport
                      {
                          writer = new M3uWriter();
                          path = Path.GetTempFileName();
-                         mix = TestMixes.GetRandomMix();
+                         mix = TestMixes.CreateRandomMix();
                      };
 
              Because of = () => writer.Write(mix, path);

@@ -84,34 +84,34 @@ namespace MixPlanner.Specs.DomainModel
         public class When_comparing_to_see_if_the_playback_speed_is_within_range_under_plus_three_percent
         {
             It should_be_within_range =
-                () => TestPlaybackSpeeds.PlaybackSpeed(128).IsWithinBpmRange(TestPlaybackSpeeds.PlaybackSpeed(131))
+                () => TestPlaybackSpeeds.Create(128).IsWithinBpmRange(TestPlaybackSpeeds.Create(131))
                                 .ShouldBeTrue();
         }
 
         public class When_comparing_to_see_if_the_playback_speed_is_within_range_over_plus_six_percent
         {
             It should_not_be_within_range =
-                () => TestPlaybackSpeeds.PlaybackSpeed(128).IsWithinBpmRange(TestPlaybackSpeeds.PlaybackSpeed(136))
+                () => TestPlaybackSpeeds.Create(128).IsWithinBpmRange(TestPlaybackSpeeds.Create(136))
                                 .ShouldBeFalse();
         }
 
         public class When_comparing_to_see_if_the_playback_speed_is_within_range_over_minus_3
         {
             It should_be_within_range =
-                () => TestPlaybackSpeeds.PlaybackSpeed(128).IsWithinBpmRange(TestPlaybackSpeeds.PlaybackSpeed(125))
+                () => TestPlaybackSpeeds.Create(128).IsWithinBpmRange(TestPlaybackSpeeds.Create(125))
                                 .ShouldBeTrue();
         }
 
         public class When_comparing_to_see_if_the_playback_speed_is_within_range_under_minus_3
         {
             It should_not_be_within_range =
-                () => TestPlaybackSpeeds.PlaybackSpeed(128).IsWithinBpmRange(TestPlaybackSpeeds.PlaybackSpeed(120))
+                () => TestPlaybackSpeeds.Create(128).IsWithinBpmRange(TestPlaybackSpeeds.Create(120))
                                 .ShouldBeFalse();
         }
 
         public class When_increasing_the_playback_speed_with_an_unknown_key
         {
-            Establish context = () => speed = TestPlaybackSpeeds.PlaybackSpeed(HarmonicKey.Unknown);
+            Establish context = () => speed = TestPlaybackSpeeds.Create(HarmonicKey.Unknown);
 
             Because of = () => speed.SetSpeed(1.5);
 

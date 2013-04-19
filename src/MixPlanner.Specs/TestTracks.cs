@@ -6,17 +6,17 @@ namespace MixPlanner.Specs
 {
     public static class TestPlaybackSpeeds
     {
-        public static PlaybackSpeed PlaybackSpeed(double bpm)
+        public static PlaybackSpeed Create(double bpm)
         {
             return new PlaybackSpeed(HarmonicKey.Key6B, bpm);
         }
 
-        public static PlaybackSpeed RandomPlaybackSpeed()
+        public static PlaybackSpeed Random()
         {
             return new PlaybackSpeed(HarmonicKey.Key6B, TestTracks.GetRandomBpm());
         }
 
-        public static PlaybackSpeed PlaybackSpeed(HarmonicKey key)
+        public static PlaybackSpeed Create(HarmonicKey key)
         {
             return new PlaybackSpeed(key, TestTracks.GetRandomBpm());
         }
@@ -26,7 +26,7 @@ namespace MixPlanner.Specs
     {
         static readonly Random Random = new Random();
 
-        public static Track GetRandomTrack(HarmonicKey key, double bpm)
+        public static Track CreateRandomTrack(HarmonicKey key, double bpm)
         {
             return new Track("Test Artist",
                 key.ToString(),
@@ -35,7 +35,7 @@ namespace MixPlanner.Specs
                 bpm);
         }
 
-        public static Track GetFilenameOnly(string filename)
+        public static Track CreateTrackWithFilenameOnly(string filename)
         {
             return new Track(TrackDefaults.UnknownArtist,
                              TrackDefaults.UnknownTitle,
@@ -44,19 +44,19 @@ namespace MixPlanner.Specs
                              double.NaN);
         }
 
-        public static Track GetRandomTrack()
+        public static Track CreateRandomTrack()
         {
-            return GetRandomTrack(HarmonicKey.RandomKey(), GetRandomBpm());
+            return CreateRandomTrack(HarmonicKey.RandomKey(), GetRandomBpm());
         }
 
-        public static Track GetRandomTrack(HarmonicKey key)
+        public static Track CreateRandomTrack(HarmonicKey key)
         {
-            return GetRandomTrack(key, GetRandomBpm());
+            return CreateRandomTrack(key, GetRandomBpm());
         }
 
-        public static Track GetRandomTrack(double bpm)
+        public static Track CreateRandomTrack(double bpm)
         {
-            return GetRandomTrack(HarmonicKey.RandomKey(), bpm);
+            return CreateRandomTrack(HarmonicKey.RandomKey(), bpm);
         }
 
         public static double GetRandomBpm()
