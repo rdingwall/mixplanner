@@ -146,41 +146,36 @@ namespace MixPlanner.DomainModel
             return hexValue.ToString("X");
         }
 
-        public static HarmonicKey Key1A { get { return new HarmonicKey("1A"); } }
-        public static HarmonicKey Key2A { get { return new HarmonicKey("2A"); } }
-        public static HarmonicKey Key3A { get { return new HarmonicKey("3A"); } }
-        public static HarmonicKey Key4A { get { return new HarmonicKey("4A"); } }
-        public static HarmonicKey Key5A { get { return new HarmonicKey("5A"); } }
-        public static HarmonicKey Key6A { get { return new HarmonicKey("6A"); } }
-        public static HarmonicKey Key7A { get { return new HarmonicKey("7A"); } }
-        public static HarmonicKey Key8A { get { return new HarmonicKey("8A"); } }
-        public static HarmonicKey Key9A { get { return new HarmonicKey("9A"); } }
-        public static HarmonicKey Key10A { get { return new HarmonicKey("10A"); } }
-        public static HarmonicKey Key11A { get { return new HarmonicKey("11A"); } }
-        public static HarmonicKey Key12A { get { return new HarmonicKey("12A"); } }
+        public static readonly HarmonicKey Key1A = new HarmonicKey("1A"); 
+        public static readonly HarmonicKey Key2A = new HarmonicKey("2A"); 
+        public static readonly HarmonicKey Key3A = new HarmonicKey("3A"); 
+        public static readonly HarmonicKey Key4A = new HarmonicKey("4A"); 
+        public static readonly HarmonicKey Key5A = new HarmonicKey("5A"); 
+        public static readonly HarmonicKey Key6A = new HarmonicKey("6A"); 
+        public static readonly HarmonicKey Key7A = new HarmonicKey("7A"); 
+        public static readonly HarmonicKey Key8A = new HarmonicKey("8A"); 
+        public static readonly HarmonicKey Key9A = new HarmonicKey("9A"); 
+        public static readonly HarmonicKey Key10A = new HarmonicKey("10A");
+        public static readonly HarmonicKey Key11A = new HarmonicKey("11A");
+        public static readonly HarmonicKey Key12A = new HarmonicKey("12A");
+                       
+        public static readonly HarmonicKey Key1B = new HarmonicKey("1B"); 
+        public static readonly HarmonicKey Key2B = new HarmonicKey("2B"); 
+        public static readonly HarmonicKey Key3B = new HarmonicKey("3B"); 
+        public static readonly HarmonicKey Key4B = new HarmonicKey("4B"); 
+        public static readonly HarmonicKey Key5B = new HarmonicKey("5B"); 
+        public static readonly HarmonicKey Key6B = new HarmonicKey("6B"); 
+        public static readonly HarmonicKey Key7B = new HarmonicKey("7B"); 
+        public static readonly HarmonicKey Key8B = new HarmonicKey("8B"); 
+        public static readonly HarmonicKey Key9B = new HarmonicKey("9B"); 
+        public static readonly HarmonicKey Key10B = new HarmonicKey("10B");
+        public static readonly HarmonicKey Key11B = new HarmonicKey("11B");
+        public static readonly HarmonicKey Key12B = new HarmonicKey("12B");
 
-        public static HarmonicKey Key1B { get { return new HarmonicKey("1B"); } }
-        public static HarmonicKey Key2B { get { return new HarmonicKey("2B"); } }
-        public static HarmonicKey Key3B { get { return new HarmonicKey("3B"); } }
-        public static HarmonicKey Key4B { get { return new HarmonicKey("4B"); } }
-        public static HarmonicKey Key5B { get { return new HarmonicKey("5B"); } }
-        public static HarmonicKey Key6B { get { return new HarmonicKey("6B"); } }
-        public static HarmonicKey Key7B { get { return new HarmonicKey("7B"); } }
-        public static HarmonicKey Key8B { get { return new HarmonicKey("8B"); } }
-        public static HarmonicKey Key9B { get { return new HarmonicKey("9B"); } }
-        public static HarmonicKey Key10B { get { return new HarmonicKey("10B"); } }
-        public static HarmonicKey Key11B { get { return new HarmonicKey("11B"); } }
-        public static HarmonicKey Key12B { get { return new HarmonicKey("12B"); } }
-
-        public static HarmonicKey Unknown
-        {
-            get
-            {
-                return new HarmonicKey(hexValue: HexValueIfUnknown,
-                                       scale: Scale.Unknown,
-                                       pitch: PitchIfUnknown);
-            }
-        }
+        public static readonly HarmonicKey Unknown =
+            new HarmonicKey(hexValue: HexValueIfUnknown,
+                            scale: Scale.Unknown,
+                            pitch: PitchIfUnknown);
 
         public static HarmonicKey RandomKey()
         {
