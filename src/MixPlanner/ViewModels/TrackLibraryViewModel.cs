@@ -130,6 +130,7 @@ namespace MixPlanner.ViewModels
 
         void OnSearchBoxFocusRequested(SearchBoxFocusRequestedEvent obj)
         {
+            SearchText = "";
             IsSearchBoxFocused = true;
         }
 
