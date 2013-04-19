@@ -46,7 +46,6 @@ namespace MixPlanner
                 Component.For<ITrackImageResizer>().ImplementedBy<TrackImageResizer>(),
                 Component.For<IMessenger>().ImplementedBy<Messenger>(),
                 Component.For<IDispatcherMessenger>().ImplementedBy<DispatcherMessenger>(),
-                Component.For<IIntelligentInserter>().ImplementedBy<IntelligentInserter>(),
                 Component.For<IAudioPlayer>().ImplementedBy<AudioPlayer>(),
                     Component.For<IBpmRangeChecker>().ImplementedBy<ConfigSwitchingBpmRangeChecker>()
                     .DependsOn(Property.ForKey("impl").Is(typeof(BpmRangeChecker).Name)),
