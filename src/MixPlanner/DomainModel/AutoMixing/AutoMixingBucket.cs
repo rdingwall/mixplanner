@@ -17,14 +17,12 @@ namespace MixPlanner.DomainModel.AutoMixing
         public AutoMixingBucket(IEnumerable<IMixItem> tracks, HarmonicKey harmonicKey)
         {
             if (tracks == null) throw new ArgumentNullException("tracks");
-            if (harmonicKey == null) throw new ArgumentNullException("harmonicKey");
             this.tracks = tracks;
             ActualKey = harmonicKey;
         }
 
         public bool ContainsKey(HarmonicKey key)
         {
-            if (key == null) throw new ArgumentNullException("key");
             return ActualKey.Equals(key);
         }
 

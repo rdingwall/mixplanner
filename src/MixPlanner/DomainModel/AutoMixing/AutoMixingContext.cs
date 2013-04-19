@@ -32,14 +32,14 @@ namespace MixPlanner.DomainModel.AutoMixing
         public IMixItem FollowingTrack { get; private set; }
         public int TracksToMixCount { get { return TracksToMix.Count(); } }
 
-        public HarmonicKey GetOptionalStartKey()
+        public HarmonicKey? GetOptionalStartKey()
         {
-            return PreceedingTrack != null ? PreceedingTrack.ActualKey : null;
+            return PreceedingTrack != null ? PreceedingTrack.ActualKey : (HarmonicKey?)null;
         }
 
-        public HarmonicKey GetOptionalEndKey()
+        public HarmonicKey? GetOptionalEndKey()
         {
-            return FollowingTrack != null ? FollowingTrack.ActualKey : null;
+            return FollowingTrack != null ? FollowingTrack.ActualKey : (HarmonicKey?)null;
         }
     }
 }

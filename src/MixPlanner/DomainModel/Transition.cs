@@ -6,14 +6,15 @@ namespace MixPlanner.DomainModel
     {
         public static Transition Intro(HarmonicKey toKey)
         {
-            if (toKey == null) throw new ArgumentNullException("toKey");
-            return new Transition { ToKey = toKey };
+            return new Transition { ToKey = toKey, IsIntro = true };
         }
+
+        public bool IsIntro { get; private set; }
+        public bool IsOutro { get; private set; }
 
         public static Transition Outro(HarmonicKey fromKey)
         {
-            if (fromKey == null) throw new ArgumentNullException("fromKey");
-            return new Transition { FromKey = fromKey };
+            return new Transition { FromKey = fromKey, IsOutro = true };
         }
 
         private Transition() { }
@@ -24,8 +25,6 @@ namespace MixPlanner.DomainModel
             IMixingStrategy strategy,
             double increaseRequired = 0)
         {
-            if (fromKey == null) throw new ArgumentNullException("fromKey");
-            if (toKey == null) throw new ArgumentNullException("toKey");
             if (strategy == null) throw new ArgumentNullException("strategy");
             FromKey = fromKey;
             ToKey = toKey;
@@ -33,8 +32,8 @@ namespace MixPlanner.DomainModel
             IncreaseRequired = increaseRequired;
         }
 
-        public HarmonicKey FromKey { get; private set; }
-        public HarmonicKey ToKey { get; private set; }
+        public HarmonicKey? FromKey { get; private set; }
+        public HarmonicKey? ToKey { get; private set; }
         public IMixingStrategy Strategy { get; private set; }
         public double IncreaseRequired { get; private set; }
 
@@ -47,7 +46,7 @@ namespace MixPlanner.DomainModel
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return Equals(ToKey, other.ToKey) && Equals(FromKey, other.FromKey) && Equals(Strategy, other.Strategy) && IncreaseRequired.Equals(other.IncreaseRequired);
+            return IsIntro.Equals(other.IsIntro) && IsOutro.Equals(other.IsOutro) && FromKey.Equals(other.FromKey) && ToKey.Equals(other.ToKey) && Equals(Strategy, other.Strategy) && IncreaseRequired.Equals(other.IncreaseRequired);
         }
 
         public int CompareTo(Transition other)
@@ -69,17 +68,19 @@ namespace MixPlanner.DomainModel
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((Transition)obj);
+            return Equals((Transition) obj);
         }
 
         public override int GetHashCode()
         {
             unchecked
             {
-                var hashCode = (ToKey != null ? ToKey.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (FromKey != null ? FromKey.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (Strategy != null ? Strategy.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ IncreaseRequired.GetHashCode();
+                var hashCode = IsIntro.GetHashCode();
+                hashCode = (hashCode*397) ^ IsOutro.GetHashCode();
+                hashCode = (hashCode*397) ^ FromKey.GetHashCode();
+                hashCode = (hashCode*397) ^ ToKey.GetHashCode();
+                hashCode = (hashCode*397) ^ (Strategy != null ? Strategy.GetHashCode() : 0);
+                hashCode = (hashCode*397) ^ IncreaseRequired.GetHashCode();
                 return hashCode;
             }
         }

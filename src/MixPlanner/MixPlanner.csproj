@@ -240,7 +240,6 @@
     <Compile Include="DomainModel\TrackLibrary.cs" />
     <Compile Include="DomainModel\Transition.cs" />
     <Compile Include="DomainModel\ActualTransitionDetector.cs" />
-    <Compile Include="DomainModel\UnknownKey.cs" />
     <Compile Include="Events\BeganLoadingTracksEvent.cs" />
     <Compile Include="Events\ConfigSavedEvent.cs" />
     <Compile Include="Events\BeganAutoMixingEvent.cs" />

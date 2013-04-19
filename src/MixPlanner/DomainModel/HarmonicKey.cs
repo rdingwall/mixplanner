@@ -4,12 +4,18 @@ using System.Globalization;
 
 namespace MixPlanner.DomainModel
 {
-    public class HarmonicKey : IEquatable<HarmonicKey>, IComparable<HarmonicKey>, IComparable
+    public struct HarmonicKey : IEquatable<HarmonicKey>, IComparable<HarmonicKey>, IComparable
     {
         static readonly Random random = new Random();
         
         // e.g. 12A
         private readonly ushort hexValue;
+
+        const ushort HexValueIfUnknown = 0;
+        const int PitchIfUnknown = 0;
+
+        private readonly Scale scale;
+        private readonly int pitch;
 
         static HarmonicKey()
         {
@@ -53,15 +59,15 @@ namespace MixPlanner.DomainModel
 
             hexValue = ushort.Parse(key, NumberStyles.HexNumber);
 
-            Scale = ExtractScale(hexValue);
-            Pitch = ExtractPitch(hexValue);
+            scale = ExtractScale(hexValue);
+            pitch = ExtractPitch(hexValue);
         }
 
-        protected HarmonicKey(ushort hexValue, Scale scale, int pitch)
+        HarmonicKey(ushort hexValue, Scale scale, int pitch)
         {
             this.hexValue = hexValue;
-            Scale = scale;
-            Pitch = pitch;
+            this.scale = scale;
+            this.pitch = pitch;
         }
 
         static int ExtractPitch(ushort key)
@@ -99,13 +105,11 @@ namespace MixPlanner.DomainModel
 
         public bool HasSamePitchAs(HarmonicKey other)
         {
-            if (other == null) throw new ArgumentNullException("other");
             return Pitch.Equals(other.Pitch);
         }
 
         public bool HasSameScaleAs(HarmonicKey other)
         {
-            if (other == null) throw new ArgumentNullException("other");
             return Scale.Equals(other.Scale);
         }
 
@@ -119,11 +123,26 @@ namespace MixPlanner.DomainModel
             return Scale == Scale.Minor;
         }
 
-        public Scale Scale { get; private set; }
-        public int Pitch { get; private set; }
+        public Scale Scale
+        {
+            get { return scale; }
+        }
+
+        public int Pitch
+        {
+            get { return pitch; }
+        }
+
+        public bool IsUnknown
+        {
+            get { return hexValue == HexValueIfUnknown; }
+        }
 
         public override string ToString()
         {
+            if (IsUnknown)
+                return "Unknown";
+
             return hexValue.ToString("X");
         }
 
@@ -153,7 +172,15 @@ namespace MixPlanner.DomainModel
         public static HarmonicKey Key11B { get { return new HarmonicKey("11B"); } }
         public static HarmonicKey Key12B { get { return new HarmonicKey("12B"); } }
 
-        public static HarmonicKey Unknown { get { return new UnknownKey();} }
+        public static HarmonicKey Unknown
+        {
+            get
+            {
+                return new HarmonicKey(hexValue: HexValueIfUnknown,
+                                       scale: Scale.Unknown,
+                                       pitch: PitchIfUnknown);
+            }
+        }
 
         public static HarmonicKey RandomKey()
         {
@@ -163,8 +190,11 @@ namespace MixPlanner.DomainModel
         }
 
         // Advances n number of positions around the Camelot wheel.
-        public virtual HarmonicKey Advance(int value)
+        public HarmonicKey Advance(int value)
         {
+            if (IsUnknown)
+                return this;
+
             var newPitch = (Pitch + value) % 12;
 
             if (newPitch == 0)
@@ -176,13 +206,19 @@ namespace MixPlanner.DomainModel
             return new HarmonicKey(newPitch, Scale);
         }
 
-        public virtual HarmonicKey ToMinor()
+        public HarmonicKey ToMinor()
         {
+            if (IsUnknown)
+                return this;
+
             return new HarmonicKey(Pitch, Scale.Minor);
         }
 
-        public virtual HarmonicKey ToMajor()
+        public HarmonicKey ToMajor()
         {
+            if (IsUnknown)
+                return this;
+
             return new HarmonicKey(Pitch, Scale.Major);
         }
 
@@ -195,49 +231,53 @@ namespace MixPlanner.DomainModel
             }
             catch
             {
-                key = null;
+                key = default(HarmonicKey);
                 return false;
             }
         }
 
         public bool Equals(HarmonicKey other)
         {
-            if (ReferenceEquals(null, other)) return false;
-            if (ReferenceEquals(this, other)) return true;
-            return hexValue == other.hexValue;
+            return hexValue == other.hexValue && scale == other.scale && pitch == other.pitch;
         }
 
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            var other = obj as HarmonicKey;
-            return other != null && Equals(other);
+            return obj is HarmonicKey && Equals((HarmonicKey) obj);
         }
 
         public override int GetHashCode()
         {
-            return hexValue.GetHashCode();
+            unchecked
+            {
+                var hashCode = hexValue.GetHashCode();
+                hashCode = (hashCode*397) ^ (int) scale;
+                hashCode = (hashCode*397) ^ pitch;
+                return hashCode;
+            }
         }
 
         public int CompareTo(HarmonicKey other)
         {
-            if (other == null)
-                return 1;
-
             return hexValue - other.hexValue;
         }
 
         public int CompareTo(object obj)
         {
-            return CompareTo(obj as HarmonicKey);
+            return CompareTo((HarmonicKey)obj);
+        }
+
+        public static bool operator ==(HarmonicKey left, HarmonicKey right)
+        {
+            return left.Equals(right);
+        }
+
+        public static bool operator !=(HarmonicKey left, HarmonicKey right)
+        {
+            return !left.Equals(right);
         }
 
         public static IEnumerable<HarmonicKey> AllKeys { get; private set; }
-
-        public static bool IsUnknown(HarmonicKey key)
-        {
-            return key == null || Unknown.Equals(key);
-        }
     }
 }

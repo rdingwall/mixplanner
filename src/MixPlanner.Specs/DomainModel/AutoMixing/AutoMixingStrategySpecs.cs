@@ -330,9 +330,6 @@ namespace MixPlanner.Specs.DomainModel.AutoMixing
 
             public override string ToString()
             {
-                if (ActualKey == null)
-                    return "unknown";
-
                 return ActualKey.ToString();
             }
 
@@ -355,7 +352,7 @@ namespace MixPlanner.Specs.DomainModel.AutoMixing
             {
                 unchecked
                 {
-                    return ((ActualKey != null ? ActualKey.GetHashCode() : 0) * 397) ^ IsUnknownKeyOrBpm.GetHashCode();
+                    return (ActualKey.GetHashCode() * 397) ^ IsUnknownKeyOrBpm.GetHashCode();
                 }
             }
         }

@@ -115,12 +115,12 @@ namespace MixPlanner.DomainModel.AutoMixing
         }
 
         static AutoMixingBucket AddPlaceholderVertexIfRequired(
-            AdjacencyGraph<AutoMixingBucket, AutoMixEdge> graph, HarmonicKey key)
+            AdjacencyGraph<AutoMixingBucket, AutoMixEdge> graph, HarmonicKey? key)
         {
-            if (key == null)
+            if (!key.HasValue)
                 return null;
 
-            var vertex = new AutoMixingBucket(key);
+            var vertex = new AutoMixingBucket(key.Value);
             graph.AddVertex(vertex);
             return vertex;
         }
@@ -133,7 +133,7 @@ namespace MixPlanner.DomainModel.AutoMixing
         static IEnumerable<AutoMixingBucket> GetPreferredMix(
             IVertexListGraph<AutoMixingBucket, AutoMixEdge> graph,
             AutoMixingBucket optionalStartVertex,
-            HarmonicKey optionalEndKey,
+            HarmonicKey? optionalEndKey,
             bool computeAll)
         {
             LongestPathAlgorithm<AutoMixingBucket, AutoMixEdge> algo;
@@ -142,7 +142,7 @@ namespace MixPlanner.DomainModel.AutoMixing
             else
                 algo = new AllLongestPathsAlgorithm<AutoMixingBucket, AutoMixEdge>(graph);
 
-            HarmonicKey optionalStartKey = null;
+            HarmonicKey? optionalStartKey = null;
             if (optionalStartVertex != null)
             {
                 algo.SetRootVertex(optionalStartVertex);
@@ -172,21 +172,21 @@ namespace MixPlanner.DomainModel.AutoMixing
 
         static IEnumerable<AutoMixEdge> GetPathSatisfyingOptionalStartAndEndKey(
             IEnumerable<IEnumerable<AutoMixEdge>> paths,
-            HarmonicKey optionalStartKey,
-            HarmonicKey optionalEndKey)
+            HarmonicKey? optionalStartKey,
+            HarmonicKey? optionalEndKey)
         {
             var validPaths = paths;
 
-            if (optionalStartKey != null)
+            if (optionalStartKey.HasValue)
             {
                 Log.DebugFormat("Required start key: {0}", optionalStartKey);
-                validPaths = validPaths.Where(p => p.First().Source.ContainsKey(optionalStartKey));
+                validPaths = validPaths.Where(p => p.First().Source.ContainsKey(optionalStartKey.Value));
             }
 
-            if (optionalEndKey != null)
+            if (optionalEndKey.HasValue)
             {
                 Log.DebugFormat("Required end key: {0}", optionalEndKey);
-                validPaths = validPaths.Where(p => p.Last().Target.ContainsKey(optionalEndKey));
+                validPaths = validPaths.Where(p => p.Last().Target.ContainsKey(optionalEndKey.Value));
             }
 
             return validPaths

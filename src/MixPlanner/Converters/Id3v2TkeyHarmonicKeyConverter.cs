@@ -71,13 +71,13 @@ namespace MixPlanner.Converters
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var key = value as HarmonicKey;
+            var key = value as HarmonicKey?;
 
             if (key == null)
                 return null;
 
             string traditionalKey;
-            if (Tkeys.TryGetValue(key, out traditionalKey))
+            if (Tkeys.TryGetValue(key.Value, out traditionalKey))
                 return traditionalKey;
 
             return "Unknown Key";

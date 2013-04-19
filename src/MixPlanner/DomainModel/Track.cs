@@ -28,7 +28,6 @@ namespace MixPlanner.DomainModel
             if (id == null) throw new ArgumentNullException("id");
             if (artist == null) throw new ArgumentNullException("artist");
             if (title == null) throw new ArgumentNullException("title");
-            if (originalKey == null) throw new ArgumentNullException("originalKey");
             if (fileName == null) throw new ArgumentNullException("fileName");
             Id = id;
             Artist = artist;
@@ -73,7 +72,7 @@ namespace MixPlanner.DomainModel
 
         public bool IsUnknownKey
         {
-            get { return HarmonicKey.IsUnknown(OriginalKey); }
+            get { return OriginalKey.IsUnknown; }
         }
 
         public PlaybackSpeed GetDefaultPlaybackSpeed()

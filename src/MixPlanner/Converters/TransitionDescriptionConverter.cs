@@ -14,9 +14,9 @@ namespace MixPlanner.Converters
             if (transition == null)
                 return null;
 
-            if (transition.FromKey == null)
+            if (transition.IsIntro)
                 return ">>> Intro";
-            else if (transition.ToKey == null)
+            else if (transition.IsOutro)
                 return ">>> Outro";
 
             return ">>> " + transition.Strategy.Description;

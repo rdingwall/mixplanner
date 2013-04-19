@@ -2,8 +2,8 @@
 {
     public enum Scale
     {
+        Unknown = 0,
         Major = 0xB,
-        Minor = 0xA,
-        Unknown
+        Minor = 0xA
     }
 }

@@ -210,7 +210,18 @@ namespace MixPlanner.Specs.DomainModel
 
             It should_return_true = () => result.ShouldBeFalse();
 
-            It should_return_null = () => key.ShouldBeNull();
+            It should_return_unknown = () => key.IsUnknown.ShouldBeTrue();
+        }
+
+        public class When_initializing_a_default_struct
+        {
+            static HarmonicKey key;
+
+            It should_be_unknown = () => key.IsUnknown.ShouldBeTrue();
+
+            It should_be_of_unknown_scale = () => key.Scale.ShouldEqual(Scale.Unknown);
+
+            It should_be_of_zero_pitch = () => key.Pitch.ShouldEqual(0);
         }
     }
 }

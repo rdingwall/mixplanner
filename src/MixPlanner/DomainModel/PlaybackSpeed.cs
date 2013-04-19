@@ -11,7 +11,6 @@ namespace MixPlanner.DomainModel
             double originalBpm, 
             double speed = DefaultSpeed)
         {
-            if (originalKey == null) throw new ArgumentNullException("originalKey");
             this.originalBpm = originalBpm;
             this.originalKey = originalKey;
             ActualBpm = originalBpm;
@@ -112,10 +111,10 @@ namespace MixPlanner.DomainModel
             unchecked
             {
                 var hashCode = ActualBpm.GetHashCode();
-                hashCode = (hashCode * 397) ^ (ActualKey != null ? ActualKey.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ ActualKey.GetHashCode();
                 hashCode = (hashCode * 397) ^ Speed.GetHashCode();
                 hashCode = (hashCode * 397) ^ originalBpm.GetHashCode();
-                hashCode = (hashCode * 397) ^ (originalKey != null ? originalKey.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ originalKey.GetHashCode();
                 return hashCode;
             }
         }

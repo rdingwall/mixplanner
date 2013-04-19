@@ -33,7 +33,7 @@ namespace MixPlanner.Loader
                 .OfType<HarmonicKey>()
                 .FirstOrDefault(k => !HarmonicKey.Unknown.Equals(k));
 
-            return result ?? HarmonicKey.Unknown;
+            return result;
         }
     }
 }
