@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using QuickGraph;
 
@@ -35,7 +36,7 @@ namespace MixPlanner.DomainModel.AutoMixing
         {
             if (stack.Count == 0)
                 bottom = item;
-
+           
             visitedTargetVertices.Add(item.Target);
 
             stack.Push(item);
@@ -45,6 +46,9 @@ namespace MixPlanner.DomainModel.AutoMixing
         {
             var item = stack.Pop();
             visitedTargetVertices.Remove(item.Target);
+
+            if (IsEmpty())
+                bottom = default(TEdge);
         }
 
         public bool ContainsVertex(TVertex vertex)
@@ -52,9 +56,16 @@ namespace MixPlanner.DomainModel.AutoMixing
             return visitedTargetVertices.Contains(vertex);
         }
 
-        public TEdge PeekBottom()
+        public bool TryPeekBottom(out TEdge bottom)
         {
-            return bottom;
+            if (IsEmpty())
+            {
+                bottom = default(TEdge);
+                return false;
+            }
+
+            bottom = this.bottom;
+            return true;
         }
 
         public IEnumerator<TEdge> GetEnumerator()

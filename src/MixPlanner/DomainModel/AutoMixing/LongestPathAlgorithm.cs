@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using QuickGraph;
 using QuickGraph.Algorithms;
@@ -83,11 +84,12 @@ namespace MixPlanner.DomainModel.AutoMixing
 
         private bool TryFindDeepest(TVertex root, out IEnumerable<TEdge> path)
         {
-            var stack = new SuperStack<TVertex, TEdge>(VisitedGraph.VertexCount);
             IEnumerable<TEdge> outEdges = VisitedGraph.OutEdges(root);
 
             foreach (TEdge edge in outEdges)
             {
+                var stack = new SuperStack<TVertex, TEdge>(VisitedGraph.VertexCount);
+
                 if (FindDeepestRecursive(stack, edge))
                 {
                     path = stack.Reverse().ToList();
@@ -104,13 +106,17 @@ namespace MixPlanner.DomainModel.AutoMixing
             if (stack.IsEmpty())
                 return false;
 
-            var bottomOfStack = stack.PeekBottom();
-            return bottomOfStack.Source.Equals(vertex) ||
-                   stack.ContainsVertex(vertex);
+            TEdge bottomOfStack;
+            if (stack.TryPeekBottom(out bottomOfStack) && bottomOfStack.Source.Equals(vertex))
+                return true;
+
+            return stack.ContainsVertex(vertex);
         }
 
         private bool FindDeepestRecursive(SuperStack<TVertex, TEdge> stack, TEdge root)
         {
+            // Stop if we've already visted all the nodes (remember edge count
+            // will always be lower than vertex count).
             if (stack.Count == VisitedGraph.VertexCount - 2)
             {
                 stack.Push(root);
@@ -120,10 +126,16 @@ namespace MixPlanner.DomainModel.AutoMixing
             IEnumerable<TEdge> outEdges = VisitedGraph
                 .OutEdges(root.Target)
                 .Where(e => !StackContains(stack, e.Target))
+                // Need to check we aren't looping back to the root cos on the
+                // first pass the root won't be in the stack yet.
+                .Where(e => !root.Source.Equals(e.Target))
                 .ToList();
 
             if (!outEdges.Any())
                 return false;
+
+            if (root.Source.Equals(HarmonicKey.Key7A) || root.Target.Equals(HarmonicKey.Key7A))
+                Debugger.Break();
 
             stack.Push(root);
 

@@ -238,7 +238,7 @@ namespace MixPlanner.DomainModel
 
         public bool Equals(HarmonicKey other)
         {
-            return hexValue == other.hexValue && scale == other.scale && pitch == other.pitch;
+            return hexValue == other.hexValue;
         }
 
         public override bool Equals(object obj)
@@ -249,13 +249,7 @@ namespace MixPlanner.DomainModel
 
         public override int GetHashCode()
         {
-            unchecked
-            {
-                var hashCode = hexValue.GetHashCode();
-                hashCode = (hashCode*397) ^ (int) scale;
-                hashCode = (hashCode*397) ^ pitch;
-                return hashCode;
-            }
+            return hexValue.GetHashCode();
         }
 
         public int CompareTo(HarmonicKey other)
