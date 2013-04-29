@@ -6,6 +6,10 @@ using MixPlanner.DomainModel;
 
 namespace MixPlanner.Commands
 {
+    /// <summary>
+    /// Base for commands that change the order of tracks in the mix according
+    /// to some logic e.g. random shuffling or automix.
+    /// </summary>
     public abstract class ChangeTrackOrderCommandBase : AsyncCommandBase<IEnumerable<IMixItem>>
     {
         protected readonly IMix Mix;
