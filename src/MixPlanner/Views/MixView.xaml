@@ -71,6 +71,7 @@
                                   CommandParameter="{Binding Path=PlacementTarget.DataContext.SelectedItems, RelativeSource={RelativeSource AncestorType=ContextMenu}}"/>
                         <MenuItem Header="Auto Mix"
                                   Command="{Binding AutoMixCommand}"
+                                  Visibility="{Binding Path=PlacementTarget.DataContext.HasMultipleItemsSelected, RelativeSource={RelativeSource AncestorType=ContextMenu}, Converter={StaticResource BooleanToVisibilityConverter}}"
                                   CommandTarget="{Binding Path=PlacementTarget, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
                                   CommandParameter="{Binding Path=PlacementTarget.DataContext.SelectedItems, RelativeSource={RelativeSource AncestorType=ContextMenu}}" />
                         <Separator />

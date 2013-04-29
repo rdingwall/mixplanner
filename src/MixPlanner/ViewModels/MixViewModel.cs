@@ -50,7 +50,12 @@ namespace MixPlanner.ViewModels
 
         public bool HasSingleItemSelected
         {
-            get { return SelectedItems.Count() == 1; }
+            get { return SelectedItems.Count == 1; }
+        }
+
+        public bool HasMultipleItemsSelected
+        {
+            get { return SelectedItems.Count > 1; }
         }
 
         public MixViewModel(IMessenger messenger,
