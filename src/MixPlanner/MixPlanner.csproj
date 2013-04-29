@@ -141,6 +141,7 @@
     <Compile Include="AttachedProperties\GridViewSort.cs" />
     <Compile Include="AttachedProperties\FocusExtension.cs" />
     <Compile Include="Commands\AsyncCommandBase.cs" />
+    <Compile Include="Commands\ChangeTrackOrderCommandBase.cs" />
     <Compile Include="Commands\FocusSearchBoxCommand.cs" />
     <Compile Include="Commands\DisableRecommendationsScope.cs" />
     <Compile Include="DomainModel\AutoMixing\AutoMixingContextFactory.cs" />
