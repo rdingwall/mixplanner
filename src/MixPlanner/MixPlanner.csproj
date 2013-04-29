@@ -144,6 +144,7 @@
     <Compile Include="Commands\ChangeTrackOrderCommandBase.cs" />
     <Compile Include="Commands\FocusSearchBoxCommand.cs" />
     <Compile Include="Commands\DisableRecommendationsScope.cs" />
+    <Compile Include="Commands\ShuffleCommand.cs" />
     <Compile Include="DomainModel\AutoMixing\AutoMixingContextFactory.cs" />
     <Compile Include="Commands\ClearRecommendationsCommand.cs" />
     <Compile Include="Commands\CloseWindowCommand.cs" />
