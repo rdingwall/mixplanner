@@ -78,9 +78,6 @@ namespace MixPlanner.DomainModel.AutoMixing
             if (!outEdges.Any())
                 return;
 
-            if (root.Source.Equals(HarmonicKey.Key7A) || root.Target.Equals(HarmonicKey.Key7A))
-                Debugger.Break();
-
             stack.Push(root);
 
             foreach (TEdge edge in outEdges)
