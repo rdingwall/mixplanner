@@ -21,7 +21,8 @@
                       dd:DragDrop.DropHandler="{Binding}"
                       SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
                       SelectionMode="Extended"
-                      SelectionChanged="OnSelectionChanged">
+                      SelectionChanged="OnSelectionChanged"
+                      ScrollViewer.CanContentScroll="False">
                 
                 <ListView.InputBindings>
                     <KeyBinding Key="F2" 
