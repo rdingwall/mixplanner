@@ -20,6 +20,7 @@ namespace MixPlanner.Converters
         readonly KeyCodeHarmonicKeyCoverter keyCodeConverter;
         readonly Id3v2TkeyHarmonicKeyConverter id3V2TkeyConverter;
         readonly OpenKeyNotationHarmonicKeyConverter openKeyNotationConverter;
+        readonly BeatportHarmonicKeyConverter beatportHarmonicKeyConverter;
 
         public HarmonicKeyConverterFactory(
             TraditionalTextHarmonicKeyConverter traditionalTextConverter,
@@ -27,6 +28,7 @@ namespace MixPlanner.Converters
             KeyCodeHarmonicKeyCoverter keyCodeConverter,
             Id3v2TkeyHarmonicKeyConverter id3v2TkeyConverter,
             OpenKeyNotationHarmonicKeyConverter openKeyNotationConverter,
+            BeatportHarmonicKeyConverter beatportHarmonicKeyConverter,
             IConfigProvider configProvider)
         {
             if (traditionalTextConverter == null) throw new ArgumentNullException("traditionalTextConverter");
@@ -34,6 +36,7 @@ namespace MixPlanner.Converters
             if (keyCodeConverter == null) throw new ArgumentNullException("keyCodeConverter");
             if (id3v2TkeyConverter == null) throw new ArgumentNullException("id3v2TkeyConverter");
             if (openKeyNotationConverter == null) throw new ArgumentNullException("openKeyNotationConverter");
+            if (beatportHarmonicKeyConverter == null) throw new ArgumentNullException("beatportHarmonicKeyConverter");
             if (configProvider == null) throw new ArgumentNullException("configProvider");
             this.traditionalTextConverter = traditionalTextConverter;
             this.traditionalSymbolsConverter = traditionalSymbolsConverter;
@@ -41,6 +44,7 @@ namespace MixPlanner.Converters
             id3V2TkeyConverter = id3v2TkeyConverter;
             this.openKeyNotationConverter = openKeyNotationConverter;
             this.configProvider = configProvider;
+            this.beatportHarmonicKeyConverter = beatportHarmonicKeyConverter;
         }
 
         public IValueConverter GetConverter()
@@ -75,7 +79,8 @@ namespace MixPlanner.Converters
                            traditionalSymbolsConverter,
                            traditionalTextConverter,
                            id3V2TkeyConverter,
-                           openKeyNotationConverter
+                           openKeyNotationConverter,
+                           beatportHarmonicKeyConverter
                        };
         }
     }
