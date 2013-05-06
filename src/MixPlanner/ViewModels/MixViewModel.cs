@@ -30,6 +30,8 @@ namespace MixPlanner.ViewModels
         public EditTrackCommand EditTrackCommand { get; private set; }
         public AutoMixCommand AutoMixCommand { get; private set; }
         public ShuffleCommand ShuffleCommand { get; private set; }
+        public CopyMixcloudTracklistCommand CopyMixcloudTracklistCommand { get; private set; }
+        public IMix Mix { get; private set; }
 
         public MixItemViewModel SelectedItem
         {
@@ -70,7 +72,9 @@ namespace MixPlanner.ViewModels
             GetRecommendationsCommand getRecommendationsCommand,
             EditTrackCommand editTrackCommand,
             AutoMixCommand autoMixCommand,
-            ShuffleCommand shuffleCommand)
+            ShuffleCommand shuffleCommand,
+            CopyMixcloudTracklistCommand copyMixcloudTracklistCommand,
+            IMix mix)
             : base(messenger)
         {
             if (messenger == null) throw new ArgumentNullException("messenger");
@@ -86,6 +90,8 @@ namespace MixPlanner.ViewModels
             if (autoMixCommand == null)
                 throw new ArgumentNullException("autoMixCommand");
             if (shuffleCommand == null) throw new ArgumentNullException("shuffleCommand");
+            if (copyMixcloudTracklistCommand == null) throw new ArgumentNullException("copyMixcloudTracklistCommand");
+            if (mix == null) throw new ArgumentNullException("mix");
             isRecommendationsEnabled = true;
             DropItemCommand = dropItemCommand;
             DropFilesCommand = dropFilesCommand;
@@ -96,6 +102,8 @@ namespace MixPlanner.ViewModels
             EditTrackCommand = editTrackCommand;
             AutoMixCommand = autoMixCommand;
             ShuffleCommand = shuffleCommand;
+            CopyMixcloudTracklistCommand = copyMixcloudTracklistCommand;
+            Mix = mix;
             this.viewModels = viewModels;
             RemoveCommand = removeCommand;
             Items = new ObservableCollectionEx<MixItemViewModel>();
