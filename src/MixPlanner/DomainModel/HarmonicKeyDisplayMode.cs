@@ -6,6 +6,7 @@
         TraditionalWithSymbols, // e.g. E♭
         TraditionalWithText, // e.g. E-Flat,
         Id3Tkey, // e.g. Ebm
-        OpenKeyNotation // e.g. 7m
+        OpenKeyNotation, // e.g. 7m,
+        Beatport // e.g. D#min
     }
 }

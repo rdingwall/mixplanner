@@ -65,6 +65,9 @@ namespace MixPlanner.Converters
                 case HarmonicKeyDisplayMode.OpenKeyNotation:
                     return openKeyNotationConverter;
 
+                case HarmonicKeyDisplayMode.Beatport:
+                    return beatportHarmonicKeyConverter;
+
                 default:
                 case HarmonicKeyDisplayMode.KeyCode:
                     return keyCodeConverter;

@@ -75,6 +75,12 @@
                                      VerticalAlignment="Center"
                                      Margin="0,0,10,0"
                                      ToolTip="Open Key Notation (OKN)"/>
+                        <RadioButton Content="A#maj"
+                                     IsChecked="{Binding HarmonicKeyDisplayMode, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static domainModel:HarmonicKeyDisplayMode.Beatport}}"
+                                     HorizontalAlignment="Left"
+                                     VerticalAlignment="Center"
+                                     Margin="0,0,10,0"
+                                     ToolTip="Beatport" />
                     </StackPanel>
                 </Grid>
             </GroupBox>
