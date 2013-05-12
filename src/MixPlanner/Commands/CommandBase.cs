@@ -4,6 +4,36 @@ using log4net;
 
 namespace MixPlanner.Commands
 {
+    public abstract class CommandBase : ICommand
+    {
+        protected readonly ILog Log;
+
+        protected CommandBase()
+        {
+            Log = LogManager.GetLogger(GetType());
+        }
+
+        public virtual bool CanExecute(object parameter)
+        {
+            return true;
+        }
+
+        public abstract void Execute(object parameter);
+
+        protected void RaiseCanExecuteChanged()
+        {
+            CommandManager.InvalidateRequerySuggested();
+        }
+
+        // CanExecuteChanged whenever a property changes
+        // http://stackoverflow.com/a/3092873/91551
+        public event EventHandler CanExecuteChanged
+        {
+            add { CommandManager.RequerySuggested += value; }
+            remove { CommandManager.RequerySuggested -= value; }
+        }
+    }
+
     public abstract class CommandBase<T> : ICommand
     {
         protected readonly ILog Log;
@@ -52,12 +82,12 @@ namespace MixPlanner.Commands
             return true;
         }
 
+        protected abstract void Execute(T parameter);
+
         protected void RaiseCanExecuteChanged()
         {
             CommandManager.InvalidateRequerySuggested();
         }
-
-        protected abstract void Execute(T parameter);
 
         // CanExecuteChanged whenever a property changes
         // http://stackoverflow.com/a/3092873/91551

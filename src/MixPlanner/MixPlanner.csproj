@@ -107,6 +107,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity.Design" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\MvvmLight.4.1.23.0\lib\net40\System.Windows.Interactivity.dll</HintPath>
     </Reference>
@@ -271,6 +272,7 @@
     <Compile Include="Extensions\DoubleExtensions.cs" />
     <Compile Include="Extensions\LinqExtensions.cs" />
     <Compile Include="Extensions\PluralizationServiceExtensions.cs" />
+    <Compile Include="Extensions\ProgressExtensions.cs" />
     <Compile Include="ImportExport\IPlaylistWriter.cs" />
     <Compile Include="ImportExport\M3uReader.cs" />
     <Compile Include="ImportExport\M3uWriter.cs" />
@@ -293,6 +295,9 @@
     <Compile Include="Loader\TrackLoader.cs" />
     <Compile Include="Loader\UnsupportedFileTypeException.cs" />
     <Compile Include="Player\AudioPlayer.cs" />
+    <Compile Include="ProgressDialog\CancelCommand.cs" />
+    <Compile Include="ProgressDialog\ProgressDialogService.cs" />
+    <Compile Include="ProgressDialog\TaskFactory.cs" />
     <Compile Include="Storage\IConfigStorage.cs" />
     <Compile Include="Storage\ILibraryStorage.cs" />
     <Compile Include="Storage\InMemoryConfigStorage.cs" />
@@ -300,6 +305,7 @@
     <Compile Include="ViewModels\CloseableViewModelBase.cs" />
     <Compile Include="ViewModels\EditTrackWindowViewModel.cs" />
     <Compile Include="ViewModels\ErrorWindowViewModel.cs" />
+    <Compile Include="ViewModels\ProgressDialogWindowViewModel.cs" />
     <Compile Include="ViewModels\SettingsWindowViewModel.cs" />
     <Compile Include="ViewModels\StatusBarViewModel.cs" />
     <Compile Include="ViewModels\TrackLibraryItemViewModel.cs" />
@@ -325,6 +331,9 @@
     </Compile>
     <Compile Include="Views\MixView.xaml.cs">
       <DependentUpon>MixView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ProgressDialogWindow.xaml.cs">
+      <DependentUpon>ProgressDialogWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
@@ -373,6 +382,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MixView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ProgressDialogWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

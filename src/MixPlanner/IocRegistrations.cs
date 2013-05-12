@@ -13,6 +13,7 @@ using MixPlanner.DomainModel;
 using MixPlanner.DomainModel.AutoMixing;
 using MixPlanner.Loader;
 using MixPlanner.Player;
+using MixPlanner.ProgressDialog;
 using MixPlanner.Storage;
 using MixPlanner.ViewModels;
 
@@ -76,7 +77,8 @@ namespace MixPlanner
                 Component.For<IEnumerable<IMixingStrategy>>().Named(preferredStrategies)
                          .UsingFactoryMethod(k => k.Resolve<IMixingStrategiesFactory>().GetPreferredStrategiesInOrder()),
                 Component.For<IEnumerable<IMixingStrategy>>().Named(allStrategies)
-                         .UsingFactoryMethod(k => k.Resolve<IMixingStrategiesFactory>().GetAllStrategies()));
+                         .UsingFactoryMethod(k => k.Resolve<IMixingStrategiesFactory>().GetAllStrategies()),
+                Component.For<IProgressDialogService>().ImplementedBy<ProgressDialogService>());
         }
     }
 }

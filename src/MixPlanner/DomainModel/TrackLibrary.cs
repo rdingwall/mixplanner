@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using MixPlanner.Events;
 using MixPlanner.Loader;
@@ -62,17 +63,23 @@ namespace MixPlanner.DomainModel
             return track != null;
         }
 
-        async Task<IEnumerable<Track>> ImportDirectory(string directoryName)
+        async Task<IEnumerable<Track>> ImportDirectory(string directoryName, 
+            CancellationToken cancellationToken, IProgress<string> progress)
         {
             if (directoryName == null) throw new ArgumentNullException("directoryName");
+            if (progress == null) throw new ArgumentNullException("progress");
+
+            cancellationToken.ThrowIfCancellationRequested();
 
             messenger.SendToUI(new BeganScanningDirectoryEvent());
+
+            progress.ReportFormat("Scanning {0}...", Path.GetFileName(directoryName));
 
             var filenames = Directory
                 .GetFiles(directoryName, "*.*", SearchOption.AllDirectories)
                 .Where(loader.IsSupportedFileFormat);
 
-            return await ImportAsync(filenames)
+            return await ImportAsync(filenames, cancellationToken, progress)
                 .ContinueWith<IEnumerable<Track>>(OnImportComplete);
         }
 
@@ -82,15 +89,20 @@ namespace MixPlanner.DomainModel
             return task.Result;
         }
 
-        public async Task<IEnumerable<Track>> ImportAsync(string filename)
+        public async Task<IEnumerable<Track>> ImportAsync(string filename,
+            CancellationToken cancellationToken, IProgress<string> progress)
         {
             if (filename == null) throw new ArgumentNullException("filename");
 
+            cancellationToken.ThrowIfCancellationRequested();
+
             if (IsDirectory(filename))
-                return await ImportDirectory(filename);
+                return await ImportDirectory(filename, cancellationToken, progress);
 
             if (!loader.IsSupportedFileFormat(filename))
                 return Enumerable.Empty<Track>();
+
+            progress.ReportFormat("Loading {0}", Path.GetFileName(filename));
 
             Track track;
             if (TryGetTrack(filename, out track))
@@ -102,18 +114,28 @@ namespace MixPlanner.DomainModel
             return new[] { track };
         }
 
-        public async Task<IEnumerable<Track>> ImportAsync(IEnumerable<string> filenames)
+        public async Task<IEnumerable<Track>> ImportAsync(IEnumerable<string> filenames,
+            CancellationToken cancellationToken, IProgress<string> progress)
         {
             var tracks = new List<Track>();
             foreach (var filename in filenames)
-                tracks.AddRange(await ImportAsync(filename));
+            {
+                if (cancellationToken.IsCancellationRequested)
+                    return tracks;
+
+                tracks.AddRange(await ImportAsync(filename, cancellationToken, progress));
+            }
 
             return tracks;
         }
 
-        public async Task<IEnumerable<Track>> ImportDirectoryAsync(string directoryName)
+        public async Task<IEnumerable<Track>> ImportDirectoryAsync(string directoryName,
+            CancellationToken cancellationToken, IProgress<string> progress)
         {
-            return await Task.Run(() => ImportDirectory(directoryName));
+            if (cancellationToken.IsCancellationRequested)
+                return Enumerable.Empty<Track>();
+
+            return await Task.Run(() => ImportDirectory(directoryName, cancellationToken, progress));
         }
 
         static bool IsDirectory(string filename)
