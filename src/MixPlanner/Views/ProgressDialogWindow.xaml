@@ -16,7 +16,8 @@
         WindowStyle="SingleBorderWindow"
         WindowStartupLocation="CenterOwner"
         d:DataContext="{d:DesignInstance viewModels:ProgressDialogWindowViewModel}"
-        attachedProperties:DialogCloser.DialogResult="{Binding Close}">
+        attachedProperties:DialogCloser.DialogResult="{Binding Close}"
+        attachedProperties:WindowBehavior.HideCloseButton="True">
     <DockPanel Margin="10">
         <Grid DockPanel.Dock="Bottom">
             <Grid.ColumnDefinitions>

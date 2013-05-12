@@ -141,6 +141,7 @@
     <Compile Include="AttachedProperties\DialogCloser.cs" />
     <Compile Include="AttachedProperties\GridViewSort.cs" />
     <Compile Include="AttachedProperties\FocusExtension.cs" />
+    <Compile Include="AttachedProperties\WindowBehavior.cs" />
     <Compile Include="Commands\AsyncCommandBase.cs" />
     <Compile Include="Commands\SortTracksCommandBase.cs" />
     <Compile Include="Commands\CopyMixcloudTracklistCommand.cs" />
