@@ -7,7 +7,7 @@ using MixPlanner.Events;
 
 namespace MixPlanner.Commands
 {
-    public class AutoMixCommand : ChangeTrackOrderCommandBase
+    public class AutoMixCommand : SortTracksCommandBase
     {
         readonly IAutoMixingContextFactory contextFactory;
         readonly IAutoMixingStrategy strategy;
@@ -24,9 +24,9 @@ namespace MixPlanner.Commands
             this.strategy = strategy;
         }
 
-        protected override bool TryCalculateNewOrderOfTracks(
+        protected override bool TrySort(
             IEnumerable<IMixItem> selectedItems,
-            out IEnumerable<IMixItem> newOrder)
+            out IEnumerable<IMixItem> sortedItems)
         {
             Messenger.SendToUI(new BeganAutoMixingEvent());
 
@@ -36,11 +36,11 @@ namespace MixPlanner.Commands
 
             if (!results.IsSuccess)
             {
-                newOrder = null;
+                sortedItems = null;
                 return false;
             }
             
-            newOrder = results.MixedTracks.Concat(results.UnknownTracks);
+            sortedItems = results.MixedTracks.Concat(results.UnknownTracks);
             return true;
         }
     }

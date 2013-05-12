@@ -10,12 +10,12 @@ namespace MixPlanner.Commands
     /// Base for commands that change the order of tracks in the mix according
     /// to some logic e.g. random shuffling or automix.
     /// </summary>
-    public abstract class ChangeTrackOrderCommandBase : AsyncCommandBase<IEnumerable<IMixItem>>
+    public abstract class SortTracksCommandBase : AsyncCommandBase<IEnumerable<IMixItem>>
     {
         protected readonly IMix Mix;
         protected readonly IDispatcherMessenger Messenger;
 
-        protected ChangeTrackOrderCommandBase(
+        protected SortTracksCommandBase(
             IMix mix,
             IDispatcherMessenger messenger)
         {
@@ -37,8 +37,8 @@ namespace MixPlanner.Commands
             await Task.Factory.StartNew(() => DoExecuteSync(parameter));
         }
 
-        protected abstract bool TryCalculateNewOrderOfTracks(
-            IEnumerable<IMixItem> selectedItems, out IEnumerable<IMixItem> newOrder);
+        protected abstract bool TrySort(
+            IEnumerable<IMixItem> selectedItems, out IEnumerable<IMixItem> sortedItems);
 
         void DoExecuteSync(IEnumerable<IMixItem> parameter)
         {
@@ -46,7 +46,7 @@ namespace MixPlanner.Commands
             using (new DisableRecommendationsScope(Messenger))
             {
                 IEnumerable<IMixItem> newOrder;
-                if (!TryCalculateNewOrderOfTracks(parameter, out newOrder))
+                if (!TrySort(parameter, out newOrder))
                     return;
 
                 ApplyNewOrdering(newOrder, originalOrder: parameter);

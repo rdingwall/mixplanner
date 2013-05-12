@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace MixPlanner.Commands
 {
-    public class ShuffleCommand : ChangeTrackOrderCommandBase
+    public class ShuffleCommand : SortTracksCommandBase
     {
         // No seed needed here (but two instances of mixplanner with the exact
         // same tracks loaded, shuffled the same number of times would produce
@@ -18,10 +18,10 @@ namespace MixPlanner.Commands
             random = new Random();
         }
 
-        protected override bool TryCalculateNewOrderOfTracks(
-            IEnumerable<IMixItem> selectedItems, out IEnumerable<IMixItem> newOrder)
+        protected override bool TrySort(
+            IEnumerable<IMixItem> selectedItems, out IEnumerable<IMixItem> sortedItems)
         {
-            newOrder = selectedItems.OrderBy(_ => random.Next());
+            sortedItems = selectedItems.OrderBy(_ => random.Next());
             return true;
         }
     }
