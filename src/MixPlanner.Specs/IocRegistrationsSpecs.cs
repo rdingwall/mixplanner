@@ -5,6 +5,7 @@ using System.Windows.Input;
 using Castle.Windsor;
 using MixPlanner.Commands;
 using MixPlanner.DomainModel;
+using MixPlanner.ProgressDialog;
 using MixPlanner.ViewModels;
 using NUnit.Framework;
 
@@ -68,7 +69,8 @@ namespace MixPlanner.Specs
                     .Where(t => !t.IsAbstract)
                     .Except(new[]
                                 {
-                                    typeof (PlayPauseTrackCommand)
+                                    typeof (PlayPauseTrackCommand),
+                                    typeof (CancelCommand) // requires a cancellationTokenSource
                                 });
             }
 
