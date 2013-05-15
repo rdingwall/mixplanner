@@ -17,6 +17,7 @@ namespace MixPlanner.DomainModel
         readonly IDispatcherMessenger messenger;
         readonly ILibraryStorage storage;
         readonly IRecommendedTransitionDetector transitionDetector;
+        readonly List<Track> tracks; 
 
         public TrackLibrary(
             ITrackLoader loader, 
@@ -32,16 +33,17 @@ namespace MixPlanner.DomainModel
             this.messenger = messenger;
             this.storage = storage;
             this.transitionDetector = transitionDetector;
+            tracks = new List<Track>();
         }
 
         public IEnumerable<Tuple<Track, Transition>> GetRecommendations(IMixItem mixItem)
         {
             if (mixItem == null) throw new ArgumentNullException("mixItem");
 
-            return storage.Tracks
-                          .Except(new[] {mixItem.Track}) // don't recommend itself!
-                          .Select(t => Tuple.Create(t, GetTransition(mixItem, t)))
-                          .Where(t => t.Item2 != null);
+            return tracks
+                .Except(new[] {mixItem.Track}) // don't recommend itself!
+                .Select(t => Tuple.Create(t, GetTransition(mixItem, t)))
+                .Where(t => t.Item2 != null);
         }
 
         public async Task SaveAsync(Track track)
@@ -58,7 +60,7 @@ namespace MixPlanner.DomainModel
 
         bool TryGetTrack(string filename, out Track track)
         {
-            track = storage.Tracks.FirstOrDefault(t => t.Filename.Equals(filename, Comparison));
+            track = tracks.FirstOrDefault(t => t.Filename.Equals(filename, Comparison));
 
             return track != null;
         }
@@ -110,6 +112,7 @@ namespace MixPlanner.DomainModel
             
             track = await loader.LoadAsync(filename);
             await storage.AddAsync(track);
+            tracks.Add(track);
             messenger.SendToUI(new TrackAddedToLibraryEvent(track));
             return new[] { track };
         }
@@ -138,6 +141,12 @@ namespace MixPlanner.DomainModel
             return await Task.Run(() => ImportDirectory(directoryName, cancellationToken, progress));
         }
 
+        public async Task InitializeAsync()
+        {
+            tracks.AddRange(await storage.FetchAllAsync());
+            messenger.SendToUI(new TrackLibraryLoadedEvent(tracks));
+        }
+
         static bool IsDirectory(string filename)
         {
             var attributes = File.GetAttributes(filename);
@@ -147,6 +156,7 @@ namespace MixPlanner.DomainModel
         public async Task RemoveAsync(Track track)
         {
             if (track == null) throw new ArgumentNullException("track");
+            tracks.Remove(track);
             await storage.RemoveAsync(track);
             messenger.SendToUI(new TrackRemovedFromLibraryEvent(track));
         }

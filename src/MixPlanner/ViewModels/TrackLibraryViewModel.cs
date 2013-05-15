@@ -93,7 +93,8 @@ namespace MixPlanner.ViewModels
             SearchLibraryCommand searchCommand,
             ShowInExplorerCommand showInExplorerCommand,
             OpenSettingsCommand openSettingsCommand,
-            EditTrackCommand editTrackCommand)
+            EditTrackCommand editTrackCommand,
+            ITrackLibrary trackLibrary)
             : base(messenger)
         {
             if (importFilesCommand == null) throw new ArgumentNullException("importFilesCommand");
@@ -113,6 +114,7 @@ namespace MixPlanner.ViewModels
             messenger.Register<SearchRequestedEvent>(this, OnSearchRequested);
             messenger.Register<SearchTextClearedEvent>(this, OnSearchTextCleared);
             messenger.Register<SearchBoxFocusRequestedEvent>(this, OnSearchBoxFocusRequested);
+            messenger.Register<TrackLibraryLoadedEvent>(this, OnTrackLibraryLoaded);
 
             SearchCommand = searchCommand;
             ShowInExplorerCommand = showInExplorerCommand;
@@ -121,6 +123,12 @@ namespace MixPlanner.ViewModels
 
             ImportFilesCommand = importFilesCommand;
             RemoveCommand = removeTracksCommand;
+        }
+
+        void OnTrackLibraryLoaded(TrackLibraryLoadedEvent obj)
+        {
+            items.Clear();
+            obj.Tracks.ForEach(t => items.Add(new TrackLibraryItemViewModel(MessengerInstance, t)));
         }
 
         void OnSearchBoxFocusRequested(SearchBoxFocusRequestedEvent obj)

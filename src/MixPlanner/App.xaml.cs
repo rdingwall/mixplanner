@@ -8,6 +8,8 @@ using Microsoft.Practices.ServiceLocation;
 using MixPlanner.Configuration;
 using MixPlanner.Controllers;
 using MixPlanner.DomainModel;
+using MixPlanner.ProgressDialog;
+using MixPlanner.Storage;
 using MixPlanner.Views;
 using log4net;
 using log4net.Config;
@@ -41,7 +43,8 @@ namespace MixPlanner
             container.Install(new IocRegistrations());
             ServiceLocator.SetLocatorProvider(() => new WindsorServiceLocator(container));
 
-            Task.Run(() => container.Resolve<IConfigProvider>().InitializeAsync());
+            Task.Run(() => container.Resolve<IConfigProvider>().InitializeAsync()).Wait();
+            Task.Run(() => container.Resolve<ITrackLibrary>().InitializeAsync()).Wait();
 
             container.Resolve<MainWindow>().ShowDialog();
         }

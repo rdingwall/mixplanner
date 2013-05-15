@@ -84,6 +84,9 @@
     <Reference Include="NAudio">
       <HintPath>..\..\packages\NAudio.1.6\lib\net20\NAudio.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\packages\Newtonsoft.Json.5.0.5\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="ObservableCollectionEx.4.0">
       <HintPath>..\..\packages\ObservableCollectionEx.1.0.1\lib\net40\ObservableCollectionEx.4.0.dll</HintPath>
     </Reference>
@@ -266,6 +269,7 @@
     <Compile Include="Events\BeganScanningDirectoryEvent.cs" />
     <Compile Include="Events\TrackAddedToLibraryEvent.cs" />
     <Compile Include="Events\TrackAddedToMixEvent.cs" />
+    <Compile Include="Events\TrackLibraryLoadedEvent.cs" />
     <Compile Include="Events\TrackRecommendedEvent.cs" />
     <Compile Include="Events\TrackRemovedFromLibraryEvent.cs" />
     <Compile Include="Events\TrackRemovedFromMixEvent.cs" />
@@ -307,10 +311,12 @@
       <DependentUpon>ProgressDialogWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ProgressDialog\ProgressDialogWindowViewModel.cs" />
+    <Compile Include="Storage\JsonFileLibraryStorage.cs" />
     <Compile Include="Storage\IConfigStorage.cs" />
     <Compile Include="Storage\ILibraryStorage.cs" />
     <Compile Include="Storage\InMemoryConfigStorage.cs" />
     <Compile Include="Storage\InMemoryLibraryStorage.cs" />
+    <Compile Include="Storage\JsonTrack.cs" />
     <Compile Include="ViewModels\CloseableViewModelBase.cs" />
     <Compile Include="ViewModels\EditTrackWindowViewModel.cs" />
     <Compile Include="ViewModels\ErrorWindowViewModel.cs" />

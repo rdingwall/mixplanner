@@ -14,6 +14,7 @@ namespace MixPlanner.DomainModel
         Task<IEnumerable<Track>> ImportDirectoryAsync(string directoryName,
             CancellationToken cancellationToken, IProgress<string> progress);
 
+        Task InitializeAsync();
         Task RemoveAsync(Track track);
         Task RemoveRangeAsync(IEnumerable<Track> tracks);
         IEnumerable<Tuple<Track, Transition>> GetRecommendations(IMixItem mixItem);
