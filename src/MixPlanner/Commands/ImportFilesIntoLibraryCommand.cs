@@ -10,6 +10,13 @@ namespace MixPlanner.Commands
         readonly ITrackLibrary library;
         readonly IProgressDialogService progressDialog;
 
+        static readonly ProgressDialogOptions ProgressDialogOptions
+            = new ProgressDialogOptions
+            {
+                Label = "Importing tracks",
+                WindowTitle = "Importing tracks"
+            };
+
         public ImportFilesIntoLibraryCommand(ITrackLibrary library,
             IProgressDialogService progressDialog)
         {
@@ -30,9 +37,9 @@ namespace MixPlanner.Commands
 
             if (filenames == null) return;
 
-            progressDialog.Execute(
-                (progress, token) => library.ImportAsync(filenames, token, progress),
-                "Importing tracks", "Importing tracks");
+            progressDialog.ExecuteAsync(
+                async (token, progress) => await library.ImportAsync(filenames, token, progress),
+                ProgressDialogOptions);
         }
     }
 }

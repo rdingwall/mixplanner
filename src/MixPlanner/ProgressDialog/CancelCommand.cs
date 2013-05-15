@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Threading;
-using MixPlanner.Commands;
+using System.Windows.Input;
 
 namespace MixPlanner.ProgressDialog
 {
-    public class CancelCommand : CommandBase
+    public class CancelCommand : ICommand
     {
         readonly CancellationTokenSource cancellationTokenSource;
+
+        public event EventHandler CanExecuteChanged;
 
         public CancelCommand(CancellationTokenSource cancellationTokenSource)
         {
@@ -14,15 +16,19 @@ namespace MixPlanner.ProgressDialog
             this.cancellationTokenSource = cancellationTokenSource;
         }
 
-        public override bool CanExecute(object parameter)
+        public bool CanExecute(object parameter)
         {
             return !cancellationTokenSource.IsCancellationRequested;
         }
 
-        public override void Execute(object parameter)
+        public void Execute(object parameter)
         {
             cancellationTokenSource.Cancel();
-            RaiseCanExecuteChanged();
+
+            if (CanExecuteChanged != null)
+                CanExecuteChanged(this, EventArgs.Empty);
+
+            CommandManager.InvalidateRequerySuggested();
         }
     }
 }

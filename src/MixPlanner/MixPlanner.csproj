@@ -297,8 +297,13 @@
     <Compile Include="Loader\UnsupportedFileTypeException.cs" />
     <Compile Include="Player\AudioPlayer.cs" />
     <Compile Include="ProgressDialog\CancelCommand.cs" />
+    <Compile Include="ProgressDialog\IProgressDialogService.cs" />
+    <Compile Include="ProgressDialog\ProgressDialogOptions.cs" />
     <Compile Include="ProgressDialog\ProgressDialogService.cs" />
-    <Compile Include="ProgressDialog\TaskFactory.cs" />
+    <Compile Include="ProgressDialog\ProgressDialogWindow.xaml.cs">
+      <DependentUpon>ProgressDialogWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ProgressDialog\ProgressDialogWindowViewModel.cs" />
     <Compile Include="Storage\IConfigStorage.cs" />
     <Compile Include="Storage\ILibraryStorage.cs" />
     <Compile Include="Storage\InMemoryConfigStorage.cs" />
@@ -306,7 +311,6 @@
     <Compile Include="ViewModels\CloseableViewModelBase.cs" />
     <Compile Include="ViewModels\EditTrackWindowViewModel.cs" />
     <Compile Include="ViewModels\ErrorWindowViewModel.cs" />
-    <Compile Include="ViewModels\ProgressDialogWindowViewModel.cs" />
     <Compile Include="ViewModels\SettingsWindowViewModel.cs" />
     <Compile Include="ViewModels\StatusBarViewModel.cs" />
     <Compile Include="ViewModels\TrackLibraryItemViewModel.cs" />
@@ -333,9 +337,6 @@
     <Compile Include="Views\MixView.xaml.cs">
       <DependentUpon>MixView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ProgressDialogWindow.xaml.cs">
-      <DependentUpon>ProgressDialogWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
@@ -347,6 +348,10 @@
     </Compile>
     <Compile Include="WindsorServiceLocator.cs" />
     <Page Include="Classic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ProgressDialog\ProgressDialogWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -383,10 +388,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MixView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ProgressDialogWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

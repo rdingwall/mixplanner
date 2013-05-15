@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Threading;
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Threading;
-using MixPlanner.ProgressDialog;
 
-namespace MixPlanner.ViewModels
+namespace MixPlanner.ProgressDialog
 {
-    public class ProgressDialogWindowViewModel : CloseableViewModelBase
+    public class ProgressDialogWindowViewModel : ViewModelBase
     {
         string windowTitle;
         string label;
         string subLabel;
+        bool close;
 
         public string WindowTitle
         {
@@ -41,27 +42,37 @@ namespace MixPlanner.ViewModels
             }
         }
 
+        public bool Close
+        {
+            get { return close; }
+            set
+            {
+                close = value;
+                RaisePropertyChanged(() => Close);
+            }
+        }
+
+        public bool IsCancellable { get { return CancelCommand != null; } }
+
         public CancelCommand CancelCommand { get; private set; }
         public IProgress<string> Progress { get; private set; }
 
         public ProgressDialogWindowViewModel(
-            string windowTitle,
-            string label,
+            ProgressDialogOptions options,
             CancellationToken cancellationToken,
             CancelCommand cancelCommand)
         {
-            if (windowTitle == null) throw new ArgumentNullException("windowTitle");
-            if (label == null) throw new ArgumentNullException("label");
-            if (cancelCommand == null) throw new ArgumentNullException("cancelCommand");
-            WindowTitle = windowTitle;
-            Label = label;
-            CancelCommand = cancelCommand;
+            if (options == null) throw new ArgumentNullException("options");
+            WindowTitle = options.WindowTitle;
+            Label = options.Label;
+            CancelCommand = cancelCommand; // can be null (not cancellable)
             cancellationToken.Register(OnCancelled);
             Progress = new Progress<string>(OnProgress);
         }
 
         void OnCancelled()
         {
+            // Cancellation may come from a background thread.
             if (DispatcherHelper.UIDispatcher != null)
                 DispatcherHelper.CheckBeginInvokeOnUI(() => Close = true);
             else
@@ -70,6 +81,7 @@ namespace MixPlanner.ViewModels
 
         void OnProgress(string obj)
         {
+            // Progress will probably come from a background thread.
             if (DispatcherHelper.UIDispatcher != null)
                 DispatcherHelper.CheckBeginInvokeOnUI(() => SubLabel = obj);
             else
