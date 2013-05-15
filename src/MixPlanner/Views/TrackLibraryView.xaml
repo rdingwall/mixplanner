@@ -129,9 +129,14 @@
                     <Style TargetType="{x:Type ListViewItem}">
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding IsCompatible}" Value="True">
-                                <Setter Property="Background" Value="Yellow" />
+                                <Setter Property="Background" Value="LawnGreen" />
                             </DataTrigger>
-                            <DataTrigger Binding="{Binding IsCompatible}" Value="False">
+                            <DataTrigger Binding="{Binding IsCorrespondingMixItemSelected}"
+                                         Value="True">
+                                <Setter Property="Background"
+                                        Value="Yellow" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding IsNeitherCompatibleNorSelected}" Value="True">
                                 <Setter Property="Background" Value="{Binding Key, Converter={StaticResource HarmonicKeyToBrushConverter}}" />
                             </DataTrigger>
                         </Style.Triggers>

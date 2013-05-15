@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Windows.Media;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
@@ -19,6 +20,7 @@ namespace MixPlanner.ViewModels
         string year;
         double bpm;
         string filename;
+        bool isCorrespondingMixItemSelected;
 
         public TrackLibraryItemViewModel(IMessenger messenger, Track track)
         {
@@ -30,11 +32,28 @@ namespace MixPlanner.ViewModels
             messenger.Register<RecommendationsClearedEvent>(this, _ => Transition = null);
             messenger.Register<TrackRecommendedEvent>(this, OnTrackRecommended);
             messenger.Register<TrackUpdatedEvent>(this, OnTrackUpdated);
+            messenger.Register<MixItemSelectionChangedEvent>(this, OnTracksSelected);
 
             // Required for play/pause status
             messenger.Register<PlayerPlayingEvent>(this, _ => RaisePropertyChanged(() => Track));
             messenger.Register<PlayerStoppedEvent>(this, _ => RaisePropertyChanged(() => Track));
             messenger.Register<ConfigSavedEvent>(this, _ => RaisePropertyChanged(() => Key));
+        }
+
+        void OnTracksSelected(MixItemSelectionChangedEvent obj)
+        {
+            IsCorrespondingMixItemSelected = obj.SelectedItems.Select(m => m.Track).Contains(Track);
+        }
+
+        public bool IsCorrespondingMixItemSelected
+        {
+            get { return isCorrespondingMixItemSelected; }
+            private set
+            {
+                isCorrespondingMixItemSelected = value;
+                RaisePropertyChanged(() => IsCorrespondingMixItemSelected);
+                RaisePropertyChanged(() => IsNeitherCompatibleNorSelected);
+            }
         }
 
         void PopulateFields(Track track)
@@ -94,12 +113,18 @@ namespace MixPlanner.ViewModels
                 RaisePropertyChanged(() => Transition);
                 RaisePropertyChanged(() => IncreaseRequired);
                 RaisePropertyChanged(() => IsCompatible);
+                RaisePropertyChanged(() => IsNeitherCompatibleNorSelected);
             }
         }
 
         public bool IsCompatible
         {
             get { return transition != null; }
+        }
+
+        public bool IsNeitherCompatibleNorSelected
+        {
+            get { return !IsCompatible && !IsCorrespondingMixItemSelected; }
         }
 
         public string Filename
