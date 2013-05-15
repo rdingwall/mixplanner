@@ -17,16 +17,12 @@ namespace MixPlanner.ViewModels
     {
         MixItemViewModel selectedItem;
         readonly IMixItemViewModelFactory viewModels;
-        bool isRecommendationsEnabled;
-
         public RemoveTracksFromMixCommand RemoveCommand { get; private set; }
         public ObservableCollectionEx<MixItemViewModel> Items { get; private set; }
         public DropItemIntoMixCommand DropItemCommand { get; private set; }
         public ImportFilesIntoMixCommand DropFilesCommand { get; private set; }
         public PlayPauseTrackCommand PlayPauseCommand { get; private set; }
         public ResetPlaybackSpeedCommand ResetPlaybackSpeedCommand { get; private set; }
-        public GetRecommendationsCommand GetRecommendationsCommand { get; private set; }
-        public ClearRecommendationsCommand ClearRecommendationsCommand { get; private set; }
         public EditTrackCommand EditTrackCommand { get; private set; }
         public AutoMixCommand AutoMixCommand { get; private set; }
         public ShuffleCommand ShuffleCommand { get; private set; }
@@ -68,8 +64,6 @@ namespace MixPlanner.ViewModels
             ImportFilesIntoMixCommand dropFilesCommand,
             PlayPauseTrackCommand playPauseCommand,
             ResetPlaybackSpeedCommand resetPlaybackSpeedCommand,
-            ClearRecommendationsCommand clearRecommendationsCommand,
-            GetRecommendationsCommand getRecommendationsCommand,
             EditTrackCommand editTrackCommand,
             AutoMixCommand autoMixCommand,
             ShuffleCommand shuffleCommand,
@@ -84,21 +78,16 @@ namespace MixPlanner.ViewModels
             if (dropFilesCommand == null) throw new ArgumentNullException("dropFilesCommand");
             if (playPauseCommand == null) throw new ArgumentNullException("playPauseCommand");
             if (resetPlaybackSpeedCommand == null) throw new ArgumentNullException("resetPlaybackSpeedCommand");
-            if (clearRecommendationsCommand == null) throw new ArgumentNullException("clearRecommendationsCommand");
-            if (getRecommendationsCommand == null) throw new ArgumentNullException("getRecommendationsCommand");
             if (editTrackCommand == null) throw new ArgumentNullException("editTrackCommand");
             if (autoMixCommand == null)
                 throw new ArgumentNullException("autoMixCommand");
             if (shuffleCommand == null) throw new ArgumentNullException("shuffleCommand");
             if (copyMixcloudTracklistCommand == null) throw new ArgumentNullException("copyMixcloudTracklistCommand");
             if (mix == null) throw new ArgumentNullException("mix");
-            isRecommendationsEnabled = true;
             DropItemCommand = dropItemCommand;
             DropFilesCommand = dropFilesCommand;
             PlayPauseCommand = playPauseCommand;
             ResetPlaybackSpeedCommand = resetPlaybackSpeedCommand;
-            ClearRecommendationsCommand = clearRecommendationsCommand;
-            GetRecommendationsCommand = getRecommendationsCommand;
             EditTrackCommand = editTrackCommand;
             AutoMixCommand = autoMixCommand;
             ShuffleCommand = shuffleCommand;
@@ -114,15 +103,6 @@ namespace MixPlanner.ViewModels
             messenger.Register<PlaybackSpeedAdjustedEvent>(this, _ => OnSelectionChanged());
             messenger.Register<MixLockedEvent>(this, _ => CommandManager.InvalidateRequerySuggested());
             messenger.Register<MixUnlockedEvent>(this, _ => CommandManager.InvalidateRequerySuggested());
-            messenger.Register<RecommendationsDisabledEvent>(this, _ => isRecommendationsEnabled = false);
-            messenger.Register<RecommendationsEnabledEvent>(this, _ => EnableRecommendations());
-        }
-
-        void EnableRecommendations()
-        {
-            isRecommendationsEnabled = true;
-            ClearRecommendationsCommand.Execute(null);
-            GetRecommendationsCommand.Execute(SelectedItems);
         }
 
         void OnAllTracksRemoved(AllTracksRemovedFromMixEvent obj)
@@ -171,12 +151,7 @@ namespace MixPlanner.ViewModels
         public void OnSelectionChanged()
         {
             RaisePropertyChanged(() => SelectedItems);
-
-            if (!isRecommendationsEnabled)
-                return;
-
-            ClearRecommendationsCommand.Execute(null);
-            GetRecommendationsCommand.Execute(SelectedItems);
+            MessengerInstance.Send(new MixItemSelectionChangedEvent(SelectedItems));
         }
     }
 }

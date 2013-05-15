@@ -148,6 +148,7 @@
     <Compile Include="Commands\FocusSearchBoxCommand.cs" />
     <Compile Include="Commands\DisableRecommendationsScope.cs" />
     <Compile Include="Commands\ShuffleCommand.cs" />
+    <Compile Include="Controllers\RecommendationsController.cs" />
     <Compile Include="Converters\BeatportHarmonicKeyConverter.cs" />
     <Compile Include="DomainModel\AutoMixing\AutoMixingContextFactory.cs" />
     <Compile Include="Commands\ClearRecommendationsCommand.cs" />
@@ -248,6 +249,7 @@
     <Compile Include="Events\BeganLoadingTracksEvent.cs" />
     <Compile Include="Events\ConfigSavedEvent.cs" />
     <Compile Include="Events\BeganAutoMixingEvent.cs" />
+    <Compile Include="Events\MixItemSelectionChangedEvent.cs" />
     <Compile Include="Events\MixLockedEvent.cs" />
     <Compile Include="Events\MixUnlockedEvent.cs" />
     <Compile Include="Events\RecommendationsClearedEvent.cs" />

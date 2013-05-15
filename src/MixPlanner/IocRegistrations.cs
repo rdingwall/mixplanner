@@ -2,12 +2,15 @@
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
+using Castle.Core;
+using Castle.Facilities.Startable;
 using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.Resolvers.SpecializedResolvers;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
 using GalaSoft.MvvmLight.Messaging;
 using MixPlanner.Configuration;
+using MixPlanner.Controllers;
 using MixPlanner.Converters;
 using MixPlanner.DomainModel;
 using MixPlanner.DomainModel.AutoMixing;
@@ -25,6 +28,7 @@ namespace MixPlanner
         {
             container.Kernel.Resolver.AddSubResolver(new ArrayResolver(container.Kernel));
             container.Kernel.Resolver.AddSubResolver(new CollectionResolver(container.Kernel));
+            container.AddFacility<StartableFacility>(f => f.DeferredStart());
 
             const string preferredStrategies = "PreferredStrategies";
             const string allStrategies = "AllStrategies";
@@ -78,7 +82,8 @@ namespace MixPlanner
                          .UsingFactoryMethod(k => k.Resolve<IMixingStrategiesFactory>().GetPreferredStrategiesInOrder()),
                 Component.For<IEnumerable<IMixingStrategy>>().Named(allStrategies)
                          .UsingFactoryMethod(k => k.Resolve<IMixingStrategiesFactory>().GetAllStrategies()),
-                Component.For<IProgressDialogService>().ImplementedBy<ProgressDialogService>());
+                Component.For<IProgressDialogService>().ImplementedBy<ProgressDialogService>(),
+                Component.For<RecommendationsController>().Start());
         }
     }
 }

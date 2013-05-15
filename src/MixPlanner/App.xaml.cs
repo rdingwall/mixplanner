@@ -1,10 +1,12 @@
 ﻿using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
+using Castle.Core;
 using Castle.Windsor;
 using GalaSoft.MvvmLight.Threading;
 using Microsoft.Practices.ServiceLocation;
 using MixPlanner.Configuration;
+using MixPlanner.Controllers;
 using MixPlanner.DomainModel;
 using MixPlanner.Views;
 using log4net;
