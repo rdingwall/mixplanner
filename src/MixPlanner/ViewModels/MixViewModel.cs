@@ -27,6 +27,7 @@ namespace MixPlanner.ViewModels
         public AutoMixCommand AutoMixCommand { get; private set; }
         public ShuffleCommand ShuffleCommand { get; private set; }
         public CopyMixcloudTracklistCommand CopyMixcloudTracklistCommand { get; private set; }
+        public AutoAdjustPitchCommand AutoAdjustPitchCommand { get; private set; }
         public IMix Mix { get; private set; }
 
         public MixItemViewModel SelectedItem
@@ -68,6 +69,7 @@ namespace MixPlanner.ViewModels
             AutoMixCommand autoMixCommand,
             ShuffleCommand shuffleCommand,
             CopyMixcloudTracklistCommand copyMixcloudTracklistCommand,
+            AutoAdjustPitchCommand autoAdjustPitchCommand,
             IMix mix)
             : base(messenger)
         {
@@ -92,6 +94,7 @@ namespace MixPlanner.ViewModels
             AutoMixCommand = autoMixCommand;
             ShuffleCommand = shuffleCommand;
             CopyMixcloudTracklistCommand = copyMixcloudTracklistCommand;
+            AutoAdjustPitchCommand = autoAdjustPitchCommand;
             Mix = mix;
             this.viewModels = viewModels;
             RemoveCommand = removeCommand;

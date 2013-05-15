@@ -70,6 +70,10 @@
                                   Command="{Binding ResetPlaybackSpeedCommand}"
                                   CommandTarget="{Binding Path=PlacementTarget, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
                                   CommandParameter="{Binding Path=PlacementTarget.DataContext.SelectedItems, RelativeSource={RelativeSource AncestorType=ContextMenu}}"/>
+                        <MenuItem Header="Auto Adjust Pitch"
+                                  Command="{Binding AutoAdjustPitchCommand}"
+                                  CommandTarget="{Binding Path=PlacementTarget, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
+                                  CommandParameter="{Binding Path=PlacementTarget.DataContext.SelectedItems, RelativeSource={RelativeSource AncestorType=ContextMenu}}" />
                         <MenuItem Header="Shuffle"
                                   Command="{Binding ShuffleCommand}"
                                   Visibility="{Binding Path=PlacementTarget.DataContext.HasMultipleItemsSelected, RelativeSource={RelativeSource AncestorType=ContextMenu}, Converter={StaticResource BooleanToVisibilityConverter}}"

@@ -143,6 +143,7 @@
     <Compile Include="AttachedProperties\FocusExtension.cs" />
     <Compile Include="AttachedProperties\WindowBehavior.cs" />
     <Compile Include="Commands\AsyncCommandBase.cs" />
+    <Compile Include="Commands\AutoAdjustPitchCommand.cs" />
     <Compile Include="Commands\SortTracksCommandBase.cs" />
     <Compile Include="Commands\CopyMixcloudTracklistCommand.cs" />
     <Compile Include="Commands\FocusSearchBoxCommand.cs" />
