@@ -204,6 +204,7 @@
     <Compile Include="Player\AudioPlayerSpecs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResourceHelper.cs" />
+    <Compile Include="Storage\JsonFileLibraryStorageSpecs.cs" />
     <Compile Include="TestMixes.cs" />
     <Compile Include="TestMixingStrategies.cs" />
     <Compile Include="TestTracks.cs" />

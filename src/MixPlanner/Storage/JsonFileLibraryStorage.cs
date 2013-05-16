@@ -1,41 +1,74 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using MixPlanner.DomainModel;
+using MixPlanner.Loader;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using log4net;
 
 namespace MixPlanner.Storage
 {
     public class JsonFileLibraryStorage : ILibraryStorage
     {
-        const string LibraryDirectory = "Library";
-        
-        public JsonFileLibraryStorage()
+        static readonly ILog Log = LogManager.GetLogger(typeof (JsonFileLibraryStorage));
+        readonly ITrackImageResizer imageResizer;
+        readonly string libraryDirectory;
+
+        public JsonFileLibraryStorage(ITrackImageResizer imageResizer)
+            : this(imageResizer, directory: "Library")
         {
+        }
+
+        public JsonFileLibraryStorage(ITrackImageResizer imageResizer, string directory)
+        {
+            if (imageResizer == null) throw new ArgumentNullException("imageResizer");
+            if (directory == null) throw new ArgumentNullException("directory");
+            this.imageResizer = imageResizer;
+            libraryDirectory = directory;
             EnsureDirectoryExists();
         }
 
         public async Task<IEnumerable<Track>> FetchAllAsync()
         {
-            Task<Track>[] tasks = Directory.GetFiles(LibraryDirectory, "*.track")
+            Task<Track>[] tasks = Directory.GetFiles(libraryDirectory, "*.track")
                      .Select(LoadAsync)
                      .ToArray();
 
             Task.WaitAll(tasks);
 
-            return tasks.Select(t => t.Result);
+            return tasks.Select(t => t.Result).Where(t => t != null);
         }
 
-        static async Task<Track> LoadAsync(string filename)
+        async Task<Track> LoadAsync(string filename)
         {
-            using (var file = File.OpenRead(filename))
-            using (var reader = new StreamReader(file))
+            try
             {
-                string json = await reader.ReadToEndAsync();
-                var jsonTrack = JsonConvert.DeserializeObject<JsonTrack>(json);
+                JsonTrack jsonTrack;
+                using (var file = File.OpenRead(filename))
+                using (var reader = new StreamReader(file))
+                {
+                    string json = await reader.ReadToEndAsync();
+                    jsonTrack = JsonConvert.DeserializeObject<JsonTrack>(json);
+                }
+
+                string imageFilename = Path.Combine(libraryDirectory, String.Format("{0}.png", Path.GetFileNameWithoutExtension(filename)));
+
+                TrackImageData imageData = null;
+                if (File.Exists(imageFilename))
+                {
+                    using (var imageFile = File.OpenRead(imageFilename))
+                    using (var image = Image.FromStream(imageFile))
+                    using (var bitmapStream = new MemoryStream())
+                    {
+                        image.Save(bitmapStream, ImageFormat.Bmp);
+                        imageData = imageResizer.Process(bitmapStream.ToArray());
+                    }
+                }
 
                 HarmonicKey key = HarmonicKey.Unknown;
                 HarmonicKey.TryParse(jsonTrack.Key, out key);
@@ -45,17 +78,34 @@ namespace MixPlanner.Storage
                                  title: jsonTrack.Title,
                                  originalKey: key,
                                  originalBpm: jsonTrack.Bpm,
-                                 fileName: jsonTrack.Filename);
+                                 fileName: jsonTrack.Filename) { Images = imageData };
+            }
+            catch (Exception e)
+            {
+                Log.Error(String.Format("Error loading {0}.", filename), e);
+                return null;
             }
         }
 
         public async Task AddAsync(Track track)
         {
             if (track == null) throw new ArgumentNullException("track");
-            await WriteTrack(track, FileMode.Create);
+            await WriteTrack(track, FileMode.Create).ContinueWith(_ => WriteImage(track));
         }
 
-        static async Task WriteTrack(Track track, FileMode fileMode)
+        void WriteImage(Track track)
+        {
+            if (track.Images == null)
+                return;
+
+            var filename = FormatCoverArtFilename(track);
+
+            using (var stream = new MemoryStream(track.Images.FullSize.Data))
+            using (var image = Image.FromStream(stream))
+                image.Save(filename, ImageFormat.Png);
+        }
+
+        async Task WriteTrack(Track track, FileMode fileMode)
         {
             var jsonTrack = new JsonTrack
             {
@@ -67,35 +117,60 @@ namespace MixPlanner.Storage
                 Filename = track.Filename
             };
 
-            string filename = FormatFilename(track);
+            string filename = FormatTrackFilename(track);
 
             await JsonConvert.SerializeObjectAsync(jsonTrack, Formatting.Indented, new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() })
                              .ContinueWith(
                                  t =>
                                  {
-                                     using (var file = File.Open(filename, fileMode))
-                                     using (var writer = new StreamWriter(file))
-                                         writer.WriteAsync(t.Result);
+                                     try
+                                     {
+                                         using (var file = File.Open(filename, fileMode))
+                                         using (var writer = new StreamWriter(file))
+                                             writer.WriteAsync(t.Result);
+                                     }
+                                     catch (Exception e)
+                                     {
+                                         Log.Error(String.Format("Failed to write {0}.", filename), e);
+                                     }
                                  });
         }
 
-        static string FormatFilename(Track track)
+        string FormatCoverArtFilename(Track track)
         {
-            return Path.Combine(LibraryDirectory, string.Format("{0}.track", track.Id));
+            return Path.Combine(libraryDirectory, string.Format("{0}.png", track.Id));
         }
 
-        static void EnsureDirectoryExists()
+        string FormatTrackFilename(Track track)
         {
-            if (!Directory.Exists(LibraryDirectory))
-                Directory.CreateDirectory(LibraryDirectory);
+            return Path.Combine(libraryDirectory, string.Format("{0}.track", track.Id));
+        }
+
+        void EnsureDirectoryExists()
+        {
+            if (!Directory.Exists(libraryDirectory))
+                Directory.CreateDirectory(libraryDirectory);
         }
 
         public async Task RemoveAsync(Track track)
         {
             if (track == null) throw new ArgumentNullException("track");
-            string filename = FormatFilename(track);
-            if (File.Exists(filename))
-                File.Delete(filename);
+
+            TryDelete(FormatCoverArtFilename(track));
+            TryDelete(FormatTrackFilename(track));
+        }
+
+        static void TryDelete(string filename)
+        {
+            try
+            {
+                if (File.Exists(filename))
+                    File.Delete(filename);
+            }
+            catch (Exception e)
+            {
+                Log.Error(String.Format("Failed to delete {0}.", filename), e);
+            }
         }
 
         public async Task UpdateAsync(Track track)
