@@ -15,8 +15,14 @@ namespace MixPlanner.Storage
 {
     public class JsonFileLibraryStorage : ILibraryStorage
     {
-        static readonly ILog Log = LogManager.GetLogger(typeof (JsonFileLibraryStorage));
+        const Formatting jsonFormatting = Formatting.Indented;
+        static readonly ImageFormat imageFormat = ImageFormat.Png;
+        static readonly JsonSerializerSettings jsonSettings
+            = new JsonSerializerSettings {ContractResolver = new CamelCasePropertyNamesContractResolver()};
+        static readonly ILog Log = LogManager.GetLogger(typeof(JsonFileLibraryStorage));
+
         readonly ITrackImageResizer imageResizer;
+        readonly IStorageFilenameFormatter filenameFormatter;
         readonly string libraryDirectory;
 
         public JsonFileLibraryStorage(ITrackImageResizer imageResizer)
@@ -24,11 +30,14 @@ namespace MixPlanner.Storage
         {
         }
 
-        public JsonFileLibraryStorage(ITrackImageResizer imageResizer, string directory)
+        public JsonFileLibraryStorage(ITrackImageResizer imageResizer,
+            string directory)
         {
             if (imageResizer == null) throw new ArgumentNullException("imageResizer");
+            if (filenameFormatter == null) throw new ArgumentNullException("filenameFormatter");
             if (directory == null) throw new ArgumentNullException("directory");
             this.imageResizer = imageResizer;
+            filenameFormatter = new StorageFilenameFormatter(directory, "png");
             libraryDirectory = directory;
             EnsureDirectoryExists();
         }
@@ -56,7 +65,7 @@ namespace MixPlanner.Storage
                     jsonTrack = JsonConvert.DeserializeObject<JsonTrack>(json);
                 }
 
-                string imageFilename = Path.Combine(libraryDirectory, String.Format("{0}.png", Path.GetFileNameWithoutExtension(filename)));
+                string imageFilename = filenameFormatter.GetCorrespondingImageFilename(filename);
 
                 TrackImageData imageData = null;
                 if (File.Exists(imageFilename))
@@ -98,11 +107,11 @@ namespace MixPlanner.Storage
             if (track.Images == null)
                 return;
 
-            var filename = FormatCoverArtFilename(track);
+            var filename = filenameFormatter.FormatCoverArtFilename(track);
 
             using (var stream = new MemoryStream(track.Images.FullSize.Data))
             using (var image = Image.FromStream(stream))
-                image.Save(filename, ImageFormat.Png);
+                image.Save(filename, imageFormat);
         }
 
         async Task WriteTrack(Track track, FileMode fileMode)
@@ -117,9 +126,9 @@ namespace MixPlanner.Storage
                 Filename = track.Filename
             };
 
-            string filename = FormatTrackFilename(track);
+            string filename = filenameFormatter.FormatTrackFilename(track);
 
-            await JsonConvert.SerializeObjectAsync(jsonTrack, Formatting.Indented, new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() })
+            await JsonConvert.SerializeObjectAsync(jsonTrack, jsonFormatting, jsonSettings)
                              .ContinueWith(
                                  t =>
                                  {
@@ -136,16 +145,6 @@ namespace MixPlanner.Storage
                                  });
         }
 
-        string FormatCoverArtFilename(Track track)
-        {
-            return Path.Combine(libraryDirectory, string.Format("{0}.png", track.Id));
-        }
-
-        string FormatTrackFilename(Track track)
-        {
-            return Path.Combine(libraryDirectory, string.Format("{0}.track", track.Id));
-        }
-
         void EnsureDirectoryExists()
         {
             if (!Directory.Exists(libraryDirectory))
@@ -156,8 +155,8 @@ namespace MixPlanner.Storage
         {
             if (track == null) throw new ArgumentNullException("track");
 
-            TryDelete(FormatCoverArtFilename(track));
-            TryDelete(FormatTrackFilename(track));
+            TryDelete(filenameFormatter.FormatCoverArtFilename(track));
+            TryDelete(filenameFormatter.FormatTrackFilename(track));
         }
 
         static void TryDelete(string filename)
