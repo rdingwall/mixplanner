@@ -43,9 +43,10 @@ namespace MixPlanner.Storage
 
         public async Task<IEnumerable<Track>> FetchAllAsync()
         {
-            Task<Track>[] tasks = Directory.GetFiles(libraryDirectory, "*.track")
-                     .Select(LoadAsync)
-                     .ToArray();
+            Task<Track>[] tasks =
+                Directory.GetFiles(libraryDirectory, filenameFormatter.SearchPattern)
+                         .Select(LoadAsync)
+                         .ToArray();
 
             Task.WaitAll(tasks);
 
@@ -76,15 +77,15 @@ namespace MixPlanner.Storage
         public async Task AddAsync(Track track)
         {
             if (track == null) throw new ArgumentNullException("track");
-            await WriteTrack(track, FileMode.Create).ContinueWith(_ => WriteImage(track));
+            await WriteTrackAsync(track, FileMode.Create).ContinueWith(_ => WriteImage(track));
         }
 
-        public async Task RemoveAsync(Track track)
+        public Task RemoveAsync(Track track)
         {
             if (track == null) throw new ArgumentNullException("track");
 
-            TryDelete(filenameFormatter.FormatCoverArtFilename(track));
-            TryDelete(filenameFormatter.FormatTrackFilename(track));
+            return Task.Run(() => TryDelete(filenameFormatter.FormatCoverArtFilename(track)))
+                       .ContinueWith(_ => TryDelete(filenameFormatter.FormatTrackFilename(track)));
         }
 
         void WriteImage(Track track)
@@ -99,7 +100,7 @@ namespace MixPlanner.Storage
                 image.Save(filename, imageFormat);
         }
 
-        async Task WriteTrack(Track track, FileMode fileMode)
+        async Task WriteTrackAsync(Track track, FileMode fileMode)
         {
             var jsonTrack = new JsonTrack
             {
@@ -146,7 +147,7 @@ namespace MixPlanner.Storage
         public async Task UpdateAsync(Track track)
         {
             if (track == null) throw new ArgumentNullException("track");
-            await WriteTrack(track, FileMode.Truncate);
+            await WriteTrackAsync(track, FileMode.Truncate);
         }
 
         static async Task<JsonTrack> ReadTrackDataAsync(string filename)

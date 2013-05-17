@@ -6,6 +6,7 @@ namespace MixPlanner.Storage
 {
     public interface IStorageFilenameFormatter
     {
+        string SearchPattern { get; }
         string FormatCoverArtFilename(Track track);
         string FormatTrackFilename(Track track);
         string GetCorrespondingImageFilename(string trackFilename);
@@ -23,6 +24,8 @@ namespace MixPlanner.Storage
             this.directory = directory;
             this.imageExtension = imageExtension;
         }
+
+        public string SearchPattern { get { return "*.track"; } }
 
         public string FormatCoverArtFilename(Track track)
         {
