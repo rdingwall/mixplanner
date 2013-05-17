@@ -75,6 +75,11 @@ namespace MixPlanner.DomainModel
             get { return OriginalKey.IsUnknown; }
         }
 
+        public bool HasImages
+        {
+            get { return Images != null; }
+        }
+
         public PlaybackSpeed GetDefaultPlaybackSpeed()
         {
             return new PlaybackSpeed(OriginalKey, OriginalBpm);
@@ -127,6 +132,14 @@ namespace MixPlanner.DomainModel
                 return null;
 
             return Images.Resized64X64.ImageSource;
+        }
+
+        public byte[] GetFullSizeImageBytes()
+        {
+            if (Images == null)
+                return null;
+
+            return Images.FullSize.Data;
         }
     }
 }

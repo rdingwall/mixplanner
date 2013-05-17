@@ -90,12 +90,12 @@ namespace MixPlanner.Storage
 
         void WriteImage(Track track)
         {
-            if (track.Images == null)
+            if (!track.HasImages)
                 return;
 
             var filename = filenameFormatter.FormatCoverArtFilename(track);
 
-            using (var stream = new MemoryStream(track.Images.FullSize.Data))
+            using (var stream = new MemoryStream(track.GetFullSizeImageBytes()))
             using (var image = Image.FromStream(stream))
                 image.Save(filename, imageFormat);
         }
@@ -116,13 +116,13 @@ namespace MixPlanner.Storage
 
             await JsonConvert.SerializeObjectAsync(jsonTrack, jsonFormatting, jsonSettings)
                              .ContinueWith(
-                                 t =>
+                                 async t =>
                                  {
                                      try
                                      {
                                          using (var file = File.Open(filename, fileMode))
                                          using (var writer = new StreamWriter(file))
-                                             writer.WriteAsync(t.Result);
+                                             await writer.WriteAsync(t.Result);
                                      }
                                      catch (Exception e)
                                      {
