@@ -24,7 +24,7 @@ namespace MixPlanner.Storage
         readonly ITrackImageResizer imageResizer;
         readonly IStorageFilenameFormatter filenameFormatter;
         readonly string libraryDirectory;
-
+        
         public JsonFileLibraryStorage(ITrackImageResizer imageResizer)
             : this(imageResizer, directory: "Library")
         {
@@ -41,7 +41,7 @@ namespace MixPlanner.Storage
             EnsureDirectoryExists();
         }
 
-        public async Task<IEnumerable<Track>> FetchAllAsync()
+        public async Task<IEnumerable<Track>> LoadAllTracksAsync()
         {
             Task<Track>[] tasks =
                 Directory.GetFiles(libraryDirectory, filenameFormatter.SearchPattern)
@@ -58,6 +58,10 @@ namespace MixPlanner.Storage
             try
             {
                 JsonTrack jsonTrack = await ReadTrackDataAsync(filename);
+
+                if (jsonTrack == null)
+                    return null;
+
                 TrackImageData imageData = await ReadImageDataAsync(filename);
 
                 return new Track(id: jsonTrack.Id,
@@ -69,18 +73,18 @@ namespace MixPlanner.Storage
             }
             catch (Exception e)
             {
-                Log.Error(String.Format("Error loading {0}.", filename), e);
+                Log.Error(String.Format("Error loading track {0}.", filename), e);
                 return null;
             }
         }
 
-        public async Task AddAsync(Track track)
+        public async Task AddTrackAsync(Track track)
         {
             if (track == null) throw new ArgumentNullException("track");
             await WriteTrackAsync(track, FileMode.Create).ContinueWith(_ => WriteImage(track));
         }
 
-        public Task RemoveAsync(Track track)
+        public Task RemoveTrackAsync(Track track)
         {
             if (track == null) throw new ArgumentNullException("track");
 
@@ -144,7 +148,7 @@ namespace MixPlanner.Storage
             }
         }
 
-        public async Task UpdateAsync(Track track)
+        public async Task UpdateTrackAsync(Track track)
         {
             if (track == null) throw new ArgumentNullException("track");
             await WriteTrackAsync(track, FileMode.Truncate);
@@ -167,11 +171,19 @@ namespace MixPlanner.Storage
             if (!File.Exists(imageFilename))
                 return null;
 
-            using (FileStream file = File.OpenRead(imageFilename))
-            using (var memoryStream = new MemoryStream())
+            try
             {
-                await file.CopyToAsync(memoryStream);
-                return imageResizer.Process(memoryStream.ToArray());
+                using (FileStream file = File.OpenRead(imageFilename))
+                using (var memoryStream = new MemoryStream())
+                {
+                    await file.CopyToAsync(memoryStream);
+                    return imageResizer.Process(memoryStream.ToArray());
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error(String.Format("Error loading covert art {0}.", imageFilename), e);
+                return null;
             }
         }
 

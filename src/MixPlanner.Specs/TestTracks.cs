@@ -28,11 +28,11 @@ namespace MixPlanner.Specs
 
         public static Track CreateRandomTrack(HarmonicKey key, double bpm)
         {
-            return new Track("Test Artist",
-                key.ToString(),
-                key,
-                string.Format("{0:N}.mp3", Guid.NewGuid()),
-                bpm);
+            return new Track(artist: String.Format("Artist-{0:N}", Guid.NewGuid()),
+                             title: String.Format("Title-{0:N}", Guid.NewGuid()),
+                             originalKey: key,
+                             fileName: String.Format("{0:N}.mp3", Guid.NewGuid()),
+                             originalBpm: bpm);
         }
 
         public static Track CreateTrackWithFilenameOnly(string filename)

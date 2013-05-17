@@ -48,7 +48,7 @@ namespace MixPlanner.DomainModel
 
         public async Task SaveAsync(Track track)
         {
-            await storage.UpdateAsync(track);
+            await storage.UpdateTrackAsync(track);
             messenger.SendToUI(new TrackUpdatedEvent(track));
         }
 
@@ -111,7 +111,7 @@ namespace MixPlanner.DomainModel
                 return new[] { track };
             
             track = await loader.LoadAsync(filename);
-            await storage.AddAsync(track);
+            await storage.AddTrackAsync(track);
             tracks.Add(track);
             messenger.SendToUI(new TrackAddedToLibraryEvent(track));
             return new[] { track };
@@ -143,7 +143,7 @@ namespace MixPlanner.DomainModel
 
         public async Task InitializeAsync()
         {
-            tracks.AddRange(await storage.FetchAllAsync());
+            tracks.AddRange(await storage.LoadAllTracksAsync());
             messenger.SendToUI(new TrackLibraryLoadedEvent(tracks));
         }
 
@@ -157,7 +157,7 @@ namespace MixPlanner.DomainModel
         {
             if (track == null) throw new ArgumentNullException("track");
             tracks.Remove(track);
-            await storage.RemoveAsync(track);
+            await storage.RemoveTrackAsync(track);
             messenger.SendToUI(new TrackRemovedFromLibraryEvent(track));
         }
 

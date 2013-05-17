@@ -211,9 +211,13 @@
     <Compile Include="ResourceHelper.cs" />
     <Compile Include="Storage\HarmonicKeyJsonConverterSpecs.cs" />
     <Compile Include="Storage\JsonFileLibraryStorageSpecs.cs" />
+    <Compile Include="Storage\TestLibraryDir.cs" />
     <Compile Include="TestMixes.cs" />
     <Compile Include="TestMixingStrategies.cs" />
     <Compile Include="TestTracks.cs" />
+    <Content Include="example.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <EmbeddedResource Include="Loader\resizeTest.jpg" />
   </ItemGroup>
   <ItemGroup>

@@ -6,9 +6,9 @@ namespace MixPlanner.Storage
 {
     public interface ILibraryStorage
     {
-        Task<IEnumerable<Track>> FetchAllAsync();
-        Task AddAsync(Track track);
-        Task RemoveAsync(Track track);
-        Task UpdateAsync(Track track);
+        Task<IEnumerable<Track>> LoadAllTracksAsync();
+        Task AddTrackAsync(Track track);
+        Task RemoveTrackAsync(Track track);
+        Task UpdateTrackAsync(Track track);
     }
 }

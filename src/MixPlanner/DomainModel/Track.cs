@@ -13,8 +13,13 @@ namespace MixPlanner.DomainModel
                      HarmonicKey originalKey,
                      string fileName,
                      double originalBpm)
-            : this(Guid.NewGuid().ToString("N"), artist, title, originalKey, fileName, originalBpm)
+            : this(GenerateId(), artist, title, originalKey, fileName, originalBpm)
         {
+        }
+
+        static string GenerateId()
+        {
+            return Guid.NewGuid().ToString("N");
         }
 
         public Track(
