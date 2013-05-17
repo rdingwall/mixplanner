@@ -59,13 +59,10 @@ namespace MixPlanner.Storage
                 JsonTrack jsonTrack = await ReadTrackDataAsync(filename);
                 TrackImageData imageData = await ReadImageDataAsync(filename);
 
-                HarmonicKey key = HarmonicKey.Unknown;
-                HarmonicKey.TryParse(jsonTrack.Key, out key);
-
                 return new Track(id: jsonTrack.Id,
                                  artist: jsonTrack.Artist,
                                  title: jsonTrack.Title,
-                                 originalKey: key,
+                                 originalKey: jsonTrack.Key,
                                  originalBpm: jsonTrack.Bpm,
                                  fileName: jsonTrack.Filename) { Images = imageData };
             }
@@ -109,7 +106,7 @@ namespace MixPlanner.Storage
                 Id = track.Id,
                 Artist = track.Artist,
                 Title = track.Title,
-                Key = track.OriginalKey.ToString(),
+                Key = track.OriginalKey,
                 Bpm = track.OriginalBpm,
                 Filename = track.Filename
             };

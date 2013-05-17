@@ -311,6 +311,7 @@
       <DependentUpon>ProgressDialogWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ProgressDialog\ProgressDialogWindowViewModel.cs" />
+    <Compile Include="Storage\HarmonicKeyJsonConverter.cs" />
     <Compile Include="Storage\StorageFilenameFormatter.cs" />
     <Compile Include="Storage\JsonFileLibraryStorage.cs" />
     <Compile Include="Storage\IConfigStorage.cs" />

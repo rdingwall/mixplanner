@@ -104,6 +104,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\morelinq.1.0.15631-beta\lib\net35\MoreLinq.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Newtonsoft.Json.5.0.5\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.framework, Version=2.6.2.12296, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\NUnit.2.6.2\lib\nunit.framework.dll</HintPath>
@@ -191,6 +195,7 @@
     <Compile Include="AssemblyContext.cs" />
     <Compile Include="DummyPlaybackSpeedAdjuster.cs" />
     <Compile Include="Extensions\DoubleExtensionsSpecs.cs" />
+    <Compile Include="Extensions\JsonConverterExtensions.cs" />
     <Compile Include="ImportExport\M3uReaderSpecs.cs" />
     <Compile Include="ImportExport\M3uWriterSpecs.cs" />
     <Compile Include="IocRegistrationsSpecs.cs" />
@@ -204,6 +209,7 @@
     <Compile Include="Player\AudioPlayerSpecs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResourceHelper.cs" />
+    <Compile Include="Storage\HarmonicKeyJsonConverterSpecs.cs" />
     <Compile Include="Storage\JsonFileLibraryStorageSpecs.cs" />
     <Compile Include="TestMixes.cs" />
     <Compile Include="TestMixingStrategies.cs" />
