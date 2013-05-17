@@ -24,8 +24,8 @@ namespace MixPlanner.Specs.Loader
 
         Because of = () => imageSet = new TrackImageResizer().Process(originalData);
 
-        It should_leave_the_original = 
-            () => imageSet.FullSize.Data.ShouldBeTheSameAs(originalData);
+        It should_resize_the_original_to_200_x_200 =
+            () => ShouldBeImageOf(imageSet.FullSize, 200, 200);
 
         It should_resize_to_24_x_24 = () => ShouldBeImageOf(imageSet.Resized24X24, 24, 24);
 
