@@ -34,7 +34,6 @@ namespace MixPlanner.Storage
             string directory)
         {
             if (imageResizer == null) throw new ArgumentNullException("imageResizer");
-            if (filenameFormatter == null) throw new ArgumentNullException("filenameFormatter");
             if (directory == null) throw new ArgumentNullException("directory");
             this.imageResizer = imageResizer;
             filenameFormatter = new StorageFilenameFormatter(directory, "png");
@@ -57,27 +56,8 @@ namespace MixPlanner.Storage
         {
             try
             {
-                JsonTrack jsonTrack;
-                using (var file = File.OpenRead(filename))
-                using (var reader = new StreamReader(file))
-                {
-                    string json = await reader.ReadToEndAsync();
-                    jsonTrack = JsonConvert.DeserializeObject<JsonTrack>(json);
-                }
-
-                string imageFilename = filenameFormatter.GetCorrespondingImageFilename(filename);
-
-                TrackImageData imageData = null;
-                if (File.Exists(imageFilename))
-                {
-                    using (var imageFile = File.OpenRead(imageFilename))
-                    using (var image = Image.FromStream(imageFile))
-                    using (var bitmapStream = new MemoryStream())
-                    {
-                        image.Save(bitmapStream, ImageFormat.Bmp);
-                        imageData = imageResizer.Process(bitmapStream.ToArray());
-                    }
-                }
+                JsonTrack jsonTrack = await ReadTrackDataAsync(filename);
+                TrackImageData imageData = await ReadImageDataAsync(filename);
 
                 HarmonicKey key = HarmonicKey.Unknown;
                 HarmonicKey.TryParse(jsonTrack.Key, out key);
@@ -100,6 +80,14 @@ namespace MixPlanner.Storage
         {
             if (track == null) throw new ArgumentNullException("track");
             await WriteTrack(track, FileMode.Create).ContinueWith(_ => WriteImage(track));
+        }
+
+        public async Task RemoveAsync(Track track)
+        {
+            if (track == null) throw new ArgumentNullException("track");
+
+            TryDelete(filenameFormatter.FormatCoverArtFilename(track));
+            TryDelete(filenameFormatter.FormatTrackFilename(track));
         }
 
         void WriteImage(Track track)
@@ -145,20 +133,6 @@ namespace MixPlanner.Storage
                                  });
         }
 
-        void EnsureDirectoryExists()
-        {
-            if (!Directory.Exists(libraryDirectory))
-                Directory.CreateDirectory(libraryDirectory);
-        }
-
-        public async Task RemoveAsync(Track track)
-        {
-            if (track == null) throw new ArgumentNullException("track");
-
-            TryDelete(filenameFormatter.FormatCoverArtFilename(track));
-            TryDelete(filenameFormatter.FormatTrackFilename(track));
-        }
-
         static void TryDelete(string filename)
         {
             try
@@ -176,6 +150,37 @@ namespace MixPlanner.Storage
         {
             if (track == null) throw new ArgumentNullException("track");
             await WriteTrack(track, FileMode.Truncate);
+        }
+
+        static async Task<JsonTrack> ReadTrackDataAsync(string filename)
+        {
+            using (FileStream file = File.OpenRead(filename))
+            using (var reader = new StreamReader(file))
+            {
+                string json = await reader.ReadToEndAsync();
+                return JsonConvert.DeserializeObject<JsonTrack>(json);
+            }
+        }
+
+        async Task<TrackImageData> ReadImageDataAsync(string trackFilename)
+        {
+            string imageFilename = filenameFormatter.GetCorrespondingImageFilename(trackFilename);
+
+            if (!File.Exists(imageFilename))
+                return null;
+
+            using (FileStream file = File.OpenRead(imageFilename))
+            using (var memoryStream = new MemoryStream())
+            {
+                await file.CopyToAsync(memoryStream);
+                return imageResizer.Process(memoryStream.ToArray());
+            }
+        }
+
+        void EnsureDirectoryExists()
+        {
+            if (!Directory.Exists(libraryDirectory))
+                Directory.CreateDirectory(libraryDirectory);
         }
     }
 }

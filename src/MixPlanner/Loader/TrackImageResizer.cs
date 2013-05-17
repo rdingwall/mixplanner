@@ -21,8 +21,9 @@ namespace MixPlanner.Loader
             {
                 var resized64x64 = GetResizedData(original, 64, 64);
                 var resized24x24 = GetResizedData(original, 24, 24);
+                var resized200x200 = GetResizedData(original, 200, 200);
 
-                return new TrackImageData(fullSizeImageData, resized64x64, resized24x24);
+                return new TrackImageData(resized200x200, resized64x64, resized24x24);
             }
         }
 
