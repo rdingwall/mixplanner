@@ -324,6 +324,7 @@
     <Compile Include="ViewModels\CloseableViewModelBase.cs" />
     <Compile Include="ViewModels\EditTrackWindowViewModel.cs" />
     <Compile Include="ViewModels\ErrorWindowViewModel.cs" />
+    <Compile Include="ViewModels\MixSurroundingAreaViewModel.cs" />
     <Compile Include="ViewModels\SettingsWindowViewModel.cs" />
     <Compile Include="ViewModels\StatusBarViewModel.cs" />
     <Compile Include="ViewModels\TrackLibraryItemViewModel.cs" />
@@ -334,6 +335,9 @@
     <Compile Include="ViewModels\MixViewModel.cs" />
     <Compile Include="ViewModels\TrackLibraryViewModel.cs" />
     <Compile Include="ViewModels\TrackLibrarySearchFilter.cs" />
+    <Compile Include="Views\MixSurroundingAreaView.xaml.cs">
+      <DependentUpon>MixSurroundingAreaView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\EditTrackWindow.xaml.cs">
       <DependentUpon>EditTrackWindow.xaml</DependentUpon>
     </Compile>
@@ -365,6 +369,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="ProgressDialog\ProgressDialogWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\MixSurroundingAreaView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

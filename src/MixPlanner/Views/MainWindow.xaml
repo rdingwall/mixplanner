@@ -29,7 +29,7 @@
             <RowDefinition Height="24" />
         </Grid.RowDefinitions>
 
-        <views:MixView Grid.Row="0" DataContext="{Binding Mix}" />
+        <views:MixSurroundingAreaView Grid.Row="0" DataContext="{Binding MixSurroundingArea}" />
 
         <GridSplitter Grid.Row="1"
                       ResizeDirection="Rows"

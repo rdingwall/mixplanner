@@ -8,7 +8,7 @@ namespace MixPlanner.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
-        public MixViewModel Mix { get; private set; }
+        public MixSurroundingAreaViewModel MixSurroundingArea { get; private set; }
         public TrackLibraryViewModel TrackLibrary { get; private set; }
         public MiniPlayerViewModel MiniPlayer { get; private set; }
         public StatusBarViewModel StatusBar { get; private set; }
@@ -16,20 +16,20 @@ namespace MixPlanner.ViewModels
 
         public MainWindowViewModel(
             IMessenger messenger,
-            MixViewModel mixViewModel,
+            MixSurroundingAreaViewModel mixSurroundingAreaViewModel,
             TrackLibraryViewModel trackLibraryViewModel,
             MiniPlayerViewModel miniPlayerViewModel,
             StatusBarViewModel statusBar,
             FocusSearchBoxCommand focusSearchBoxCommand)
         {
             if (messenger == null) throw new ArgumentNullException("messenger");
-            if (mixViewModel == null) throw new ArgumentNullException("mixViewModel");
+            if (mixSurroundingAreaViewModel == null) throw new ArgumentNullException("mixSurroundingAreaViewModel");
             if (trackLibraryViewModel == null) throw new ArgumentNullException("trackLibraryViewModel");
             if (miniPlayerViewModel == null) throw new ArgumentNullException("miniPlayerViewModel");
             if (statusBar == null) throw new ArgumentNullException("statusBar");
             if (focusSearchBoxCommand == null) throw new ArgumentNullException("focusSearchBoxCommand");
 
-            Mix = mixViewModel;
+            MixSurroundingArea = mixSurroundingAreaViewModel;
             TrackLibrary = trackLibraryViewModel;
             MiniPlayer = miniPlayerViewModel;
             StatusBar = statusBar;
