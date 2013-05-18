@@ -131,12 +131,14 @@ namespace MixPlanner.ViewModels
 
         void OnTrackAdded(TrackAddedToMixEvent obj)
         {
-            var viewModel = viewModels.CreateFor(obj.Item);
+            var viewModel = viewModels.CreateFor(obj.Item, this);
             Items.Insert(obj.InsertIndex, viewModel);
         }
 
         public void DragOver(IDropInfo dropInfo)
         {
+            Console.WriteLine("Dragging over mix");
+
             if (!DropItemCommand.CanExecute(dropInfo))
                 return;
 

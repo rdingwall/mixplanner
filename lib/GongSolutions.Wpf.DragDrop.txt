@@ -1,0 +1,1 @@
+This is a custom built branch of GongSolutions.Wpf.DragDrop from https://github.com/rdingwall/gong-wpf-dragdrop/

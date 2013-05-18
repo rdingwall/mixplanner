@@ -35,7 +35,12 @@ namespace MixPlanner.Commands
         {
             if (parameter == null) return false;
             if (mix.IsLocked) return false;
-            var data = (IDataObject)parameter.Data;
+
+            var data = parameter.Data as IDataObject;
+
+            if (data == null)
+                return false;
+
             return data.GetDataPresent(DataFormats.FileDrop); 
         }
 

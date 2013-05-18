@@ -7,7 +7,7 @@ namespace MixPlanner.ViewModels
 {
     public interface IMixItemViewModelFactory
     {
-        MixItemViewModel CreateFor(IMixItem item);
+        MixItemViewModel CreateFor(IMixItem item, MixViewModel mixViewModel);
     }
 
     public class MixItemViewModelFactory : IMixItemViewModelFactory
@@ -29,9 +29,9 @@ namespace MixPlanner.ViewModels
             this.playPauseCommand = playPauseCommand;
         }
 
-        public MixItemViewModel CreateFor(IMixItem item)
+        public MixItemViewModel CreateFor(IMixItem item, MixViewModel mixViewModel)
         {
-            return new MixItemViewModel(messenger, item, playPauseCommand, mix);
+            return new MixItemViewModel(messenger, item, playPauseCommand, mix, mixViewModel);
         }
     }
 }

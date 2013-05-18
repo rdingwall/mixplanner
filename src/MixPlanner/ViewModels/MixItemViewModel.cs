@@ -13,6 +13,7 @@ namespace MixPlanner.ViewModels
     public class MixItemViewModel : ViewModelBase, IDragSource
     {
         readonly IMix mix;
+        readonly MixViewModel mixViewModel;
         bool isLocked;
         public IMixItem MixItem { get; private set; }
         public HarmonicKey ActualKey { get { return MixItem.PlaybackSpeed.ActualKey; } }
@@ -47,13 +48,16 @@ namespace MixPlanner.ViewModels
             IMessenger messenger, 
             IMixItem mixItem,
             PlayPauseTrackCommand playPauseCommand,
-            IMix mix) : base(messenger)
+            IMix mix,
+            MixViewModel mixViewModel) : base(messenger)
         {
             this.mix = mix;
+            this.mixViewModel = mixViewModel;
             if (messenger == null) throw new ArgumentNullException("messenger");
             if (mixItem == null) throw new ArgumentNullException("mixItem");
             if (playPauseCommand == null) throw new ArgumentNullException("playPauseCommand");
             if (mix == null) throw new ArgumentNullException("mix");
+            if (mixViewModel == null) throw new ArgumentNullException("mixViewModel");
             MixItem = mixItem;
             PlayPauseCommand = playPauseCommand;
             messenger.Register<TransitionChangedEvent>(this, OnTransitionChanged);
@@ -106,7 +110,7 @@ namespace MixPlanner.ViewModels
             if (isLocked)
                 return;
 
-            dragInfo.Data = this;
+            dragInfo.Data = mixViewModel.SelectedItems;
             dragInfo.Effects = DragDropEffects.Move | DragDropEffects.Copy;
         }
 

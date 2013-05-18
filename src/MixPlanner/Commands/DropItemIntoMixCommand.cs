@@ -7,7 +7,7 @@ using MixPlanner.DomainModel;
 
 namespace MixPlanner.Commands
 {
-    public class DropItemIntoMixCommand : CommandBase<DropInfo>
+    public class DropItemIntoMixCommand : CommandBase<IDropInfo>
     {
         readonly IMix mix;
         readonly IEnumerable<ICommand> commands; 
@@ -15,29 +15,29 @@ namespace MixPlanner.Commands
         public DropItemIntoMixCommand(
             IMix mix,
             AddTrackToMixCommand addTrackCommand,
-            ReorderMixTrackCommand reorderTrackCommand,
+            ReorderMixTracksCommand reorderTracksCommand,
             ImportFilesIntoMixCommand importFilesCommand)
         {
             if (mix == null) throw new ArgumentNullException("mix");
             this.mix = mix;
             if (addTrackCommand == null) throw new ArgumentNullException("addTrackCommand");
-            if (reorderTrackCommand == null) throw new ArgumentNullException("reorderTrackCommand");
+            if (reorderTracksCommand == null) throw new ArgumentNullException("reorderTracksCommand");
             if (importFilesCommand == null) throw new ArgumentNullException("importFilesCommand");
             
             commands = new ICommand[]
                            {
                                addTrackCommand,
-                               reorderTrackCommand,
+                               reorderTracksCommand,
                                importFilesCommand
                            };
         }
 
-        protected override bool CanExecute(DropInfo parameter)
+        protected override bool CanExecute(IDropInfo parameter)
         {
             return !mix.IsLocked && commands.Any(c => c.CanExecute(parameter));
         }
 
-        protected override void Execute(DropInfo parameter)
+        protected override void Execute(IDropInfo parameter)
         {
             var command = commands.FirstOrDefault(c => c.CanExecute(parameter));
 

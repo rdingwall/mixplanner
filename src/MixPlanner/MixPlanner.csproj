@@ -62,7 +62,8 @@
     <Reference Include="GalaSoft.MvvmLight.WPF4">
       <HintPath>..\..\packages\MvvmLight.4.1.23.0\lib\net40\GalaSoft.MvvmLight.WPF4.dll</HintPath>
     </Reference>
-    <Reference Include="GongSolutions.Wpf.DragDrop">
+    <Reference Include="GongSolutions.Wpf.DragDrop, Version=0.1.3.6, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\GongSolutions.Wpf.DragDrop.dll</HintPath>
     </Reference>
     <Reference Include="log4net, Version=1.2.11.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
@@ -147,6 +148,7 @@
     <Compile Include="AttachedProperties\WindowBehavior.cs" />
     <Compile Include="Commands\AsyncCommandBase.cs" />
     <Compile Include="Commands\AutoAdjustPitchCommand.cs" />
+    <Compile Include="Commands\DragTracksOutOfMixCommand.cs" />
     <Compile Include="Commands\SortTracksCommandBase.cs" />
     <Compile Include="Commands\CopyMixcloudTracklistCommand.cs" />
     <Compile Include="Commands\FocusSearchBoxCommand.cs" />
@@ -177,7 +179,7 @@
     <Compile Include="Commands\PlayPauseTrackCommand.cs" />
     <Compile Include="Commands\RemoveTracksFromLibraryCommand.cs" />
     <Compile Include="Commands\RemoveTracksFromMixCommand.cs" />
-    <Compile Include="Commands\ReorderMixTrackCommand.cs" />
+    <Compile Include="Commands\ReorderMixTracksCommand.cs" />
     <Compile Include="Commands\ShowInExplorerCommand.cs" />
     <Compile Include="AttachedProperties\GridViewColumns.cs" />
     <Compile Include="Configuration\ConfigSwitchingBpmRangeChecker.cs" />
@@ -185,7 +187,6 @@
     <Compile Include="Configuration\ConfigSwitchingFilenameParser.cs" />
     <Compile Include="Controls\FileBrowseButton.cs" />
     <Compile Include="Controls\YearOnlyTextBox.cs" />
-    <Compile Include="Controls\ImprovedListView.cs" />
     <Compile Include="Controls\SearchTextBox.cs" />
     <Compile Include="Controls\UIHelpers.cs" />
     <Compile Include="Converters\ActualBpmConverter.cs" />
@@ -278,6 +279,7 @@
     <Compile Include="Events\TransitionChangedEvent.cs" />
     <Compile Include="DispatcherMessenger.cs" />
     <Compile Include="Extensions\DoubleExtensions.cs" />
+    <Compile Include="Extensions\DropInfoExtensions.cs" />
     <Compile Include="Extensions\LinqExtensions.cs" />
     <Compile Include="Extensions\PluralizationServiceExtensions.cs" />
     <Compile Include="Extensions\ProgressExtensions.cs" />

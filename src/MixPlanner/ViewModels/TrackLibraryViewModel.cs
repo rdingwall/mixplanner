@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
+using GongSolutions.Wpf.DragDrop;
 using MixPlanner.AttachedProperties;
 using MixPlanner.Commands;
 using MixPlanner.Converters;
@@ -16,7 +18,7 @@ using MoreLinq;
 
 namespace MixPlanner.ViewModels
 {
-    public class TrackLibraryViewModel : ViewModelBase
+    public class TrackLibraryViewModel : ViewModelBase, IDragSource
     {
         TrackLibraryItemViewModel selectedItem;
         readonly ObservableCollection<TrackLibraryItemViewModel> items;
@@ -180,6 +182,17 @@ namespace MixPlanner.ViewModels
         {
             RaisePropertyChanged(() => SelectedItems);
             RaisePropertyChanged(() => SelectedTracks);
+        }
+
+        public void StartDrag(IDragInfo dragInfo)
+        {
+            dragInfo.Data = SelectedItems;
+            dragInfo.Effects = DragDropEffects.Move | DragDropEffects.Copy;
+        }
+
+        public void Dropped(IDropInfo dropInfo)
+        {
+            
         }
     }
 }

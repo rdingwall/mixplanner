@@ -24,17 +24,18 @@
                                     CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Text}"
                                     DockPanel.Dock="Top"
                                     ap:FocusExtension.IsFocused="{Binding IsSearchBoxFocused, Mode=TwoWay}"/>
-            <c:ImprovedListView x:Name="TrackLibraryDataGrid"
+            <ListView x:Name="TrackLibraryDataGrid"
                       ItemsSource="{Binding ItemsView}"
 					  SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
 					  AllowDrop="True"
 					  dd:DragDrop.IsDragSource="True"
+                      dd:DragDrop.DragHandler="{Binding}"
 					  SelectionMode="Extended"
                       SelectionChanged="OnSelectionChanged"
                       ap:GridViewSort.AutoSort="True"
                       ap:GridViewSort.SortGlyphAscending="/Images/Up.png"
                       ap:GridViewSort.SortGlyphDescending="/Images/Down.png">
-                <c:ImprovedListView.InputBindings>
+                <ListView.InputBindings>
                     <KeyBinding Key="Delete"
                                 CommandParameter="{Binding SelectedTracks}"
                                 Command="{Binding RemoveCommand}" />
@@ -53,7 +54,7 @@
                     <KeyBinding Key="Return"
                                 CommandParameter="{Binding SelectedTrack}"
                                 Command="{Binding PlayPauseCommand}" />
-                </c:ImprovedListView.InputBindings>
+                </ListView.InputBindings>
                 
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Drop">
@@ -66,7 +67,7 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
 
-                <c:ImprovedListView.View>
+                <ListView.View>
                     <GridView ap:GridViewSort.AutoSort="True" AllowsColumnReorder="True">
                         <GridViewColumn Header="Transition"
                                         ap:GridViewSort.PropertyName="Transition"
@@ -123,9 +124,9 @@
                                         DisplayMemberBinding="{Binding Filename}" />
                     </GridView>
 
-                </c:ImprovedListView.View>
+                </ListView.View>
 
-                <c:ImprovedListView.ItemContainerStyle>
+                <ListView.ItemContainerStyle>
                     <Style TargetType="{x:Type ListViewItem}">
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding IsCompatible}" Value="True">
@@ -141,9 +142,9 @@
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
-                </c:ImprovedListView.ItemContainerStyle>
+                </ListView.ItemContainerStyle>
 
-                <c:ImprovedListView.ContextMenu>
+                <ListView.ContextMenu>
                     <ContextMenu>
                         <MenuItem Header="{Binding Path=PlacementTarget.SelectedItem.Track, RelativeSource={RelativeSource AncestorType=ContextMenu}, Converter={StaticResource PlayPauseCommandLabelConverter}}"
                                   Visibility="{Binding Path=PlacementTarget.DataContext.HasSingleItemSelected, RelativeSource={RelativeSource AncestorType=ContextMenu}, Converter={StaticResource BooleanToVisibilityConverter}}"
@@ -173,9 +174,9 @@
                                   CommandTarget="{Binding Path=PlacementTarget, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
                                   CommandParameter="{Binding Path=PlacementTarget.SelectedItem.Track, RelativeSource={RelativeSource AncestorType=ContextMenu}}" />
                     </ContextMenu>
-                </c:ImprovedListView.ContextMenu>
+                </ListView.ContextMenu>
 
-            </c:ImprovedListView>
+            </ListView>
         </DockPanel>
     </GroupBox>
 </UserControl>
