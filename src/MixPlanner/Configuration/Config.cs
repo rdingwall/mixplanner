@@ -1,4 +1,5 @@
-﻿using MixPlanner.DomainModel;
+﻿using System.Reflection;
+using MixPlanner.DomainModel;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
@@ -6,6 +7,9 @@ namespace MixPlanner.Configuration
 {
     public class Config
     {
+        static readonly string version =
+            Assembly.GetExecutingAssembly().GetName().Version.ToString();
+
         [JsonConverter(typeof(StringEnumConverter))]
         public HarmonicKeyDisplayMode HarmonicKeyDisplayMode { get; set; }
 
@@ -14,6 +18,9 @@ namespace MixPlanner.Configuration
         public bool SuggestBpmAdjustedTracks { get; set; }
         public bool AutoAdjustBpm { get; set; }
         public bool ParseKeyAndBpmFromFilename { get; set; }
+
+        // For serialization only
+        public string Version { get { return version; } }
 
         public bool ShouldSuggestBpmAdjustments()
         {
@@ -40,5 +47,6 @@ namespace MixPlanner.Configuration
                     AutoAdjustBpm = true,
                     ParseKeyAndBpmFromFilename = true
                 };
+
     }
 }

@@ -1,10 +1,14 @@
-﻿using MixPlanner.DomainModel;
+﻿using System.Reflection;
+using MixPlanner.DomainModel;
 using Newtonsoft.Json;
 
 namespace MixPlanner.Storage
 {
     public class JsonTrack
     {
+        static readonly string version =
+            Assembly.GetExecutingAssembly().GetName().Version.ToString();
+
         public string Id { get; set; }
 
         public string Artist { get; set; }
@@ -17,5 +21,8 @@ namespace MixPlanner.Storage
         public double Bpm { get; set; }
 
         public string Filename { get; set; }
+
+        // For serialization only
+        public string Version { get { return version; } }
     }
 }
