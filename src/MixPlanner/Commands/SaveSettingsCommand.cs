@@ -1,29 +1,27 @@
 ﻿using System;
 using System.Threading.Tasks;
 using MixPlanner.Configuration;
-using MixPlanner.DomainModel;
-using MixPlanner.Storage;
 using MixPlanner.ViewModels;
 
 namespace MixPlanner.Commands
 {
     public class SaveSettingsCommand : AsyncCommandBase<SettingsWindowViewModel>
     {
-        readonly IConfigStorage configStorage;
+        readonly IConfigProvider configProvider;
 
-        public SaveSettingsCommand(IConfigStorage configStorage)
+        public SaveSettingsCommand(IConfigProvider configProvider)
         {
-            if (configStorage == null) throw new ArgumentNullException("configStorage");
-            this.configStorage = configStorage;
+            if (configProvider == null) throw new ArgumentNullException("configProvider");
+            this.configProvider = configProvider;
         }
 
         protected override async Task DoExecute(SettingsWindowViewModel parameter)
         {
             if (parameter == null) throw new ArgumentNullException("parameter");
 
-            var config = await configStorage.GetConfigAsync();
+            var config = configProvider.Config;
             UpdateValues(parameter, config);
-            await configStorage.SaveAsync(config);
+            await configProvider.SaveAsync(config);
         }
 
         static void UpdateValues(SettingsWindowViewModel parameter, Config config)

@@ -42,7 +42,7 @@ namespace MixPlanner
                     .DependsOn(Property.ForKey("impl").Is(typeof(FilenameParser).Name)),
                 Component.For<IFilenameParser>().ImplementedBy<FilenameParser>().Named(typeof(FilenameParser).Name),
                 Component.For<ILibraryStorage>().ImplementedBy<JsonFileLibraryStorage>(),
-                Component.For<IConfigStorage>().ImplementedBy<InMemoryConfigStorage>(),
+                Component.For<IConfigStorage>().ImplementedBy<JsonFileConfigStorage>(),
                 Component.For<IConfigProvider>().ImplementedBy<ConfigProvider>(),
                 Component.For<IHarmonicKeySuperParser>().ImplementedBy<HarmonicKeySuperParser>(),
                 Component.For<IId3Reader>().ImplementedBy<Id3Reader>(),

@@ -209,8 +209,9 @@
     <Compile Include="Player\AudioPlayerSpecs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResourceHelper.cs" />
-    <Compile Include="Storage\HarmonicKeyJsonConverterSpecs.cs" />
     <Compile Include="Storage\JsonFileLibraryStorageSpecs.cs" />
+    <Compile Include="Storage\HarmonicKeyJsonConverterSpecs.cs" />
+    <Compile Include="Storage\JsonFileConfigStorageSpecs.cs" />
     <Compile Include="Storage\TestLibraryDir.cs" />
     <Compile Include="TestMixes.cs" />
     <Compile Include="TestMixingStrategies.cs" />

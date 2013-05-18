@@ -24,7 +24,7 @@ namespace MixPlanner.Commands
 
         protected override async Task DoExecute(object parameter)
         {
-            var config = await configStorage.GetConfigAsync();
+            var config = await configStorage.LoadConfigAsync();
 
             var window = container.Resolve<SettingsWindow>();
             var viewModel = container.Resolve<SettingsWindowViewModel>();

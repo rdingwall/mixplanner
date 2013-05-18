@@ -6,6 +6,6 @@ namespace MixPlanner.Storage
     public interface IConfigStorage
     {
         Task SaveAsync(Config config);
-        Task<Config> GetConfigAsync();
+        Task<Config> LoadConfigAsync();
     }
 }

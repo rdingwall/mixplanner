@@ -1,10 +1,14 @@
 ﻿using MixPlanner.DomainModel;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace MixPlanner.Configuration
 {
     public class Config
     {
+        [JsonConverter(typeof(StringEnumConverter))]
         public HarmonicKeyDisplayMode HarmonicKeyDisplayMode { get; set; }
+
         public bool RestrictBpmCompatibility { get; set; }
         public bool StripMixedInKeyPrefixes { get; set; }
         public bool SuggestBpmAdjustedTracks { get; set; }

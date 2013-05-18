@@ -8,23 +8,20 @@ using System.Threading.Tasks;
 using MixPlanner.DomainModel;
 using MixPlanner.Loader;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 using log4net;
 
 namespace MixPlanner.Storage
 {
     public class JsonFileLibraryStorage : ILibraryStorage
     {
-        const Formatting jsonFormatting = Formatting.Indented;
         static readonly ImageFormat imageFormat = ImageFormat.Png;
-        static readonly JsonSerializerSettings jsonSettings
-            = new JsonSerializerSettings {ContractResolver = new CamelCasePropertyNamesContractResolver()};
+        
         static readonly ILog Log = LogManager.GetLogger(typeof(JsonFileLibraryStorage));
 
         readonly ITrackImageResizer imageResizer;
         readonly IStorageFilenameFormatter filenameFormatter;
         readonly string libraryDirectory;
-        
+
         public JsonFileLibraryStorage(ITrackImageResizer imageResizer)
             : this(imageResizer, directory: "Library")
         {
@@ -118,7 +115,7 @@ namespace MixPlanner.Storage
 
             string filename = filenameFormatter.FormatTrackFilename(track);
 
-            await JsonConvert.SerializeObjectAsync(jsonTrack, jsonFormatting, jsonSettings)
+            await JsonConvert.SerializeObjectAsync(jsonTrack, GlobalJsonSettings.Formatting, GlobalJsonSettings.Settings)
                              .ContinueWith(
                                  async t =>
                                  {
