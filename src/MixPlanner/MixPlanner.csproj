@@ -316,6 +316,7 @@
     <Compile Include="Storage\GlobalJsonSettings.cs" />
     <Compile Include="Storage\HarmonicKeyJsonConverter.cs" />
     <Compile Include="Storage\JsonFileConfigStorage.cs" />
+    <Compile Include="Storage\MixPlannerPaths.cs" />
     <Compile Include="Storage\StorageFilenameFormatter.cs" />
     <Compile Include="Storage\JsonFileLibraryStorage.cs" />
     <Compile Include="Storage\IConfigStorage.cs" />

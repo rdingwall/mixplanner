@@ -23,7 +23,7 @@ namespace MixPlanner.Storage
         readonly string libraryDirectory;
 
         public JsonFileLibraryStorage(ITrackImageResizer imageResizer)
-            : this(imageResizer, directory: "Library")
+            : this(imageResizer, directory: MixPlannerPaths.LibraryDirectory)
         {
         }
 

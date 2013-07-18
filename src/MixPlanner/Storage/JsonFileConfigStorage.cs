@@ -12,7 +12,8 @@ namespace MixPlanner.Storage
         readonly string filename;
         static readonly ILog Log = LogManager.GetLogger(typeof (JsonFileConfigStorage));
 
-        public JsonFileConfigStorage() : this(".")
+        public JsonFileConfigStorage()
+            : this(MixPlannerPaths.DataDirectory)
         {
         }
 
