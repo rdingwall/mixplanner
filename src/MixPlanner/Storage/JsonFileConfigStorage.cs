@@ -20,7 +20,7 @@ namespace MixPlanner.Storage
         public JsonFileConfigStorage(string directory)
         {
             if (directory == null) throw new ArgumentNullException("directory");
-            filename = Path.Combine(directory, "MixPlannerSettings.json");
+            filename = Path.Combine(directory, "MixPlanner.settings");
         }
 
         public async Task SaveAsync(Config config)
