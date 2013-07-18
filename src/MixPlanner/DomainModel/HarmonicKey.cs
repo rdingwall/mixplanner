@@ -141,7 +141,7 @@ namespace MixPlanner.DomainModel
         public override string ToString()
         {
             if (IsUnknown)
-                return "Unknown";
+                return "Unknown Key";
 
             return hexValue.ToString("X");
         }

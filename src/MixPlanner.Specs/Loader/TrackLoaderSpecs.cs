@@ -245,7 +245,7 @@ namespace MixPlanner.Specs.Loader
             Because of = () => Track = Loader.LoadAsync("12A - 128 - corrupt.mp3").Result;
 
             It should_get_the_correct_key =
-                () => Track.OriginalKey.ShouldEqual(HarmonicKey.Key12A);
+                () => Track.OriginalKey.ShouldEqual(HarmonicKey.Unknown);
 
             It should_get_the_correct_artist =
                 () => Track.Artist.ShouldEqual(TrackDefaults.UnknownArtist);
@@ -254,7 +254,7 @@ namespace MixPlanner.Specs.Loader
                 () => Track.Title.ShouldEqual("corrupt");
 
             It should_get_the_correct_bpm =
-                () => Track.OriginalBpm.ShouldEqual(128);
+                () => Track.OriginalBpm.ShouldEqual(Double.NaN);
 
             It should_get_the_correct_publisher =
                 () => Track.Label.ShouldEqual("");
@@ -379,7 +379,9 @@ namespace MixPlanner.Specs.Loader
                     {
                         container = new WindsorContainer();
                         container.Install(new IocRegistrations());
-                        container.Resolve<IConfigProvider>().InitializeAsync().Wait();
+                        var configProvider = container.Resolve<IConfigProvider>();
+                        configProvider.InitializeAsync().Wait();
+                        configProvider.Config.ParseKeyAndBpmFromFilename = true;
                         Loader = container.Resolve<ITrackLoader>();
                     };
 
