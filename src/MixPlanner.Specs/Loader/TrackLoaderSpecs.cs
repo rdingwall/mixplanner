@@ -245,7 +245,7 @@ namespace MixPlanner.Specs.Loader
             Because of = () => Track = Loader.LoadAsync("12A - 128 - corrupt.mp3").Result;
 
             It should_get_the_correct_key =
-                () => Track.OriginalKey.ShouldEqual(HarmonicKey.Unknown);
+                () => Track.OriginalKey.ShouldEqual(HarmonicKey.Key12A);
 
             It should_get_the_correct_artist =
                 () => Track.Artist.ShouldEqual(TrackDefaults.UnknownArtist);
@@ -254,7 +254,7 @@ namespace MixPlanner.Specs.Loader
                 () => Track.Title.ShouldEqual("corrupt");
 
             It should_get_the_correct_bpm =
-                () => Track.OriginalBpm.ShouldEqual(Double.NaN);
+                () => Track.OriginalBpm.ShouldEqual(128);
 
             It should_get_the_correct_publisher =
                 () => Track.Label.ShouldEqual("");
