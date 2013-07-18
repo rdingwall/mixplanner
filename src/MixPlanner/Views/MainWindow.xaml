@@ -23,24 +23,27 @@
     
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="100" />
             <RowDefinition Height="50*" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="50*" />
             <RowDefinition Height="24" />
         </Grid.RowDefinitions>
+        
+        <views:AudioPlayerView Grid.Row="0" />
 
-        <views:MixSurroundingAreaView Grid.Row="0" DataContext="{Binding MixSurroundingArea}" />
+        <views:MixSurroundingAreaView Grid.Row="1" DataContext="{Binding MixSurroundingArea}" />
 
-        <GridSplitter Grid.Row="1"
+        <GridSplitter Grid.Row="2"
                       ResizeDirection="Rows"
                       HorizontalAlignment="Stretch"
                       VerticalAlignment="Center"
                       ShowsPreview="True"
                       Height="5"/>
 
-        <views:TrackLibraryView Grid.Row="2" DataContext="{Binding TrackLibrary}" />
+        <views:TrackLibraryView Grid.Row="3" DataContext="{Binding TrackLibrary}" />
 
-        <DockPanel Grid.Row="3">
+        <DockPanel Grid.Row="4">
             <views:StatusBarView DockPanel.Dock="Left"
                                   DataContext="{Binding StatusBar}" />
             

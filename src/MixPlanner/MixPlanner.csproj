@@ -129,6 +129,9 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WPFSoundVisualizationLib">
+      <HintPath>..\..\lib\WPFSoundVisualizationLib.dll</HintPath>
+    </Reference>
     <Reference Include="WPFToolkit.Extended">
       <HintPath>..\..\packages\Extended.Wpf.Toolkit.1.8.0\lib\net40\WPFToolkit.Extended.dll</HintPath>
     </Reference>
@@ -305,6 +308,8 @@
     <Compile Include="Loader\TrackLoader.cs" />
     <Compile Include="Loader\UnsupportedFileTypeException.cs" />
     <Compile Include="Player\AudioPlayer.cs" />
+    <Compile Include="Player\NAudioEngine.cs" />
+    <Compile Include="Player\SampleAggregator.cs" />
     <Compile Include="ProgressDialog\CancelCommand.cs" />
     <Compile Include="ProgressDialog\IProgressDialogService.cs" />
     <Compile Include="ProgressDialog\ProgressDialogOptions.cs" />
@@ -324,6 +329,7 @@
     <Compile Include="Storage\InMemoryConfigStorage.cs" />
     <Compile Include="Storage\InMemoryLibraryStorage.cs" />
     <Compile Include="Storage\JsonTrack.cs" />
+    <Compile Include="ViewModels\AudioPlayerViewModel.cs" />
     <Compile Include="ViewModels\CloseableViewModelBase.cs" />
     <Compile Include="ViewModels\EditTrackWindowViewModel.cs" />
     <Compile Include="ViewModels\ErrorWindowViewModel.cs" />
@@ -338,6 +344,9 @@
     <Compile Include="ViewModels\MixViewModel.cs" />
     <Compile Include="ViewModels\TrackLibraryViewModel.cs" />
     <Compile Include="ViewModels\TrackLibrarySearchFilter.cs" />
+    <Compile Include="Views\AudioPlayerView.xaml.cs">
+      <DependentUpon>AudioPlayerView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MixSurroundingAreaView.xaml.cs">
       <DependentUpon>MixSurroundingAreaView.xaml</DependentUpon>
     </Compile>
@@ -374,6 +383,14 @@
     <Page Include="ProgressDialog\ProgressDialogWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\MixPlanner.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AudioPlayerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MixSurroundingAreaView.xaml">
       <Generator>MSBuild:Compile</Generator>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using System.Windows;
 using MixPlanner.DomainModel;
 using MixPlanner.Events;
 using MixPlanner.Loader;
@@ -25,8 +26,6 @@ namespace MixPlanner.Player
     {
         static readonly ILog log = LogManager.GetLogger(typeof (AudioPlayer));
         readonly IDispatcherMessenger messenger;
-        WaveOut waveOutDevice;
-        WaveStream stream;
 
         public Track CurrentTrack { get; private set; }
 
@@ -34,8 +33,8 @@ namespace MixPlanner.Player
         {
             if (messenger == null) throw new ArgumentNullException("messenger");
             this.messenger = messenger;
-            waveOutDevice = new WaveOut();
-            waveOutDevice.PlaybackStopped += delegate { NotifyStopped(); };
+
+            NAudioEngine.Instance.Stopped += delegate { NotifyStopped(); };
         }
 
         void NotifyStopped()
@@ -67,7 +66,7 @@ namespace MixPlanner.Player
 
         public async Task PlayOrResumeAsync(Track track)
         {
-            await Task.Run(() => PlayOrResume(track));
+            PlayOrResume(track);
         }
 
         void PlayOrResume(Track track)
@@ -81,7 +80,8 @@ namespace MixPlanner.Player
                 
                 try
                 {
-                    stream = new AudioFileReader(track.Filename);
+                    
+                    NAudioEngine.Instance.OpenFile(track.Filename);
                 }
                 catch (Exception e)
                 {
@@ -90,11 +90,10 @@ namespace MixPlanner.Player
                     return;
                 }
 
-                waveOutDevice.Init(stream);
                 CurrentTrack = track;
             }
 
-            waveOutDevice.Play();
+            NAudioEngine.Instance.Play();
             NotifyStarting();
         }
 
@@ -115,7 +114,7 @@ namespace MixPlanner.Player
         {
             if (track == null) throw new ArgumentNullException("track");
             return track.Equals(CurrentTrack) 
-                && waveOutDevice.PlaybackState == PlaybackState.Playing;
+                && NAudioEngine.Instance.IsPlaying;
         }
 
         public bool IsPlaying()
@@ -130,11 +129,7 @@ namespace MixPlanner.Player
 
         void Pause()
         {
-            if (waveOutDevice.PlaybackState != PlaybackState.Playing)
-                return;
-
-            waveOutDevice.Pause();
-            NotifyStopped();
+            NAudioEngine.Instance.Pause();
         }
 
         public async Task StopAsync()
@@ -144,21 +139,12 @@ namespace MixPlanner.Player
 
         void Stop()
         {
-            if (waveOutDevice.PlaybackState == PlaybackState.Stopped)
-                return;
-
             if (!HasTrackLoaded())
                 return;
 
-            waveOutDevice.Stop();
-            CurrentTrack = null;
-            if (stream != null)
-            {
-                stream.Dispose();
-                stream = null;
-            }
+            NAudioEngine.Instance.Stop();
 
-            NotifyStopped();
+            CurrentTrack = null;
         }
 
         public void Dispose()
@@ -175,11 +161,6 @@ namespace MixPlanner.Player
                 {
                     Stop();
 
-                    if (waveOutDevice != null)
-                    {
-                        waveOutDevice.Dispose();
-                        waveOutDevice = null;
-                    }
                 }
 
                 disposed = true;

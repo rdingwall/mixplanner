@@ -13,6 +13,7 @@ namespace MixPlanner.ViewModels
         public MiniPlayerViewModel MiniPlayer { get; private set; }
         public StatusBarViewModel StatusBar { get; private set; }
         public FocusSearchBoxCommand FocusSearchBoxCommand { get; private set; }
+        public AudioPlayerViewModel AudioPlayer { get; private set; }
 
         public MainWindowViewModel(
             IMessenger messenger,
@@ -20,7 +21,8 @@ namespace MixPlanner.ViewModels
             TrackLibraryViewModel trackLibraryViewModel,
             MiniPlayerViewModel miniPlayerViewModel,
             StatusBarViewModel statusBar,
-            FocusSearchBoxCommand focusSearchBoxCommand)
+            FocusSearchBoxCommand focusSearchBoxCommand,
+            AudioPlayerViewModel audioPlayer)
         {
             if (messenger == null) throw new ArgumentNullException("messenger");
             if (mixSurroundingAreaViewModel == null) throw new ArgumentNullException("mixSurroundingAreaViewModel");
@@ -28,12 +30,14 @@ namespace MixPlanner.ViewModels
             if (miniPlayerViewModel == null) throw new ArgumentNullException("miniPlayerViewModel");
             if (statusBar == null) throw new ArgumentNullException("statusBar");
             if (focusSearchBoxCommand == null) throw new ArgumentNullException("focusSearchBoxCommand");
+            if (audioPlayer == null) throw new ArgumentNullException("audioPlayer");
 
             MixSurroundingArea = mixSurroundingAreaViewModel;
             TrackLibrary = trackLibraryViewModel;
             MiniPlayer = miniPlayerViewModel;
             StatusBar = statusBar;
             FocusSearchBoxCommand = focusSearchBoxCommand;
+            AudioPlayer = audioPlayer;
 
             messenger.Register<DialogMessage>(this, OnDialogRequested);
         }

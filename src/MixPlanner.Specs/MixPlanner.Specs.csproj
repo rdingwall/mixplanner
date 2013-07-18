@@ -149,6 +149,9 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="WindowsBase" />
+    <Reference Include="WPFSoundVisualizationLib">
+      <HintPath>..\..\lib\WPFSoundVisualizationLib.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AlwaysInRangeBpmChecker.cs" />
