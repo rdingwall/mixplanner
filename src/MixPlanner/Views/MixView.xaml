@@ -94,6 +94,12 @@
                               InputGestureText="F2"
                               CommandTarget="{Binding Path=PlacementTarget, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
                               CommandParameter="{Binding Path=PlacementTarget.SelectedItem.Track, RelativeSource={RelativeSource AncestorType=ContextMenu}}" />
+                    <MenuItem Header="Show in Explorer"
+                              Visibility="{Binding Path=PlacementTarget.DataContext.HasSingleItemSelected, RelativeSource={RelativeSource AncestorType=ContextMenu}, Converter={StaticResource BooleanToVisibilityConverter}}"
+                              Command="{Binding ShowInExplorerCommand}"
+                              InputGestureText="F2"
+                              CommandTarget="{Binding Path=PlacementTarget, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
+                              CommandParameter="{Binding Path=PlacementTarget.SelectedItem.Track, RelativeSource={RelativeSource AncestorType=ContextMenu}}" />
                     <MenuItem Header="Remove"
                               InputGestureText="Del"
                               Command="{Binding RemoveCommand}"

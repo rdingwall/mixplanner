@@ -28,6 +28,8 @@ namespace MixPlanner.ViewModels
         public ShuffleCommand ShuffleCommand { get; private set; }
         public CopyMixcloudTracklistCommand CopyMixcloudTracklistCommand { get; private set; }
         public AutoAdjustPitchCommand AutoAdjustPitchCommand { get; private set; }
+        public ShowInExplorerCommand ShowInExplorerCommand { get; private set; }
+
         public IMix Mix { get; private set; }
 
         public MixItemViewModel SelectedItem
@@ -70,6 +72,7 @@ namespace MixPlanner.ViewModels
             ShuffleCommand shuffleCommand,
             CopyMixcloudTracklistCommand copyMixcloudTracklistCommand,
             AutoAdjustPitchCommand autoAdjustPitchCommand,
+            ShowInExplorerCommand showInExplorerCommand,
             IMix mix)
             : base(messenger)
         {
@@ -85,6 +88,7 @@ namespace MixPlanner.ViewModels
                 throw new ArgumentNullException("autoMixCommand");
             if (shuffleCommand == null) throw new ArgumentNullException("shuffleCommand");
             if (copyMixcloudTracklistCommand == null) throw new ArgumentNullException("copyMixcloudTracklistCommand");
+            if (showInExplorerCommand == null) throw new ArgumentNullException("showInExplorerCommand");
             if (mix == null) throw new ArgumentNullException("mix");
             DropItemCommand = dropItemCommand;
             DropFilesCommand = dropFilesCommand;
@@ -95,6 +99,7 @@ namespace MixPlanner.ViewModels
             ShuffleCommand = shuffleCommand;
             CopyMixcloudTracklistCommand = copyMixcloudTracklistCommand;
             AutoAdjustPitchCommand = autoAdjustPitchCommand;
+            ShowInExplorerCommand = showInExplorerCommand;
             Mix = mix;
             this.viewModels = viewModels;
             RemoveCommand = removeCommand;
