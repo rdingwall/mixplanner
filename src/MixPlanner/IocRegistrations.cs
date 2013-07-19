@@ -83,6 +83,7 @@ namespace MixPlanner
                 Component.For<IEnumerable<IMixingStrategy>>().Named(allStrategies)
                          .UsingFactoryMethod(k => k.Resolve<IMixingStrategiesFactory>().GetAllStrategies()),
                 Component.For<IProgressDialogService>().ImplementedBy<ProgressDialogService>(),
+                Component.For<NAudioEngine>().ImplementedBy<NAudioEngine>(),
                 Component.For<RecommendationsController>().Start());
         }
     }

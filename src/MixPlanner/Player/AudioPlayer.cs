@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
-using System.Windows;
 using MixPlanner.DomainModel;
 using MixPlanner.Events;
 using MixPlanner.Loader;
-using NAudio.Wave;
 using log4net;
 
 namespace MixPlanner.Player
@@ -24,27 +22,21 @@ namespace MixPlanner.Player
 
     public class AudioPlayer : IAudioPlayer, IDisposable
     {
-        static readonly ILog log = LogManager.GetLogger(typeof (AudioPlayer));
+        static readonly ILog Log = LogManager.GetLogger(typeof (AudioPlayer));
         readonly IDispatcherMessenger messenger;
+        readonly NAudioEngine naudio;
 
         public Track CurrentTrack { get; private set; }
 
-        public AudioPlayer(IDispatcherMessenger messenger)
+        public AudioPlayer(IDispatcherMessenger messenger, NAudioEngine naudio)
         {
             if (messenger == null) throw new ArgumentNullException("messenger");
+            if (naudio == null) throw new ArgumentNullException("naudio");
             this.messenger = messenger;
+            this.naudio = naudio;
 
-            NAudioEngine.Instance.Stopped += delegate { NotifyStopped(); };
-        }
-
-        void NotifyStopped()
-        {
-            messenger.SendToUI(new PlayerStoppedEvent(CurrentTrack));
-        }
-
-        void NotifyStarting()
-        {
-            messenger.SendToUI(new PlayerPlayingEvent(CurrentTrack));
+            naudio.Stopped += OnStopped;
+            naudio.Started += OnStarted;
         }
 
         public bool HasTrackLoaded()
@@ -80,21 +72,19 @@ namespace MixPlanner.Player
                 
                 try
                 {
-                    
-                    NAudioEngine.Instance.OpenFile(track.Filename);
+                    naudio.OpenFile(track.Filename);
                 }
                 catch (Exception e)
                 {
-                    log.WarnFormat("Unable to play {0}.", track.Filename);
-                    log.Warn(e);
+                    Log.WarnFormat("Unable to play {0}.", track.Filename);
+                    Log.Warn(e);
                     return;
                 }
 
                 CurrentTrack = track;
             }
 
-            NAudioEngine.Instance.Play();
-            NotifyStarting();
+            naudio.Play();
         }
 
         public async Task PlayOrResumeAsync()
@@ -114,7 +104,7 @@ namespace MixPlanner.Player
         {
             if (track == null) throw new ArgumentNullException("track");
             return track.Equals(CurrentTrack) 
-                && NAudioEngine.Instance.IsPlaying;
+                && naudio.IsPlaying;
         }
 
         public bool IsPlaying()
@@ -129,7 +119,7 @@ namespace MixPlanner.Player
 
         void Pause()
         {
-            NAudioEngine.Instance.Pause();
+            naudio.Pause();
         }
 
         public async Task StopAsync()
@@ -142,7 +132,7 @@ namespace MixPlanner.Player
             if (!HasTrackLoaded())
                 return;
 
-            NAudioEngine.Instance.Stop();
+            naudio.Stop();
 
             CurrentTrack = null;
         }
@@ -161,10 +151,22 @@ namespace MixPlanner.Player
                 {
                     Stop();
 
+                    naudio.Started -= OnStarted;
+                    naudio.Stopped -= OnStopped;
                 }
 
                 disposed = true;
             }
+        }
+
+        void OnStarted(object sender, EventArgs e)
+        {
+            messenger.SendToUI(new PlayerPlayingEvent(CurrentTrack));
+        }
+
+        void OnStopped(object sender, EventArgs e)
+        {
+            messenger.SendToUI(new PlayerStoppedEvent(CurrentTrack));
         }
 
         ~AudioPlayer()

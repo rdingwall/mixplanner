@@ -14,9 +14,12 @@ namespace MixPlanner.Specs.Player
             Establish context =
                 () =>
                     {
+                        naudio = new NAudioEngine();
                         track = TestTracks.CreateTrackWithFilenameOnly("12A - 128 - corrupt.mp3");
-                        player = new AudioPlayer(new DispatcherMessenger(new Messenger()));
+                        player = new AudioPlayer(new DispatcherMessenger(new Messenger()), naudio);
                     };
+
+            Cleanup after = () => naudio.Dispose();
 
             Because of = 
                 () => exception = Catch.Exception(() => player.PlayOrResumeAsync(track).Wait());
@@ -30,6 +33,7 @@ namespace MixPlanner.Specs.Player
              static Exception exception;
             static IAudioPlayer player;
             static Track track;
+            static NAudioEngine naudio;
         }
     }
 }

@@ -27,10 +27,11 @@ namespace MixPlanner.Views
             
             InitializeComponent();
 
-            ResourceDictionary themeResources = Application.LoadComponent(new Uri(@"Themes\MixPlanner.xaml", UriKind.Relative)) as ResourceDictionary;
-            Resources.MergedDictionaries.Add(themeResources);
+            
 
-            waveFormTimeline.RegisterSoundPlayer(NAudioEngine.Instance);
+            var naudio = ServiceLocator.Current.GetInstance<NAudioEngine>();
+
+            waveFormTimeline.RegisterSoundPlayer(naudio);
         }
     }
 }

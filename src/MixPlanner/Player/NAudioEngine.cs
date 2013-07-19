@@ -49,20 +49,8 @@ namespace MixPlanner.Player
         private const int repeatThreshold = 200;
         #endregion
 
-        #region Singleton Pattern
-        public static NAudioEngine Instance
-        {
-            get
-            {
-                if (instance == null)
-                    instance = new NAudioEngine();
-                return instance;
-            }
-        }
-        #endregion
-
         #region Constructor
-        private NAudioEngine()
+        public NAudioEngine()
         {
             positionTimer.Interval = TimeSpan.FromMilliseconds(50);
             positionTimer.Tick += positionTimer_Tick;
@@ -319,12 +307,12 @@ namespace MixPlanner.Player
         #region Private Utility Methods
         private void StopAndCloseStream()
         {
-            if (Stopped != null)
-                Stopped(this, EventArgs.Empty);
-
             if (waveOutDevice != null)
             {
                 waveOutDevice.Stop();
+
+                if (Stopped != null)
+                    Stopped(this, EventArgs.Empty);
             }
             if (activeStream != null)
             {
@@ -335,6 +323,7 @@ namespace MixPlanner.Player
             }
             if (waveOutDevice != null)
             {
+                waveOutDevice.PlaybackStopped -= OnPlaybackStopped;
                 waveOutDevice.Dispose();
                 waveOutDevice = null;
             }
@@ -342,13 +331,11 @@ namespace MixPlanner.Player
         #endregion
 
         public event EventHandler Stopped;
+        public event EventHandler Started;
 
         #region Public Methods
         public void Stop()
         {
-            if (Stopped != null)
-                Stopped(this, EventArgs.Empty);
-
             if (waveOutDevice != null)
             {
                 waveOutDevice.Stop();
@@ -357,19 +344,23 @@ namespace MixPlanner.Player
             CanStop = false;
             CanPlay = true;
             CanPause = false;
+
+            if (Stopped != null)
+                Stopped(this, EventArgs.Empty);
         }
 
         public void Pause()
         {
             if (IsPlaying && CanPause)
             {
-                if (Stopped != null)
-                    Stopped(this, EventArgs.Empty);
-
                 waveOutDevice.Pause();
+
                 IsPlaying = false;
                 CanPlay = true;
                 CanPause = false;
+
+                if (Stopped != null)
+                    Stopped(this, EventArgs.Empty);
             }
         }
 
@@ -378,10 +369,14 @@ namespace MixPlanner.Player
             if (CanPlay)
             {
                 waveOutDevice.Play();
+                
                 IsPlaying = true;
                 CanPause = true;
                 CanPlay = false;
                 CanStop = true;
+
+                if (Started != null)
+                    Started(this, EventArgs.Empty);
             }
         }
 
@@ -406,6 +401,7 @@ namespace MixPlanner.Player
                     {
                         DesiredLatency = 100
                     };
+                    waveOutDevice.PlaybackStopped += OnPlaybackStopped;
                     ActiveStream = new Mp3FileReader(path);
                     inputStream = new WaveChannel32(ActiveStream);
                     sampleAggregator = new SampleAggregator(fftDataSize);
@@ -424,6 +420,12 @@ namespace MixPlanner.Player
                 }
             }
         }
+
+        void OnPlaybackStopped(object sender, StoppedEventArgs e)
+        {
+            Stopped(this, EventArgs.Empty);
+        }
+
         #endregion
 
         #region Public Properties

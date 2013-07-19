@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
 using Castle.Core;
@@ -37,6 +38,8 @@ namespace MixPlanner
 
         protected override void OnStartup(StartupEventArgs e)
         {
+            LoadTheme();
+
             BasicConfigurator.Configure();
             DispatcherHelper.Initialize();
             container = new WindsorContainer();
@@ -47,6 +50,12 @@ namespace MixPlanner
             Task.Run(() => container.Resolve<ITrackLibrary>().InitializeAsync()).Wait();
 
             container.Resolve<MainWindow>().ShowDialog();
+        }
+
+        void LoadTheme()
+        {
+            var themeResources = (ResourceDictionary) LoadComponent(new Uri(@"Themes\MixPlanner.xaml", UriKind.Relative));
+            Resources.MergedDictionaries.Add(themeResources);
         }
 
         protected override void OnExit(ExitEventArgs e)
