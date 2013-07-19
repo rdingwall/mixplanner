@@ -151,7 +151,10 @@
     <Compile Include="AttachedProperties\WindowBehavior.cs" />
     <Compile Include="Commands\AsyncCommandBase.cs" />
     <Compile Include="Commands\AutoAdjustPitchCommand.cs" />
+    <Compile Include="Commands\PlaylistCommandBase.cs" />
+    <Compile Include="Commands\PlayPreviousTrackCommand.cs" />
     <Compile Include="Commands\DragTracksOutOfMixCommand.cs" />
+    <Compile Include="Commands\PlayNextTrackCommand.cs" />
     <Compile Include="Commands\SortTracksCommandBase.cs" />
     <Compile Include="Commands\CopyMixcloudTracklistCommand.cs" />
     <Compile Include="Commands\FocusSearchBoxCommand.cs" />
@@ -225,6 +228,7 @@
     <Compile Include="DomainModel\IMixingStrategy.cs" />
     <Compile Include="DomainModel\InvalidPitchException.cs" />
     <Compile Include="DomainModel\InvalidScaleException.cs" />
+    <Compile Include="DomainModel\Playlist.cs" />
     <Compile Include="DomainModel\ITrackLibrary.cs" />
     <Compile Include="DomainModel\HarmonicKey.cs" />
     <Compile Include="DomainModel\LimitingPlaybackSpeedAdjuster.cs" />
@@ -275,6 +279,7 @@
     <Compile Include="Events\BeganScanningDirectoryEvent.cs" />
     <Compile Include="Events\TrackAddedToLibraryEvent.cs" />
     <Compile Include="Events\TrackAddedToMixEvent.cs" />
+    <Compile Include="Events\TrackEvent.cs" />
     <Compile Include="Events\TrackLibraryLoadedEvent.cs" />
     <Compile Include="Events\TrackRecommendedEvent.cs" />
     <Compile Include="Events\TrackRemovedFromLibraryEvent.cs" />

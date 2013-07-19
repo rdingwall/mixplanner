@@ -2,13 +2,11 @@
 
 namespace MixPlanner.Events
 {
-    public class PlayerStoppedEvent
+    public class PlayerStoppedEvent : TrackEvent
     {
         public PlayerStoppedEvent(Track track)
         {
             Track = track;
         }
-
-        public Track Track { get; private set; }
     }
 }

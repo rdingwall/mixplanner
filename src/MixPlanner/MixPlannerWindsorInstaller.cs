@@ -73,6 +73,7 @@ namespace MixPlanner
                 Component.For<IAutoMixingContextFactory>().ImplementedBy<AutoMixingContextFactory>(),
                 Component.For<IAutoMixingStrategy>().ImplementedBy<AutoMixingStrategy>(),
                 Component.For<IMix>().ImplementedBy<Mix>(),
+                Component.For<IPlaylist>().ImplementedBy<Playlist>(),
                 AllTypes.FromThisAssembly().InSameNamespaceAs<MainWindowViewModel>()
                     .ConfigureFor<SettingsWindowViewModel>(c => c.LifestyleTransient()),
                 AllTypes.FromThisAssembly().BasedOn<Window>().LifestyleTransient(),

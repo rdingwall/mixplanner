@@ -58,12 +58,12 @@
         </Grid>
         
         <StackPanel Orientation="Horizontal" Grid.Column="2">
-            <Button>Prev</Button>
+            <Button Command="{Binding PlayPreviousCommand}">Prev</Button>
             <Button Content="{Binding Track, Converter={StaticResource PlayPauseCommandLabelConverter}}"
                     CommandParameter="{Binding Track}"
                     Command="{Binding PlayPauseCommand}"
                     IsEnabled="{Binding HasTrackLoaded}"/>
-            <Button>Next</Button>
+            <Button Command="{Binding PlayNextCommand}">Next</Button>
         </StackPanel>
         
         <wpfSoundVisualizationLib:WaveformTimeline Grid.Column="3" x:Name="waveFormTimeline" />

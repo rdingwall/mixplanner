@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Input;
 using System.Windows.Media;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
@@ -20,17 +21,25 @@ namespace MixPlanner.ViewModels
         double originalBpm;
         public OpenSettingsCommand OpenSettingsCommand { get; private set; }
         public PlayPauseTrackCommand PlayPauseCommand { get; private set; }
+        public PlayPreviousTrackCommand PlayPreviousCommand { get; private set; }
+        public PlayNextTrackCommand PlayNextCommand { get; private set; }
 
         public AudioPlayerViewModel(
             IMessenger messenger,
             OpenSettingsCommand openSettingsCommand,
-            PlayPauseTrackCommand playPauseCommand)
+            PlayPauseTrackCommand playPauseCommand,
+            PlayPreviousTrackCommand playPreviousCommand,
+            PlayNextTrackCommand playNextCommand)
             : base(messenger)
         {
             if (openSettingsCommand == null) throw new ArgumentNullException("openSettingsCommand");
             if (playPauseCommand == null) throw new ArgumentNullException("playPauseCommand");
+            if (playPreviousCommand == null) throw new ArgumentNullException("playPreviousCommand");
+            if (playNextCommand == null) throw new ArgumentNullException("playNextCommand");
             OpenSettingsCommand = openSettingsCommand;
             PlayPauseCommand = playPauseCommand;
+            PlayPreviousCommand = playPreviousCommand;
+            PlayNextCommand = playNextCommand;
 
             messenger.Register<PlayerStoppedEvent>(this, _ => RaisePropertyChanged(() => Track));
             messenger.Register<PlayerLoadedEvent>(this, OnLoaded);

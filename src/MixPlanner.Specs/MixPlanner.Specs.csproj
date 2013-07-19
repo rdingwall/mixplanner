@@ -190,6 +190,7 @@
     <Compile Include="DomainModel\MixSpecs.cs" />
     <Compile Include="DomainModel\LimitingPlaybackSpeedAdjusterSpecs.cs" />
     <Compile Include="DomainModel\PlaybackSpeedSpecs.cs" />
+    <Compile Include="DomainModel\PlaylistSpecs.cs" />
     <Compile Include="DomainModel\RecommendedTransitionDetectorSpecs.cs" />
     <Compile Include="DomainModel\TrackSpecs.cs" />
     <Content Include="DummyPlaylist.m3u">

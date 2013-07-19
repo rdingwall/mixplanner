@@ -29,6 +29,7 @@ namespace MixPlanner.DomainModel
         IMixItem GetMixItem(Track track);
         IEnumerable<IMixItem> GetUnknownTracks();
         int IndexOf(IMixItem item);
+        int IndexOf(Track track);
         IDisposable Lock();
         void MoveToEnd(IMixItem track);
         IMixItem GetPreceedingItem(IMixItem item);
@@ -137,7 +138,21 @@ namespace MixPlanner.DomainModel
 
         public int IndexOf(IMixItem item)
         {
+            if (item == null) throw new ArgumentNullException("item");
             return items.IndexOf((MixItem)item);
+        }
+
+        public int IndexOf(Track track)
+        {
+            if (track == null) throw new ArgumentNullException("track");
+
+            for (int i = 0; i < items.Count; i++)
+            {
+                if (track.Equals(items[i].Track))
+                    return i;
+            }
+
+            return -1;
         }
 
         public IDisposable Lock()
