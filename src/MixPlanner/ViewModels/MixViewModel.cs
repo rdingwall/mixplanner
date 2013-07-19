@@ -137,8 +137,6 @@ namespace MixPlanner.ViewModels
 
         public void DragOver(IDropInfo dropInfo)
         {
-            Console.WriteLine("Dragging over mix");
-
             if (!DropItemCommand.CanExecute(dropInfo))
                 return;
 
