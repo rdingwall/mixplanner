@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Windows;
 using System.Windows.Threading;
 using NAudio.Wave;
 using WPFSoundVisualizationLib;
@@ -15,6 +16,7 @@ namespace MixPlanner.Player
 {
     public class NAudioEngine : INotifyPropertyChanged, ISpectrumPlayer, IWaveformPlayer, IDisposable
     {
+        readonly IWaveformDataCache waveformDataCache;
         static readonly ILog log = LogManager.GetLogger(typeof (NAudioEngine));
         #region Fields
         private static NAudioEngine instance;
@@ -50,8 +52,10 @@ namespace MixPlanner.Player
         #endregion
 
         #region Constructor
-        public NAudioEngine()
+        public NAudioEngine(IWaveformDataCache waveformDataCache)
         {
+            if (waveformDataCache == null) throw new ArgumentNullException("waveformDataCache");
+            this.waveformDataCache = waveformDataCache;
             positionTimer.Interval = TimeSpan.FromMilliseconds(50);
             positionTimer.Tick += positionTimer_Tick;
 
@@ -229,7 +233,15 @@ namespace MixPlanner.Player
 
         private void waveformGenerateWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            WaveformGenerationParams waveformParams = e.Argument as WaveformGenerationParams;
+            var waveformParams = (WaveformGenerationParams)e.Argument;
+
+            float[] waveformDataFromCache;
+            if (waveformDataCache.TryGet(waveformParams.Path, out waveformDataFromCache))
+            {
+                Application.Current.Dispatcher.Invoke(() => WaveformData = waveformDataFromCache);
+                return;
+            }
+
             Mp3FileReader waveformMp3Stream = new Mp3FileReader(waveformParams.Path);
             WaveChannel32 waveformInputStream = new WaveChannel32(waveformMp3Stream);
             waveformInputStream.Sample += waveStream_Sample;
@@ -275,6 +287,7 @@ namespace MixPlanner.Player
                 if (readCount % 3000 == 0)
                 {
                     float[] clonedData = (float[])waveformCompressedPoints.Clone();
+                    
                     App.Current.Dispatcher.Invoke(new Action(() =>
                     {
                         WaveformData = clonedData;
@@ -290,6 +303,11 @@ namespace MixPlanner.Player
             }
 
             float[] finalClonedData = (float[])waveformCompressedPoints.Clone();
+
+            // Don't cache half-finished waveforms (my CDJ-1000MK3s do this...)
+            if (!waveformGenerateWorker.CancellationPending)
+                waveformDataCache.Add(waveformParams.Path, finalClonedData);
+
             App.Current.Dispatcher.Invoke(new Action(() =>
             {
                 fullLevelData = waveformData.ToArray();

@@ -14,7 +14,7 @@ namespace MixPlanner.Specs.Player
             Establish context =
                 () =>
                     {
-                        naudio = new NAudioEngine();
+                        naudio = new NAudioEngine(new WaveformDataCache());
                         track = TestTracks.CreateTrackWithFilenameOnly("12A - 128 - corrupt.mp3");
                         player = new AudioPlayer(new DispatcherMessenger(new Messenger()), naudio);
                     };

@@ -318,6 +318,7 @@
     <Compile Include="Player\AudioPlayer.cs" />
     <Compile Include="Player\NAudioEngine.cs" />
     <Compile Include="Player\SampleAggregator.cs" />
+    <Compile Include="Player\WaveformDataCache.cs" />
     <Compile Include="ProgressDialog\CancelCommand.cs" />
     <Compile Include="ProgressDialog\IProgressDialogService.cs" />
     <Compile Include="ProgressDialog\ProgressDialogOptions.cs" />

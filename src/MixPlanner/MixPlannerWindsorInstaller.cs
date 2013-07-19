@@ -86,6 +86,7 @@ namespace MixPlanner
                          .UsingFactoryMethod(k => k.Resolve<IMixingStrategiesFactory>().GetAllStrategies()),
                 Component.For<IProgressDialogService>().ImplementedBy<ProgressDialogService>(),
                 Component.For<NAudioEngine>().ImplementedBy<NAudioEngine>(),
+                Component.For<IWaveformDataCache>().ImplementedBy<WaveformDataCache>(),
                 Component.For<RecommendationsController>().Start());
         }
     }
