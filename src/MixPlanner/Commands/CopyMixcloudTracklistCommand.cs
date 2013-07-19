@@ -11,6 +11,11 @@ namespace MixPlanner.Commands
     /// </summary>
     public class CopyMixcloudTracklistCommand : CommandBase<IMix>
     {
+        protected override bool CanExecute(IMix parameter)
+        {
+            return !parameter.IsEmpty;
+        }
+
         protected override void Execute(IMix parameter)
         {
             string tracklist = FormatMixcloudPreWrittenTracklist(parameter);
