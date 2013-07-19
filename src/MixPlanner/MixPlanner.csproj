@@ -289,7 +289,7 @@
     <Compile Include="ImportExport\IPlaylistWriter.cs" />
     <Compile Include="ImportExport\M3uReader.cs" />
     <Compile Include="ImportExport\M3uWriter.cs" />
-    <Compile Include="IocRegistrations.cs" />
+    <Compile Include="MixPlannerWindsorInstaller.cs" />
     <Compile Include="Loader\AiffId3Reader.cs" />
     <Compile Include="Loader\FileNameHelper.cs" />
     <Compile Include="Loader\HarmonicKeySuperParser.cs" />

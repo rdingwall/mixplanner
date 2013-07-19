@@ -378,7 +378,7 @@ namespace MixPlanner.Specs.Loader
                 () =>
                     {
                         container = new WindsorContainer();
-                        container.Install(new IocRegistrations());
+                        container.Install(new MixPlannerWindsorInstaller());
                         var configProvider = container.Resolve<IConfigProvider>();
                         configProvider.InitializeAsync().Wait();
                         configProvider.Config.ParseKeyAndBpmFromFilename = true;

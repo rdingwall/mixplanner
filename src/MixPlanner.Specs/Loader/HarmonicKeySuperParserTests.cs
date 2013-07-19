@@ -49,7 +49,7 @@ namespace MixPlanner.Specs.Loader
         public void SetUp()
         {
             container = new WindsorContainer();
-            container.Install(new IocRegistrations());
+            container.Install(new MixPlannerWindsorInstaller());
             parser = container.Resolve<IHarmonicKeySuperParser>();
         }
 

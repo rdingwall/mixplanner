@@ -43,7 +43,7 @@ namespace MixPlanner
             BasicConfigurator.Configure();
             DispatcherHelper.Initialize();
             container = new WindsorContainer();
-            container.Install(new IocRegistrations());
+            container.Install(new MixPlannerWindsorInstaller());
             ServiceLocator.SetLocatorProvider(() => new WindsorServiceLocator(container));
 
             Task.Run(() => container.Resolve<IConfigProvider>().InitializeAsync()).Wait();

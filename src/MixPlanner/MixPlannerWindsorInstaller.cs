@@ -22,7 +22,7 @@ using MixPlanner.ViewModels;
 
 namespace MixPlanner
 {
-    public class IocRegistrations : IWindsorInstaller
+    public class MixPlannerWindsorInstaller : IWindsorInstaller
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {

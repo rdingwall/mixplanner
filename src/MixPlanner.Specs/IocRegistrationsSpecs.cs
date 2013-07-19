@@ -20,7 +20,7 @@ namespace MixPlanner.Specs
             public void SetUp()
             {
                 container = new WindsorContainer();
-                container.Install(new IocRegistrations());
+                container.Install(new MixPlannerWindsorInstaller());
             }
 
             [TestFixtureTearDown]

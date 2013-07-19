@@ -15,7 +15,7 @@ namespace MixPlanner.Specs.DomainModel
              Establish context = () =>
                                      {
                                          container = new WindsorContainer();
-                                         container.Install(new IocRegistrations());
+                                         container.Install(new MixPlannerWindsorInstaller());
                                          factory = new MixingStrategiesFactory(container);
                                      };
 
