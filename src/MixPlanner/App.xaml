@@ -23,6 +23,7 @@
             <converters:PlaySpeedIncreaseConverter x:Key="PlaySpeedIncreaseConverter" />
             <converters:TraditionalSymbolsHarmonicKeyConverter x:Key="TraditionalSymbolsHarmonicKeyConverter" />
             <converters:TrackDurationConverter x:Key="TrackDurationConverter" />
+            <converters:ContextMenuOrNullConverter x:Key="ContextMenuOrNullConverter" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

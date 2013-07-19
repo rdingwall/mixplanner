@@ -23,23 +23,31 @@ namespace MixPlanner.ViewModels
         public PlayPauseTrackCommand PlayPauseCommand { get; private set; }
         public PlayPreviousTrackCommand PlayPreviousCommand { get; private set; }
         public PlayNextTrackCommand PlayNextCommand { get; private set; }
+        public EditTrackCommand EditTrackCommand { get; private set; }
+        public ShowInExplorerCommand ShowInExplorerCommand { get; private set; }
 
         public AudioPlayerViewModel(
             IMessenger messenger,
             OpenSettingsCommand openSettingsCommand,
             PlayPauseTrackCommand playPauseCommand,
             PlayPreviousTrackCommand playPreviousCommand,
-            PlayNextTrackCommand playNextCommand)
+            PlayNextTrackCommand playNextCommand,
+            EditTrackCommand editTrackCommand,
+            ShowInExplorerCommand showInExplorerCommand)
             : base(messenger)
         {
             if (openSettingsCommand == null) throw new ArgumentNullException("openSettingsCommand");
             if (playPauseCommand == null) throw new ArgumentNullException("playPauseCommand");
             if (playPreviousCommand == null) throw new ArgumentNullException("playPreviousCommand");
             if (playNextCommand == null) throw new ArgumentNullException("playNextCommand");
+            if (editTrackCommand == null) throw new ArgumentNullException("editTrackCommand");
+            if (showInExplorerCommand == null) throw new ArgumentNullException("showInExplorerCommand");
             OpenSettingsCommand = openSettingsCommand;
             PlayPauseCommand = playPauseCommand;
             PlayPreviousCommand = playPreviousCommand;
             PlayNextCommand = playNextCommand;
+            EditTrackCommand = editTrackCommand;
+            ShowInExplorerCommand = showInExplorerCommand;
 
             messenger.Register<PlayerStoppedEvent>(this, _ => RaisePropertyChanged(() => Track));
             messenger.Register<PlayerLoadedEvent>(this, OnLoaded);

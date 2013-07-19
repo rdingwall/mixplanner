@@ -162,6 +162,7 @@
     <Compile Include="Commands\ShuffleCommand.cs" />
     <Compile Include="Controllers\RecommendationsController.cs" />
     <Compile Include="Converters\BeatportHarmonicKeyConverter.cs" />
+    <Compile Include="Converters\ContextMenuOrNullConverter.cs" />
     <Compile Include="Converters\TrackDurationConverter.cs" />
     <Compile Include="DomainModel\AutoMixing\AutoMixingContextFactory.cs" />
     <Compile Include="Commands\ClearRecommendationsCommand.cs" />
