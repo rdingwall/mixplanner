@@ -20,6 +20,7 @@ namespace MixPlanner.Loader
         readonly ITrackImageResizer imageResizer;
         readonly IHarmonicKeySuperParser keyParser;
         readonly IFilenameParser filenameParser;
+        readonly IFallbackReader fallbackReader;
 
         public TrackLoader(
             IId3Reader id3Reader, 
@@ -28,7 +29,8 @@ namespace MixPlanner.Loader
             ITagCleanupFactory cleanupFactory,
             ITrackImageResizer imageResizer, 
             IHarmonicKeySuperParser keyParser, 
-            IFilenameParser filenameParser)
+            IFilenameParser filenameParser,
+            IFallbackReader fallbackReader)
         {
             if (id3Reader == null) throw new ArgumentNullException("id3Reader");
             if (aiffId3Reader == null) throw new ArgumentNullException("aiffId3Reader");
@@ -37,6 +39,7 @@ namespace MixPlanner.Loader
             if (imageResizer == null) throw new ArgumentNullException("imageResizer");
             if (keyParser == null) throw new ArgumentNullException("keyParser");
             if (filenameParser == null) throw new ArgumentNullException("filenameParser");
+            if (fallbackReader == null) throw new ArgumentNullException("fallbackReader");
             this.id3Reader = id3Reader;
             this.aiffId3Reader = aiffId3Reader;
             this.aacReader = aacReader;
@@ -44,6 +47,7 @@ namespace MixPlanner.Loader
             this.imageResizer = imageResizer;
             this.keyParser = keyParser;
             this.filenameParser = filenameParser;
+            this.fallbackReader = fallbackReader;
         }
 
         public bool IsSupportedFileFormat(string filename)
@@ -76,9 +80,9 @@ namespace MixPlanner.Loader
 
             else if (FileNameHelper.IsAac(filename))
                 aacReader.TryRead(filename, out tag);
-
+                
             if (tag == null)
-                tag = CreateEmptyTag(filename);
+                tag = fallbackReader.Read(filename);
 
             return CreateTrackFromTag(filename, tag);
         }
@@ -104,7 +108,7 @@ namespace MixPlanner.Loader
             TrackImageData images = 
                 tag.ImageData != null ? imageResizer.Process(tag.ImageData) : null;
 
-            var track = new Track(tag.Artist, tag.Title, key, filename, bpm)
+            var track = new Track(tag.Artist, tag.Title, key, filename, bpm, tag.Duration)
                             {
                                 Label = tag.Publisher ?? "",
                                 Genre = tag.Genre ?? "",
@@ -113,17 +117,6 @@ namespace MixPlanner.Loader
                             };
 
             return track;
-        }
-
-        static Tag CreateEmptyTag(string filename)
-        {
-            var title = Path.GetFileNameWithoutExtension(filename);
-
-            return new Tag
-            {
-                Artist = TrackDefaults.UnknownArtist,
-                Title = title
-            };
         }
     }
 }

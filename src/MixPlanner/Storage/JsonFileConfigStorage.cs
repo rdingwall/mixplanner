@@ -29,7 +29,7 @@ namespace MixPlanner.Storage
 
             try
             {
-                using (FileStream file = File.OpenWrite(filename))
+                using (FileStream file = File.Open(filename, FileMode.Create, FileAccess.Write))
                 using (var writer = new StreamWriter(file))
                 {
                     string json = await JsonConvert.SerializeObjectAsync(

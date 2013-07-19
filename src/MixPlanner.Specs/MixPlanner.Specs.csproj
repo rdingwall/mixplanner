@@ -157,6 +157,7 @@
     <Compile Include="AlwaysInRangeBpmChecker.cs" />
     <Compile Include="Converters\ActualBpmConverterSpecs.cs" />
     <Compile Include="Converters\BeatportHarmonicKeyConverterSpecs.cs" />
+    <Compile Include="Converters\TrackDurationConverterSpecs.cs" />
     <Compile Include="Converters\TraditionalTextHarmonicKeyConverterSpecs.cs" />
     <Compile Include="Converters\OpenKeyNotationHarmonicKeyConverterSpecs.cs" />
     <Compile Include="Converters\Id3V2TkeyHarmonicKeyConverterSpecs.cs" />

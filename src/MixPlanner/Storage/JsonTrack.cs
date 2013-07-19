@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 using MixPlanner.DomainModel;
 using Newtonsoft.Json;
 
@@ -21,6 +22,8 @@ namespace MixPlanner.Storage
         public double Bpm { get; set; }
 
         public string Filename { get; set; }
+
+        public TimeSpan Duration { get; set; }
 
         // For serialization only
         public string Version { get { return version; } }

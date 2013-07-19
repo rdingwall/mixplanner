@@ -22,6 +22,7 @@
             <converters:ActualBpmConverter x:Key="ActualBpmConverter" />
             <converters:PlaySpeedIncreaseConverter x:Key="PlaySpeedIncreaseConverter" />
             <converters:TraditionalSymbolsHarmonicKeyConverter x:Key="TraditionalSymbolsHarmonicKeyConverter" />
+            <converters:TrackDurationConverter x:Key="TrackDurationConverter" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

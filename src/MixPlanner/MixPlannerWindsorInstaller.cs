@@ -48,6 +48,7 @@ namespace MixPlanner
                 Component.For<IId3Reader>().ImplementedBy<Id3Reader>(),
                 Component.For<IAiffId3Reader>().ImplementedBy<AiffId3Reader>(),
                 Component.For<IAacReader>().ImplementedBy<AacReader>(),
+                Component.For<IFallbackReader>().ImplementedBy<FallbackReader>(),
                 Component.For<ITrackImageResizer>().ImplementedBy<TrackImageResizer>(),
                 Component.For<IMessenger>().ImplementedBy<Messenger>(),
                 Component.For<IDispatcherMessenger>().ImplementedBy<DispatcherMessenger>(),

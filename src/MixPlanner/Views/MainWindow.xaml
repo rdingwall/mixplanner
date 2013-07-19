@@ -30,7 +30,7 @@
             <RowDefinition Height="24" />
         </Grid.RowDefinitions>
         
-        <views:AudioPlayerView Grid.Row="0" />
+        <views:AudioPlayerView Grid.Row="0" DataContext="{Binding AudioPlayer}" />
 
         <views:MixSurroundingAreaView Grid.Row="1" DataContext="{Binding MixSurroundingArea}" />
 

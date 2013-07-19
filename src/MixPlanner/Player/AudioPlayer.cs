@@ -82,6 +82,7 @@ namespace MixPlanner.Player
                 }
 
                 CurrentTrack = track;
+                messenger.SendToUI(new PlayerLoadedEvent(track));
             }
 
             naudio.Play();

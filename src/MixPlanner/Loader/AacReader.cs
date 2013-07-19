@@ -28,6 +28,9 @@ namespace MixPlanner.Loader
                 PopulateFromTag(file, t);
                 PopulateFallbackValues(t);
 
+                if (file.Properties != null)
+                    t.Duration = file.Properties.Duration;
+
                 tag = t;
                 return true;
             }

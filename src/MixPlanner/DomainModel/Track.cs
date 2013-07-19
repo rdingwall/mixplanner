@@ -12,8 +12,9 @@ namespace MixPlanner.DomainModel
                      string title,
                      HarmonicKey originalKey,
                      string fileName,
-                     double originalBpm)
-            : this(GenerateId(), artist, title, originalKey, fileName, originalBpm)
+                     double originalBpm,
+                     TimeSpan duration)
+            : this(GenerateId(), artist, title, originalKey, fileName, originalBpm, duration)
         {
         }
 
@@ -28,7 +29,8 @@ namespace MixPlanner.DomainModel
             string title,
             HarmonicKey originalKey,
             string fileName,
-            double originalBpm)
+            double originalBpm,
+            TimeSpan duration)
         {
             if (id == null) throw new ArgumentNullException("id");
             if (artist == null) throw new ArgumentNullException("artist");
@@ -40,6 +42,7 @@ namespace MixPlanner.DomainModel
             OriginalKey = originalKey;
             Filename = fileName;
             OriginalBpm = originalBpm;
+            Duration = duration;
 
             Label = "";
             Genre = "";
@@ -59,6 +62,7 @@ namespace MixPlanner.DomainModel
         }
 
         public double OriginalBpm { get; set; }
+        public TimeSpan Duration { get; set; }
 
         // Optional properties
         public string Label { get; set; }

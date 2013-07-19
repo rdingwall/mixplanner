@@ -40,7 +40,8 @@ namespace MixPlanner.Specs.ImportExport
                                                             cleanupFactory,
                                                             resizer,
                                                             new HarmonicKeySuperParser(converterFactory), 
-                                                            filenameParser));
+                                                            filenameParser,
+                                                            new FallbackReader()));
                                     };
 
             Because of = () => tracks = reader.Read(filename).Result;

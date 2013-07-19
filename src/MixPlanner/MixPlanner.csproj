@@ -159,6 +159,7 @@
     <Compile Include="Commands\ShuffleCommand.cs" />
     <Compile Include="Controllers\RecommendationsController.cs" />
     <Compile Include="Converters\BeatportHarmonicKeyConverter.cs" />
+    <Compile Include="Converters\TrackDurationConverter.cs" />
     <Compile Include="DomainModel\AutoMixing\AutoMixingContextFactory.cs" />
     <Compile Include="Commands\ClearRecommendationsCommand.cs" />
     <Compile Include="Commands\CloseWindowCommand.cs" />
@@ -260,6 +261,7 @@
     <Compile Include="Events\MixItemSelectionChangedEvent.cs" />
     <Compile Include="Events\MixLockedEvent.cs" />
     <Compile Include="Events\MixUnlockedEvent.cs" />
+    <Compile Include="Events\PlayerLoadedEvent.cs" />
     <Compile Include="Events\RecommendationsClearedEvent.cs" />
     <Compile Include="Events\RecommendationsDisabledEvent.cs" />
     <Compile Include="Events\RecommendationsEnabledEvent.cs" />
@@ -289,6 +291,7 @@
     <Compile Include="ImportExport\IPlaylistWriter.cs" />
     <Compile Include="ImportExport\M3uReader.cs" />
     <Compile Include="ImportExport\M3uWriter.cs" />
+    <Compile Include="Loader\FallbackReader.cs" />
     <Compile Include="MixPlannerWindsorInstaller.cs" />
     <Compile Include="Loader\AiffId3Reader.cs" />
     <Compile Include="Loader\FileNameHelper.cs" />

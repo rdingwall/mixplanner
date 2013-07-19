@@ -63,6 +63,7 @@ namespace MixPlanner.Specs.Storage
              It should_correctly_retrieve_the_tracks_bpm = () => loadedTrackA.OriginalBpm.ShouldEqual(trackA.OriginalBpm);
              It should_correctly_retrieve_the_tracks_filename = () => loadedTrackA.Filename.ShouldEqual(trackA.Filename);
              It should_correctly_retrieve_the_tracks_images = () => loadedTrackA.HasImages.ShouldBeTrue();
+             It should_correctly_retrieve_the_tracks_duration = () => loadedTrackA.Duration.ShouldEqual(trackA.Duration);
 
              It should_skip_corrupt_images = () => loadedTrackB.HasImages.ShouldBeFalse();
 

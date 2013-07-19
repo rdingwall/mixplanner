@@ -4,10 +4,70 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:wpfSoundVisualizationLib="clr-namespace:WPFSoundVisualizationLib;assembly=WPFSoundVisualizationLib"
+             xmlns:viewModels="clr-namespace:MixPlanner.ViewModels"
              mc:Ignorable="d"
-             d:DesignHeight="300"
-             d:DesignWidth="300">
+             d:DesignHeight="100"
+             d:DesignWidth="800"
+             d:DataContext="{d:DesignInstance viewModels:AudioPlayerViewModel}">
     <Grid>
-        <wpfSoundVisualizationLib:WaveformTimeline x:Name="waveFormTimeline" />
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="50" />
+        </Grid.ColumnDefinitions>
+
+        <Image Grid.Column="0"
+               Width="64"
+               Height="64"
+               Source="{Binding ImageSource}"
+               Stretch="None"
+               Visibility="{Binding HasTrackLoaded, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+        <DockPanel Grid.Column="0"
+                   HorizontalAlignment="Left"
+                   Margin="0"
+                   VerticalAlignment="Top"
+                   Visibility="{Binding HasTrackLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Label x:Name="ActualKey"
+                   Content="{Binding OriginalKey, Converter={StaticResource HarmonicKeyCoverter}}"
+                   HorizontalAlignment="Center"
+                   FontSize="24"
+                   DockPanel.Dock="Top" />
+            <Label x:Name="ActualBpm"
+                   Content="{Binding OriginalBpm, Converter={StaticResource ActualBpmConverter}}"
+                   HorizontalAlignment="Center"
+                   DockPanel.Dock="Right" />
+        </DockPanel>
+
+        <Grid Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50*" />
+                <RowDefinition Height="50*" />
+            </Grid.RowDefinitions>
+            
+            <Label Grid.Row="0"  Content="{Binding Title}" />
+            
+            <StackPanel Grid.Row="1" Orientation="Horizontal">
+                <Label Content="{Binding Artist}"
+                       Visibility="{Binding HasTrackLoaded, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                <Label Content="{Binding Duration, Converter={StaticResource TrackDurationConverter}}"
+                       Visibility="{Binding HasTrackLoaded, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+            </StackPanel>
+            
+        </Grid>
+        
+        <StackPanel Orientation="Horizontal" Grid.Column="2">
+            <Button>Prev</Button>
+            <Button Content="{Binding Track, Converter={StaticResource PlayPauseCommandLabelConverter}}"
+                    CommandParameter="{Binding Track}"
+                    Command="{Binding PlayPauseCommand}"
+                    IsEnabled="{Binding HasTrackLoaded}"/>
+            <Button>Next</Button>
+        </StackPanel>
+        
+        <wpfSoundVisualizationLib:WaveformTimeline Grid.Column="3" x:Name="waveFormTimeline" />
+        
+        <Button Grid.Column="4" Command="{Binding OpenSettingsCommand}">Settings</Button>
     </Grid>
 </UserControl>

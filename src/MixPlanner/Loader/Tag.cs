@@ -1,3 +1,5 @@
+using System;
+
 namespace MixPlanner.Loader
 {
     public class Tag
@@ -20,8 +22,8 @@ namespace MixPlanner.Loader
         public string Publisher { get; set; }
         public string Title { get; set; }
         public string Year { get; set; }
-
         public byte[] ImageData { get; set; }
+        public TimeSpan Duration { get; set; }
 
         public override string ToString()
         {

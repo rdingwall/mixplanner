@@ -25,7 +25,7 @@ namespace MixPlanner.Loader
             if (filename == null) throw new ArgumentNullException("filename");
             try
             {
-                var file = OpenFile(filename);
+                File file = OpenFile(filename);
 
                 LogWarnings(filename, file);
 
@@ -34,6 +34,9 @@ namespace MixPlanner.Loader
                 PopulateFromId3v2(file, t);
                 PopulateFromId3v1(file, t);
                 PopulateFallbackValues(t);
+
+                if (file.Properties != null)
+                    t.Duration = file.Properties.Duration;
     
                 tag = t;
                 return true;
@@ -67,7 +70,7 @@ namespace MixPlanner.Loader
                 return;
 
             var id3v2 = (TagLib.Id3v2.Tag)file.GetTag(TagTypes.Id3v2);
-            
+
             tag.ImageData = GetImageData(id3v2);
 
             // ID3v2 Tags Reference: http://id3.org/id3v2.4.0-frames

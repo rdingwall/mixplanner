@@ -32,7 +32,8 @@ namespace MixPlanner.Specs
                              title: String.Format("Title-{0:N}", Guid.NewGuid()),
                              originalKey: key,
                              fileName: String.Format("{0:N}.mp3", Guid.NewGuid()),
-                             originalBpm: bpm);
+                             originalBpm: bpm,
+                             duration: GetRandomDuration());
         }
 
         public static Track CreateTrackWithFilenameOnly(string filename)
@@ -41,7 +42,8 @@ namespace MixPlanner.Specs
                              TrackDefaults.UnknownTitle,
                              HarmonicKey.Unknown,
                              filename,
-                             double.NaN);
+                             double.NaN,
+                             GetRandomDuration());
         }
 
         public static Track CreateRandomTrack()
@@ -66,6 +68,11 @@ namespace MixPlanner.Specs
             var factor = Random.NextDouble();
 
             return factor * (maxBpm - minBpm) + minBpm;
+        }
+
+        public static TimeSpan GetRandomDuration()
+        {
+            return new TimeSpan(hours: 0, minutes: Random.Next(8), seconds: Random.Next(60));
         }
     }
 }
