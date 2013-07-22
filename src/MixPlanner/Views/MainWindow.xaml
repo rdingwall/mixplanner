@@ -27,7 +27,6 @@
             <RowDefinition Height="50*" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="50*" />
-            <RowDefinition Height="24" />
         </Grid.RowDefinitions>
         
         <views:AudioPlayerView Grid.Row="0" DataContext="{Binding AudioPlayer}" />
@@ -41,18 +40,6 @@
                       ShowsPreview="True"
                       Height="5"/>
 
-        <views:TrackLibraryView Grid.Row="3" DataContext="{Binding TrackLibrary}" />
-
-        <DockPanel Grid.Row="4">
-            <views:StatusBarView DockPanel.Dock="Left"
-                                  DataContext="{Binding StatusBar}" />
-            
-            <views:MiniPlayerView DockPanel.Dock="Right"
-                                  DataContext="{Binding MiniPlayer}" />
-        </DockPanel>
-        
-        
+        <views:TrackLibraryView Grid.Row="3" DataContext="{Binding TrackLibrary}" />        
     </Grid>
-
-
 </Window>

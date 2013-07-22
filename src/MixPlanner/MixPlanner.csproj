@@ -346,10 +346,8 @@
     <Compile Include="ViewModels\ErrorWindowViewModel.cs" />
     <Compile Include="ViewModels\MixSurroundingAreaViewModel.cs" />
     <Compile Include="ViewModels\SettingsWindowViewModel.cs" />
-    <Compile Include="ViewModels\StatusBarViewModel.cs" />
     <Compile Include="ViewModels\TrackLibraryItemViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
-    <Compile Include="ViewModels\MiniPlayerViewModel.cs" />
     <Compile Include="ViewModels\MixItemViewModel.cs" />
     <Compile Include="ViewModels\MixItemViewModelFactory.cs" />
     <Compile Include="ViewModels\MixViewModel.cs" />
@@ -368,9 +366,6 @@
       <DependentUpon>ErrorWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Views\MiniPlayerView.xaml.cs">
-      <DependentUpon>MiniPlayerView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\MixItemView.xaml.cs">
       <DependentUpon>MixItemView.xaml</DependentUpon>
     </Compile>
@@ -379,9 +374,6 @@
     </Compile>
     <Compile Include="Views\SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\StatusBarView.xaml.cs">
-      <DependentUpon>StatusBarView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\TrackLibraryView.xaml.cs">
       <DependentUpon>TrackLibraryView.xaml</DependentUpon>
@@ -431,10 +423,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\MiniPlayerView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\MixItemView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -444,10 +432,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\SettingsWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\StatusBarView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
