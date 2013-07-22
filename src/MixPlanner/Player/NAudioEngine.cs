@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
 using NAudio.Wave;
@@ -287,11 +288,20 @@ namespace MixPlanner.Player
                 if (readCount % 3000 == 0)
                 {
                     float[] clonedData = (float[])waveformCompressedPoints.Clone();
-                    
-                    App.Current.Dispatcher.Invoke(new Action(() =>
+
+                    try
                     {
-                        WaveformData = clonedData;
-                    }));
+                        App.Current.Dispatcher.Invoke(new Action(() =>
+                        {
+                            WaveformData = clonedData;
+                        }));
+                    }
+                    catch (TaskCanceledException)
+                    {
+                        e.Cancel = true;
+                        return;
+                    }
+                    
                 }
 
                 if (waveformGenerateWorker.CancellationPending)
