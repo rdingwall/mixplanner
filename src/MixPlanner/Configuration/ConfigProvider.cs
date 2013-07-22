@@ -37,7 +37,7 @@ namespace MixPlanner.Configuration
             
             if (config == null)
             {
-                log.Info("Initializing MixPlanner with default config settings.");
+                log.Debug("Initializing MixPlanner with default config settings.");
                 config = Config.DefaultConfig;
                 await storage.SaveAsync(config);
             }
