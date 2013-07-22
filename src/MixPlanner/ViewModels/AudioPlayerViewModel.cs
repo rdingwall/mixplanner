@@ -1,15 +1,17 @@
 ﻿using System;
+using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
+using GongSolutions.Wpf.DragDrop;
 using MixPlanner.Commands;
 using MixPlanner.DomainModel;
 using MixPlanner.Events;
 
 namespace MixPlanner.ViewModels
 {
-    public class AudioPlayerViewModel : ViewModelBase
+    public class AudioPlayerViewModel : ViewModelBase, IDropTarget
     {
         bool hasTrackLoaded;
         Track track;
@@ -25,6 +27,7 @@ namespace MixPlanner.ViewModels
         public PlayNextTrackCommand PlayNextCommand { get; private set; }
         public EditTrackCommand EditTrackCommand { get; private set; }
         public ShowInExplorerCommand ShowInExplorerCommand { get; private set; }
+        public DropItemIntoAudioPlayerCommand DropItemCommand { get; private set; }
 
         public AudioPlayerViewModel(
             IMessenger messenger,
@@ -33,7 +36,8 @@ namespace MixPlanner.ViewModels
             PlayPreviousTrackCommand playPreviousCommand,
             PlayNextTrackCommand playNextCommand,
             EditTrackCommand editTrackCommand,
-            ShowInExplorerCommand showInExplorerCommand)
+            ShowInExplorerCommand showInExplorerCommand,
+            DropItemIntoAudioPlayerCommand dropItemCommand)
             : base(messenger)
         {
             if (openSettingsCommand == null) throw new ArgumentNullException("openSettingsCommand");
@@ -42,12 +46,14 @@ namespace MixPlanner.ViewModels
             if (playNextCommand == null) throw new ArgumentNullException("playNextCommand");
             if (editTrackCommand == null) throw new ArgumentNullException("editTrackCommand");
             if (showInExplorerCommand == null) throw new ArgumentNullException("showInExplorerCommand");
+            if (dropItemCommand == null) throw new ArgumentNullException("dropItemCommand");
             OpenSettingsCommand = openSettingsCommand;
             PlayPauseCommand = playPauseCommand;
             PlayPreviousCommand = playPreviousCommand;
             PlayNextCommand = playNextCommand;
             EditTrackCommand = editTrackCommand;
             ShowInExplorerCommand = showInExplorerCommand;
+            DropItemCommand = dropItemCommand;
 
             messenger.Register<PlayerStoppedEvent>(this, _ => RaisePropertyChanged(() => Track));
             messenger.Register<PlayerLoadedEvent>(this, OnLoaded);
@@ -132,6 +138,22 @@ namespace MixPlanner.ViewModels
                 originalBpm = value;
                 RaisePropertyChanged(() => OriginalBpm);
             }
+        }
+
+        public void DragOver(IDropInfo dropInfo)
+        {
+            if (!DropItemCommand.CanExecute(dropInfo))
+                return;
+
+            {
+                dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
+                dropInfo.Effects = DragDropEffects.Copy;
+            }
+        }
+
+        public void Drop(IDropInfo dropInfo)
+        {
+            DropItemCommand.Execute(dropInfo);
         }
 
         void OnLoaded(PlayerLoadedEvent obj)

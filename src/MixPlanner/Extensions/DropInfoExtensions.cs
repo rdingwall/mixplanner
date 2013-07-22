@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using MixPlanner.DomainModel;
+using MixPlanner.ViewModels;
 
 // ReSharper disable CheckNamespace
 namespace GongSolutions.Wpf.DragDrop
@@ -17,6 +19,19 @@ namespace GongSolutions.Wpf.DragDrop
                 return items;
 
             return Enumerable.Empty<T>();
+        }
+
+        public static Track GetTrack(this IDropInfo dropInfo)
+        {
+            var mixItems = dropInfo.Data as IEnumerable<IMixItem>;
+            if (mixItems != null)
+                return mixItems.Select(i => i.Track).FirstOrDefault();
+
+            var libraryItemViewModels = dropInfo.Data as IEnumerable<TrackLibraryItemViewModel>;
+            if (libraryItemViewModels != null)
+                return libraryItemViewModels.Select(v => v.Track).FirstOrDefault();
+
+            return dropInfo.Data as Track;
         }
     }
 }

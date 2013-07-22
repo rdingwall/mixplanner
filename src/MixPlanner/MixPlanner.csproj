@@ -151,6 +151,7 @@
     <Compile Include="AttachedProperties\WindowBehavior.cs" />
     <Compile Include="Commands\AsyncCommandBase.cs" />
     <Compile Include="Commands\AutoAdjustPitchCommand.cs" />
+    <Compile Include="Commands\DropItemIntoMixCommand.cs" />
     <Compile Include="Commands\PlaylistCommandBase.cs" />
     <Compile Include="Commands\PlayPreviousTrackCommand.cs" />
     <Compile Include="Commands\DragTracksOutOfMixCommand.cs" />
@@ -169,7 +170,7 @@
     <Compile Include="Commands\CloseWindowCommand.cs" />
     <Compile Include="Commands\CommandBase.cs" />
     <Compile Include="Commands\EditTrackCommand.cs" />
-    <Compile Include="Commands\DropItemIntoMixCommand.cs" />
+    <Compile Include="Commands\DropItemIntoAudioPlayerCommand.cs" />
     <Compile Include="Commands\GetRecommendationsCommand.cs" />
     <Compile Include="Commands\ImportFilesIntoMixCommand.cs" />
     <Compile Include="Commands\AutoMixCommand.cs">
