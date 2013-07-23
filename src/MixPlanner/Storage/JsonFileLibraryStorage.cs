@@ -67,7 +67,13 @@ namespace MixPlanner.Storage
                                  originalKey: jsonTrack.Key,
                                  originalBpm: jsonTrack.Bpm,
                                  fileName: jsonTrack.Filename,
-                                 duration: jsonTrack.Duration) { Images = imageData };
+                                 duration: jsonTrack.Duration)
+                           {
+                               Images = imageData,
+                               Genre = jsonTrack.Genre,
+                               Label = jsonTrack.Label,
+                               Year = jsonTrack.Year
+                           };
             }
             catch (Exception e)
             {
@@ -112,7 +118,10 @@ namespace MixPlanner.Storage
                 Key = track.OriginalKey,
                 Bpm = track.OriginalBpm,
                 Filename = track.Filename,
-                Duration = track.Duration
+                Duration = track.Duration,
+                Genre = track.Genre,
+                Year = track.Year,
+                Label = track.Label
             };
 
             string filename = filenameFormatter.FormatTrackFilename(track);

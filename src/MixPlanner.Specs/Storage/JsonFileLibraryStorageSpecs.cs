@@ -64,6 +64,9 @@ namespace MixPlanner.Specs.Storage
              It should_correctly_retrieve_the_tracks_filename = () => loadedTrackA.Filename.ShouldEqual(trackA.Filename);
              It should_correctly_retrieve_the_tracks_images = () => loadedTrackA.HasImages.ShouldBeTrue();
              It should_correctly_retrieve_the_tracks_duration = () => loadedTrackA.Duration.ShouldEqual(trackA.Duration);
+             It should_correctly_retrieve_the_tracks_year = () => loadedTrackA.Year.ShouldEqual(trackA.Year);
+             It should_correctly_retrieve_the_tracks_genre = () => loadedTrackA.Genre.ShouldEqual(trackA.Genre);
+             It should_correctly_retrieve_the_tracks_label = () => loadedTrackA.Label.ShouldEqual(trackA.Label);
 
              It should_skip_corrupt_images = () => loadedTrackB.HasImages.ShouldBeFalse();
 

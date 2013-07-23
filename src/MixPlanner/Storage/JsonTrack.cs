@@ -25,6 +25,12 @@ namespace MixPlanner.Storage
 
         public TimeSpan Duration { get; set; }
 
+        public string Label { get; set; }
+
+        public string Year { get; set; }
+
+        public string Genre { get; set; }
+
         // For serialization only
         public string Version { get { return version; } }
     }
