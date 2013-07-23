@@ -79,12 +79,38 @@
                                         Width="50" />
                         <GridViewColumn Header="Bpm"
                                         ap:GridViewSort.PropertyName="Bpm"
-                                        DisplayMemberBinding="{Binding Bpm}"
-                                        Width="50" />
+                                        Width="50">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding Bpm}"
+                                                   Visibility="{Binding HasBpm, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                        <Button Content="?"
+                                                Width="30"
+                                                CommandParameter="{Binding Track}"
+                                                Command="{Binding EditBpmCommand}"
+                                                Visibility="{Binding IsMissingBpm, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
                         <GridViewColumn Header="Key"
                                         ap:GridViewSort.PropertyName="Key"
-                                        DisplayMemberBinding="{Binding Key, Converter={StaticResource HarmonicKeyCoverter}}"
-                                        Width="50" />
+                                        Width="50">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding Key, Converter={StaticResource HarmonicKeyCoverter}}"
+                                                   Visibility="{Binding HasKey, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                        <Button Content="?"
+                                                Width="30"
+                                                CommandParameter="{Binding Track}"
+                                                Command="{Binding EditHarmonicKeyCommand}"
+                                                Visibility="{Binding IsMissingKey, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
                         <GridViewColumn Header="Artist"
                                         ap:GridViewSort.PropertyName="Artist"
                                         DisplayMemberBinding="{Binding Artist}"

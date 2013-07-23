@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows.Media;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
+using MixPlanner.Commands;
 using MixPlanner.DomainModel;
 using MixPlanner.Events;
 
@@ -22,11 +23,19 @@ namespace MixPlanner.ViewModels
         string filename;
         bool isCorrespondingMixItemSelected;
 
-        public TrackLibraryItemViewModel(IMessenger messenger, Track track)
+        public TrackLibraryItemViewModel(
+            IMessenger messenger, 
+            Track track,
+            QuickEditBpmCommand quickEditBpmCommand,
+            QuickEditHarmonicKeyCommand quickEditHarmonicKeyCommand)
         {
             if (messenger == null) throw new ArgumentNullException("messenger");
             if (track == null) throw new ArgumentNullException("track");
+            if (quickEditBpmCommand == null) throw new ArgumentNullException("quickEditBpmCommand");
+            if (quickEditHarmonicKeyCommand == null) throw new ArgumentNullException("quickEditHarmonicKeyCommand");
             Track = track;
+            QuickEditBpmCommand = quickEditBpmCommand;
+            QuickEditHarmonicKeyCommand = quickEditHarmonicKeyCommand;
             PopulateFields(track);
 
             messenger.Register<RecommendationsClearedEvent>(this, _ => Transition = null);
@@ -164,6 +173,8 @@ namespace MixPlanner.ViewModels
             {
                 key = value;
                 RaisePropertyChanged(() => Key);
+                RaisePropertyChanged(() => HasKey);
+                RaisePropertyChanged(() => IsMissingKey);
             }
         }
 
@@ -204,7 +215,29 @@ namespace MixPlanner.ViewModels
             {
                 bpm = value;
                 RaisePropertyChanged(() => Bpm);
+                RaisePropertyChanged(() => HasBpm);
+                RaisePropertyChanged(() => IsMissingBpm);
             }
+        }
+
+        public bool HasBpm
+        {
+            get { return !Double.IsNaN(bpm); }
+        }
+
+        public bool IsMissingBpm
+        {
+            get { return !HasBpm; }
+        }
+
+        public bool HasKey
+        {
+            get { return !Key.IsUnknown; }
+        }
+
+        public bool IsMissingKey
+        {
+            get { return !HasKey; }
         }
 
         public ImageSource ImageSource
@@ -215,6 +248,8 @@ namespace MixPlanner.ViewModels
         public string SearchIndexData { get; private set; }
 
         public Track Track { get; private set; }
+        public QuickEditBpmCommand QuickEditBpmCommand { get; private set; }
+        public QuickEditHarmonicKeyCommand QuickEditHarmonicKeyCommand { get; private set; }
         public bool IsSelected { get; set; }
     }
 }

@@ -20,6 +20,8 @@ namespace MixPlanner.ViewModels
 {
     public class TrackLibraryViewModel : ViewModelBase, IDragSource
     {
+        readonly QuickEditBpmCommand quickEditBpmCommand;
+        readonly QuickEditHarmonicKeyCommand quickEditHarmonicKeyCommand;
         TrackLibraryItemViewModel selectedItem;
         readonly ObservableCollection<TrackLibraryItemViewModel> items;
 
@@ -96,9 +98,11 @@ namespace MixPlanner.ViewModels
             ShowInExplorerCommand showInExplorerCommand,
             OpenSettingsCommand openSettingsCommand,
             EditTrackCommand editTrackCommand,
-            ITrackLibrary trackLibrary)
+            QuickEditBpmCommand quickEditBpmCommand,
+            QuickEditHarmonicKeyCommand quickEditHarmonicKeyCommand)
             : base(messenger)
         {
+            
             if (importFilesCommand == null) throw new ArgumentNullException("importFilesCommand");
             if (removeTracksCommand == null) throw new ArgumentNullException("removeTracksCommand");
             if (playCommand == null) throw new ArgumentNullException("playCommand");
@@ -106,10 +110,13 @@ namespace MixPlanner.ViewModels
             if (showInExplorerCommand == null) throw new ArgumentNullException("showInExplorerCommand");
             if (openSettingsCommand == null) throw new ArgumentNullException("openSettingsCommand");
             if (editTrackCommand == null) throw new ArgumentNullException("editTrackCommand");
+            if (quickEditBpmCommand == null) throw new ArgumentNullException("quickEditBpmCommand");
 
             items = new ObservableCollection<TrackLibraryItemViewModel>();
             ItemsView = CollectionViewSource.GetDefaultView(items);
             PlayPauseCommand = playCommand;
+            this.quickEditBpmCommand = quickEditBpmCommand;
+            this.quickEditHarmonicKeyCommand = quickEditHarmonicKeyCommand;
 
             messenger.Register<TrackAddedToLibraryEvent>(this, OnTrackAddedToLibrary);
             messenger.Register<TrackRemovedFromLibraryEvent>(this, OnTrackRemoved);
@@ -130,7 +137,7 @@ namespace MixPlanner.ViewModels
         void OnTrackLibraryLoaded(TrackLibraryLoadedEvent obj)
         {
             items.Clear();
-            obj.Tracks.ForEach(t => items.Add(new TrackLibraryItemViewModel(MessengerInstance, t)));
+            obj.Tracks.ForEach(t => items.Add(CreateItemViewModel(t)));
         }
 
         void OnSearchBoxFocusRequested(SearchBoxFocusRequestedEvent obj)
@@ -173,8 +180,8 @@ namespace MixPlanner.ViewModels
 
         void OnTrackAddedToLibrary(TrackAddedToLibraryEvent e)
         {
-            var track = e.Track;
-            var item = new TrackLibraryItemViewModel(MessengerInstance, track);
+            Track track = e.Track;
+            TrackLibraryItemViewModel item = CreateItemViewModel(track);
             items.Add(item);
         }
 
@@ -182,6 +189,11 @@ namespace MixPlanner.ViewModels
         {
             RaisePropertyChanged(() => SelectedItems);
             RaisePropertyChanged(() => SelectedTracks);
+        }
+
+        TrackLibraryItemViewModel CreateItemViewModel(Track track)
+        {
+            return new TrackLibraryItemViewModel(MessengerInstance, track, quickEditBpmCommand, quickEditHarmonicKeyCommand);
         }
 
         public void StartDrag(IDragInfo dragInfo)
