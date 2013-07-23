@@ -152,6 +152,8 @@
     <Compile Include="Commands\AsyncCommandBase.cs" />
     <Compile Include="Commands\AutoAdjustPitchCommand.cs" />
     <Compile Include="Commands\DropItemIntoMixCommand.cs" />
+    <Compile Include="Commands\ImportFilesAndPlayCommand.cs" />
+    <Compile Include="Commands\ImportFilesCommandBase.cs" />
     <Compile Include="Commands\PlaylistCommandBase.cs" />
     <Compile Include="Commands\PlayPreviousTrackCommand.cs" />
     <Compile Include="Commands\DragTracksOutOfMixCommand.cs" />
