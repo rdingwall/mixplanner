@@ -82,6 +82,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\morelinq.1.0.15631-beta\lib\net35\MoreLinq.dll</HintPath>
     </Reference>
+    <Reference Include="MvvmValidation">
+      <HintPath>..\..\packages\MvvmValidation.1.1.0-beta2\lib\portable-win8+net45+sl5+wp8\MvvmValidation.dll</HintPath>
+    </Reference>
     <Reference Include="NAudio">
       <HintPath>..\..\packages\NAudio.1.6\lib\net20\NAudio.dll</HintPath>
     </Reference>
@@ -111,6 +114,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity.Design" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\MvvmLight.4.1.23.0\lib\net40\System.Windows.Interactivity.dll</HintPath>
@@ -160,6 +164,7 @@
     <Compile Include="Commands\PlayPreviousTrackCommand.cs" />
     <Compile Include="Commands\DragTracksOutOfMixCommand.cs" />
     <Compile Include="Commands\PlayNextTrackCommand.cs" />
+    <Compile Include="Commands\SaveBpmCommand.cs" />
     <Compile Include="Commands\SortTracksCommandBase.cs" />
     <Compile Include="Commands\CopyMixcloudTracklistCommand.cs" />
     <Compile Include="Commands\FocusSearchBoxCommand.cs" />
@@ -349,6 +354,7 @@
     <Compile Include="ViewModels\EditTrackWindowViewModel.cs" />
     <Compile Include="ViewModels\ErrorWindowViewModel.cs" />
     <Compile Include="ViewModels\MixSurroundingAreaViewModel.cs" />
+    <Compile Include="ViewModels\QuickEditBpmViewModel.cs" />
     <Compile Include="ViewModels\SettingsWindowViewModel.cs" />
     <Compile Include="ViewModels\TrackLibraryItemViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
@@ -357,6 +363,7 @@
     <Compile Include="ViewModels\MixViewModel.cs" />
     <Compile Include="ViewModels\TrackLibraryViewModel.cs" />
     <Compile Include="ViewModels\TrackLibrarySearchFilter.cs" />
+    <Compile Include="ViewModels\ValidatableViewModelBase.cs" />
     <Compile Include="Views\AudioPlayerView.xaml.cs">
       <DependentUpon>AudioPlayerView.xaml</DependentUpon>
     </Compile>
@@ -375,6 +382,9 @@
     </Compile>
     <Compile Include="Views\MixView.xaml.cs">
       <DependentUpon>MixView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\QuickEditBpmWindow.xaml.cs">
+      <DependentUpon>QuickEditBpmWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
@@ -432,6 +442,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MixView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\QuickEditBpmWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

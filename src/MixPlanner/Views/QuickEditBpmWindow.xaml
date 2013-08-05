@@ -1,0 +1,41 @@
+﻿<Window x:Class="MixPlanner.Views.QuickEditBpmWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModels="clr-namespace:MixPlanner.ViewModels"
+        xmlns:attachedProperties="clr-namespace:MixPlanner.AttachedProperties"
+        mc:Ignorable="d"
+        Title="Edit BPM"
+        Height="135"
+        Width="174"
+        d:DataContext="{d:DesignInstance viewModels:QuickEditBpmViewModel}"
+        attachedProperties:DialogCloser.DialogResult="{Binding Close}">
+    
+    <Window.InputBindings>
+        <KeyBinding Key="Escape"
+                    CommandParameter="{Binding}"
+                    Command="{Binding CloseCommand}" />
+    </Window.InputBindings>
+    
+    <StackPanel Orientation="Horizontal"
+                Margin="10,10,11,7">
+        <TextBox Text="{Binding Bpm, Mode=TwoWay, ValidatesOnNotifyDataErrors=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}"
+                 Width="100"
+                 FontSize="48">
+            <TextBox.InputBindings>
+                <KeyBinding Key="Enter"
+                            CommandParameter="{Binding}"
+                            Command="{Binding SaveBpmCommand}" />
+                <KeyBinding Key="Return"
+                            CommandParameter="{Binding}"
+                            Command="{Binding SaveBpmCommand}" />
+            </TextBox.InputBindings>
+        </TextBox>
+        <Button Content="Save"
+                CommandParameter="{Binding}"
+                Command="{Binding SaveBpmCommand}">
+            
+        </Button>
+    </StackPanel>
+</Window>
