@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows.Input;
 using log4net;
 
@@ -45,6 +46,14 @@ namespace MixPlanner.Commands
 
         public bool CanExecute(object parameter)
         {
+            if (this is QuickEditBpmCommand)
+            {
+                if (parameter == null)
+                    Console.WriteLine("NULL - QuickEditBpmCommand.CanExecute()");
+                else
+                    Console.WriteLine("OK - QuickEditBpmCommandCanExecute()");
+            }
+
             if (parameter == null)
                 return false;
 

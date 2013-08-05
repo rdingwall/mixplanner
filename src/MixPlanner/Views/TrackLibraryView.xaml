@@ -91,10 +91,11 @@
                                         </StackPanel.InputBindings>
                                         <TextBlock Text="{Binding Bpm}"
                                                    Visibility="{Binding HasBpm, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                        <!-- Using RelativeSource to fix CanExecute behaviour while scrolling: http://stackoverflow.com/a/4047384/91551 -->
                                         <Button Content="?"
                                                 Width="30"
                                                 CommandParameter="{Binding Track}"
-                                                Command="{Binding QuickEditBpmCommand}"
+                                                Command="{Binding DataContext.QuickEditBpmCommand, RelativeSource={RelativeSource AncestorType=ListViewItem}}"
                                                 Visibility="{Binding IsMissingBpm, Converter={StaticResource BooleanToVisibilityConverter}}" />
                                     </StackPanel>
                                 </DataTemplate>
@@ -116,7 +117,7 @@
                                         <Button Content="?"
                                                 Width="30"
                                                 CommandParameter="{Binding Track}"
-                                                Command="{Binding QuickEditHarmonicKeyCommand}"
+                                                Command="{Binding DataContext.QuickEditHarmonicKeyCommand, RelativeSource={RelativeSource AncestorType=ListViewItem}}"
                                                 Visibility="{Binding IsMissingKey, Converter={StaticResource BooleanToVisibilityConverter}}" />
                                     </StackPanel>
                                 </DataTemplate>
