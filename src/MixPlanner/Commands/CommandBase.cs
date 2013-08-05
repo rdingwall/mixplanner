@@ -46,14 +46,6 @@ namespace MixPlanner.Commands
 
         public bool CanExecute(object parameter)
         {
-            if (this is QuickEditBpmCommand)
-            {
-                if (parameter == null)
-                    Console.WriteLine("NULL - QuickEditBpmCommand.CanExecute()");
-                else
-                    Console.WriteLine("OK - QuickEditBpmCommandCanExecute()");
-            }
-
             if (parameter == null)
                 return false;
 
