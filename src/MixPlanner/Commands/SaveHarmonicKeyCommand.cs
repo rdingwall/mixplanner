@@ -5,26 +5,21 @@ using MixPlanner.ViewModels;
 
 namespace MixPlanner.Commands
 {
-    public class SaveBpmCommand : AsyncCommandBase<QuickEditBpmViewModel>
+    public class SaveHarmonicKeyCommand : AsyncCommandBase<QuickEditHarmonicKeyViewModel>
     {
         readonly ITrackLibrary library;
 
-        public SaveBpmCommand(ITrackLibrary library)
+        public SaveHarmonicKeyCommand(ITrackLibrary library)
         {
             if (library == null) throw new ArgumentNullException("library");
             this.library = library;
         }
 
-        protected async override Task DoExecute(QuickEditBpmViewModel parameter)
+        protected async override Task DoExecute(QuickEditHarmonicKeyViewModel parameter)
         {
-            parameter.Validate();
-
-            if (parameter.HasErrors)
-                return;
-
             var track = parameter.Track;
 
-            track.OriginalBpm = Double.Parse(parameter.Bpm);
+            track.OriginalKey = parameter.HarmonicKey;
 
             await library.SaveAsync(track);
 

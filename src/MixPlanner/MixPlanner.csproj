@@ -155,9 +155,10 @@
     <Compile Include="AttachedProperties\WindowBehavior.cs" />
     <Compile Include="Commands\AsyncCommandBase.cs" />
     <Compile Include="Commands\AutoAdjustPitchCommand.cs" />
+    <Compile Include="Commands\QuickEditHarmonicKeyCommand.cs" />
+    <Compile Include="Commands\SaveHarmonicKeyCommand.cs" />
     <Compile Include="Commands\DropItemIntoMixCommand.cs" />
     <Compile Include="Commands\QuickEditBpmCommand.cs" />
-    <Compile Include="Commands\QuickEditHarmonicKeyCommand.cs" />
     <Compile Include="Commands\ImportFilesAndPlayCommand.cs" />
     <Compile Include="Commands\ImportFilesCommandBase.cs" />
     <Compile Include="Commands\PlaylistCommandBase.cs" />
@@ -351,6 +352,7 @@
     <Compile Include="Storage\JsonTrack.cs" />
     <Compile Include="ViewModels\AudioPlayerViewModel.cs" />
     <Compile Include="ViewModels\CloseableViewModelBase.cs" />
+    <Compile Include="ViewModels\QuickEditHarmonicKeyViewModel.cs" />
     <Compile Include="ViewModels\EditTrackWindowViewModel.cs" />
     <Compile Include="ViewModels\ErrorWindowViewModel.cs" />
     <Compile Include="ViewModels\MixSurroundingAreaViewModel.cs" />
@@ -366,6 +368,9 @@
     <Compile Include="ViewModels\ValidatableViewModelBase.cs" />
     <Compile Include="Views\AudioPlayerView.xaml.cs">
       <DependentUpon>AudioPlayerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\QuickEditHarmonicKeyWindow.xaml.cs">
+      <DependentUpon>QuickEditHarmonicKeyWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MixSurroundingAreaView.xaml.cs">
       <DependentUpon>MixSurroundingAreaView.xaml</DependentUpon>
@@ -408,6 +413,10 @@
     <Page Include="Views\AudioPlayerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\QuickEditHarmonicKeyWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\MixSurroundingAreaView.xaml">
       <Generator>MSBuild:Compile</Generator>
