@@ -4,18 +4,18 @@
       <controlProperties>
         <topheight>26</topheight>
         <maximizeRestore>true</maximizeRestore>
-        <minimize>true</minimize>
         <text>MixPlanner</text>
         <bottomheight>0</bottomheight>
+        <minimize>true</minimize>
         <dragger>true</dragger>
         <close>true</close>
       </controlProperties>
     </control>
-    <control controlID="2" controlTypeID="com.balsamiq.mockups::DataGrid" x="414" y="511" w="956" h="234" measuredW="914" measuredH="118" zOrder="1" locked="false" isInGroup="-1">
+    <control controlID="2" controlTypeID="com.balsamiq.mockups::DataGrid" x="414" y="511" w="956" h="234" measuredW="1148" measuredH="118" zOrder="1" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>%2CKey%2C%20Bpm%2C%20Artist%2C%20Title%2C%20Year%2C%20Genre%2C%20Record%20Label%0A%2C9A%2C%20128%2C%20Hardwell%2C%20%20%20%20%20%20Three%20Triangles%20%28Original%20Club%20Mix%29%2C%202012%2C%20Progressive%20House%2C%20Toolroom%20Records%0A%2C7A%2C%20124%2C%20Ant%20Brooks%5C%2C%20Diavlo%2C%20%20%20%20%20%20Flex%20%28Original%20Mix%29%2C%202012%2C%20Tech%20House%2C%20Toolroom%20Records%0A%2C%2C%2CGrego%20Salto%5C%2C%20Chocolate%20Puma%2C%20%20%20%20%20%20Gimme%20Sum%2C%202012%2C%20Tech%20House%2C%20Pssst%20Music</text>
-        <selectedIndex>0</selectedIndex>
         <verticalScrollbar>true</verticalScrollbar>
+        <text>Transition%2C%20Pitch%2C%2C%20Key%2C%20Bpm%2C%20Artist%2C%20Title%2C%20Year%2C%20Genre%2C%20Record%20Label%0A%3E%3E%3E%20Relative%20Major%20%28B%20-%3E%20A%29%2C+6%25%2C%2C9A%2C%20128%2C%20Hardwell%2C%20%20%20%20%20%20Three%20Triangles%20%28Original%20Club%20Mix%29%2C%202012%2C%20Progressive%20House%2C%20Toolroom%20Records%0A%2C%2C%2C7A%2C%20124%2C%20Ant%20Brooks%5C%2C%20Diavlo%2C%20%20%20%20%20%20Flex%20%28Original%20Mix%29%2C%202012%2C%20Tech%20House%2C%20Toolroom%20Records%0A%2C%2C%2C%2C%2CGrego%20Salto%5C%2C%20Chocolate%20Puma%2C%20%20%20%20%20%20Gimme%20Sum%2C%202012%2C%20Tech%20House%2C%20Pssst%20Music</text>
+        <selectedIndex>0</selectedIndex>
       </controlProperties>
     </control>
     <control controlID="5" controlTypeID="com.balsamiq.mockups::VSplitter" x="417" y="466" w="950" h="-1" measuredW="100" measuredH="12" zOrder="2" locked="false" isInGroup="-1"/>
@@ -53,12 +53,12 @@
         <text>Three%20Triangles%20%28Original%20Club%20Mix%29%0AHardwell</text>
       </controlProperties>
     </control>
-    <control controlID="22" controlTypeID="com.balsamiq.mockups::Icon" x="468" y="605" w="-1" h="-1" measuredW="16" measuredH="16" zOrder="15" locked="false" isInGroup="-1">
+    <control controlID="22" controlTypeID="com.balsamiq.mockups::Icon" x="719" y="605" w="-1" h="-1" measuredW="16" measuredH="16" zOrder="15" locked="false" isInGroup="-1">
       <controlProperties>
         <icon>SquaredPlusIcon%7Cxsmall</icon>
       </controlProperties>
     </control>
-    <control controlID="23" controlTypeID="com.balsamiq.mockups::Icon" x="515" y="605" w="-1" h="-1" measuredW="16" measuredH="16" zOrder="16" locked="false" isInGroup="-1">
+    <control controlID="23" controlTypeID="com.balsamiq.mockups::Icon" x="759" y="605" w="-1" h="-1" measuredW="16" measuredH="16" zOrder="16" locked="false" isInGroup="-1">
       <controlProperties>
         <icon>SquaredPlusIcon%7Cxsmall</icon>
       </controlProperties>
@@ -139,9 +139,9 @@
     </control>
     <control controlID="60" controlTypeID="com.balsamiq.mockups::Image" x="699" y="221" w="75" h="58" measuredW="141" measuredH="144" zOrder="7" locked="false" isInGroup="-1"/>
     <control controlID="61" controlTypeID="com.balsamiq.mockups::Image" x="700" y="316" w="75" h="58" measuredW="141" measuredH="144" zOrder="6" locked="false" isInGroup="-1"/>
-    <control controlID="62" controlTypeID="com.balsamiq.mockups::Image" x="755" y="539" w="31" h="26" measuredW="141" measuredH="144" zOrder="34" locked="false" isInGroup="-1"/>
-    <control controlID="63" controlTypeID="com.balsamiq.mockups::Image" x="753" y="571" w="31" h="26" measuredW="141" measuredH="144" zOrder="35" locked="false" isInGroup="-1"/>
-    <control controlID="64" controlTypeID="com.balsamiq.mockups::Image" x="754" y="600" w="31" h="26" measuredW="141" measuredH="144" zOrder="36" locked="false" isInGroup="-1"/>
+    <control controlID="62" controlTypeID="com.balsamiq.mockups::Image" x="985" y="541" w="31" h="26" measuredW="141" measuredH="144" zOrder="34" locked="false" isInGroup="-1"/>
+    <control controlID="63" controlTypeID="com.balsamiq.mockups::Image" x="983" y="573" w="31" h="26" measuredW="141" measuredH="144" zOrder="35" locked="false" isInGroup="-1"/>
+    <control controlID="64" controlTypeID="com.balsamiq.mockups::Image" x="984" y="602" w="31" h="26" measuredW="141" measuredH="144" zOrder="36" locked="false" isInGroup="-1"/>
     <control controlID="65" controlTypeID="com.balsamiq.mockups::Label" x="964" y="201" w="-1" h="-1" measuredW="145" measuredH="18" zOrder="37" locked="false" isInGroup="-1">
       <controlProperties>
         <text>50%25%20harmonic%20%7C%205-10%20mins%20%28approx%29</text>
@@ -155,8 +155,8 @@
     </control>
     <control controlID="67" controlTypeID="com.balsamiq.mockups::ProgressBar" x="854" y="61" w="465" h="51" measuredW="100" measuredH="20" zOrder="39" locked="false" isInGroup="-1">
       <controlProperties>
-        <scrollBarValue>30</scrollBarValue>
         <indeterminate>false</indeterminate>
+        <scrollBarValue>30</scrollBarValue>
       </controlProperties>
     </control>
     <control controlID="68" controlTypeID="com.balsamiq.mockups::HRule" x="417" y="109" w="950" h="-1" measuredW="100" measuredH="5" zOrder="40" locked="false" isInGroup="-1"/>
@@ -182,21 +182,22 @@
         <icon>GearIcon%7Cmedium</icon>
       </controlProperties>
     </control>
-    <control controlID="75" controlTypeID="com.balsamiq.mockups::Icon" x="424" y="544" w="-1" h="-1" measuredW="16" measuredH="16" zOrder="47" locked="false" isInGroup="-1">
+    <control controlID="75" controlTypeID="com.balsamiq.mockups::Icon" x="670" y="543" w="-1" h="-1" measuredW="16" measuredH="16" zOrder="47" locked="false" isInGroup="-1">
       <controlProperties>
         <icon>PauseIcon%7Cxsmall</icon>
       </controlProperties>
     </control>
-    <control controlID="76" controlTypeID="com.balsamiq.mockups::Icon" x="427" y="576" w="-1" h="-1" measuredW="16" measuredH="16" zOrder="48" locked="false" isInGroup="-1">
+    <control controlID="76" controlTypeID="com.balsamiq.mockups::Icon" x="673" y="575" w="-1" h="-1" measuredW="16" measuredH="16" zOrder="48" locked="false" isInGroup="-1">
       <controlProperties>
         <icon>RightTriangleIcon%7Cxsmall</icon>
       </controlProperties>
     </control>
-    <control controlID="77" controlTypeID="com.balsamiq.mockups::Icon" x="427" y="605" w="-1" h="-1" measuredW="16" measuredH="16" zOrder="49" locked="false" isInGroup="-1">
+    <control controlID="77" controlTypeID="com.balsamiq.mockups::Icon" x="673" y="604" w="-1" h="-1" measuredW="16" measuredH="16" zOrder="49" locked="false" isInGroup="-1">
       <controlProperties>
         <icon>RightTriangleIcon%7Cxsmall</icon>
       </controlProperties>
     </control>
+    <control controlID="78" controlTypeID="com.balsamiq.mockups::ScratchOut" x="869" y="69" w="442" h="34" measuredW="205" measuredH="107" zOrder="62" locked="false" isInGroup="-1"/>
     <control controlID="80" controlTypeID="__group__" x="1174" y="225" w="-1" h="-1" measuredW="184" measuredH="225" zOrder="50" locked="false" isInGroup="-1">
       <groupChildrenDescriptors>
         <control controlID="52" controlTypeID="com.balsamiq.mockups::Menu" x="0" y="0" w="184" h="-1" measuredW="150" measuredH="225" zOrder="0" locked="false" isInGroup="80">
@@ -264,7 +265,6 @@
         <color>40463</color>
       </controlProperties>
     </control>
-    <control controlID="78" controlTypeID="com.balsamiq.mockups::ScratchOut" x="869" y="69" w="442" h="34" measuredW="205" measuredH="107" zOrder="62" locked="false" isInGroup="-1"/>
     <control controlID="98" controlTypeID="com.balsamiq.mockups::Canvas" x="693" y="219" w="10" h="60" measuredW="100" measuredH="70" zOrder="63" locked="false" isInGroup="-1">
       <controlProperties>
         <color>8388863</color>
@@ -283,22 +283,28 @@
         <borderStyle>none</borderStyle>
       </controlProperties>
     </control>
-    <control controlID="101" controlTypeID="com.balsamiq.mockups::Canvas" x="449" y="537" w="10" h="34" measuredW="100" measuredH="70" zOrder="66" locked="false" isInGroup="-1">
+    <control controlID="101" controlTypeID="com.balsamiq.mockups::Canvas" x="699" y="537" w="10" h="34" measuredW="100" measuredH="70" zOrder="66" locked="false" isInGroup="-1">
       <controlProperties>
         <color>16744448</color>
         <borderStyle>none</borderStyle>
       </controlProperties>
     </control>
-    <control controlID="102" controlTypeID="com.balsamiq.mockups::Canvas" x="449" y="567" w="10" h="34" measuredW="100" measuredH="70" zOrder="67" locked="false" isInGroup="-1">
+    <control controlID="102" controlTypeID="com.balsamiq.mockups::Canvas" x="699" y="567" w="10" h="34" measuredW="100" measuredH="70" zOrder="67" locked="false" isInGroup="-1">
       <controlProperties>
         <color>65408</color>
         <borderStyle>none</borderStyle>
       </controlProperties>
     </control>
+    <control controlID="103" controlTypeID="com.balsamiq.mockups::Canvas" x="701" y="595" w="10" h="34" measuredW="100" measuredH="70" zOrder="68" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>5263440</color>
+        <borderStyle>none</borderStyle>
+      </controlProperties>
+    </control>
     <control controlID="104" controlTypeID="com.balsamiq.mockups::Label" x="546" y="83" w="-1" h="-1" measuredW="34" measuredH="25" zOrder="69" locked="false" isInGroup="-1">
       <controlProperties>
-        <color>6710886</color>
         <text>6%3A42</text>
+        <color>6710886</color>
       </controlProperties>
     </control>
     <control controlID="105" controlTypeID="com.balsamiq.mockups::Label" x="437" y="93" w="-1" h="-1" measuredW="29" measuredH="25" zOrder="70" locked="false" isInGroup="-1">
@@ -309,12 +315,6 @@
     <control controlID="106" controlTypeID="com.balsamiq.mockups::Canvas" x="412" y="56" w="12" h="60" measuredW="100" measuredH="70" zOrder="71" locked="false" isInGroup="-1">
       <controlProperties>
         <color>8388863</color>
-        <borderStyle>none</borderStyle>
-      </controlProperties>
-    </control>
-    <control controlID="103" controlTypeID="com.balsamiq.mockups::Canvas" x="451" y="595" w="10" h="34" measuredW="100" measuredH="70" zOrder="68" locked="false" isInGroup="-1">
-      <controlProperties>
-        <color>5263440</color>
         <borderStyle>none</borderStyle>
       </controlProperties>
     </control>

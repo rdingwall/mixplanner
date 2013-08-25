@@ -19,9 +19,9 @@ namespace MixPlanner.Specs.Storage
              Establish context =
                  () =>
                      {
-                         TestLibraryDir.Recreate();
+                         TestDirectories.Library.Recreate();
 
-                         storage = new JsonFileLibraryStorage(new TrackImageResizer(), TestLibraryDir.DirectoryName);
+                         storage = new JsonFileLibraryStorage(new TrackImageResizer(), TestDirectories.Library.Path);
 
                          trackA = TestTracks.CreateRandomTrack();
                          trackB = TestTracks.CreateRandomTrack();
@@ -35,17 +35,17 @@ namespace MixPlanner.Specs.Storage
                          trackA.Artist = "different artist";
                          storage.UpdateTrackAsync(trackA).Wait();
 
-                         var goodImageFilename = Path.Combine(TestLibraryDir.DirectoryName,
+                         var goodImageFilename = Path.Combine(TestDirectories.Library.Path,
                                                               String.Format("{0}.png", trackA.Id));
                          File.Copy("example.png", goodImageFilename);
 
-                         TestLibraryDir.Touch("corrupt.track");
+                         TestDirectories.Library.Touch("corrupt.track");
 
                          var corruptFilename = String.Format("{0}.png", trackB.Id);
-                         TestLibraryDir.CreateFile(corruptFilename, "this is a corrupt png");
+                         TestDirectories.Library.CreateFile(corruptFilename, "this is a corrupt png");
                      };
 
-             Cleanup after = () => TestLibraryDir.Delete();
+             Cleanup after = () => TestDirectories.Library.Delete();
 
              Because of = () =>
                               {

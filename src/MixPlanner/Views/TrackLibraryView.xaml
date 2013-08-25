@@ -78,6 +78,18 @@
                                         ap:GridViewSort.PropertyName="IncreaseRequired"
                                         DisplayMemberBinding="{Binding IncreaseRequired, Converter={StaticResource PlaySpeedIncreaseConverter}}"
                                         Width="50" />
+                        <GridViewColumn ap:GridViewSort.PropertyName="IsPlaying"
+                                        Width="50">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <!-- Using RelativeSource to fix CanExecute behaviour while scrolling: http://stackoverflow.com/a/4047384/91551 -->
+                                    <Button Content="{Binding Track, Converter={StaticResource PlayPauseCommandLabelConverter}}"
+                                            Width="30"
+                                            CommandParameter="{Binding Track}"
+                                            Command="{Binding DataContext.PlayPauseCommand, RelativeSource={RelativeSource AncestorType=ListViewItem}}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
                         <GridViewColumn Header="Bpm"
                                         ap:GridViewSort.PropertyName="Bpm"
                                         Width="50">

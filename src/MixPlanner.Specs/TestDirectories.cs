@@ -23,12 +23,19 @@ namespace MixPlanner.Specs
             }
         }
 
-        public static void ClearAll()
+        public static void RecreateAll()
         {
             DataDirectory.Recreate();
+            LibraryDirectory.Recreate();
         }
 
         public static TestDirectory Library { get { return LibraryDirectory; } }
         public static TestDirectory Data { get { return DataDirectory; } }
+
+        public static void DeleteAll()
+        {
+            DataDirectory.Delete();
+            LibraryDirectory.Delete();
+        }
     }
 }

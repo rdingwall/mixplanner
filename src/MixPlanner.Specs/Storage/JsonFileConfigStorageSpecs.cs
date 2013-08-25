@@ -15,7 +15,7 @@ namespace MixPlanner.Specs.Storage
                  () =>
                      {
 
-                         storage = new JsonFileConfigStorage();
+                         storage = new JsonFileConfigStorage(TestDirectories.Library.Path);
 
                          originalConfig = new Config
                                               {

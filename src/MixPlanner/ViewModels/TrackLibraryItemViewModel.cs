@@ -7,11 +7,13 @@ using GalaSoft.MvvmLight.Messaging;
 using MixPlanner.Commands;
 using MixPlanner.DomainModel;
 using MixPlanner.Events;
+using MixPlanner.Player;
 
 namespace MixPlanner.ViewModels
 {
     public class TrackLibraryItemViewModel : ViewModelBase
     {
+        readonly IAudioPlayer player;
         Transition transition;
         string artist;
         string title;
@@ -25,17 +27,22 @@ namespace MixPlanner.ViewModels
 
         public TrackLibraryItemViewModel(
             IMessenger messenger, 
+            IAudioPlayer player,
             Track track,
             QuickEditBpmCommand quickEditBpmCommand,
-            QuickEditHarmonicKeyCommand quickEditHarmonicKeyCommand)
+            QuickEditHarmonicKeyCommand quickEditHarmonicKeyCommand,
+            PlayPauseTrackCommand playPauseCommand)
         {
             if (messenger == null) throw new ArgumentNullException("messenger");
             if (track == null) throw new ArgumentNullException("track");
             if (quickEditBpmCommand == null) throw new ArgumentNullException("quickEditBpmCommand");
             if (quickEditHarmonicKeyCommand == null) throw new ArgumentNullException("quickEditHarmonicKeyCommand");
+            if (playPauseCommand == null) throw new ArgumentNullException("playPauseCommand");
+            this.player = player;
             Track = track;
             QuickEditBpmCommand = quickEditBpmCommand;
             QuickEditHarmonicKeyCommand = quickEditHarmonicKeyCommand;
+            PlayPauseCommand = playPauseCommand;
             PopulateFields(track);
 
             messenger.Register<RecommendationsClearedEvent>(this, _ => Transition = null);
@@ -247,9 +254,12 @@ namespace MixPlanner.ViewModels
 
         public string SearchIndexData { get; private set; }
 
+        public bool IsPlaying { get { return player.IsPlaying(Track); } }
+
         public Track Track { get; private set; }
         public QuickEditBpmCommand QuickEditBpmCommand { get; private set; }
         public QuickEditHarmonicKeyCommand QuickEditHarmonicKeyCommand { get; private set; }
+        public PlayPauseTrackCommand PlayPauseCommand { get; private set; }
         public bool IsSelected { get; set; }
     }
 }

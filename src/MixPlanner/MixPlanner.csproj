@@ -363,6 +363,7 @@
     <Compile Include="ViewModels\MixItemViewModel.cs" />
     <Compile Include="ViewModels\MixItemViewModelFactory.cs" />
     <Compile Include="ViewModels\MixViewModel.cs" />
+    <Compile Include="ViewModels\TrackLibraryItemViewModelFactory.cs" />
     <Compile Include="ViewModels\TrackLibraryViewModel.cs" />
     <Compile Include="ViewModels\TrackLibrarySearchFilter.cs" />
     <Compile Include="ViewModels\ValidatableViewModelBase.cs" />
