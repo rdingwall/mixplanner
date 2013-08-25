@@ -166,6 +166,7 @@
     <Compile Include="Commands\DragTracksOutOfMixCommand.cs" />
     <Compile Include="Commands\PlayNextTrackCommand.cs" />
     <Compile Include="Commands\SaveBpmCommand.cs" />
+    <Compile Include="Commands\SaveMixCommand.cs" />
     <Compile Include="Commands\SortTracksCommandBase.cs" />
     <Compile Include="Commands\CopyMixcloudTracklistCommand.cs" />
     <Compile Include="Commands\FocusSearchBoxCommand.cs" />
@@ -240,6 +241,8 @@
     <Compile Include="DomainModel\IMixingStrategy.cs" />
     <Compile Include="DomainModel\InvalidPitchException.cs" />
     <Compile Include="DomainModel\InvalidScaleException.cs" />
+    <Compile Include="DomainModel\MixFactory.cs" />
+    <Compile Include="DomainModel\MixingStrategies\MixingStrategyBase.cs" />
     <Compile Include="DomainModel\Playlist.cs" />
     <Compile Include="DomainModel\ITrackLibrary.cs" />
     <Compile Include="DomainModel\HarmonicKey.cs" />
@@ -341,7 +344,11 @@
     <Compile Include="ProgressDialog\ProgressDialogWindowViewModel.cs" />
     <Compile Include="Storage\GlobalJsonSettings.cs" />
     <Compile Include="Storage\HarmonicKeyJsonConverter.cs" />
+    <Compile Include="Storage\IMixStorage.cs" />
     <Compile Include="Storage\JsonFileConfigStorage.cs" />
+    <Compile Include="Storage\JsonFileMixStorage.cs" />
+    <Compile Include="Storage\JsonMix.cs" />
+    <Compile Include="Storage\JsonTrack.cs" />
     <Compile Include="Storage\MixPlannerPaths.cs" />
     <Compile Include="Storage\StorageFilenameFormatter.cs" />
     <Compile Include="Storage\JsonFileLibraryStorage.cs" />
@@ -349,9 +356,11 @@
     <Compile Include="Storage\ILibraryStorage.cs" />
     <Compile Include="Storage\InMemoryConfigStorage.cs" />
     <Compile Include="Storage\InMemoryLibraryStorage.cs" />
-    <Compile Include="Storage\JsonTrack.cs" />
+    <Compile Include="Storage\JsonLibraryTrack.cs" />
+    <Compile Include="Storage\FileVersion.cs" />
     <Compile Include="ViewModels\AudioPlayerViewModel.cs" />
     <Compile Include="ViewModels\CloseableViewModelBase.cs" />
+    <Compile Include="ViewModels\MixToolBarViewModel.cs" />
     <Compile Include="ViewModels\QuickEditHarmonicKeyViewModel.cs" />
     <Compile Include="ViewModels\EditTrackWindowViewModel.cs" />
     <Compile Include="ViewModels\ErrorWindowViewModel.cs" />
@@ -369,6 +378,9 @@
     <Compile Include="ViewModels\ValidatableViewModelBase.cs" />
     <Compile Include="Views\AudioPlayerView.xaml.cs">
       <DependentUpon>AudioPlayerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MixToolBar.xaml.cs">
+      <DependentUpon>MixToolBar.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\QuickEditHarmonicKeyWindow.xaml.cs">
       <DependentUpon>QuickEditHarmonicKeyWindow.xaml</DependentUpon>
@@ -412,6 +424,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AudioPlayerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MixToolBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

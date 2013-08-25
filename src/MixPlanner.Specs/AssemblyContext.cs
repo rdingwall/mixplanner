@@ -17,7 +17,7 @@ namespace MixPlanner.Specs
         [TearDown]
         public void OnAssemblyComplete()
         {
-            TestDirectories.DeleteAll();
+            //TestDirectories.DeleteAll();
         }
     }
 }

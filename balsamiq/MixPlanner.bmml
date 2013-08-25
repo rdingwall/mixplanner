@@ -82,9 +82,9 @@
         <size>20</size>
       </controlProperties>
     </control>
-    <control controlID="30" controlTypeID="com.balsamiq.mockups::Menu" x="64" y="81" w="165" h="-1" measuredW="150" measuredH="60" zOrder="85" locked="false" isInGroup="-1">
+    <control controlID="30" controlTypeID="com.balsamiq.mockups::Menu" x="64" y="81" w="165" h="-1" measuredW="150" measuredH="90" zOrder="85" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>Save%2C%20CTRL+S%0ASave%20As</text>
+        <text>Open%0A----%0ASave%20Mix%2C%20CTRL+S%0ASave%20Mix%20As</text>
       </controlProperties>
     </control>
     <control controlID="32" controlTypeID="com.balsamiq.mockups::Icon" x="1066" y="218" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="31" locked="false" isInGroup="-1">
@@ -366,12 +366,12 @@
       </controlProperties>
     </control>
     <control controlID="121" controlTypeID="com.balsamiq.mockups::VRule" x="928" y="152" w="-1" h="45" measuredW="5" measuredH="100" zOrder="83" locked="false" isInGroup="-1"/>
-    <control controlID="122" controlTypeID="com.balsamiq.mockups::Menu" x="36" y="159" w="274" h="-1" measuredW="150" measuredH="90" zOrder="84" locked="false" isInGroup="-1">
+    <control controlID="122" controlTypeID="com.balsamiq.mockups::Menu" x="79" y="177" w="274" h="-1" measuredW="150" measuredH="90" zOrder="84" locked="false" isInGroup="-1">
       <controlProperties>
         <text>Export%20M3U%20Playlist%0AExport%20PLS%20Playlist%0A----%0ACopy%20MixCloud%20Pre-Written%20Tracklist</text>
       </controlProperties>
     </control>
-    <control controlID="124" controlTypeID="com.balsamiq.mockups::Arrow" x="317" y="166" w="523" h="23" measuredW="150" measuredH="100" zOrder="86" locked="false" isInGroup="-1">
+    <control controlID="124" controlTypeID="com.balsamiq.mockups::Arrow" x="353" y="184" w="487" h="10" measuredW="150" measuredH="100" zOrder="86" locked="false" isInGroup="-1">
       <controlProperties>
         <rightArrow>false</rightArrow>
         <color>0</color>

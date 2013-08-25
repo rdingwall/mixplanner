@@ -29,6 +29,7 @@ namespace MixPlanner.ViewModels
         public CopyMixcloudTracklistCommand CopyMixcloudTracklistCommand { get; private set; }
         public AutoAdjustPitchCommand AutoAdjustPitchCommand { get; private set; }
         public ShowInExplorerCommand ShowInExplorerCommand { get; private set; }
+        public MixToolBarViewModel ToolBar { get; private set; }
 
         public IMix Mix { get; private set; }
 
@@ -73,7 +74,8 @@ namespace MixPlanner.ViewModels
             CopyMixcloudTracklistCommand copyMixcloudTracklistCommand,
             AutoAdjustPitchCommand autoAdjustPitchCommand,
             ShowInExplorerCommand showInExplorerCommand,
-            IMix mix)
+            IMix mix,
+            MixToolBarViewModel toolBar)
             : base(messenger)
         {
             if (messenger == null) throw new ArgumentNullException("messenger");
@@ -90,6 +92,7 @@ namespace MixPlanner.ViewModels
             if (copyMixcloudTracklistCommand == null) throw new ArgumentNullException("copyMixcloudTracklistCommand");
             if (showInExplorerCommand == null) throw new ArgumentNullException("showInExplorerCommand");
             if (mix == null) throw new ArgumentNullException("mix");
+            if (toolBar == null) throw new ArgumentNullException("toolBar");
             DropItemCommand = dropItemCommand;
             DropFilesCommand = dropFilesCommand;
             PlayPauseCommand = playPauseCommand;
@@ -101,6 +104,7 @@ namespace MixPlanner.ViewModels
             AutoAdjustPitchCommand = autoAdjustPitchCommand;
             ShowInExplorerCommand = showInExplorerCommand;
             Mix = mix;
+            ToolBar = toolBar;
             this.viewModels = viewModels;
             RemoveCommand = removeCommand;
             Items = new ObservableCollectionEx<MixItemViewModel>();

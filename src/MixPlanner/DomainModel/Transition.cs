@@ -46,7 +46,8 @@ namespace MixPlanner.DomainModel
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return IsIntro.Equals(other.IsIntro) && IsOutro.Equals(other.IsOutro) && FromKey.Equals(other.FromKey) && ToKey.Equals(other.ToKey) && Equals(Strategy, other.Strategy) && IncreaseRequired.Equals(other.IncreaseRequired);
+            bool isEqual = IsIntro.Equals(other.IsIntro) && IsOutro.Equals(other.IsOutro) && FromKey.Equals(other.FromKey) && ToKey.Equals(other.ToKey) && Equals(Strategy, other.Strategy) && IncreaseRequired.Equals(other.IncreaseRequired);
+            return isEqual;
         }
 
         public int CompareTo(Transition other)

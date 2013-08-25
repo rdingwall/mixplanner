@@ -17,7 +17,9 @@ namespace MixPlanner.DomainModel
         readonly IDispatcherMessenger messenger;
         readonly ILibraryStorage storage;
         readonly IRecommendedTransitionDetector transitionDetector;
-        readonly List<Track> tracks; 
+
+        // Map of { ID : Track }
+        readonly IDictionary<string, Track> tracks; 
 
         public TrackLibrary(
             ITrackLoader loader, 
@@ -33,7 +35,7 @@ namespace MixPlanner.DomainModel
             this.messenger = messenger;
             this.storage = storage;
             this.transitionDetector = transitionDetector;
-            tracks = new List<Track>();
+            tracks = new Dictionary<string, Track>(StringComparer.CurrentCultureIgnoreCase);
         }
 
         public IEnumerable<Tuple<Track, Transition>> GetRecommendations(IMixItem mixItem)
@@ -41,6 +43,7 @@ namespace MixPlanner.DomainModel
             if (mixItem == null) throw new ArgumentNullException("mixItem");
 
             return tracks
+                .Values
                 .Except(new[] {mixItem.Track}) // don't recommend itself!
                 .Select(t => Tuple.Create(t, GetTransition(mixItem, t)))
                 .Where(t => t.Item2 != null);
@@ -52,6 +55,18 @@ namespace MixPlanner.DomainModel
             messenger.SendToUI(new TrackUpdatedEvent(track));
         }
 
+        public Track GetById(string id)
+        {
+            if (id == null) throw new ArgumentNullException("id");
+            return tracks[id];
+        }
+
+        public bool TryGetById(string id, out Track track)
+        {
+            if (id == null) throw new ArgumentNullException("id");
+            return tracks.TryGetValue(id, out track);
+        }
+
         Transition GetTransition(IMixItem mixItem, Track track)
         {
             return transitionDetector.GetTransitionBetween(mixItem.PlaybackSpeed,
@@ -60,7 +75,7 @@ namespace MixPlanner.DomainModel
 
         bool TryGetTrack(string filename, out Track track)
         {
-            track = tracks.FirstOrDefault(t => t.Filename.Equals(filename, Comparison));
+            track = tracks.Values.FirstOrDefault(t => t.Filename.Equals(filename, Comparison));
 
             return track != null;
         }
@@ -112,7 +127,7 @@ namespace MixPlanner.DomainModel
             
             track = await loader.LoadAsync(filename);
             await storage.AddTrackAsync(track);
-            tracks.Add(track);
+            tracks.Add(track.Id, track);
             messenger.SendToUI(new TrackAddedToLibraryEvent(track));
             return new[] { track };
         }
@@ -143,8 +158,12 @@ namespace MixPlanner.DomainModel
 
         public async Task InitializeAsync()
         {
-            tracks.AddRange(await storage.LoadAllTracksAsync());
-            messenger.SendToUI(new TrackLibraryLoadedEvent(tracks));
+            IEnumerable<Track> tracksToAdd = await storage.LoadAllTracksAsync();
+
+            foreach (Track track in tracksToAdd)
+                tracks.Add(track.Id, track);
+
+            messenger.SendToUI(new TrackLibraryLoadedEvent(tracksToAdd));
         }
 
         static bool IsDirectory(string filename)
@@ -156,7 +175,7 @@ namespace MixPlanner.DomainModel
         public async Task RemoveAsync(Track track)
         {
             if (track == null) throw new ArgumentNullException("track");
-            tracks.Remove(track);
+            tracks.Remove(track.Id);
             await storage.RemoveTrackAsync(track);
             messenger.SendToUI(new TrackRemovedFromLibraryEvent(track));
         }

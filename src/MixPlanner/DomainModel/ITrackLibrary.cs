@@ -19,5 +19,8 @@ namespace MixPlanner.DomainModel
         Task RemoveRangeAsync(IEnumerable<Track> tracks);
         IEnumerable<Tuple<Track, Transition>> GetRecommendations(IMixItem mixItem);
         Task SaveAsync(Track track);
+        Track GetById(string id);
+
+        bool TryGetById(string id, out Track track);
     }
 }

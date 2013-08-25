@@ -1,5 +1,5 @@
-﻿using System.Reflection;
-using MixPlanner.DomainModel;
+﻿using MixPlanner.DomainModel;
+using MixPlanner.Storage;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
@@ -7,8 +7,7 @@ namespace MixPlanner.Configuration
 {
     public class Config
     {
-        static readonly string version =
-            Assembly.GetExecutingAssembly().GetName().Version.ToString();
+        static readonly string version = FileVersion.CurrentVersion;
 
         [JsonConverter(typeof(StringEnumConverter))]
         public HarmonicKeyDisplayMode HarmonicKeyDisplayMode { get; set; }

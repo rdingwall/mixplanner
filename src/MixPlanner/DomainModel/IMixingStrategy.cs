@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace MixPlanner.DomainModel
+﻿namespace MixPlanner.DomainModel
 {
-    public interface IMixingStrategy : IEquatable<IMixingStrategy>
+    public interface IMixingStrategy
     {
         bool IsCompatible(PlaybackSpeed first, PlaybackSpeed second);
         bool IsCompatible(HarmonicKey firstKey, HarmonicKey secondKey);

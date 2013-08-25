@@ -10,8 +10,8 @@ namespace MixPlanner.DomainModel
     public interface IMix : IEnumerable<IMixItem>
     {
         IEnumerable<Track> Tracks { get; }
-        void Add(Track track);
-        void Insert(Track track, int insertIndex);
+        IMixItem Add(Track track);
+        IMixItem Insert(Track track, int insertIndex);
         void Insert(IEnumerable<Track> tracks, int insertIndex);
         void Remove(IMixItem item);
         void Reorder(IMixItem item, int newIndex);
@@ -49,15 +49,35 @@ namespace MixPlanner.DomainModel
         public Mix(
             IDispatcherMessenger messenger,
             IActualTransitionDetector transitions,
-            ILimitingPlaybackSpeedAdjuster playbackSpeedAdjuster)
+            ILimitingPlaybackSpeedAdjuster playbackSpeedAdjuster) : 
+            this(messenger, transitions, playbackSpeedAdjuster, Enumerable.Empty<Tuple<Track, double>>())
+        {
+        }
+
+        public Mix(
+            IDispatcherMessenger messenger,
+            IActualTransitionDetector transitions,
+            ILimitingPlaybackSpeedAdjuster playbackSpeedAdjuster,
+            IEnumerable<Tuple<Track, double>> tracks)
         {
             if (messenger == null) throw new ArgumentNullException("messenger");
             if (transitions == null) throw new ArgumentNullException("transitions");
             if (playbackSpeedAdjuster == null) throw new ArgumentNullException("playbackSpeedAdjuster");
+            if (tracks == null) throw new ArgumentNullException("tracks");
             this.messenger = messenger;
             this.transitions = transitions;
             this.playbackSpeedAdjuster = playbackSpeedAdjuster;
             items = new List<MixItem>();
+
+            foreach (Tuple<Track, double> t in tracks)
+            {
+                Track track = t.Item1;
+                PlaybackSpeed playbackSpeed = track.GetDefaultPlaybackSpeed();
+                playbackSpeed.SetSpeed(t.Item2);
+                items.Add(CreateItem(track, Math.Max(items.Count - 1, 0), playbackSpeed));
+                RecalcTransitions();
+            }
+
             messenger.Register<ConfigSavedEvent>(this, _ => RecalcTransitions());
             messenger.Register<TrackUpdatedEvent>(this, OnTrackUpdated);
         }
@@ -245,23 +265,25 @@ namespace MixPlanner.DomainModel
             return items.Any(m => m.Track.Equals(track));
         }
 
-        public void Add(Track track)
+        public IMixItem Add(Track track)
         {
             if (track == null) throw new ArgumentNullException("track");
 
-            Insert(track, items.Count);
+            return Insert(track, items.Count);
         }
 
-        public void Insert(Track track, int insertIndex)
+        public IMixItem Insert(Track track, int insertIndex)
         {
             if (track == null) throw new ArgumentNullException("track");
 
-            var item = CreateItem(track, insertIndex);
+            MixItem item = CreateItemWithAutoAdjustment(track, insertIndex);
             
             items.Insert(insertIndex, item);
 
             messenger.SendToUI(new TrackAddedToMixEvent(item, insertIndex));
             RecalcTransitions();
+
+            return item;
         }
 
         public void Insert(IEnumerable<Track> tracks, int insertIndex)
@@ -307,7 +329,7 @@ namespace MixPlanner.DomainModel
             }
         }
 
-        MixItem CreateItem(Track track, int insertIndex)
+        MixItem CreateItemWithAutoAdjustment(Track track, int insertIndex)
         {
             PlaybackSpeed previous = GetPlaybackSpeedAtPosition(insertIndex - 1);
 
@@ -315,9 +337,16 @@ namespace MixPlanner.DomainModel
             if (previous != null)
                 next = playbackSpeedAdjuster.AutoAdjust(previous, next);
 
-            Transition transition = transitions.GetTransitionBetween(previous, next);
+            return CreateItem(track, insertIndex, next);
+        }
 
-            return new MixItem(this, track, transition, next);
+        MixItem CreateItem(Track track, int insertIndex, PlaybackSpeed playbackSpeed)
+        {
+            PlaybackSpeed previous = GetPlaybackSpeedAtPosition(insertIndex - 1);
+
+            Transition transition = transitions.GetTransitionBetween(previous, playbackSpeed);
+
+            return new MixItem(this, track, transition, playbackSpeed);
         }
 
         PlaybackSpeed GetPlaybackSpeedAtPosition(int index)

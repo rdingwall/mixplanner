@@ -328,6 +328,11 @@ namespace MixPlanner.Specs.DomainModel.AutoMixing
                 ActualKey = playbackSpeed.ActualKey;
             }
 
+            public bool Equals(MixItem other)
+            {
+                return false;
+            }
+
             public override string ToString()
             {
                 return ActualKey.ToString();

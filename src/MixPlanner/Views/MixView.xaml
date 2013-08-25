@@ -10,10 +10,19 @@
              xmlns:views="clr-namespace:MixPlanner.Views"
              mc:Ignorable="d"
              d:DesignHeight="300"
-             d:DesignWidth="300"
+             d:DesignWidth="530"
              d:DataContext="{d:DesignInstance mp:MixViewModel}">
     <Grid>
-        <ListView ItemsSource="{Binding Items}"
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        
+        <views:MixToolBar Grid.Row="0" 
+                          DataContext="{Binding ToolBar}" />
+        
+        <ListView Grid.Row="1"
+                  ItemsSource="{Binding Items}"
                   dd:DragDrop.IsDropTarget="True"
                   dd:DragDrop.DropHandler="{Binding}"
                   SelectedItem="{Binding SelectedItem, Mode=TwoWay}"

@@ -54,7 +54,7 @@ namespace MixPlanner.Storage
         {
             try
             {
-                JsonTrack jsonTrack = await ReadTrackDataAsync(filename);
+                JsonLibraryTrack jsonTrack = await ReadTrackDataAsync(filename);
 
                 if (jsonTrack == null)
                     return null;
@@ -64,8 +64,8 @@ namespace MixPlanner.Storage
                 return new Track(id: jsonTrack.Id,
                                  artist: jsonTrack.Artist,
                                  title: jsonTrack.Title,
-                                 originalKey: jsonTrack.Key,
-                                 originalBpm: jsonTrack.Bpm,
+                                 originalKey: jsonTrack.OriginalKey,
+                                 originalBpm: jsonTrack.OriginalBpm,
                                  fileName: jsonTrack.Filename,
                                  duration: jsonTrack.Duration)
                            {
@@ -110,13 +110,13 @@ namespace MixPlanner.Storage
 
         async Task WriteTrackAsync(Track track, FileMode fileMode)
         {
-            var jsonTrack = new JsonTrack
+            var jsonTrack = new JsonLibraryTrack
             {
                 Id = track.Id,
                 Artist = track.Artist,
                 Title = track.Title,
-                Key = track.OriginalKey,
-                Bpm = track.OriginalBpm,
+                OriginalKey = track.OriginalKey,
+                OriginalBpm = track.OriginalBpm,
                 Filename = track.Filename,
                 Duration = track.Duration,
                 Genre = track.Genre,
@@ -162,13 +162,13 @@ namespace MixPlanner.Storage
             await WriteTrackAsync(track, FileMode.Truncate);
         }
 
-        static async Task<JsonTrack> ReadTrackDataAsync(string filename)
+        static async Task<JsonLibraryTrack> ReadTrackDataAsync(string filename)
         {
             using (FileStream file = File.OpenRead(filename))
             using (var reader = new StreamReader(file))
             {
                 string json = await reader.ReadToEndAsync();
-                return JsonConvert.DeserializeObject<JsonTrack>(json);
+                return JsonConvert.DeserializeObject<JsonLibraryTrack>(json);
             }
         }
 

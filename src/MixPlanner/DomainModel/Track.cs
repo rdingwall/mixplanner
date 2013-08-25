@@ -3,6 +3,7 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Media;
 using MixPlanner.Loader;
+using MixPlanner.Storage;
 
 namespace MixPlanner.DomainModel
 {
@@ -149,6 +150,24 @@ namespace MixPlanner.DomainModel
                 return null;
 
             return Images.FullSize.Data;
+        }
+
+        public static Track FromJson(JsonTrack jsonTrack)
+        {
+            if (jsonTrack == null) throw new ArgumentNullException("jsonTrack");
+
+            return new Track(id: jsonTrack.Id,
+                             artist: jsonTrack.Artist,
+                             title: jsonTrack.Title,
+                             originalKey: jsonTrack.OriginalKey,
+                             fileName: jsonTrack.Filename,
+                             originalBpm: jsonTrack.OriginalBpm,
+                             duration: jsonTrack.Duration)
+                       {
+                           Year = jsonTrack.Year,
+                           Label = jsonTrack.Label,
+                           Genre = jsonTrack.Genre
+                       };
         }
     }
 }
