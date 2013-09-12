@@ -10,7 +10,7 @@ using SharpTestsEx;
 
 namespace MixPlanner.Specs.Storage
 {
-    [Subject(typeof(JsonFileMixStorage))]
+    [Subject("Mix reader/writer")]
     public class JsonFileMixStorageSpecs
     {
          public class When_saving_and_opening_a_mix
@@ -21,7 +21,10 @@ namespace MixPlanner.Specs.Storage
 
                                          var messenger = MockRepository.GenerateStub<IDispatcherMessenger>();
                                          var library = MockRepository.GenerateStub<ITrackLibrary>();
-                                         storage = new JsonFileMixStorage(
+
+                                         writer = new MixWriter();
+
+                                         reader = new MixReader(
                                              new MixFactory(messenger,
                                                             TestMixes.TransitionDetector,
                                                             TestMixes.PlaybackSpeedAdjuster),
@@ -34,8 +37,8 @@ namespace MixPlanner.Specs.Storage
 
                                   filename = Path.Combine(TestDirectories.Data.Path,
                                                           String.Format("{0:N}.mix", Guid.NewGuid()));
-                                  storage.SaveAsync(originalMix, filename).Wait();
-                                  mix = storage.OpenAsync(filename).Result;
+                                  writer.WriteAsync(originalMix, filename).Wait();
+                                  mix = reader.ReadAsync(filename).Result;
 
                                   mix.Dump("actual mix");
                               };
@@ -52,8 +55,9 @@ namespace MixPlanner.Specs.Storage
 
              static IMix originalMix;
              static IMix mix;
-             static IMixStorage storage;
+             static IMixWriter writer;
              static string filename;
+             static IMixReader reader;
          }
     }
 }

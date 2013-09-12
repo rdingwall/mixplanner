@@ -344,9 +344,9 @@
     <Compile Include="ProgressDialog\ProgressDialogWindowViewModel.cs" />
     <Compile Include="Storage\GlobalJsonSettings.cs" />
     <Compile Include="Storage\HarmonicKeyJsonConverter.cs" />
-    <Compile Include="Storage\IMixStorage.cs" />
     <Compile Include="Storage\JsonFileConfigStorage.cs" />
-    <Compile Include="Storage\JsonFileMixStorage.cs" />
+    <Compile Include="Storage\MixReader.cs" />
+    <Compile Include="Storage\MixWriter.cs" />
     <Compile Include="Storage\JsonMix.cs" />
     <Compile Include="Storage\JsonTrack.cs" />
     <Compile Include="Storage\MixPlannerPaths.cs" />
