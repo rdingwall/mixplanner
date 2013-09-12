@@ -32,6 +32,11 @@ namespace MixPlanner.Specs
         public static TestDirectory Library { get { return LibraryDirectory; } }
         public static TestDirectory Data { get { return DataDirectory; } }
 
+        public static string ConfigFile
+        {
+            get { return Path.Combine(Data.Path, "MixPlanner.settings"); }
+        }
+
         public static void DeleteAll()
         {
             DataDirectory.Delete();

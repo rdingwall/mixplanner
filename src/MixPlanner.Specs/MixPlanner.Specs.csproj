@@ -220,7 +220,7 @@
     <Compile Include="ResourceHelper.cs" />
     <Compile Include="Storage\JsonFileLibraryStorageSpecs.cs" />
     <Compile Include="Storage\HarmonicKeyJsonConverterSpecs.cs" />
-    <Compile Include="Storage\JsonFileConfigStorageSpecs.cs" />
+    <Compile Include="IO\ConfigFiles\ConfigReaderWriterSpecs.cs" />
     <Compile Include="TestConfigProvider.cs" />
     <Compile Include="TestDirectories.cs" />
     <Compile Include="TestDirectory.cs" />

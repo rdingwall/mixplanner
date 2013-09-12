@@ -311,6 +311,9 @@
     <Compile Include="ImportExport\IPlaylistWriter.cs" />
     <Compile Include="ImportExport\M3uReader.cs" />
     <Compile Include="ImportExport\M3uWriter.cs" />
+    <Compile Include="IO\ConfigFiles\ConfigReader.cs" />
+    <Compile Include="IO\ConfigFiles\ConfigWriter.cs" />
+    <Compile Include="IO\ConfigFiles\InMemoryConfigWriter.cs" />
     <Compile Include="Loader\FallbackReader.cs" />
     <Compile Include="MixFiles\JsonMix.cs" />
     <Compile Include="MixFiles\JsonMixItem.cs" />
@@ -348,14 +351,11 @@
     <Compile Include="ProgressDialog\ProgressDialogWindowViewModel.cs" />
     <Compile Include="Storage\GlobalJsonSettings.cs" />
     <Compile Include="Storage\HarmonicKeyJsonConverter.cs" />
-    <Compile Include="Storage\JsonFileConfigStorage.cs" />
     <Compile Include="Storage\JsonTrack.cs" />
     <Compile Include="Storage\MixPlannerPaths.cs" />
     <Compile Include="Storage\StorageFilenameFormatter.cs" />
     <Compile Include="Storage\JsonFileLibraryStorage.cs" />
-    <Compile Include="Storage\IConfigStorage.cs" />
     <Compile Include="Storage\ILibraryStorage.cs" />
-    <Compile Include="Storage\InMemoryConfigStorage.cs" />
     <Compile Include="Storage\InMemoryLibraryStorage.cs" />
     <Compile Include="Storage\JsonLibraryTrack.cs" />
     <Compile Include="Storage\FileVersion.cs" />

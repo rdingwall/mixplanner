@@ -2,7 +2,6 @@
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
-using Castle.Core;
 using Castle.Facilities.Startable;
 using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.Resolvers.SpecializedResolvers;
@@ -14,6 +13,7 @@ using MixPlanner.Controllers;
 using MixPlanner.Converters;
 using MixPlanner.DomainModel;
 using MixPlanner.DomainModel.AutoMixing;
+using MixPlanner.IO.ConfigFiles;
 using MixPlanner.Loader;
 using MixPlanner.MixFiles;
 using MixPlanner.Player;
@@ -43,7 +43,8 @@ namespace MixPlanner
                     .DependsOn(Property.ForKey("impl").Is(typeof(FilenameParser).Name)),
                 Component.For<IFilenameParser>().ImplementedBy<FilenameParser>().Named(typeof(FilenameParser).Name),
                 Component.For<ILibraryStorage>().ImplementedBy<JsonFileLibraryStorage>(),
-                Component.For<IConfigStorage>().ImplementedBy<JsonFileConfigStorage>(),
+                Component.For<IConfigWriter>().ImplementedBy<ConfigWriter>(),
+                Component.For<IConfigReader>().ImplementedBy<ConfigReader>(),
                 Component.For<IConfigProvider>().ImplementedBy<ConfigProvider>(),
                 Component.For<IHarmonicKeySuperParser>().ImplementedBy<HarmonicKeySuperParser>(),
                 Component.For<IId3Reader>().ImplementedBy<Id3Reader>(),

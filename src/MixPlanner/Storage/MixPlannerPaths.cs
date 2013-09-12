@@ -37,5 +37,10 @@ namespace MixPlanner.Storage
                 return Path.Combine(DataDirectory, "Debug.log");
             }
         }
+
+        public static string ConfigFile
+        {
+            get { return Path.Combine(DataDirectory, "MixPlanner.settings"); }
+        }
     }
 }
