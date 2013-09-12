@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive.Disposables;
 using MixPlanner.Events;
 using MoreLinq;
 
@@ -180,7 +181,7 @@ namespace MixPlanner.DomainModel
         {
             messenger.SendToUI(new MixLockedEvent(this));
             isRecalcTransitionsEnabled = false;
-            return new ActionOnDispose(Unlock);
+            return Disposable.Create(Unlock);
         }
 
         public void MoveToEnd(IMixItem track)
