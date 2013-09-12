@@ -5,6 +5,22 @@ namespace MixPlanner.Specs
 {
     public static class TestMixes
     {
+        static readonly ActualTransitionDetector transitionDetector 
+            = new ActualTransitionDetector(TestMixingStrategies.AllStrategies);
+
+        static readonly DummyPlaybackSpeedAdjuster playbackSpeedAdjuster 
+            = new DummyPlaybackSpeedAdjuster();
+
+        public static ActualTransitionDetector TransitionDetector
+        {
+            get { return transitionDetector; }
+        }
+
+        public static DummyPlaybackSpeedAdjuster PlaybackSpeedAdjuster
+        {
+            get { return playbackSpeedAdjuster; }
+        }
+
         public static Mix CreateRandomMix(int numberOfTracks = 5)
         {
             var mix = CreateEmptyMix();
@@ -29,8 +45,8 @@ namespace MixPlanner.Specs
         {
             return new Mix(
                 MockRepository.GenerateMock<IDispatcherMessenger>(),
-                new ActualTransitionDetector(TestMixingStrategies.AllStrategies),
-                new DummyPlaybackSpeedAdjuster());
+                transitionDetector,
+                PlaybackSpeedAdjuster);
         }
     }
 }

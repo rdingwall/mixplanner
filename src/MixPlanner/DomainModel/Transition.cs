@@ -26,6 +26,7 @@ namespace MixPlanner.DomainModel
             double increaseRequired = 0)
         {
             if (strategy == null) throw new ArgumentNullException("strategy");
+
             FromKey = fromKey;
             ToKey = toKey;
             Strategy = strategy;

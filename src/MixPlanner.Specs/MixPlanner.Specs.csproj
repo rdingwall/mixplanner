@@ -202,6 +202,7 @@
     <Compile Include="Extensions\AssertExtensions.cs" />
     <Compile Include="Extensions\DoubleExtensionsSpecs.cs" />
     <Compile Include="Extensions\JsonConverterExtensions.cs" />
+    <Compile Include="Extensions\MixExtensions.cs" />
     <Compile Include="ImportExport\M3uReaderSpecs.cs" />
     <Compile Include="ImportExport\M3uWriterSpecs.cs" />
     <Compile Include="IocRegistrationsSpecs.cs" />

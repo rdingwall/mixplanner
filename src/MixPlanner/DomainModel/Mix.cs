@@ -74,9 +74,10 @@ namespace MixPlanner.DomainModel
                 Track track = t.Item1;
                 PlaybackSpeed playbackSpeed = track.GetDefaultPlaybackSpeed();
                 playbackSpeed.SetSpeed(t.Item2);
-                items.Add(CreateItem(track, Math.Max(items.Count - 1, 0), playbackSpeed));
-                RecalcTransitions();
+                items.Add(CreateItem(track, playbackSpeed, insertIndex: items.Count));
             }
+
+            RecalcTransitions();
 
             messenger.Register<ConfigSavedEvent>(this, _ => RecalcTransitions());
             messenger.Register<TrackUpdatedEvent>(this, OnTrackUpdated);
@@ -337,10 +338,10 @@ namespace MixPlanner.DomainModel
             if (previous != null)
                 next = playbackSpeedAdjuster.AutoAdjust(previous, next);
 
-            return CreateItem(track, insertIndex, next);
+            return CreateItem(track, next, insertIndex);
         }
 
-        MixItem CreateItem(Track track, int insertIndex, PlaybackSpeed playbackSpeed)
+        MixItem CreateItem(Track track, PlaybackSpeed playbackSpeed, int insertIndex)
         {
             PlaybackSpeed previous = GetPlaybackSpeedAtPosition(insertIndex - 1);
 
