@@ -213,6 +213,7 @@
     <Compile Include="Loader\MixedInKeyPrefixCleanupSpecs.cs" />
     <Compile Include="Loader\TrackImageResizerSpecs.cs" />
     <Compile Include="Loader\TrackLoaderSpecs.cs" />
+    <Compile Include="MixFiles\MixReaderWriterSpecs.cs" />
     <Compile Include="MixItemAssertComparer.cs" />
     <Compile Include="Player\AudioPlayerSpecs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -220,7 +221,6 @@
     <Compile Include="Storage\JsonFileLibraryStorageSpecs.cs" />
     <Compile Include="Storage\HarmonicKeyJsonConverterSpecs.cs" />
     <Compile Include="Storage\JsonFileConfigStorageSpecs.cs" />
-    <Compile Include="Storage\JsonFileMixStorageSpecs.cs" />
     <Compile Include="TestConfigProvider.cs" />
     <Compile Include="TestDirectories.cs" />
     <Compile Include="TestDirectory.cs" />

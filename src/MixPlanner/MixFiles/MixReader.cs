@@ -1,13 +1,14 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using MixPlanner.DomainModel;
+using MixPlanner.Storage;
 using Newtonsoft.Json;
 using log4net;
 
-namespace MixPlanner.Storage
+namespace MixPlanner.MixFiles
 {
     public interface IMixReader
     {

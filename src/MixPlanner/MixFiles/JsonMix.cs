@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
+using MixPlanner.Storage;
 
-namespace MixPlanner.Storage
+namespace MixPlanner.MixFiles
 {
     public class JsonMix
     {
@@ -10,10 +11,5 @@ namespace MixPlanner.Storage
 
         // For serialization only
         public string Version { get { return version; } }
-    }
-
-    public class JsonMixItem : JsonTrack
-    {
-        public double PlaybackSpeed { get; set; }
     }
 }

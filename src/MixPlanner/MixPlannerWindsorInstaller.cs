@@ -15,6 +15,7 @@ using MixPlanner.Converters;
 using MixPlanner.DomainModel;
 using MixPlanner.DomainModel.AutoMixing;
 using MixPlanner.Loader;
+using MixPlanner.MixFiles;
 using MixPlanner.Player;
 using MixPlanner.ProgressDialog;
 using MixPlanner.Storage;

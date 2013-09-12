@@ -1,17 +1,17 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Linq;
 using Machine.Specifications;
 using MixPlanner.DomainModel;
+using MixPlanner.MixFiles;
 using MixPlanner.Specs.Extensions;
-using MixPlanner.Storage;
 using Rhino.Mocks;
 using SharpTestsEx;
 
-namespace MixPlanner.Specs.Storage
+namespace MixPlanner.Specs.MixFiles
 {
     [Subject("Mix reader/writer")]
-    public class JsonFileMixStorageSpecs
+    public class MixReaderWriterSpecs
     {
          public class When_saving_and_opening_a_mix
          {
