@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using Castle.Windsor;
 using Machine.Specifications;
+using MixPlanner.Configuration;
+using MixPlanner.Converters;
 using MixPlanner.DomainModel;
 using MixPlanner.Loader;
 using NUnit.Framework;
+using Rhino.Mocks;
 
 namespace MixPlanner.Specs.Loader
 {
@@ -12,7 +14,6 @@ namespace MixPlanner.Specs.Loader
     public class HarmonicKeySuperParserTests
     {
         IHarmonicKeySuperParser parser;
-        IWindsorContainer container;
 
         public static IEnumerable<Tuple<string, HarmonicKey>> GetCases()
         {
@@ -48,15 +49,7 @@ namespace MixPlanner.Specs.Loader
         [TestFixtureSetUp]
         public void SetUp()
         {
-            container = new WindsorContainer();
-            container.Install(new MixPlannerWindsorInstaller());
-            parser = container.Resolve<IHarmonicKeySuperParser>();
-        }
-
-        [TestFixtureTearDown]
-        public void TearDown()
-        {
-            container.Dispose();
+            parser = new HarmonicKeySuperParser(new HarmonicKeyConverterFactory(new TestConfigProvider()));
         }
     }
 }

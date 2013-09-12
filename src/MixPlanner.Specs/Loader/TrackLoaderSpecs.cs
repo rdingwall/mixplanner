@@ -2,8 +2,10 @@
 using Castle.Windsor;
 using Machine.Specifications;
 using MixPlanner.Configuration;
+using MixPlanner.Converters;
 using MixPlanner.DomainModel;
 using MixPlanner.Loader;
+using Rhino.Mocks;
 
 namespace MixPlanner.Specs.Loader
 {
@@ -410,21 +412,27 @@ namespace MixPlanner.Specs.Loader
             Establish context =
                 () =>
                     {
-                        container = new WindsorContainer();
-                        container.Install(new MixPlannerWindsorInstaller());
-                        var configProvider = container.Resolve<IConfigProvider>();
-                        configProvider.InitializeAsync().Wait();
-                        configProvider.Config.ParseKeyAndBpmFromFilename = true;
-                        Loader = container.Resolve<ITrackLoader>();
-                    };
+                        var configProvider = new TestConfigProvider
+                                                 {
+                                                     ParseKeyAndBpmFromFilename = true,
+                                                     StripMixedInKeyPrefixes = true
+                                                 };
 
-            Cleanup after = () => container.Dispose();
+                        Loader = new TrackLoader(
+                            new Id3Reader(),
+                            new AiffId3Reader(),
+                            new AacReader(),
+                            new TagCleanupFactory(configProvider),
+                            new TrackImageResizer(),
+                            new HarmonicKeySuperParser(new HarmonicKeyConverterFactory(configProvider)),
+                            new FilenameParser(),
+                            new FallbackReader());
+                    };
 
             It should_return_a_track = () => Track.ShouldNotBeNull();
 
             protected static ITrackLoader Loader;
             protected static Track Track;
-            static IWindsorContainer container;
         }
     }
 }

@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Machine.Specifications;
-using MixPlanner.Configuration;
 using MixPlanner.Loader;
-using Rhino.Mocks;
 
 namespace MixPlanner.Specs.Loader
 {
@@ -15,10 +13,7 @@ namespace MixPlanner.Specs.Loader
              Establish context =
                  () =>
                      {
-                         var provider = MockRepository.GenerateMock<IConfigProvider>();
-                         provider.Stub(c => c.Config)
-                             .Return(new Config { StripMixedInKeyPrefixes = true });
-
+                         var provider = new TestConfigProvider {StripMixedInKeyPrefixes = true};
                          cleanupFactory = new TagCleanupFactory(provider);
                      };
 
@@ -36,10 +31,7 @@ namespace MixPlanner.Specs.Loader
              Establish context =
                  () =>
                  {
-                     var provider = MockRepository.GenerateMock<IConfigProvider>();
-                     provider.Stub(c => c.Config).Return(new Config());
-
-                     cleanupFactory = new TagCleanupFactory(provider);
+                     cleanupFactory = new TagCleanupFactory(new TestConfigProvider());
                  };
 
              Because of = () => cleanups = cleanupFactory.GetCleanups();

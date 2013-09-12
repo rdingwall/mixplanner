@@ -22,6 +22,15 @@ namespace MixPlanner.Converters
         readonly OpenKeyNotationHarmonicKeyConverter openKeyNotationConverter;
         readonly BeatportHarmonicKeyConverter beatportHarmonicKeyConverter;
 
+        public HarmonicKeyConverterFactory(IConfigProvider configProvider) : this(
+            new TraditionalTextHarmonicKeyConverter(),
+            new TraditionalSymbolsHarmonicKeyConverter(),
+            new KeyCodeHarmonicKeyCoverter(),
+            new Id3v2TkeyHarmonicKeyConverter(),
+            new OpenKeyNotationHarmonicKeyConverter(),
+            new BeatportHarmonicKeyConverter(),
+            configProvider) {}
+
         public HarmonicKeyConverterFactory(
             TraditionalTextHarmonicKeyConverter traditionalTextConverter,
             TraditionalSymbolsHarmonicKeyConverter traditionalSymbolsConverter,

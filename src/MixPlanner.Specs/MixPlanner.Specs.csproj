@@ -221,6 +221,7 @@
     <Compile Include="Storage\HarmonicKeyJsonConverterSpecs.cs" />
     <Compile Include="Storage\JsonFileConfigStorageSpecs.cs" />
     <Compile Include="Storage\JsonFileMixStorageSpecs.cs" />
+    <Compile Include="TestConfigProvider.cs" />
     <Compile Include="TestDirectories.cs" />
     <Compile Include="TestDirectory.cs" />
     <Compile Include="TestMixes.cs" />
