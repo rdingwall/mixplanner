@@ -1,6 +1,6 @@
 ﻿using System;
 using MixPlanner.DomainModel;
-using MixPlanner.Loader;
+using MixPlanner.IO.Loader;
 
 namespace MixPlanner.Specs
 {

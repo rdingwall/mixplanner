@@ -206,14 +206,14 @@
     <Compile Include="ImportExport\M3uReaderSpecs.cs" />
     <Compile Include="ImportExport\M3uWriterSpecs.cs" />
     <Compile Include="IocRegistrationsSpecs.cs" />
-    <Compile Include="Loader\HarmonicKeySuperParserTests.cs" />
-    <Compile Include="Loader\Id3ReaderSpecs.cs" />
-    <Compile Include="Loader\TagCleanupFactorySpecs.cs" />
-    <Compile Include="Loader\FilenameParserSpecs.cs" />
-    <Compile Include="Loader\MixedInKeyPrefixCleanupSpecs.cs" />
-    <Compile Include="Loader\TrackImageResizerSpecs.cs" />
-    <Compile Include="Loader\TrackLoaderSpecs.cs" />
-    <Compile Include="MixFiles\MixReaderWriterSpecs.cs" />
+    <Compile Include="IO\Loader\HarmonicKeySuperParserTests.cs" />
+    <Compile Include="IO\Loader\Id3ReaderSpecs.cs" />
+    <Compile Include="IO\Loader\TagCleanupFactorySpecs.cs" />
+    <Compile Include="IO\Loader\FilenameParserSpecs.cs" />
+    <Compile Include="IO\Loader\MixedInKeyPrefixCleanupSpecs.cs" />
+    <Compile Include="IO\Loader\TrackImageResizerSpecs.cs" />
+    <Compile Include="IO\Loader\TrackLoaderSpecs.cs" />
+    <Compile Include="IO\MixFiles\MixReaderWriterSpecs.cs" />
     <Compile Include="MixItemAssertComparer.cs" />
     <Compile Include="Player\AudioPlayerSpecs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -230,7 +230,7 @@
     <Content Include="example.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <EmbeddedResource Include="Loader\resizeTest.jpg" />
+    <EmbeddedResource Include="IO\Loader\resizeTest.jpg" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -1,5 +1,5 @@
 ﻿using System;
-using MixPlanner.Loader;
+using MixPlanner.IO.Loader;
 
 namespace MixPlanner.Configuration
 {

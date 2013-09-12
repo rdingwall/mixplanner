@@ -4,7 +4,7 @@ using System.IO;
 using System.Threading.Tasks;
 using Machine.Specifications;
 using MixPlanner.DomainModel;
-using MixPlanner.Loader;
+using MixPlanner.IO.Loader;
 using MixPlanner.Storage;
 using SharpTestsEx;
 using System.Linq;

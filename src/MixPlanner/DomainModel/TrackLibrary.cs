@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MixPlanner.Events;
-using MixPlanner.Loader;
+using MixPlanner.IO.Loader;
 using MixPlanner.Storage;
 
 namespace MixPlanner.DomainModel

@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using MixPlanner.DomainModel;
 using MixPlanner.Events;
-using MixPlanner.Loader;
+using MixPlanner.IO.Loader;
 using log4net;
 
 namespace MixPlanner.Player

@@ -4,8 +4,8 @@ using System.Windows.Data;
 using Machine.Specifications;
 using MixPlanner.Converters;
 using MixPlanner.DomainModel;
+using MixPlanner.IO.Loader;
 using MixPlanner.ImportExport;
-using MixPlanner.Loader;
 using Rhino.Mocks;
 
 namespace MixPlanner.Specs.ImportExport
