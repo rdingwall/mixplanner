@@ -23,15 +23,15 @@ namespace MixPlanner.Commands
             return parameter != null && !parameter.IsEmpty;
         }
 
-        protected override Task DoExecute(IMix parameter)
+        protected async override Task DoExecute(IMix parameter)
         {
             if (parameter == null) throw new ArgumentNullException("parameter");
 
             string filename;
             if (!dialogService.TrySaveMix(out filename))
-                return Task.FromResult(0);
+                return;
 
-            return writer.WriteAsync(parameter, filename);
+            await writer.WriteAsync(parameter, filename);
         }
     }
 }

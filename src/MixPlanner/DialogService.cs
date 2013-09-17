@@ -6,6 +6,7 @@ namespace MixPlanner
     public interface IDialogService
     {
         bool TrySaveMix(out string filename);
+        bool TryOpenMix(out string filename);
     }
 
     public class DialogService : IDialogService
@@ -18,6 +19,23 @@ namespace MixPlanner
                                  DefaultExt = ".mx",
                                  Filter = "MixPlanner mix files|*.mx"
                              };
+
+            filename = null;
+
+            if (dialog.ShowDialog() == false)
+                return false;
+
+            filename = dialog.FileName;
+            return true;
+        }
+
+        public bool TryOpenMix(out string filename)
+        {
+            var dialog = new OpenFileDialog
+            {
+                DefaultExt = ".mx",
+                Filter = "MixPlanner mix files|*.mx"
+            };
 
             filename = null;
 

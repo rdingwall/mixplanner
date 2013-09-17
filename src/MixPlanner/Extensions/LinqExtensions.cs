@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 // ReSharper disable CheckNamespace
 namespace System.Linq
@@ -11,6 +12,11 @@ namespace System.Linq
         public static IEnumerable<T> Shuffle<T>(this IEnumerable<T> items)
         {
             return items.OrderBy(_ => Random.Next());
+        }
+
+        public static ObservableCollectionEx<T> ToObservableCollectionEx<T>(this IEnumerable<T> items)
+        {
+            return new ObservableCollectionEx<T>(items);
         }
     }
 }

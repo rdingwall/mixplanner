@@ -21,11 +21,17 @@ namespace MixPlanner.ViewModels
             }
         }
 
+        public OpenMixCommand OpenCommand { get; private set; }
         public SaveMixAsCommand SaveAsCommand { get; private set; }
 
-        public MixToolBarViewModel(SaveMixAsCommand saveAsCommand, IMessenger messenger) : base(messenger)
+        public MixToolBarViewModel(
+            OpenMixCommand openCommand,
+            SaveMixAsCommand saveAsCommand,
+            IMessenger messenger) : base(messenger)
         {
+            if (openCommand == null) throw new ArgumentNullException("openCommand");
             if (saveAsCommand == null) throw new ArgumentNullException("saveAsCommand");
+            OpenCommand = openCommand;
             SaveAsCommand = saveAsCommand;
             messenger.Register<MixLoadedEvent>(this, OnMixLoaded);
         }

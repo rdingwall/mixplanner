@@ -160,6 +160,7 @@
     <Compile Include="AttachedProperties\WindowBehavior.cs" />
     <Compile Include="Commands\AsyncCommandBase.cs" />
     <Compile Include="Commands\AutoAdjustPitchCommand.cs" />
+    <Compile Include="Commands\OpenMixCommand.cs" />
     <Compile Include="Commands\QuickEditHarmonicKeyCommand.cs" />
     <Compile Include="Commands\SaveHarmonicKeyCommand.cs" />
     <Compile Include="Commands\DropItemIntoMixCommand.cs" />

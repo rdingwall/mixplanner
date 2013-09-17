@@ -18,8 +18,9 @@ namespace MixPlanner.ViewModels
         MixItemViewModel selectedItem;
         readonly IMixItemViewModelFactory viewModels;
         IMix mix;
+        ObservableCollectionEx<MixItemViewModel> items;
+
         public RemoveTracksFromMixCommand RemoveCommand { get; private set; }
-        public ObservableCollectionEx<MixItemViewModel> Items { get; private set; }
         public DropItemIntoMixCommand DropItemCommand { get; private set; }
         public ImportFilesIntoMixCommand DropFilesCommand { get; private set; }
         public PlayPauseTrackCommand PlayPauseCommand { get; private set; }
@@ -32,6 +33,20 @@ namespace MixPlanner.ViewModels
         public ShowInExplorerCommand ShowInExplorerCommand { get; private set; }
         public MixToolBarViewModel ToolBar { get; private set; }
 
+        public ObservableCollectionEx<MixItemViewModel> Items
+        {
+            get { return items; }
+            private set
+            {
+                items = value;
+                RaisePropertyChanged(() => Mix);
+                RaisePropertyChanged(() => Items);
+                RaisePropertyChanged(() => SelectedItems);
+                RaisePropertyChanged(() => HasSingleItemSelected);
+                RaisePropertyChanged(() => SelectedTrack);
+            }
+        }
+
         public IMix Mix
         {
             get { return mix; }
@@ -39,6 +54,7 @@ namespace MixPlanner.ViewModels
             {
                 mix = value;
                 RaisePropertyChanged(() => Mix);
+                RaisePropertyChanged(() => Items);
                 RaisePropertyChanged(() => SelectedItems);
                 RaisePropertyChanged(() => HasSingleItemSelected);
                 RaisePropertyChanged(() => SelectedTrack);
@@ -71,6 +87,17 @@ namespace MixPlanner.ViewModels
         public bool HasMultipleItemsSelected
         {
             get { return SelectedItems.Count > 1; }
+        }
+
+        public ICollection<IMixItem> SelectedItems
+        {
+            get
+            {
+                return Items
+                    .Where(i => i.IsSelected)
+                    .Select(i => i.MixItem)
+                    .ToList();
+            }
         }
 
         public MixViewModel(IMessenger messenger,
@@ -119,7 +146,11 @@ namespace MixPlanner.ViewModels
             ToolBar = toolBar;
             this.viewModels = viewModels;
             RemoveCommand = removeCommand;
-            Items = new ObservableCollectionEx<MixItemViewModel>();
+
+            Items = mix
+                .Select(i => viewModels.CreateFor(mix, i, this))
+               .ToObservableCollectionEx();
+
             messenger.Register<TrackAddedToMixEvent>(this, OnTrackAdded);
             messenger.Register<TrackRemovedFromMixEvent>(this, OnTrackRemoved);
             messenger.Register<AllTracksRemovedFromMixEvent>(this, OnAllTracksRemoved);
@@ -132,17 +163,6 @@ namespace MixPlanner.ViewModels
         void OnAllTracksRemoved(AllTracksRemovedFromMixEvent obj)
         {
             Items.Clear();
-        }
-
-        public ICollection<IMixItem> SelectedItems
-        {
-            get
-            {
-                return Items
-                    .Where(i => i.IsSelected)
-                    .Select(i => i.MixItem)
-                    .ToList();
-            }
         }
 
         void OnTrackRemoved(TrackRemovedFromMixEvent obj)
