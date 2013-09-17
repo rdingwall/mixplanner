@@ -17,6 +17,11 @@ namespace MixPlanner.Commands
 
         protected async override void Execute(T parameter)
         {
+            await ExecuteAsync(parameter);
+        }
+
+        public async Task ExecuteAsync(T parameter)
+        {
             // tell the button that we're now executing...
             isExecuting = true;
             RaiseCanExecuteChanged();
@@ -47,6 +52,11 @@ namespace MixPlanner.Commands
         protected abstract Task DoExecute(object parameter);
 
         public async virtual void Execute(object parameter)
+        {
+            await ExecuteAsync(parameter);
+        }
+
+        public async Task ExecuteAsync(object parameter)
         {
             // tell the button that we're now executing...
             isExecuting = true;

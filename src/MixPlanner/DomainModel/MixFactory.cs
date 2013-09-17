@@ -6,7 +6,7 @@ namespace MixPlanner.DomainModel
     public interface IMixFactory
     {
         IMix Create();
-        IMix Create(IEnumerable<Tuple<Track, double>> tracks);
+        IMix Create(IEnumerable<Tuple<Track, double>> tracks, string filename);
     }
 
     public class MixFactory : IMixFactory
@@ -33,10 +33,11 @@ namespace MixPlanner.DomainModel
             return new Mix(messenger, transitions, playbackSpeedAdjuster);
         }
 
-        public IMix Create(IEnumerable<Tuple<Track, double>> tracks)
+        public IMix Create(IEnumerable<Tuple<Track, double>> tracks, string filename)
         {
             if (tracks == null) throw new ArgumentNullException("tracks");
-            return new Mix(messenger, transitions, playbackSpeedAdjuster, tracks);
+            if (filename == null) throw new ArgumentNullException("filename");
+            return new Mix(messenger, transitions, playbackSpeedAdjuster, tracks, filename);
         }
     }
 }

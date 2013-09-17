@@ -31,7 +31,8 @@ namespace MixPlanner.Commands
             if (!dialogService.TrySaveMix(out filename))
                 return;
 
-            await writer.WriteAsync(parameter, filename);
+            await writer.WriteAsync(parameter, filename)
+                .ContinueWith(_ => parameter.Filename = filename);
         }
     }
 }

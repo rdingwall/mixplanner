@@ -10,6 +10,7 @@ namespace MixPlanner.DomainModel
 {
     public interface IMix : IEnumerable<IMixItem>
     {
+        string Filename { get; set; }
         IEnumerable<Track> Tracks { get; }
         IMixItem Add(Track track);
         IMixItem Insert(Track track, int insertIndex);
@@ -44,22 +45,26 @@ namespace MixPlanner.DomainModel
         readonly IDispatcherMessenger messenger;
         readonly IActualTransitionDetector transitions;
         readonly ILimitingPlaybackSpeedAdjuster playbackSpeedAdjuster;
+        readonly string filename;
         readonly IList<MixItem> items;
         bool isRecalcTransitionsEnabled = true;
 
         public Mix(
             IDispatcherMessenger messenger,
             IActualTransitionDetector transitions,
-            ILimitingPlaybackSpeedAdjuster playbackSpeedAdjuster) : 
-            this(messenger, transitions, playbackSpeedAdjuster, Enumerable.Empty<Tuple<Track, double>>())
+            ILimitingPlaybackSpeedAdjuster playbackSpeedAdjuster) :
+                this(messenger, transitions, playbackSpeedAdjuster,
+                     tracks: Enumerable.Empty<Tuple<Track, double>>(),
+                     filename: null)
         {
         }
 
         public Mix(
-            IDispatcherMessenger messenger,
-            IActualTransitionDetector transitions,
-            ILimitingPlaybackSpeedAdjuster playbackSpeedAdjuster,
-            IEnumerable<Tuple<Track, double>> tracks)
+            IDispatcherMessenger messenger, 
+            IActualTransitionDetector transitions, 
+            ILimitingPlaybackSpeedAdjuster playbackSpeedAdjuster, 
+            IEnumerable<Tuple<Track, double>> tracks, 
+            string filename)
         {
             if (messenger == null) throw new ArgumentNullException("messenger");
             if (transitions == null) throw new ArgumentNullException("transitions");
@@ -68,6 +73,7 @@ namespace MixPlanner.DomainModel
             this.messenger = messenger;
             this.transitions = transitions;
             this.playbackSpeedAdjuster = playbackSpeedAdjuster;
+            this.filename = filename;
             items = new List<MixItem>();
 
             foreach (Tuple<Track, double> t in tracks)
@@ -90,6 +96,7 @@ namespace MixPlanner.DomainModel
                 .ForEach(ResetPlaybackSpeed);
         }
 
+        public string Filename { get; set; }
         public IEnumerable<Track> Tracks { get { return items.Select(i => i.Track); } }
 
         public IMixItem this[int index]

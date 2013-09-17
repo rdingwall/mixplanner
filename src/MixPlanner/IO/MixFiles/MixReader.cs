@@ -41,7 +41,7 @@ namespace MixPlanner.IO.MixFiles
                     string json = await reader.ReadToEndAsync();
                     var jsonMix = await JsonConvert.DeserializeObjectAsync<JsonMix>(json, GlobalJsonSettings.Settings);
 
-                    return FromJsonMix(jsonMix);
+                    return FromJsonMix(jsonMix, filename);
                 }
             }
             catch (Exception e)
@@ -51,12 +51,12 @@ namespace MixPlanner.IO.MixFiles
             }
         }
 
-        IMix FromJsonMix(JsonMix jsonMix)
+        IMix FromJsonMix(JsonMix jsonMix, string filename)
         {
             IEnumerable<Tuple<Track, double>> tracks = jsonMix
-                .Items.Select(i => Tuple.Create<Track, double>(GetOrCreateTrack(i), i.PlaybackSpeed));
+                .Items.Select(i => Tuple.Create(GetOrCreateTrack(i), i.PlaybackSpeed));
 
-            return mixFactory.Create(tracks);
+            return mixFactory.Create(tracks, filename);
         }
 
         Track GetOrCreateTrack(JsonTrack jsonItem)

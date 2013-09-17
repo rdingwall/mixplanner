@@ -20,14 +20,16 @@
         
         <xctk:SplitButton Grid.Column="0"
                           Content="Save"
-                          Command="{Binding SaveCommand}">
+                          Command="{Binding SaveCommand}"
+                          CommandParameter="{Binding Mix}">
             <xctk:SplitButton.DropDownContent>
                 <StackPanel>
                     <MenuItem Header="Open"
                               Command="{Binding OpenCommand}" />
                     <Separator />
                     <MenuItem Header="Save"
-                              Command="{Binding SaveCommand}" />
+                              Command="{Binding SaveCommand}"
+                              CommandParameter="{Binding Mix}" />
                     <MenuItem Header="Save As..."
                               Command="{Binding SaveAsCommand}"
                               CommandParameter="{Binding Mix}"/>
