@@ -226,6 +226,7 @@
     <Compile Include="TestDirectory.cs" />
     <Compile Include="TestMixes.cs" />
     <Compile Include="TestMixingStrategies.cs" />
+    <Compile Include="TestMixProvider.cs" />
     <Compile Include="TestTracks.cs" />
     <Content Include="example.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

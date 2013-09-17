@@ -9,17 +9,17 @@ namespace MixPlanner.Commands
 {
     public class DropItemIntoMixCommand : CommandBase<IDropInfo>
     {
-        readonly IMix mix;
+        readonly ICurrentMixProvider mixProvider;
         readonly IEnumerable<ICommand> commands; 
 
         public DropItemIntoMixCommand(
-            IMix mix,
+            ICurrentMixProvider mixProvider,
             AddTrackToMixCommand addTrackCommand,
             ReorderMixTracksCommand reorderTracksCommand,
             ImportFilesIntoMixCommand importFilesCommand)
         {
-            if (mix == null) throw new ArgumentNullException("mix");
-            this.mix = mix;
+            if (mixProvider == null) throw new ArgumentNullException("mixProvider");
+            this.mixProvider = mixProvider;
             if (addTrackCommand == null) throw new ArgumentNullException("addTrackCommand");
             if (reorderTracksCommand == null) throw new ArgumentNullException("reorderTracksCommand");
             if (importFilesCommand == null) throw new ArgumentNullException("importFilesCommand");
@@ -34,6 +34,8 @@ namespace MixPlanner.Commands
 
         protected override bool CanExecute(IDropInfo parameter)
         {
+            IMix mix = mixProvider.GetCurrentMix();
+
             return !mix.IsLocked && commands.Any(c => c.CanExecute(parameter));
         }
 

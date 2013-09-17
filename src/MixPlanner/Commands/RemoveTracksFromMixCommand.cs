@@ -7,31 +7,34 @@ namespace MixPlanner.Commands
 {
     public class RemoveTracksFromMixCommand : CommandBase<IEnumerable<IMixItem>>
     {
-        readonly IMix mix;
+        readonly ICurrentMixProvider mixProvider;
         readonly IDispatcherMessenger messenger;
 
-        public RemoveTracksFromMixCommand(IMix mix, IDispatcherMessenger messenger)
+        public RemoveTracksFromMixCommand(ICurrentMixProvider mixProvider, IDispatcherMessenger messenger)
         {
-            if (mix == null) throw new ArgumentNullException("mix");
+            if (mixProvider == null) throw new ArgumentNullException("mixProvider");
             if (messenger == null) throw new ArgumentNullException("messenger");
-            this.mix = mix;
+            this.mixProvider = mixProvider;
             this.messenger = messenger;
         }
 
         protected override bool CanExecute(IEnumerable<IMixItem> parameter)
         {
+            IMix mix = mixProvider.GetCurrentMix();
             return !mix.IsLocked && parameter != null && parameter.Any();
         }
 
         protected override void Execute(IEnumerable<IMixItem> parameter)
         {
+            IMix mix = mixProvider.GetCurrentMix();
+
             using (mix.Lock())
             {
                 // Optimization: if we are nuking the whole mix (all tracks
                 // selected), it is quicker to clear than remove individual tracks.
                 if (parameter.Count() == mix.Count)
                 {
-                    mix.Clear();
+                     mix.Clear();
                     return;
                 }
 

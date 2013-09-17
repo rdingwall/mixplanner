@@ -12,22 +12,22 @@ namespace MixPlanner.Commands
     /// </summary>
     public abstract class SortTracksCommandBase : AsyncCommandBase<IEnumerable<IMixItem>>
     {
-        protected readonly IMix Mix;
+        protected readonly ICurrentMixProvider mixProvider;
         protected readonly IDispatcherMessenger Messenger;
 
-        protected SortTracksCommandBase(
-            IMix mix,
-            IDispatcherMessenger messenger)
+        protected SortTracksCommandBase(ICurrentMixProvider mixProvider, IDispatcherMessenger messenger)
         {
-            if (mix == null) throw new ArgumentNullException("mix");
+            if (mixProvider == null) throw new ArgumentNullException("mixProvider");
             if (messenger == null) throw new ArgumentNullException("messenger");
-            this.Mix = mix;
+            this.mixProvider = mixProvider;
             this.Messenger = messenger;
         }
 
         protected override bool CanExecute(IEnumerable<IMixItem> parameter)
         {
-            return !Mix.IsLocked && parameter != null && parameter.Any();
+            IMix mix = mixProvider.GetCurrentMix();
+
+            return !mix.IsLocked && parameter != null && parameter.Any();
 
             // todo: only contiguous blocks?
         }
@@ -42,7 +42,9 @@ namespace MixPlanner.Commands
 
         void DoExecuteSync(IEnumerable<IMixItem> parameter)
         {
-            using (Mix.Lock())
+            IMix mix = mixProvider.GetCurrentMix();
+
+            using (mix.Lock())
             using (new DisableRecommendationsScope(Messenger))
             {
                 IEnumerable<IMixItem> newOrder;
@@ -55,16 +57,18 @@ namespace MixPlanner.Commands
 
         void ApplyNewOrdering(IEnumerable<IMixItem> newOrder, IEnumerable<IMixItem> originalOrder)
         {
+            IMix mix = mixProvider.GetCurrentMix();
+
             // Re-ordered results will be moved to a contiguous block starting
             // at the index of the first track in the original un-mixed
             // selection.
             var newOrderList = newOrder.ToList();
-            int startIndex = Mix.IndexOf(originalOrder.First());
+            int startIndex = mix.IndexOf(originalOrder.First());
 
             for (int i = 0; i < newOrderList.Count; i++)
             {
                 IMixItem item = newOrderList[i];
-                Mix.Reorder(item, startIndex + i);
+                mix.Reorder(item, startIndex + i);
             }
         } 
     }

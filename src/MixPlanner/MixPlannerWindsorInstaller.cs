@@ -75,13 +75,14 @@ namespace MixPlanner
                          .DependsOn(Property.ForKey("preferredstrategies").Is(preferredStrategies)),
                 Component.For<IAutoMixingContextFactory>().ImplementedBy<AutoMixingContextFactory>(),
                 Component.For<IAutoMixingStrategy>().ImplementedBy<AutoMixingStrategy>(),
-                Component.For<IMix>().ImplementedBy<Mix>(),
+                Component.For<ICurrentMixProvider>().ImplementedBy<CurrentMixProvider>(),
                 Component.For<IMixFactory>().ImplementedBy<MixFactory>(),
                 Component.For<IMixWriter>().ImplementedBy<MixWriter>(),
                 Component.For<IMixReader>().ImplementedBy<MixReader>(),
                 Component.For<IPlaylist>().ImplementedBy<Playlist>(),
                 AllTypes.FromThisAssembly().InSameNamespaceAs<MainWindowViewModel>()
-                    .ConfigureFor<SettingsWindowViewModel>(c => c.LifestyleTransient()),
+                    .ConfigureFor<SettingsWindowViewModel>(c => c.LifestyleTransient())
+                    .ConfigureFor<MixViewModel>(c => c.LifestyleTransient()),
                 AllTypes.FromThisAssembly().BasedOn<Window>().LifestyleTransient(),
                 AllTypes.FromThisAssembly().BasedOn<ICommand>(),
                 AllTypes.FromThisAssembly().BasedOn<IValueConverter>().WithServiceSelf(),

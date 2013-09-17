@@ -7,21 +7,23 @@ namespace MixPlanner.Commands
 {
     public class AutoAdjustPitchCommand : CommandBase<IEnumerable<IMixItem>>
     {
-        readonly IMix mix;
+        readonly ICurrentMixProvider mixProvider;
 
-        public AutoAdjustPitchCommand(IMix mix)
+        public AutoAdjustPitchCommand(ICurrentMixProvider mixProvider)
         {
-            if (mix == null) throw new ArgumentNullException("mix");
-            this.mix = mix;
+            if (mixProvider == null) throw new ArgumentNullException("mixProvider");
+            this.mixProvider = mixProvider;
         }
 
         protected override bool CanExecute(IEnumerable<IMixItem> parameter)
         {
+            IMix mix = mixProvider.GetCurrentMix();
             return !mix.IsLocked && parameter != null && parameter.Any();
         }
 
         protected override void Execute(IEnumerable<IMixItem> parameter)
         {
+            IMix mix = mixProvider.GetCurrentMix();
             mix.AutoAdjustBpms(parameter);
         }
     }

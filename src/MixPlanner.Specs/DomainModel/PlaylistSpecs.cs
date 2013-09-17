@@ -98,7 +98,7 @@ namespace MixPlanner.Specs.DomainModel
                 Player = MockRepository.GenerateStub<IAudioPlayer>();
                 Mix = TestMixes.CreateRandomMix();
                 Messenger = new Messenger();
-                Playlist = new Playlist(Player, Mix, Messenger);
+                Playlist = new Playlist(Player, new TestMixProvider(Mix), Messenger);
             };
         }
     }

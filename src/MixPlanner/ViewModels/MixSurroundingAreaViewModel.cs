@@ -1,25 +1,48 @@
 ﻿using System;
 using System.Windows;
+using Castle.Windsor;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
 using GongSolutions.Wpf.DragDrop;
 using MixPlanner.Commands;
+using MixPlanner.Events;
 
 namespace MixPlanner.ViewModels
 {
     public class MixSurroundingAreaViewModel : ViewModelBase, IDropTarget
     {
-        public MixViewModel Mix { get; private set; }
+        readonly IWindsorContainer container;
+        MixViewModel mix;
+
+        public MixViewModel Mix
+        {
+            get { return mix; }
+            private set
+            {
+                mix = value;
+                RaisePropertyChanged(() => Mix);
+            }
+        }
+
         public DragTracksOutOfMixCommand DropItemCommand { get; private set; }
 
-        public MixSurroundingAreaViewModel(MixViewModel mix, IMessenger messenger,
-                                           DragTracksOutOfMixCommand dropItemCommand)
+        public MixSurroundingAreaViewModel(
+            IWindsorContainer container, 
+            IMessenger messenger,
+            DragTracksOutOfMixCommand dropItemCommand)
             : base(messenger)
         {
-            if (mix == null) throw new ArgumentNullException("mix");
+            if (container == null) throw new ArgumentNullException("container");
             if (dropItemCommand == null) throw new ArgumentNullException("dropItemCommand");
-            Mix = mix;
+            this.container = container;
             DropItemCommand = dropItemCommand;
+
+            messenger.Register<MixLoadedEvent>(this, OnMixLoaded);
+        }
+
+        void OnMixLoaded(MixLoadedEvent obj)
+        {
+            Mix = container.Resolve<MixViewModel>(new {mix = obj.Mix});
         }
 
         public void DragOver(IDropInfo dropInfo)

@@ -8,22 +8,24 @@ namespace MixPlanner.Commands
 {
     public class ResetPlaybackSpeedCommand : CommandBase<IEnumerable<IMixItem>>
     {
-        readonly IMix mix;
+        readonly ICurrentMixProvider mixProvider;
 
-        public ResetPlaybackSpeedCommand(IMix mix)
+        public ResetPlaybackSpeedCommand(ICurrentMixProvider mixProvider)
         {
-            if (mix == null) throw new ArgumentNullException("mix");
-            this.mix = mix;
+            if (mixProvider == null) throw new ArgumentNullException("mixProvider");
+            this.mixProvider = mixProvider;
         }
 
         protected override bool CanExecute(IEnumerable<IMixItem> parameter)
         {
+            IMix mix = mixProvider.GetCurrentMix();
             return !mix.IsLocked && parameter != null && parameter.Any();
         }
 
         protected override void Execute(IEnumerable<IMixItem> parameter)
         {
-            parameter.ForEach(m => mix.ResetPlaybackSpeed(m));
+            IMix mix = mixProvider.GetCurrentMix();
+            parameter.ForEach(mix.ResetPlaybackSpeed);
         }
     }
 }

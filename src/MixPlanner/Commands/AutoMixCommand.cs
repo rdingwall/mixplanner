@@ -13,10 +13,10 @@ namespace MixPlanner.Commands
         readonly IAutoMixingStrategy strategy;
 
         public AutoMixCommand(
-            IMix mix, 
+            ICurrentMixProvider mixProvider, 
             IDispatcherMessenger messenger,
             IAutoMixingContextFactory contextFactory,
-            IAutoMixingStrategy strategy) : base(mix, messenger)
+            IAutoMixingStrategy strategy) : base(mixProvider, messenger)
         {
             if (contextFactory == null) throw new ArgumentNullException("contextFactory");
             if (strategy == null) throw new ArgumentNullException("strategy");
@@ -30,8 +30,10 @@ namespace MixPlanner.Commands
         {
             Messenger.SendToUI(new BeganAutoMixingEvent());
 
-            Mix.AutoAdjustBpms(selectedItems);
-            AutoMixingContext context = contextFactory.CreateContext(Mix, selectedItems);
+            IMix mix = mixProvider.GetCurrentMix();
+
+            mix.AutoAdjustBpms(selectedItems);
+            AutoMixingContext context = contextFactory.CreateContext(mix, selectedItems);
             AutoMixingResult results = strategy.AutoMix(context);
 
             if (!results.IsSuccess)

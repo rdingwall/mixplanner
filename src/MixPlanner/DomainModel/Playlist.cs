@@ -1,6 +1,5 @@
 ﻿using System;
 using GalaSoft.MvvmLight.Messaging;
-using MixPlanner.Events;
 using MixPlanner.Player;
 
 namespace MixPlanner.DomainModel
@@ -14,14 +13,14 @@ namespace MixPlanner.DomainModel
     public class Playlist : IPlaylist
     {
         readonly IAudioPlayer player;
-        readonly IMix mix;
+        readonly ICurrentMixProvider mixProvider;
 
-        public Playlist(IAudioPlayer player, IMix mix, IMessenger messenger)
+        public Playlist(IAudioPlayer player, ICurrentMixProvider mixProvider, IMessenger messenger)
         {
-            if (mix == null) throw new ArgumentNullException("mix");
+            if (mixProvider == null) throw new ArgumentNullException("mixProvider");
             if (messenger == null) throw new ArgumentNullException("messenger");
             this.player = player;
-            this.mix = mix;
+            this.mixProvider = mixProvider;
         }
 
         public Track PreviousTrack
@@ -30,6 +29,8 @@ namespace MixPlanner.DomainModel
             {
                 if (player.CurrentTrack == null)
                     return null;
+
+                IMix mix = mixProvider.GetCurrentMix();
 
                 if (mix.IsEmpty)
                     return null;
@@ -53,6 +54,8 @@ namespace MixPlanner.DomainModel
             {
                 if (player.CurrentTrack == null)
                     return null;
+
+                IMix mix = mixProvider.GetCurrentMix();
 
                 if (mix.IsEmpty)
                     return null;

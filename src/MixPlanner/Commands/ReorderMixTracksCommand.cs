@@ -7,16 +7,18 @@ namespace MixPlanner.Commands
 {
     public class ReorderMixTracksCommand : CommandBase<IDropInfo>
     {
-        readonly IMix mix;
+        readonly ICurrentMixProvider mixProvider;
 
-        public ReorderMixTracksCommand(IMix mix)
+        public ReorderMixTracksCommand(ICurrentMixProvider mixProvider)
         {
-            if (mix == null) throw new ArgumentNullException("mix");
-            this.mix = mix;
+            if (mixProvider == null) throw new ArgumentNullException("mixProvider");
+            this.mixProvider = mixProvider;
         }
 
         protected override bool CanExecute(IDropInfo parameter)
         {
+            IMix mix = mixProvider.GetCurrentMix();
+
             return !mix.IsLocked && parameter != null
                    && parameter.DataAsEnumerable<IMixItem>().Any();
         }
@@ -24,6 +26,8 @@ namespace MixPlanner.Commands
         protected override void Execute(IDropInfo parameter)
         {
             var items = parameter.DataAsEnumerable<IMixItem>().ToList();
+
+            IMix mix = mixProvider.GetCurrentMix();
 
             for (int i = 0; i < items.Count; i++)
                 mix.Reorder(items[i], parameter.InsertIndex + i);

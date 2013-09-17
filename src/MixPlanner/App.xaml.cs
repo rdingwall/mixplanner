@@ -6,11 +6,14 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
 using Castle.Windsor;
+using GalaSoft.MvvmLight.Messaging;
 using GalaSoft.MvvmLight.Threading;
 using Microsoft.Practices.ServiceLocation;
 using MixPlanner.Configuration;
 using MixPlanner.DomainModel;
+using MixPlanner.Events;
 using MixPlanner.Storage;
+using MixPlanner.ViewModels;
 using MixPlanner.Views;
 using log4net;
 using log4net.Appender;
@@ -53,7 +56,22 @@ namespace MixPlanner
 
             Log.DebugFormat("MixPlanner {0} starting up", Assembly.GetExecutingAssembly().GetName().Version);
 
+            InitializeEmptyMix();
+
             container.Resolve<MainWindow>().ShowDialog();
+        }
+
+        void InitializeEmptyMix()
+        {
+            // Ensure these are instantiated and registered so they receive the
+            // initial mix
+            container.Resolve<MixSurroundingAreaViewModel>();
+            container.Resolve<MixToolBarViewModel>();
+            container.Resolve<ICurrentMixProvider>();
+
+            var mixFactory = container.Resolve<IMixFactory>();
+            IMix mix = mixFactory.Create();
+            container.Resolve<IMessenger>().Send(new MixLoadedEvent(mix));
         }
 
         static void ConfigureLog4Net(StartupEventArgs e)

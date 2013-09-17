@@ -17,6 +17,7 @@ namespace MixPlanner.ViewModels
     {
         MixItemViewModel selectedItem;
         readonly IMixItemViewModelFactory viewModels;
+        IMix mix;
         public RemoveTracksFromMixCommand RemoveCommand { get; private set; }
         public ObservableCollectionEx<MixItemViewModel> Items { get; private set; }
         public DropItemIntoMixCommand DropItemCommand { get; private set; }
@@ -31,7 +32,18 @@ namespace MixPlanner.ViewModels
         public ShowInExplorerCommand ShowInExplorerCommand { get; private set; }
         public MixToolBarViewModel ToolBar { get; private set; }
 
-        public IMix Mix { get; private set; }
+        public IMix Mix
+        {
+            get { return mix; }
+            private set
+            {
+                mix = value;
+                RaisePropertyChanged(() => Mix);
+                RaisePropertyChanged(() => SelectedItems);
+                RaisePropertyChanged(() => HasSingleItemSelected);
+                RaisePropertyChanged(() => SelectedTrack);
+            }
+        }
 
         public MixItemViewModel SelectedItem
         {
@@ -140,7 +152,7 @@ namespace MixPlanner.ViewModels
 
         void OnTrackAdded(TrackAddedToMixEvent obj)
         {
-            var viewModel = viewModels.CreateFor(obj.Item, this);
+            var viewModel = viewModels.CreateFor(mix, obj.Item, this);
             Items.Insert(obj.InsertIndex, viewModel);
         }
 

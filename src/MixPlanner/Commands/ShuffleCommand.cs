@@ -12,8 +12,8 @@ namespace MixPlanner.Commands
         // two identical mixes!!)
         private readonly Random random;
 
-        public ShuffleCommand(IMix mix, IDispatcherMessenger messenger) 
-            : base(mix, messenger)
+        public ShuffleCommand(ICurrentMixProvider mixProvider, IDispatcherMessenger messenger) 
+            : base(mixProvider, messenger)
         {
             random = new Random();
         }

@@ -243,6 +243,7 @@
     <Compile Include="DomainModel\BpmRangeChecker.cs" />
     <Compile Include="Configuration\Config.cs" />
     <Compile Include="Configuration\ConfigProvider.cs" />
+    <Compile Include="DomainModel\CurrentMixProvider.cs" />
     <Compile Include="DomainModel\HarmonicKeyDisplayMode.cs" />
     <Compile Include="DomainModel\HarmonicKeyChangeInterval.cs" />
     <Compile Include="DomainModel\IMixingStrategy.cs" />
@@ -285,6 +286,7 @@
     <Compile Include="Events\ConfigSavedEvent.cs" />
     <Compile Include="Events\BeganAutoMixingEvent.cs" />
     <Compile Include="Events\MixItemSelectionChangedEvent.cs" />
+    <Compile Include="Events\MixLoadedEvent.cs" />
     <Compile Include="Events\MixLockedEvent.cs" />
     <Compile Include="Events\MixUnlockedEvent.cs" />
     <Compile Include="Events\PlayerLoadedEvent.cs" />

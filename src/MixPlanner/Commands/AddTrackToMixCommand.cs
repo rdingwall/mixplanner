@@ -9,18 +9,20 @@ namespace MixPlanner.Commands
 {
     public class AddTrackToMixCommand : CommandBase<DropInfo>
     {
-        readonly IMix mix;
+        readonly ICurrentMixProvider mixProvider;
 
-        public AddTrackToMixCommand(IMix mix)
+        public AddTrackToMixCommand(ICurrentMixProvider mixProvider)
         {
-            if (mix == null) throw new ArgumentNullException("mix");
-            this.mix = mix;
+            if (mixProvider == null) throw new ArgumentNullException("mixProvider");
+            this.mixProvider = mixProvider;
         }
 
         protected override bool CanExecute(DropInfo parameter)
         {
             if (parameter == null)
                 return false;
+
+            IMix mix = mixProvider.GetCurrentMix();
 
             if (mix.IsLocked)
                 return false;
@@ -37,6 +39,8 @@ namespace MixPlanner.Commands
         protected override void Execute(DropInfo parameter)
         {
             var sourceItem = parameter.Data as TrackLibraryItemViewModel;
+
+            IMix mix = mixProvider.GetCurrentMix();
 
             if (sourceItem != null)
             {

@@ -3,20 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using GongSolutions.Wpf.DragDrop;
 using MixPlanner.DomainModel;
-using MixPlanner.ViewModels;
 
 namespace MixPlanner.Commands
 {
     public class DragTracksOutOfMixCommand : CommandBase<DropInfo>
     {
-        readonly IMix mix;
+        readonly ICurrentMixProvider mixProvider;
         readonly RemoveTracksFromMixCommand removeCommand;
 
-        public DragTracksOutOfMixCommand(IMix mix, RemoveTracksFromMixCommand removeCommand)
+        public DragTracksOutOfMixCommand(ICurrentMixProvider mixProvider, RemoveTracksFromMixCommand removeCommand)
         {
-            if (mix == null) throw new ArgumentNullException("mix");
+            if (mixProvider == null) throw new ArgumentNullException("mixProvider");
             if (removeCommand == null) throw new ArgumentNullException("removeCommand");
-            this.mix = mix;
+            this.mixProvider = mixProvider;
             this.removeCommand = removeCommand;
         }
 
@@ -24,6 +23,8 @@ namespace MixPlanner.Commands
         {
             if (parameter == null)
                 return false;
+
+            IMix mix = mixProvider.GetCurrentMix();
 
             if (mix.IsLocked)
                 return false;

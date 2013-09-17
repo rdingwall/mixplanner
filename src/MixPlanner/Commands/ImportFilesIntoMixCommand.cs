@@ -8,22 +8,24 @@ namespace MixPlanner.Commands
 {
     public class ImportFilesIntoMixCommand : ImportFilesCommandBase
     {
-        readonly IMix mix;
+        readonly ICurrentMixProvider mixProvider;
 
-        public ImportFilesIntoMixCommand(ITrackLibrary library, IMix mix,
+        public ImportFilesIntoMixCommand(ITrackLibrary library, ICurrentMixProvider mixProvider,
             IProgressDialogService progressDialog) : base(library, progressDialog)
         {
-            if (mix == null) throw new ArgumentNullException("mix");
-            this.mix = mix;
+            if (mixProvider == null) throw new ArgumentNullException("mixProvider");
+            this.mixProvider = mixProvider;
         }
 
         protected override bool CanExecute()
         {
+            IMix mix = mixProvider.GetCurrentMix();
             return !mix.IsLocked;
         }
 
         protected override void OnImported(IEnumerable<Track> tracks, IDropInfo dropInfo)
         {
+            IMix mix = mixProvider.GetCurrentMix();
             mix.Insert(tracks, dropInfo.InsertIndex);
         }
     }
