@@ -15,7 +15,14 @@
         Width="525" 
         d:DataContext="{d:DesignInstance vm:MainWindowViewModel}"
         AllowDrop="True">
-    
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closing">
+            <cmd:EventToCommand Command="{Binding SaveOnExitCommand}"
+                                PassEventArgsToCommand="True" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
     <Window.InputBindings>
         <KeyBinding Key="F3" Command="{Binding FocusSearchBoxCommand}" />
         <KeyBinding Key="F" Modifiers="Control" Command="{Binding FocusSearchBoxCommand}" />

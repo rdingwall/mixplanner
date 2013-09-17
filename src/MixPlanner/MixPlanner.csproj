@@ -160,6 +160,7 @@
     <Compile Include="AttachedProperties\WindowBehavior.cs" />
     <Compile Include="Commands\AsyncCommandBase.cs" />
     <Compile Include="Commands\AutoAdjustPitchCommand.cs" />
+    <Compile Include="Commands\SaveOnExitCommand.cs" />
     <Compile Include="Commands\GuardUnsavedChangesService.cs" />
     <Compile Include="Commands\InitializeEmptyMixCommand.cs" />
     <Compile Include="Commands\OpenMixCommand.cs" />

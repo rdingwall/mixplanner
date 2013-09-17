@@ -16,7 +16,8 @@ namespace MixPlanner.ViewModels
         public TrackLibraryViewModel TrackLibrary { get; private set; }
         public FocusSearchBoxCommand FocusSearchBoxCommand { get; private set; }
         public OpenMixCommand OpenCommand { get; private set; }
-        public SaveMixCommand SaveCommand { get; set; }
+        public SaveMixCommand SaveCommand { get; private set; }
+        public SaveOnExitCommand SaveOnExitCommand { get; set; }
         public AudioPlayerViewModel AudioPlayer { get; private set; }
 
         public IMix Mix
@@ -36,6 +37,7 @@ namespace MixPlanner.ViewModels
             FocusSearchBoxCommand focusSearchBoxCommand,
             OpenMixCommand openCommand,
             SaveMixCommand saveCommand,
+            SaveOnExitCommand saveOnExitCommand,
             AudioPlayerViewModel audioPlayer) : base(messenger)
         {
             if (messenger == null) throw new ArgumentNullException("messenger");
@@ -44,6 +46,7 @@ namespace MixPlanner.ViewModels
             if (focusSearchBoxCommand == null) throw new ArgumentNullException("focusSearchBoxCommand");
             if (openCommand == null) throw new ArgumentNullException("openCommand");
             if (saveCommand == null) throw new ArgumentNullException("saveCommand");
+            if (saveOnExitCommand == null) throw new ArgumentNullException("saveOnExitCommand");
             if (audioPlayer == null) throw new ArgumentNullException("audioPlayer");
 
             MixSurroundingArea = mixSurroundingAreaViewModel;
@@ -51,6 +54,7 @@ namespace MixPlanner.ViewModels
             FocusSearchBoxCommand = focusSearchBoxCommand;
             OpenCommand = openCommand;
             SaveCommand = saveCommand;
+            SaveOnExitCommand = saveOnExitCommand;
             AudioPlayer = audioPlayer;
 
             messenger.Register<DialogMessage>(this, OnDialogRequested);

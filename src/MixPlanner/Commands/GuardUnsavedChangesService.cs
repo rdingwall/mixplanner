@@ -10,6 +10,7 @@ namespace MixPlanner.Commands
     public interface IGuardUnsavedChangesService
     {
         void GuardUnsavedChanges(Action action);
+        void GuardUnsavedChanges(Action action, Action cancel);
     }
 
     public class GuardUnsavedChangesService : IGuardUnsavedChangesService
@@ -37,7 +38,13 @@ namespace MixPlanner.Commands
 
         public void GuardUnsavedChanges(Action action)
         {
+            GuardUnsavedChanges(action, delegate {});
+        }
+
+        public void GuardUnsavedChanges(Action action, Action cancel)
+        {
             if (action == null) throw new ArgumentNullException("action");
+            if (cancel == null) throw new ArgumentNullException("cancel");
 
             if (!isDirty)
             {
@@ -46,7 +53,7 @@ namespace MixPlanner.Commands
             }
 
             var message =
-                new DialogMessage(this, "Save tracks?", m => OnResult(m, action))
+                new DialogMessage(this, "Save tracks?", m => OnResult(m, action, cancel))
                     {
                         Button = MessageBoxButton.YesNoCancel,
                         Icon = MessageBoxImage.Warning,
@@ -56,7 +63,7 @@ namespace MixPlanner.Commands
             messenger.SendToUI(message);
         }
 
-        async void OnResult(MessageBoxResult result, Action action)
+        async void OnResult(MessageBoxResult result, Action action, Action cancel)
         {
             switch (result)
             {
@@ -68,6 +75,7 @@ namespace MixPlanner.Commands
                     break;
 
                 default: // cancel
+                    cancel();
                     return;
             }
 
