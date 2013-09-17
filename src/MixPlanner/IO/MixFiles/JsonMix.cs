@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using MixPlanner.Storage;
+using Newtonsoft.Json;
 
 namespace MixPlanner.IO.MixFiles
 {
@@ -11,5 +12,8 @@ namespace MixPlanner.IO.MixFiles
 
         // For serialization only
         public string Version { get { return version; } }
+
+        [JsonProperty(PropertyName = "_comment")]
+        public string Comment { get; set; }
     }
 }

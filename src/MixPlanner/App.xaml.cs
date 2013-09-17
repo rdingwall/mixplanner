@@ -28,11 +28,16 @@ namespace MixPlanner
         static readonly ILog Log = LogManager.GetLogger(typeof (App));
         IWindsorContainer container;
 
+        static readonly string version =
+                Assembly.GetExecutingAssembly().GetName().Version.ToString();
+
         public App()
         {
             DispatcherUnhandledException += OnAppDispatcherUnhandledException;
             AppDomain.CurrentDomain.UnhandledException += OnCurrentDomainOnUnhandledException;
         }
+
+        public static string Version { get { return version; } }
 
         protected override void OnStartup(StartupEventArgs e)
         {

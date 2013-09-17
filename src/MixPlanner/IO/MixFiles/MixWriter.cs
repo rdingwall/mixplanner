@@ -26,7 +26,8 @@ namespace MixPlanner.IO.MixFiles
 
             var jsonMix = new JsonMix
                               {
-                                  Items = mix.Select(ToJsonItem).ToList()
+                                  Items = mix.Select(ToJsonItem).ToList(),
+                                  Comment = FormatComment()
                               };
 
             try
@@ -52,6 +53,11 @@ namespace MixPlanner.IO.MixFiles
             {
                 Log.Error(String.Format("Error saving mix {0}.", filename), e);
             }
+        }
+
+        static string FormatComment()
+        {
+            return String.Format("Created at {0} using MixPlanner {1} (http://richarddingwall.name)", DateTime.Now, App.Version);
         }
 
         static JsonMixItem ToJsonItem(IMixItem item)
