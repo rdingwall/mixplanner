@@ -19,6 +19,7 @@
     <Window.InputBindings>
         <KeyBinding Key="F3" Command="{Binding FocusSearchBoxCommand}" />
         <KeyBinding Key="F" Modifiers="Control" Command="{Binding FocusSearchBoxCommand}" />
+        <KeyBinding Key="O" Modifiers="Control" Command="{Binding OpenCommand}" />
     </Window.InputBindings>
     
     <Grid>
