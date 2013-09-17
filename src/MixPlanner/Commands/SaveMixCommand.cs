@@ -10,12 +10,4 @@ namespace MixPlanner.Commands
             throw new System.NotImplementedException();
         }
     }
-
-    public class SaveMixAsCommand : AsyncCommandBase<IMix>
-    {
-        protected override Task DoExecute(IMix parameter)
-        {
-            throw new System.NotImplementedException();
-        }
-    }
 }

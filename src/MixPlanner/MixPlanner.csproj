@@ -171,6 +171,7 @@
     <Compile Include="Commands\DragTracksOutOfMixCommand.cs" />
     <Compile Include="Commands\PlayNextTrackCommand.cs" />
     <Compile Include="Commands\SaveBpmCommand.cs" />
+    <Compile Include="Commands\SaveMixAsCommand.cs" />
     <Compile Include="Commands\SaveMixCommand.cs" />
     <Compile Include="Commands\SortTracksCommandBase.cs" />
     <Compile Include="Commands\CopyMixcloudTracklistCommand.cs" />
@@ -181,6 +182,7 @@
     <Compile Include="Converters\BeatportHarmonicKeyConverter.cs" />
     <Compile Include="Converters\ContextMenuOrNullConverter.cs" />
     <Compile Include="Converters\TrackDurationConverter.cs" />
+    <Compile Include="DialogService.cs" />
     <Compile Include="DomainModel\AutoMixing\AutoMixingContextFactory.cs" />
     <Compile Include="Commands\ClearRecommendationsCommand.cs" />
     <Compile Include="Commands\CloseWindowCommand.cs" />

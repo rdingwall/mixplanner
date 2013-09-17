@@ -93,6 +93,7 @@ namespace MixPlanner
                 Component.For<IProgressDialogService>().ImplementedBy<ProgressDialogService>(),
                 Component.For<NAudioEngine>().ImplementedBy<NAudioEngine>(),
                 Component.For<IWaveformDataCache>().ImplementedBy<WaveformDataCache>(),
+                Component.For<IDialogService>().ImplementedBy<DialogService>(),
                 Component.For<RecommendationsController>().Start());
         }
     }
