@@ -23,6 +23,7 @@ namespace MixPlanner.Commands
             // initial mix event.
             container.Resolve<MixSurroundingAreaViewModel>();
             container.Resolve<MixToolBarViewModel>();
+            container.Resolve<MainWindowViewModel>();
             container.Resolve<ICurrentMixProvider>();
 
             var mixFactory = container.Resolve<IMixFactory>();
