@@ -15,8 +15,8 @@ namespace MixPlanner
             var dialog = new SaveFileDialog
                              {
                                  FileName = "Untitled",
-                                 DefaultExt = ".mix",
-                                 Filter = "MixPlanner mixes (.mix)|*.mix"
+                                 DefaultExt = ".mx",
+                                 Filter = "MixPlanner mix files|*.mx"
                              };
 
             filename = null;
