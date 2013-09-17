@@ -8,6 +8,7 @@ using Castle.MicroKernel.Resolvers.SpecializedResolvers;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
 using GalaSoft.MvvmLight.Messaging;
+using MixPlanner.Commands;
 using MixPlanner.Configuration;
 using MixPlanner.Controllers;
 using MixPlanner.Converters;
@@ -95,6 +96,7 @@ namespace MixPlanner
                 Component.For<NAudioEngine>().ImplementedBy<NAudioEngine>(),
                 Component.For<IWaveformDataCache>().ImplementedBy<WaveformDataCache>(),
                 Component.For<IDialogService>().ImplementedBy<DialogService>(),
+                Component.For<IGuardUnsavedChangesService>().ImplementedBy<GuardUnsavedChangesService>(),
                 Component.For<RecommendationsController>().Start());
         }
     }

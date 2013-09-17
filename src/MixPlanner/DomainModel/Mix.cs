@@ -11,6 +11,7 @@ namespace MixPlanner.DomainModel
     public interface IMix : IEnumerable<IMixItem>
     {
         string Filename { get; set; }
+
         IEnumerable<Track> Tracks { get; }
         IMixItem Add(Track track);
         IMixItem Insert(Track track, int insertIndex);
@@ -238,6 +239,7 @@ namespace MixPlanner.DomainModel
 
             items.Remove(mixItem);
             items.Insert(newIndex, mixItem);
+            messenger.SendToUI(new MixDirtyEvent(this));
             messenger.SendToUI(new TrackRemovedFromMixEvent(item, oldIndex));
             messenger.SendToUI(new TrackAddedToMixEvent(item, newIndex));
             RecalcTransitions();
@@ -247,6 +249,7 @@ namespace MixPlanner.DomainModel
         {
             if (item == null) throw new ArgumentNullException("item");
             ((MixItem)item).SetPlaybackSpeed(value);
+            messenger.SendToUI(new MixDirtyEvent(this));
             messenger.SendToUI(new PlaybackSpeedAdjustedEvent(item));
             RecalcTransitions();
         }
@@ -264,6 +267,7 @@ namespace MixPlanner.DomainModel
             if (item == null) throw new ArgumentNullException("item");
             var index = items.IndexOf((MixItem)item);
             items.RemoveAt(index);
+            messenger.SendToUI(new MixDirtyEvent(this));
             messenger.SendToUI(new TrackRemovedFromMixEvent(item, index));
             RecalcTransitions();
         }
@@ -289,6 +293,7 @@ namespace MixPlanner.DomainModel
             
             items.Insert(insertIndex, item);
 
+            messenger.SendToUI(new MixDirtyEvent(this));
             messenger.SendToUI(new TrackAddedToMixEvent(item, insertIndex));
             RecalcTransitions();
 
@@ -372,6 +377,7 @@ namespace MixPlanner.DomainModel
 
             var mixItem = (MixItem) item;
             mixItem.ResetPlaybackSpeed();
+            messenger.SendToUI(new MixDirtyEvent(this));
             messenger.SendToUI(new PlaybackSpeedAdjustedEvent(mixItem));
             RecalcTransitions();
         }

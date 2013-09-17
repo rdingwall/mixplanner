@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using MixPlanner.DomainModel;
+using MixPlanner.Events;
 using MixPlanner.IO.MixFiles;
 
 namespace MixPlanner.Commands
@@ -9,13 +10,19 @@ namespace MixPlanner.Commands
     {
         readonly IDialogService dialogService;
         readonly IMixWriter writer;
+        readonly IDispatcherMessenger messenger;
 
-        public SaveMixAsCommand(IDialogService dialogService, IMixWriter writer)
+        public SaveMixAsCommand(
+            IDialogService dialogService, 
+            IMixWriter writer,
+            IDispatcherMessenger messenger)
         {
             if (dialogService == null) throw new ArgumentNullException("dialogService");
             if (writer == null) throw new ArgumentNullException("writer");
+            if (messenger == null) throw new ArgumentNullException("messenger");
             this.dialogService = dialogService;
             this.writer = writer;
+            this.messenger = messenger;
         }
 
         protected override bool CanExecute(IMix parameter)
@@ -32,7 +39,8 @@ namespace MixPlanner.Commands
                 return;
 
             await writer.WriteAsync(parameter, filename)
-                .ContinueWith(_ => parameter.Filename = filename);
+                .ContinueWith(_ => parameter.Filename = filename)
+                .ContinueWith(_ => messenger.SendToUI(new MixSavedEvent(parameter)));
         }
     }
 }

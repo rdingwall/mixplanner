@@ -160,6 +160,7 @@
     <Compile Include="AttachedProperties\WindowBehavior.cs" />
     <Compile Include="Commands\AsyncCommandBase.cs" />
     <Compile Include="Commands\AutoAdjustPitchCommand.cs" />
+    <Compile Include="Commands\GuardUnsavedChangesService.cs" />
     <Compile Include="Commands\InitializeEmptyMixCommand.cs" />
     <Compile Include="Commands\OpenMixCommand.cs" />
     <Compile Include="Commands\QuickEditHarmonicKeyCommand.cs" />
@@ -287,9 +288,11 @@
     <Compile Include="Events\BeganLoadingTracksEvent.cs" />
     <Compile Include="Events\ConfigSavedEvent.cs" />
     <Compile Include="Events\BeganAutoMixingEvent.cs" />
+    <Compile Include="Events\MixDirtyEvent.cs" />
     <Compile Include="Events\MixItemSelectionChangedEvent.cs" />
     <Compile Include="Events\MixLoadedEvent.cs" />
     <Compile Include="Events\MixLockedEvent.cs" />
+    <Compile Include="Events\MixSavedEvent.cs" />
     <Compile Include="Events\MixUnlockedEvent.cs" />
     <Compile Include="Events\PlayerLoadedEvent.cs" />
     <Compile Include="Events\RecommendationsClearedEvent.cs" />
