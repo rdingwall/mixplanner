@@ -58,7 +58,7 @@ namespace MixPlanner.IO.MixFiles
 
         static string FormatComment()
         {
-            return String.Format("Created at {0} using MixPlanner {1} (http://richarddingwall.name)", DateTime.Now, App.Version);
+            return String.Format("Created at {0} UTC using MixPlanner {1} (http://richarddingwall.name)", DateTime.UtcNow, App.Version);
         }
 
         static JsonMixItem ToJsonItem(IMixItem item)
