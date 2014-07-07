@@ -1,31 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using MixPlanner.DomainModel;
-
-namespace MixPlanner.Commands
+﻿namespace MixPlanner.Commands
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using MixPlanner.DomainModel;
+
     /// <summary>
     /// Base for commands that change the order of tracks in the mix according
     /// to some logic e.g. random shuffling or automix.
     /// </summary>
     public abstract class SortTracksCommandBase : AsyncCommandBase<IEnumerable<IMixItem>>
     {
-        protected readonly ICurrentMixProvider mixProvider;
+        protected readonly ICurrentMixProvider MixProvider;
         protected readonly IDispatcherMessenger Messenger;
 
         protected SortTracksCommandBase(ICurrentMixProvider mixProvider, IDispatcherMessenger messenger)
         {
-            if (mixProvider == null) throw new ArgumentNullException("mixProvider");
-            if (messenger == null) throw new ArgumentNullException("messenger");
-            this.mixProvider = mixProvider;
+            if (mixProvider == null)
+            {
+                throw new ArgumentNullException("mixProvider");
+            }
+
+            if (messenger == null)
+            {
+                throw new ArgumentNullException("messenger");
+            }
+
+            this.MixProvider = mixProvider;
             this.Messenger = messenger;
         }
 
         protected override bool CanExecute(IEnumerable<IMixItem> parameter)
         {
-            IMix mix = mixProvider.GetCurrentMix();
+            IMix mix = this.MixProvider.GetCurrentMix();
 
             return !mix.IsLocked && parameter != null && parameter.Any();
 
@@ -40,24 +48,26 @@ namespace MixPlanner.Commands
         protected abstract bool TrySort(
             IEnumerable<IMixItem> selectedItems, out IEnumerable<IMixItem> sortedItems);
 
-        void DoExecuteSync(IEnumerable<IMixItem> parameter)
+        private void DoExecuteSync(IEnumerable<IMixItem> parameter)
         {
-            IMix mix = mixProvider.GetCurrentMix();
+            IMix mix = this.MixProvider.GetCurrentMix();
 
             using (mix.Lock())
             using (new DisableRecommendationsScope(Messenger))
             {
                 IEnumerable<IMixItem> newOrder;
                 if (!TrySort(parameter, out newOrder))
+                {
                     return;
+                }
 
                 ApplyNewOrdering(newOrder, originalOrder: parameter);
             }
         }
 
-        void ApplyNewOrdering(IEnumerable<IMixItem> newOrder, IEnumerable<IMixItem> originalOrder)
+        private void ApplyNewOrdering(IEnumerable<IMixItem> newOrder, IEnumerable<IMixItem> originalOrder)
         {
-            IMix mix = mixProvider.GetCurrentMix();
+            IMix mix = this.MixProvider.GetCurrentMix();
 
             // Re-ordered results will be moved to a contiguous block starting
             // at the index of the first track in the original un-mixed

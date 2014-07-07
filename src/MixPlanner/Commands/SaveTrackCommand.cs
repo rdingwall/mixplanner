@@ -1,17 +1,21 @@
-﻿using System;
-using System.Threading.Tasks;
-using MixPlanner.DomainModel;
-using MixPlanner.ViewModels;
-
-namespace MixPlanner.Commands
+﻿namespace MixPlanner.Commands
 {
-    public class SaveTrackCommand : AsyncCommandBase<EditTrackWindowViewModel>
+    using System;
+    using System.Threading.Tasks;
+    using MixPlanner.DomainModel;
+    using MixPlanner.ViewModels;
+
+    public sealed class SaveTrackCommand : AsyncCommandBase<EditTrackWindowViewModel>
     {
-        readonly ITrackLibrary library;
+        private readonly ITrackLibrary library;
 
         public SaveTrackCommand(ITrackLibrary library)
         {
-            if (library == null) throw new ArgumentNullException("library");
+            if (library == null)
+            {
+                throw new ArgumentNullException("library");
+            }
+
             this.library = library;
         }
 
@@ -20,7 +24,9 @@ namespace MixPlanner.Commands
             var track = parameter.Track;
             track.OriginalKey = parameter.HarmonicKey;
             if (!RemainsUnknownBpm(parameter, track))
+            {
                 track.OriginalBpm = parameter.Bpm;
+            }
             track.Artist = parameter.Artist;
             track.Title = parameter.Title;
             track.Year = parameter.Year;
@@ -33,7 +39,7 @@ namespace MixPlanner.Commands
             parameter.Close = true;
         }
 
-        static bool RemainsUnknownBpm(EditTrackWindowViewModel parameter, Track track)
+        private static bool RemainsUnknownBpm(EditTrackWindowViewModel parameter, Track track)
         {
             return track.IsUnknownBpm && parameter.Bpm == parameter.MinimumBpm;
         }

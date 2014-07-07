@@ -1,32 +1,41 @@
-﻿using System;
-using System.Threading.Tasks;
-using System.Windows;
-using GalaSoft.MvvmLight.Messaging;
-using MixPlanner.DomainModel;
-using MixPlanner.Events;
-
-namespace MixPlanner.Commands
+﻿namespace MixPlanner.Commands
 {
+    using System;
+    using System.Threading.Tasks;
+    using System.Windows;
+    using GalaSoft.MvvmLight.Messaging;
+    using MixPlanner.DomainModel;
+    using MixPlanner.Events;
+
     public interface IGuardUnsavedChangesService
     {
         void GuardUnsavedChanges(Action action);
+
         void GuardUnsavedChanges(Action action, Action cancel);
     }
 
-    public class GuardUnsavedChangesService : IGuardUnsavedChangesService
+    public sealed class GuardUnsavedChangesService : IGuardUnsavedChangesService
     {
-        readonly IDispatcherMessenger messenger;
-        readonly ICurrentMixProvider mixProvider;
-        readonly SaveMixAsCommand saveAsCommand;
-        bool isDirty;
+        private readonly IDispatcherMessenger messenger;
+        private readonly ICurrentMixProvider mixProvider;
+        private readonly SaveMixAsCommand saveAsCommand;
+        private bool isDirty;
 
         public GuardUnsavedChangesService(
             IDispatcherMessenger messenger,
             ICurrentMixProvider mixProvider,
             SaveMixAsCommand saveAsCommand)
         {
-            if (mixProvider == null) throw new ArgumentNullException("mixProvider");
-            if (saveAsCommand == null) throw new ArgumentNullException("saveAsCommand");
+            if (mixProvider == null)
+            {
+                throw new ArgumentNullException("mixProvider");
+            }
+
+            if (saveAsCommand == null)
+            {
+                throw new ArgumentNullException("saveAsCommand");
+            }
+
             this.messenger = messenger;
             this.mixProvider = mixProvider;
             this.saveAsCommand = saveAsCommand;
@@ -38,13 +47,20 @@ namespace MixPlanner.Commands
 
         public void GuardUnsavedChanges(Action action)
         {
-            GuardUnsavedChanges(action, delegate {});
+            GuardUnsavedChanges(action, delegate { });
         }
 
         public void GuardUnsavedChanges(Action action, Action cancel)
         {
-            if (action == null) throw new ArgumentNullException("action");
-            if (cancel == null) throw new ArgumentNullException("cancel");
+            if (action == null)
+            {
+                throw new ArgumentNullException("action");
+            }
+
+            if (cancel == null)
+            {
+                throw new ArgumentNullException("cancel");
+            }
 
             if (!isDirty)
             {
@@ -63,7 +79,7 @@ namespace MixPlanner.Commands
             messenger.SendToUI(message);
         }
 
-        async void OnResult(MessageBoxResult result, Action action, Action cancel)
+        private async void OnResult(MessageBoxResult result, Action action, Action cancel)
         {
             switch (result)
             {
@@ -82,17 +98,17 @@ namespace MixPlanner.Commands
             await Task.Run(action);
         }
 
-        void OnMixDirty(MixDirtyEvent obj)
+        private void OnMixDirty(MixDirtyEvent obj)
         {
             isDirty = true;
         }
 
-        void OnMixSaved(MixSavedEvent obj)
+        private void OnMixSaved(MixSavedEvent obj)
         {
             isDirty = false;
         }
 
-        void OnMixLoaded(MixLoadedEvent obj)
+        private void OnMixLoaded(MixLoadedEvent obj)
         {
             isDirty = false;
         }

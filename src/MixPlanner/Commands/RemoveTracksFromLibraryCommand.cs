@@ -1,27 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity.Design.PluralizationServices;
-using System.Globalization;
-using System.Linq;
-using System.Windows;
-using GalaSoft.MvvmLight.Messaging;
-using MixPlanner.DomainModel;
-using MixPlanner.ViewModels;
-
-namespace MixPlanner.Commands
+﻿namespace MixPlanner.Commands
 {
-    public class RemoveTracksFromLibraryCommand : CommandBase<IEnumerable<Track>>
+    using System;
+    using System.Collections.Generic;
+    using System.Data.Entity.Design.PluralizationServices;
+    using System.Globalization;
+    using System.Linq;
+    using System.Windows;
+    using GalaSoft.MvvmLight.Messaging;
+    using MixPlanner.DomainModel;
+
+    public sealed class RemoveTracksFromLibraryCommand : CommandBase<IEnumerable<Track>>
     {
-        readonly IDispatcherMessenger messenger;
-        readonly ITrackLibrary library;
-        readonly PluralizationService pluralizer;
+        private readonly IDispatcherMessenger messenger;
+        private readonly ITrackLibrary library;
+        private readonly PluralizationService pluralizer;
 
         public RemoveTracksFromLibraryCommand(
             IDispatcherMessenger messenger, 
             ITrackLibrary library)
         {
-            if (messenger == null) throw new ArgumentNullException("messenger");
-            if (library == null) throw new ArgumentNullException("library");
+            if (messenger == null)
+            {
+                throw new ArgumentNullException("messenger");
+            }
+
+            if (library == null)
+            {
+                throw new ArgumentNullException("library");
+            }
+
             this.messenger = messenger;
             this.library = library;
             pluralizer = PluralizationService.CreateService(CultureInfo.CurrentCulture);
@@ -35,8 +42,11 @@ namespace MixPlanner.Commands
         protected override void Execute(IEnumerable<Track> parameter)
         {
             var trackOrTracks = pluralizer.Pluralize(parameter, "track");
-            var content = String.Format("Are you sure you want to remove the selected {0} from the library?{1}{1}(The underlying files will not be deleted.)",
-                trackOrTracks, Environment.NewLine);
+            var content =
+                string.Format(
+                    "Are you sure you want to remove the selected {0} from the library?{1}{1}(The underlying files will not be deleted.)",
+                    trackOrTracks,
+                    Environment.NewLine);
 
             var message =
                 new DialogMessage(this, content, m => OnRemoveConfirmed(m, parameter))
@@ -48,10 +58,12 @@ namespace MixPlanner.Commands
             messenger.SendToUI(message);
         }
 
-        async void OnRemoveConfirmed(MessageBoxResult obj, IEnumerable<Track> parameter)
+        private async void OnRemoveConfirmed(MessageBoxResult obj, IEnumerable<Track> parameter)
         {
             if (obj != MessageBoxResult.OK)
+            {
                 return;
+            }
 
             await library.RemoveRangeAsync(parameter);
         }

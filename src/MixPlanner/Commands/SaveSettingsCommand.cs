@@ -1,30 +1,37 @@
-﻿using System;
-using System.Threading.Tasks;
-using MixPlanner.Configuration;
-using MixPlanner.ViewModels;
-
-namespace MixPlanner.Commands
+﻿namespace MixPlanner.Commands
 {
-    public class SaveSettingsCommand : AsyncCommandBase<SettingsWindowViewModel>
+    using System;
+    using System.Threading.Tasks;
+    using MixPlanner.Configuration;
+    using MixPlanner.ViewModels;
+
+    public sealed class SaveSettingsCommand : AsyncCommandBase<SettingsWindowViewModel>
     {
-        readonly IConfigProvider configProvider;
+        private readonly IConfigProvider configProvider;
 
         public SaveSettingsCommand(IConfigProvider configProvider)
         {
-            if (configProvider == null) throw new ArgumentNullException("configProvider");
+            if (configProvider == null)
+            {
+                throw new ArgumentNullException("configProvider");
+            }
+
             this.configProvider = configProvider;
         }
 
         protected override async Task DoExecute(SettingsWindowViewModel parameter)
         {
-            if (parameter == null) throw new ArgumentNullException("parameter");
+            if (parameter == null)
+            {
+                throw new ArgumentNullException("parameter");
+            }
 
-            var config = configProvider.Config;
+            Config config = configProvider.Config;
             UpdateValues(parameter, config);
             await configProvider.SaveAsync(config);
         }
 
-        static void UpdateValues(SettingsWindowViewModel parameter, Config config)
+        private static void UpdateValues(SettingsWindowViewModel parameter, Config config)
         {
             config.HarmonicKeyDisplayMode = parameter.HarmonicKeyDisplayMode;
             config.RestrictBpmCompatibility = parameter.RestrictBpmCompatibility;

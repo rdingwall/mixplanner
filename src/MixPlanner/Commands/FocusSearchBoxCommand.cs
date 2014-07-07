@@ -1,18 +1,24 @@
-﻿using System;
-using System.Windows.Input;
-using MixPlanner.Events;
-
-namespace MixPlanner.Commands
+﻿namespace MixPlanner.Commands
 {
-    public class FocusSearchBoxCommand : ICommand
+    using System;
+    using System.Windows.Input;
+    using MixPlanner.Events;
+
+    public sealed class FocusSearchBoxCommand : ICommand
     {
-        readonly IDispatcherMessenger messenger;
+        private readonly IDispatcherMessenger messenger;
 
         public FocusSearchBoxCommand(IDispatcherMessenger messenger)
         {
-            if (messenger == null) throw new ArgumentNullException("messenger");
+            if (messenger == null)
+            {
+                throw new ArgumentNullException("messenger");
+            }
+
             this.messenger = messenger;
         }
+
+        public event EventHandler CanExecuteChanged;
 
         public bool CanExecute(object parameter)
         {
@@ -23,7 +29,5 @@ namespace MixPlanner.Commands
         {
             messenger.SendToUI(new SearchBoxFocusRequestedEvent());
         }
-
-        public event EventHandler CanExecuteChanged;
     }
 }

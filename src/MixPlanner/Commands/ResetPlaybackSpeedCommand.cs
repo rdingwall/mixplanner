@@ -1,18 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using MixPlanner.DomainModel;
-using MoreLinq;
-
-namespace MixPlanner.Commands
+﻿namespace MixPlanner.Commands
 {
-    public class ResetPlaybackSpeedCommand : CommandBase<IEnumerable<IMixItem>>
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using MixPlanner.DomainModel;
+    using MoreLinq;
+
+    public sealed class ResetPlaybackSpeedCommand : CommandBase<IEnumerable<IMixItem>>
     {
-        readonly ICurrentMixProvider mixProvider;
+        private readonly ICurrentMixProvider mixProvider;
 
         public ResetPlaybackSpeedCommand(ICurrentMixProvider mixProvider)
         {
-            if (mixProvider == null) throw new ArgumentNullException("mixProvider");
+            if (mixProvider == null)
+            {
+                throw new ArgumentNullException("mixProvider");
+            }
+
             this.mixProvider = mixProvider;
         }
 

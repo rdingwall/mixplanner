@@ -1,24 +1,31 @@
-﻿using System;
-using MixPlanner.Events;
-
-namespace MixPlanner.Commands
+﻿namespace MixPlanner.Commands
 {
-    public class SearchLibraryCommand : CommandBase<string>
+    using System;
+    using MixPlanner.Events;
+
+    public sealed class SearchLibraryCommand : CommandBase<string>
     {
-        readonly IDispatcherMessenger messenger;
+        private readonly IDispatcherMessenger messenger;
 
         public SearchLibraryCommand(IDispatcherMessenger messenger)
         {
-            if (messenger == null) throw new ArgumentNullException("messenger");
+            if (messenger == null)
+            {
+                throw new ArgumentNullException("messenger");
+            }
             this.messenger = messenger;
         }
 
         protected override void Execute(string parameter)
         {
-            if (String.IsNullOrWhiteSpace(parameter))
+            if (string.IsNullOrWhiteSpace(parameter))
+            {
                 messenger.SendToUI(new SearchTextClearedEvent());
+            }
             else
+            {
                 messenger.Send(new SearchRequestedEvent(parameter));
+            }
         }
     }
 }

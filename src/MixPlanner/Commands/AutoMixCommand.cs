@@ -1,16 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using MixPlanner.DomainModel;
-using MixPlanner.DomainModel.AutoMixing;
-using MixPlanner.Events;
-
-namespace MixPlanner.Commands
+﻿namespace MixPlanner.Commands
 {
-    public class AutoMixCommand : SortTracksCommandBase
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using MixPlanner.DomainModel;
+    using MixPlanner.DomainModel.AutoMixing;
+    using MixPlanner.Events;
+
+    public sealed class AutoMixCommand : SortTracksCommandBase
     {
-        readonly IAutoMixingContextFactory contextFactory;
-        readonly IAutoMixingStrategy strategy;
+        private readonly IAutoMixingContextFactory contextFactory;
+        private readonly IAutoMixingStrategy strategy;
 
         public AutoMixCommand(
             ICurrentMixProvider mixProvider, 
@@ -18,8 +18,16 @@ namespace MixPlanner.Commands
             IAutoMixingContextFactory contextFactory,
             IAutoMixingStrategy strategy) : base(mixProvider, messenger)
         {
-            if (contextFactory == null) throw new ArgumentNullException("contextFactory");
-            if (strategy == null) throw new ArgumentNullException("strategy");
+            if (contextFactory == null)
+            {
+                throw new ArgumentNullException("contextFactory");
+            }
+
+            if (strategy == null)
+            {
+                throw new ArgumentNullException("strategy");
+            }
+
             this.contextFactory = contextFactory;
             this.strategy = strategy;
         }
@@ -30,7 +38,7 @@ namespace MixPlanner.Commands
         {
             Messenger.SendToUI(new BeganAutoMixingEvent());
 
-            IMix mix = mixProvider.GetCurrentMix();
+            IMix mix = this.MixProvider.GetCurrentMix();
 
             mix.AutoAdjustBpms(selectedItems);
             AutoMixingContext context = contextFactory.CreateContext(mix, selectedItems);

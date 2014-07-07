@@ -1,17 +1,21 @@
-﻿using System;
-using System.Threading.Tasks;
-using MixPlanner.DomainModel;
-using MixPlanner.Player;
-
-namespace MixPlanner.Commands
+﻿namespace MixPlanner.Commands
 {
-    public class PlayPauseTrackCommand : AsyncCommandBase<Track>
+    using System;
+    using System.Threading.Tasks;
+    using MixPlanner.DomainModel;
+    using MixPlanner.Player;
+
+    public sealed class PlayPauseTrackCommand : AsyncCommandBase<Track>
     {
-        readonly IAudioPlayer player;
+        private readonly IAudioPlayer player;
 
         public PlayPauseTrackCommand(IAudioPlayer player)
         {
-            if (player == null) throw new ArgumentNullException("player");
+            if (player == null)
+            {
+                throw new ArgumentNullException("player");
+            }
+
             this.player = player;
         }
 
@@ -23,9 +27,13 @@ namespace MixPlanner.Commands
         protected override async Task DoExecute(Track parameter)
         {
             if (player.IsPlaying(parameter))
+            {
                 await player.PauseAsync();
+            }
             else
+            {
                 await player.PlayOrResumeAsync(parameter);
+            }
         }
     }
 }

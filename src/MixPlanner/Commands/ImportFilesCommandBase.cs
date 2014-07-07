@@ -1,43 +1,54 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows;
-using GongSolutions.Wpf.DragDrop;
-using MixPlanner.DomainModel;
-using MixPlanner.ProgressDialog;
-
-namespace MixPlanner.Commands
+﻿namespace MixPlanner.Commands
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Windows;
+    using GongSolutions.Wpf.DragDrop;
+    using MixPlanner.DomainModel;
+    using MixPlanner.ProgressDialog;
+
     public abstract class ImportFilesCommandBase : CommandBase<DropInfo>
     {
-        readonly ITrackLibrary library;
-        readonly IProgressDialogService progressDialog;
-
-        static readonly ProgressDialogOptions ProgressDialogOptions
+        private static readonly ProgressDialogOptions ProgressDialogOptions
             = new ProgressDialogOptions
                   {
                       Label = "Importing tracks",
                       WindowTitle = "Importing tracks"
                   };
 
-        protected ImportFilesCommandBase(ITrackLibrary library,
-                                         IProgressDialogService progressDialog)
+        private readonly ITrackLibrary library;
+        private readonly IProgressDialogService progressDialog;
+
+        protected ImportFilesCommandBase(ITrackLibrary library, IProgressDialogService progressDialog)
         {
-            if (library == null) throw new ArgumentNullException("library");
-            if (progressDialog == null) throw new ArgumentNullException("progressDialog");
+            if (library == null)
+            {
+                throw new ArgumentNullException("library");
+            }
+
+            if (progressDialog == null)
+            {
+                throw new ArgumentNullException("progressDialog");
+            }
+
             this.library = library;
             this.progressDialog = progressDialog;
         }
 
         protected override bool CanExecute(DropInfo parameter)
         {
-            if (parameter == null) return false;
-            if (!CanExecute()) return false;
+            if (parameter == null || !CanExecute())
+            {
+                return false;
+            }
 
             var data = parameter.Data as IDataObject;
 
             if (data == null)
+            {
                 return false;
+            }
 
             return data.GetDataPresent(DataFormats.FileDrop);
         }
@@ -53,7 +64,10 @@ namespace MixPlanner.Commands
 
             var filenames = (string[])data.GetData(DataFormats.FileDrop);
 
-            if (filenames == null) return;
+            if (filenames == null)
+            {
+                return;
+            }
 
             IEnumerable<Track> tracks;
             if (!progressDialog.TryExecute(
@@ -63,11 +77,16 @@ namespace MixPlanner.Commands
                         task.Wait();
                         return task.Result;
                     },
-                ProgressDialogOptions, out tracks))
+                ProgressDialogOptions,
+                out tracks))
+            {
                 return;
+            }
 
             if (!tracks.Any())
+            {
                 return;
+            }
 
             OnImported(tracks, parameter);
         }

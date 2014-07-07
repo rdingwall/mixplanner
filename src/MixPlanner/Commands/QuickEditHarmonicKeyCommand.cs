@@ -1,21 +1,29 @@
-﻿using System;
-using MixPlanner.DomainModel;
-using MixPlanner.ViewModels;
-using MixPlanner.Views;
-
-namespace MixPlanner.Commands
+﻿namespace MixPlanner.Commands
 {
-    public class QuickEditHarmonicKeyCommand : CommandBase<Track>
+    using System;
+    using MixPlanner.DomainModel;
+    using MixPlanner.ViewModels;
+    using MixPlanner.Views;
+
+    public sealed class QuickEditHarmonicKeyCommand : CommandBase<Track>
     {
-        readonly SaveHarmonicKeyCommand saveHarmonicKeyCommand;
-        readonly CloseWindowCommand closeCommand;
+        private readonly SaveHarmonicKeyCommand saveHarmonicKeyCommand;
+        private readonly CloseWindowCommand closeCommand;
 
         public QuickEditHarmonicKeyCommand(
             SaveHarmonicKeyCommand saveHarmonicKeyCommand,
             CloseWindowCommand closeCommand)
         {
-            if (saveHarmonicKeyCommand == null) throw new ArgumentNullException("saveHarmonicKeyCommand");
-            if (closeCommand == null) throw new ArgumentNullException("closeCommand");
+            if (saveHarmonicKeyCommand == null)
+            {
+                throw new ArgumentNullException("saveHarmonicKeyCommand");
+            }
+
+            if (closeCommand == null)
+            {
+                throw new ArgumentNullException("closeCommand");
+            }
+
             this.saveHarmonicKeyCommand = saveHarmonicKeyCommand;
             this.closeCommand = closeCommand;
         }

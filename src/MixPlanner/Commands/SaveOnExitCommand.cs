@@ -1,15 +1,19 @@
-﻿using System;
-using System.ComponentModel;
-
-namespace MixPlanner.Commands
+﻿namespace MixPlanner.Commands
 {
-    public class SaveOnExitCommand : CommandBase<CancelEventArgs>
+    using System;
+    using System.ComponentModel;
+
+    public sealed class SaveOnExitCommand : CommandBase<CancelEventArgs>
     {
-        readonly IGuardUnsavedChangesService guardService;
+        private readonly IGuardUnsavedChangesService guardService;
 
         public SaveOnExitCommand(IGuardUnsavedChangesService guardService)
         {
-            if (guardService == null) throw new ArgumentNullException("guardService");
+            if (guardService == null)
+            {
+                throw new ArgumentNullException("guardService");
+            }
+
             this.guardService = guardService;
         }
 

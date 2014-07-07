@@ -1,17 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using MixPlanner.DomainModel;
-
-namespace MixPlanner.Commands
+﻿namespace MixPlanner.Commands
 {
-    public class AutoAdjustPitchCommand : CommandBase<IEnumerable<IMixItem>>
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using MixPlanner.DomainModel;
+
+    public sealed class AutoAdjustPitchCommand : CommandBase<IEnumerable<IMixItem>>
     {
-        readonly ICurrentMixProvider mixProvider;
+        private readonly ICurrentMixProvider mixProvider;
 
         public AutoAdjustPitchCommand(ICurrentMixProvider mixProvider)
         {
-            if (mixProvider == null) throw new ArgumentNullException("mixProvider");
+            if (mixProvider == null)
+            {
+                throw new ArgumentNullException("mixProvider");
+            }
+
             this.mixProvider = mixProvider;
         }
 

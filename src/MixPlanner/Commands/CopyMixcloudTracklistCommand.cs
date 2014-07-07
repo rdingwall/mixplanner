@@ -1,15 +1,14 @@
-﻿using System;
-using System.Text;
-using System.Windows;
-using MixPlanner.DomainModel;
-
-namespace MixPlanner.Commands
+﻿namespace MixPlanner.Commands
 {
+    using System.Text;
+    using System.Windows;
+    using MixPlanner.DomainModel;
+
     /// <summary>
     /// Copies the current mix to the clipboard, as a MixCloud pre-written
     /// track list (unicode text).
     /// </summary>
-    public class CopyMixcloudTracklistCommand : CommandBase<IMix>
+    public sealed class CopyMixcloudTracklistCommand : CommandBase<IMix>
     {
         protected override bool CanExecute(IMix parameter)
         {
@@ -22,7 +21,7 @@ namespace MixPlanner.Commands
             Clipboard.SetData(DataFormats.UnicodeText, tracklist);
         }
 
-        static string FormatMixcloudPreWrittenTracklist(IMix parameter)
+        private static string FormatMixcloudPreWrittenTracklist(IMix parameter)
         {
             var sb = new StringBuilder();
 
@@ -33,11 +32,12 @@ namespace MixPlanner.Commands
                 string artist = ToIdIfBlank(track.Artist);
                 string title = ToIdIfBlank(track.Title);
 
-                sb.AppendFormat("{0}. {1} - {2}", i,
-                                artist, title);
+                sb.AppendFormat("{0}. {1} - {2}", i, artist, title);
 
-                if (!String.IsNullOrWhiteSpace(track.Label))
+                if (!string.IsNullOrWhiteSpace(track.Label))
+                {
                     sb.AppendFormat(" [{0}]", track.Label);
+                }
 
                 sb.AppendLine();
             }
@@ -45,9 +45,9 @@ namespace MixPlanner.Commands
             return sb.ToString();
         }
 
-        static string ToIdIfBlank(string str)
+        private static string ToIdIfBlank(string str)
         {
-            return String.IsNullOrWhiteSpace(str) ? "ID" : str;
+            return string.IsNullOrWhiteSpace(str) ? "ID" : str;
         }
     }
 }

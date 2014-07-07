@@ -1,16 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Input;
-using GongSolutions.Wpf.DragDrop;
-using MixPlanner.DomainModel;
-
-namespace MixPlanner.Commands
+﻿namespace MixPlanner.Commands
 {
-    public class DropItemIntoMixCommand : CommandBase<IDropInfo>
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Windows.Input;
+    using GongSolutions.Wpf.DragDrop;
+    using MixPlanner.DomainModel;
+
+    public sealed class DropItemIntoMixCommand : CommandBase<IDropInfo>
     {
-        readonly ICurrentMixProvider mixProvider;
-        readonly IEnumerable<ICommand> commands; 
+        private readonly ICurrentMixProvider mixProvider;
+        private readonly IEnumerable<ICommand> commands; 
 
         public DropItemIntoMixCommand(
             ICurrentMixProvider mixProvider,
@@ -18,12 +18,28 @@ namespace MixPlanner.Commands
             ReorderMixTracksCommand reorderTracksCommand,
             ImportFilesIntoMixCommand importFilesCommand)
         {
-            if (mixProvider == null) throw new ArgumentNullException("mixProvider");
-            this.mixProvider = mixProvider;
-            if (addTrackCommand == null) throw new ArgumentNullException("addTrackCommand");
-            if (reorderTracksCommand == null) throw new ArgumentNullException("reorderTracksCommand");
-            if (importFilesCommand == null) throw new ArgumentNullException("importFilesCommand");
+            if (mixProvider == null)
+            {
+                throw new ArgumentNullException("mixProvider");
+            }
             
+            if (addTrackCommand == null)
+            {
+                throw new ArgumentNullException("addTrackCommand");
+            }
+
+            if (reorderTracksCommand == null)
+            {
+                throw new ArgumentNullException("reorderTracksCommand");
+            }
+
+            if (importFilesCommand == null)
+            {
+                throw new ArgumentNullException("importFilesCommand");
+            }
+
+            this.mixProvider = mixProvider;
+
             commands = new ICommand[]
                            {
                                addTrackCommand,
@@ -44,7 +60,9 @@ namespace MixPlanner.Commands
             var command = commands.FirstOrDefault(c => c.CanExecute(parameter));
 
             if (command != null)
+            {
                 command.Execute(parameter);
+            }
         }
     }
 }

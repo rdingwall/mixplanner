@@ -1,20 +1,28 @@
-﻿using System;
-using GongSolutions.Wpf.DragDrop;
-using MixPlanner.DomainModel;
-
-namespace MixPlanner.Commands
+﻿namespace MixPlanner.Commands
 {
-    public class DropItemIntoAudioPlayerCommand : CommandBase<IDropInfo>
+    using System;
+    using GongSolutions.Wpf.DragDrop;
+    using MixPlanner.DomainModel;
+
+    public sealed class DropItemIntoAudioPlayerCommand : CommandBase<IDropInfo>
     {
-        readonly PlayPauseTrackCommand playPauseTrackCommand;
-        readonly ImportFilesAndPlayCommand importFilesCommand;
+        private readonly PlayPauseTrackCommand playPauseTrackCommand;
+        private readonly ImportFilesAndPlayCommand importFilesCommand;
 
         public DropItemIntoAudioPlayerCommand(
             PlayPauseTrackCommand playPauseTrackCommand, 
             ImportFilesAndPlayCommand importFilesCommand)
         {
-            if (playPauseTrackCommand == null) throw new ArgumentNullException("playPauseTrackCommand");
-            if (importFilesCommand == null) throw new ArgumentNullException("importFilesCommand");
+            if (playPauseTrackCommand == null)
+            {
+                throw new ArgumentNullException("playPauseTrackCommand");
+            }
+
+            if (importFilesCommand == null)
+            {
+                throw new ArgumentNullException("importFilesCommand");
+            }
+
             this.playPauseTrackCommand = playPauseTrackCommand;
             this.importFilesCommand = importFilesCommand;
         }

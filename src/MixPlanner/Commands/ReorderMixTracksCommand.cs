@@ -1,17 +1,21 @@
-﻿using System;
-using System.Linq;
-using GongSolutions.Wpf.DragDrop;
-using MixPlanner.DomainModel;
-
-namespace MixPlanner.Commands
+﻿namespace MixPlanner.Commands
 {
-    public class ReorderMixTracksCommand : CommandBase<IDropInfo>
+    using System;
+    using System.Linq;
+    using GongSolutions.Wpf.DragDrop;
+    using MixPlanner.DomainModel;
+
+    public sealed class ReorderMixTracksCommand : CommandBase<IDropInfo>
     {
-        readonly ICurrentMixProvider mixProvider;
+        private readonly ICurrentMixProvider mixProvider;
 
         public ReorderMixTracksCommand(ICurrentMixProvider mixProvider)
         {
-            if (mixProvider == null) throw new ArgumentNullException("mixProvider");
+            if (mixProvider == null)
+            {
+                throw new ArgumentNullException("mixProvider");
+            }
+
             this.mixProvider = mixProvider;
         }
 
@@ -30,7 +34,9 @@ namespace MixPlanner.Commands
             IMix mix = mixProvider.GetCurrentMix();
 
             for (int i = 0; i < items.Count; i++)
+            {
                 mix.Reorder(items[i], parameter.InsertIndex + i);
+            }
         }
     }
 }

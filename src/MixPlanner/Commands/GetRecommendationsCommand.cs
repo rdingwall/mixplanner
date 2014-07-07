@@ -1,23 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using MixPlanner.DomainModel;
-using MixPlanner.Events;
-using MoreLinq;
-
-namespace MixPlanner.Commands
+﻿namespace MixPlanner.Commands
 {
-    public class GetRecommendationsCommand : CommandBase<IEnumerable<IMixItem>>
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using MixPlanner.DomainModel;
+    using MixPlanner.Events;
+    using MoreLinq;
+
+    public sealed class GetRecommendationsCommand : CommandBase<IEnumerable<IMixItem>>
     {
-        readonly IDispatcherMessenger messenger;
-        readonly ITrackLibrary trackLibrary;
+        private readonly IDispatcherMessenger messenger;
+        private readonly ITrackLibrary trackLibrary;
 
         public GetRecommendationsCommand(
             IDispatcherMessenger messenger,
             ITrackLibrary trackLibrary)
         {
-            if (messenger == null) throw new ArgumentNullException("messenger");
-            if (trackLibrary == null) throw new ArgumentNullException("trackLibrary");
+            if (messenger == null)
+            {
+                throw new ArgumentNullException("messenger");
+            }
+
+            if (trackLibrary == null)
+            {
+                throw new ArgumentNullException("trackLibrary");
+            }
+
             this.messenger = messenger;
             this.trackLibrary = trackLibrary;
         }
@@ -30,7 +38,9 @@ namespace MixPlanner.Commands
         protected override void Execute(IEnumerable<IMixItem> parameter)
         {
             if (!CanExecute(parameter))
+            {
                 return;
+            }
 
             var recommendations = trackLibrary.GetRecommendations(parameter.First());
 

@@ -1,17 +1,21 @@
-﻿using System;
-using System.Threading.Tasks;
-using MixPlanner.DomainModel;
-using MixPlanner.ViewModels;
-
-namespace MixPlanner.Commands
+﻿namespace MixPlanner.Commands
 {
-    public class SaveBpmCommand : AsyncCommandBase<QuickEditBpmViewModel>
+    using System;
+    using System.Threading.Tasks;
+    using MixPlanner.DomainModel;
+    using MixPlanner.ViewModels;
+
+    public sealed class SaveBpmCommand : AsyncCommandBase<QuickEditBpmViewModel>
     {
-        readonly ITrackLibrary library;
+        private readonly ITrackLibrary library;
 
         public SaveBpmCommand(ITrackLibrary library)
         {
-            if (library == null) throw new ArgumentNullException("library");
+            if (library == null)
+            {
+                throw new ArgumentNullException("library");
+            }
+
             this.library = library;
         }
 
@@ -20,11 +24,13 @@ namespace MixPlanner.Commands
             parameter.Validate();
 
             if (parameter.HasErrors)
+            {
                 return;
+            }
 
             var track = parameter.Track;
 
-            track.OriginalBpm = Double.Parse(parameter.Bpm);
+            track.OriginalBpm = double.Parse(parameter.Bpm);
 
             await library.SaveAsync(track);
 

@@ -1,10 +1,9 @@
-﻿using System;
-using System.Diagnostics;
-using MixPlanner.DomainModel;
-
-namespace MixPlanner.Commands
+﻿namespace MixPlanner.Commands
 {
-    public class ShowInExplorerCommand : CommandBase<Track>
+    using System.Diagnostics;
+    using MixPlanner.DomainModel;
+
+    public sealed class ShowInExplorerCommand : CommandBase<Track>
     {
         protected override bool CanExecute(Track parameter)
         {
@@ -21,7 +20,7 @@ namespace MixPlanner.Commands
                         StartInfo =
                             {
                                 FileName = "explorer.exe",
-                                Arguments = String.Format("/select,\"{0}\"", selectedFile)
+                                Arguments = string.Format("/select,\"{0}\"", selectedFile)
                             }
                     };
 

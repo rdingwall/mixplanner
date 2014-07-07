@@ -1,16 +1,16 @@
-﻿using System;
-using MixPlanner.DomainModel;
-using MixPlanner.ViewModels;
-using MixPlanner.Views;
-
-namespace MixPlanner.Commands
+﻿namespace MixPlanner.Commands
 {
-    public class EditTrackCommand : CommandBase<Track>
+    using System;
+    using MixPlanner.DomainModel;
+    using MixPlanner.ViewModels;
+    using MixPlanner.Views;
+
+    public sealed class EditTrackCommand : CommandBase<Track>
     {
-        readonly SaveTrackCommand saveTrackCommand;
-        readonly CloseWindowCommand closeWindowCommand;
-        readonly ReloadTrackFileCommand reloadTrackFileCommand;
-        readonly NavigateUriCommand navigateUriCommand;
+        private readonly SaveTrackCommand saveTrackCommand;
+        private readonly CloseWindowCommand closeWindowCommand;
+        private readonly ReloadTrackFileCommand reloadTrackFileCommand;
+        private readonly NavigateUriCommand navigateUriCommand;
 
         public EditTrackCommand(
             SaveTrackCommand saveTrackCommand,
@@ -18,10 +18,26 @@ namespace MixPlanner.Commands
             ReloadTrackFileCommand reloadTrackFileCommand,
             NavigateUriCommand navigateUriCommand)
         {
-            if (saveTrackCommand == null) throw new ArgumentNullException("saveTrackCommand");
-            if (closeWindowCommand == null) throw new ArgumentNullException("closeWindowCommand");
-            if (reloadTrackFileCommand == null) throw new ArgumentNullException("reloadTrackFileCommand");
-            if (navigateUriCommand == null) throw new ArgumentNullException("navigateUriCommand");
+            if (saveTrackCommand == null)
+            {
+                throw new ArgumentNullException("saveTrackCommand");
+            }
+
+            if (closeWindowCommand == null)
+            {
+                throw new ArgumentNullException("closeWindowCommand");
+            }
+
+            if (reloadTrackFileCommand == null)
+            {
+                throw new ArgumentNullException("reloadTrackFileCommand");
+            }
+
+            if (navigateUriCommand == null)
+            {
+                throw new ArgumentNullException("navigateUriCommand");
+            }
+
             this.saveTrackCommand = saveTrackCommand;
             this.closeWindowCommand = closeWindowCommand;
             this.reloadTrackFileCommand = reloadTrackFileCommand;

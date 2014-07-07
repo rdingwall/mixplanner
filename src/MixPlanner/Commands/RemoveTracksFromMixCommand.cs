@@ -1,19 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using MixPlanner.DomainModel;
-
-namespace MixPlanner.Commands
+﻿namespace MixPlanner.Commands
 {
-    public class RemoveTracksFromMixCommand : CommandBase<IEnumerable<IMixItem>>
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using MixPlanner.DomainModel;
+
+    public sealed class RemoveTracksFromMixCommand : CommandBase<IEnumerable<IMixItem>>
     {
-        readonly ICurrentMixProvider mixProvider;
-        readonly IDispatcherMessenger messenger;
+        private readonly ICurrentMixProvider mixProvider;
+        private readonly IDispatcherMessenger messenger;
 
         public RemoveTracksFromMixCommand(ICurrentMixProvider mixProvider, IDispatcherMessenger messenger)
         {
-            if (mixProvider == null) throw new ArgumentNullException("mixProvider");
-            if (messenger == null) throw new ArgumentNullException("messenger");
+            if (mixProvider == null)
+            {
+                throw new ArgumentNullException("mixProvider");
+            }
+
+            if (messenger == null)
+            {
+                throw new ArgumentNullException("messenger");
+            }
+
             this.mixProvider = mixProvider;
             this.messenger = messenger;
         }
@@ -41,7 +49,9 @@ namespace MixPlanner.Commands
                 // Have to disable recommendations otherwise it recalcs
                 // recommendations every time you delete a row.
                 using (new DisableRecommendationsScope(messenger))
+                {
                     mix.RemoveRange(parameter);
+                }
             }
         }
     }

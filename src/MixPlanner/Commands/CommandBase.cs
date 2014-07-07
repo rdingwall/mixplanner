@@ -1,10 +1,9 @@
-﻿using System;
-using System.Diagnostics;
-using System.Windows.Input;
-using log4net;
-
-namespace MixPlanner.Commands
+﻿namespace MixPlanner.Commands
 {
+    using System;
+    using System.Windows.Input;
+    using log4net;
+
     public abstract class CommandBase : ICommand
     {
         protected readonly ILog Log;
@@ -12,6 +11,14 @@ namespace MixPlanner.Commands
         protected CommandBase()
         {
             Log = LogManager.GetLogger(GetType());
+        }
+
+        // CanExecuteChanged whenever a property changes
+        // http://stackoverflow.com/a/3092873/91551
+        public event EventHandler CanExecuteChanged
+        {
+            add { CommandManager.RequerySuggested += value; }
+            remove { CommandManager.RequerySuggested -= value; }
         }
 
         public virtual bool CanExecute(object parameter)
@@ -25,14 +32,6 @@ namespace MixPlanner.Commands
         {
             CommandManager.InvalidateRequerySuggested();
         }
-
-        // CanExecuteChanged whenever a property changes
-        // http://stackoverflow.com/a/3092873/91551
-        public event EventHandler CanExecuteChanged
-        {
-            add { CommandManager.RequerySuggested += value; }
-            remove { CommandManager.RequerySuggested -= value; }
-        }
     }
 
     public abstract class CommandBase<T> : ICommand
@@ -44,10 +43,20 @@ namespace MixPlanner.Commands
             Log = LogManager.GetLogger(GetType());
         }
 
+        // CanExecuteChanged whenever a property changes
+        // http://stackoverflow.com/a/3092873/91551
+        public event EventHandler CanExecuteChanged
+        {
+            add { CommandManager.RequerySuggested += value; }
+            remove { CommandManager.RequerySuggested -= value; }
+        }
+
         public bool CanExecute(object parameter)
         {
             if (parameter == null)
+            {
                 return false;
+            }
 
             if (!(parameter is T))
             {
@@ -58,16 +67,12 @@ namespace MixPlanner.Commands
             return CanExecute((T)parameter);
         }
 
-        void LogWrongParameterMessage(object parameter)
-        {
-            Log.DebugFormat("Invalid command parameter received, excepted {0} but got '{1}'",
-                            typeof(T), parameter);
-        }
-
         public void Execute(object parameter)
         {
             if (parameter == null)
+            {
                 return;
+            }
 
             if (!(parameter is T))
             {
@@ -90,12 +95,9 @@ namespace MixPlanner.Commands
             CommandManager.InvalidateRequerySuggested();
         }
 
-        // CanExecuteChanged whenever a property changes
-        // http://stackoverflow.com/a/3092873/91551
-        public event EventHandler CanExecuteChanged
+        private void LogWrongParameterMessage(object parameter)
         {
-            add { CommandManager.RequerySuggested += value; }
-            remove { CommandManager.RequerySuggested -= value; }
+            Log.DebugFormat("Invalid command parameter received, excepted {0} but got '{1}'", typeof(T), parameter);
         }
     }
 }

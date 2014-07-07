@@ -1,19 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using GongSolutions.Wpf.DragDrop;
-using MixPlanner.DomainModel;
-using MixPlanner.ProgressDialog;
-
-namespace MixPlanner.Commands
+﻿namespace MixPlanner.Commands
 {
-    public class ImportFilesIntoMixCommand : ImportFilesCommandBase
-    {
-        readonly ICurrentMixProvider mixProvider;
+    using System;
+    using System.Collections.Generic;
+    using GongSolutions.Wpf.DragDrop;
+    using MixPlanner.DomainModel;
+    using MixPlanner.ProgressDialog;
 
-        public ImportFilesIntoMixCommand(ITrackLibrary library, ICurrentMixProvider mixProvider,
-            IProgressDialogService progressDialog) : base(library, progressDialog)
+    public sealed class ImportFilesIntoMixCommand : ImportFilesCommandBase
+    {
+        private readonly ICurrentMixProvider mixProvider;
+
+        public ImportFilesIntoMixCommand(
+            ITrackLibrary library, ICurrentMixProvider mixProvider, IProgressDialogService progressDialog)
+            : base(library, progressDialog)
         {
-            if (mixProvider == null) throw new ArgumentNullException("mixProvider");
+            if (mixProvider == null)
+            {
+                throw new ArgumentNullException("mixProvider");
+            }
+
             this.mixProvider = mixProvider;
         }
 

@@ -1,25 +1,41 @@
-﻿using System;
-using System.Threading.Tasks;
-using GalaSoft.MvvmLight.Messaging;
-using MixPlanner.DomainModel;
-using MixPlanner.Events;
-using MixPlanner.Player;
-
-namespace MixPlanner.Commands
+﻿namespace MixPlanner.Commands
 {
+    using System;
+    using System.Threading.Tasks;
+    using GalaSoft.MvvmLight.Messaging;
+    using MixPlanner.DomainModel;
+    using MixPlanner.Events;
+    using MixPlanner.Player;
+
     public abstract class PlaylistCommandBase : AsyncCommandBase
     {
-        readonly IPlaylist playlist;
-        readonly IAudioPlayer player;
-        readonly Func<IPlaylist, Track> trackSelectFunc;
+        private readonly IPlaylist playlist;
+        private readonly IAudioPlayer player;
+        private readonly Func<IPlaylist, Track> trackSelectFunc;
 
-        protected PlaylistCommandBase(IPlaylist playlist, IMessenger messenger, IAudioPlayer player,
-                                      Func<IPlaylist, Track> trackSelectFunc)
+        protected PlaylistCommandBase(
+            IPlaylist playlist, IMessenger messenger, IAudioPlayer player, Func<IPlaylist, Track> trackSelectFunc)
         {
-            if (playlist == null) throw new ArgumentNullException("playlist");
-            if (messenger == null) throw new ArgumentNullException("messenger");
-            if (player == null) throw new ArgumentNullException("player");
-            if (trackSelectFunc == null) throw new ArgumentNullException("trackSelectFunc");
+            if (playlist == null)
+            {
+                throw new ArgumentNullException("playlist");
+            }
+
+            if (messenger == null)
+            {
+                throw new ArgumentNullException("messenger");
+            }
+
+            if (player == null)
+            {
+                throw new ArgumentNullException("player");
+            }
+
+            if (trackSelectFunc == null)
+            {
+                throw new ArgumentNullException("trackSelectFunc");
+            }
+
             this.playlist = playlist;
             this.player = player;
             this.trackSelectFunc = trackSelectFunc;
@@ -45,7 +61,7 @@ namespace MixPlanner.Commands
             await player.PlayOrResumeAsync(track);
         }
 
-        void OnMixChanged(object obj)
+        private void OnMixChanged(object obj)
         {
             RaiseCanExecuteChanged();
         }

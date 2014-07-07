@@ -1,23 +1,27 @@
-﻿using System;
-using System.Threading.Tasks;
-using MixPlanner.DomainModel;
-using MixPlanner.ViewModels;
-
-namespace MixPlanner.Commands
+﻿namespace MixPlanner.Commands
 {
-    public class SaveHarmonicKeyCommand : AsyncCommandBase<QuickEditHarmonicKeyViewModel>
+    using System;
+    using System.Threading.Tasks;
+    using MixPlanner.DomainModel;
+    using MixPlanner.ViewModels;
+
+    public sealed class SaveHarmonicKeyCommand : AsyncCommandBase<QuickEditHarmonicKeyViewModel>
     {
-        readonly ITrackLibrary library;
+        private readonly ITrackLibrary library;
 
         public SaveHarmonicKeyCommand(ITrackLibrary library)
         {
-            if (library == null) throw new ArgumentNullException("library");
+            if (library == null)
+            {
+                throw new ArgumentNullException("library");
+            }
+
             this.library = library;
         }
 
         protected async override Task DoExecute(QuickEditHarmonicKeyViewModel parameter)
         {
-            var track = parameter.Track;
+            Track track = parameter.Track;
 
             track.OriginalKey = parameter.HarmonicKey;
 

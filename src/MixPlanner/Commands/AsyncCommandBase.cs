@@ -1,24 +1,12 @@
-﻿using System;
-using System.Threading.Tasks;
-using System.Windows.Input;
-
-namespace MixPlanner.Commands
+﻿namespace MixPlanner.Commands
 {
+    using System;
+    using System.Threading.Tasks;
+    using System.Windows.Input;
+
     public abstract class AsyncCommandBase<T> : CommandBase<T>
     {
-        bool isExecuting;
-
-        protected override bool CanExecute(T parameter)
-        {
-            return !isExecuting && base.CanExecute(parameter);
-        }
-
-        protected abstract Task DoExecute(T parameter);
-
-        protected async override void Execute(T parameter)
-        {
-            await ExecuteAsync(parameter);
-        }
+        private bool isExecuting;
 
         public async Task ExecuteAsync(T parameter)
         {
@@ -38,18 +26,30 @@ namespace MixPlanner.Commands
                 RaiseCanExecuteChanged();
             }
         }
+
+        protected override bool CanExecute(T parameter)
+        {
+            return !this.isExecuting && base.CanExecute(parameter);
+        }
+
+        protected abstract Task DoExecute(T parameter);
+
+        protected async override void Execute(T parameter)
+        {
+            await this.ExecuteAsync(parameter);
+        }
     }
 
     public abstract class AsyncCommandBase : ICommand
     {
-        bool isExecuting;
+        private bool isExecuting;
+
+        public event EventHandler CanExecuteChanged = delegate { };
 
         public virtual bool CanExecute(object parameter)
         {
             return !isExecuting;
         }
-
-        protected abstract Task DoExecute(object parameter);
 
         public async virtual void Execute(object parameter)
         {
@@ -75,11 +75,11 @@ namespace MixPlanner.Commands
             }
         }
 
+        protected abstract Task DoExecute(object parameter);
+
         protected void RaiseCanExecuteChanged()
         {
             CanExecuteChanged(this, EventArgs.Empty);
         }
-
-        public event EventHandler CanExecuteChanged = delegate { };
     }
 }

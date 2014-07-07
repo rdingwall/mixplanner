@@ -1,27 +1,34 @@
-﻿using System;
-using System.Windows;
-using MixPlanner.DomainModel;
-using MixPlanner.ProgressDialog;
-
-namespace MixPlanner.Commands
+﻿namespace MixPlanner.Commands
 {
-    public class ImportFilesIntoLibraryCommand : CommandBase<DragEventArgs>
+    using System;
+    using System.Windows;
+    using MixPlanner.DomainModel;
+    using MixPlanner.ProgressDialog;
+
+    public sealed class ImportFilesIntoLibraryCommand : CommandBase<DragEventArgs>
     {
-        readonly ITrackLibrary library;
-        readonly IProgressDialogService progressDialog;
-
-        static readonly ProgressDialogOptions ProgressDialogOptions
+        private static readonly ProgressDialogOptions ProgressDialogOptions
             = new ProgressDialogOptions
-            {
-                Label = "Importing tracks",
-                WindowTitle = "Importing tracks"
-            };
+                  {
+                      Label = "Importing tracks",
+                      WindowTitle = "Importing tracks"
+                  };
 
-        public ImportFilesIntoLibraryCommand(ITrackLibrary library,
-            IProgressDialogService progressDialog)
+        private readonly ITrackLibrary library;
+        private readonly IProgressDialogService progressDialog;
+
+        public ImportFilesIntoLibraryCommand(ITrackLibrary library, IProgressDialogService progressDialog)
         {
-            if (library == null) throw new ArgumentNullException("library");
-            if (progressDialog == null) throw new ArgumentNullException("progressDialog");
+            if (library == null)
+            {
+                throw new ArgumentNullException("library");
+            }
+
+            if (progressDialog == null)
+            {
+                throw new ArgumentNullException("progressDialog");
+            }
+
             this.library = library;
             this.progressDialog = progressDialog;
         }
@@ -33,9 +40,12 @@ namespace MixPlanner.Commands
 
         protected override void Execute(DragEventArgs parameter)
         {
-            var filenames = (string[]) parameter.Data.GetData(DataFormats.FileDrop);
+            var filenames = (string[])parameter.Data.GetData(DataFormats.FileDrop);
 
-            if (filenames == null) return;
+            if (filenames == null)
+            {
+                return;
+            }
 
             progressDialog.ExecuteAsync(
                 async (token, progress) => await library.ImportAsync(filenames, token, progress),

@@ -1,20 +1,27 @@
-﻿using System;
-using MixPlanner.DomainModel;
-using MixPlanner.ViewModels;
-using MixPlanner.Views;
-
-namespace MixPlanner.Commands
+﻿namespace MixPlanner.Commands
 {
-    public class QuickEditBpmCommand : CommandBase<Track>
-    {
-        readonly SaveBpmCommand saveBpmCommand;
-        readonly CloseWindowCommand closeCommand;
+    using System;
+    using MixPlanner.DomainModel;
+    using MixPlanner.ViewModels;
+    using MixPlanner.Views;
 
-        public QuickEditBpmCommand(SaveBpmCommand saveBpmCommand,
-            CloseWindowCommand closeCommand)
+    public sealed class QuickEditBpmCommand : CommandBase<Track>
+    {
+        private readonly SaveBpmCommand saveBpmCommand;
+        private readonly CloseWindowCommand closeCommand;
+
+        public QuickEditBpmCommand(SaveBpmCommand saveBpmCommand, CloseWindowCommand closeCommand)
         {
-            if (saveBpmCommand == null) throw new ArgumentNullException("saveBpmCommand");
-            if (closeCommand == null) throw new ArgumentNullException("closeCommand");
+            if (saveBpmCommand == null)
+            {
+                throw new ArgumentNullException("saveBpmCommand");
+            }
+
+            if (closeCommand == null)
+            {
+                throw new ArgumentNullException("closeCommand");
+            }
+
             this.saveBpmCommand = saveBpmCommand;
             this.closeCommand = closeCommand;
         }

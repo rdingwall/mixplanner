@@ -1,19 +1,23 @@
-﻿using System;
-using Castle.Windsor;
-using GalaSoft.MvvmLight.Messaging;
-using MixPlanner.DomainModel;
-using MixPlanner.Events;
-using MixPlanner.ViewModels;
-
-namespace MixPlanner.Commands
+﻿namespace MixPlanner.Commands
 {
-    public class InitializeEmptyMixCommand : CommandBase
+    using System;
+    using Castle.Windsor;
+    using GalaSoft.MvvmLight.Messaging;
+    using MixPlanner.DomainModel;
+    using MixPlanner.Events;
+    using MixPlanner.ViewModels;
+
+    public sealed class InitializeEmptyMixCommand : CommandBase
     {
-        readonly IWindsorContainer container;
+        private readonly IWindsorContainer container;
 
         public InitializeEmptyMixCommand(IWindsorContainer container)
         {
-            if (container == null) throw new ArgumentNullException("container");
+            if (container == null)
+            {
+                throw new ArgumentNullException("container");
+            }
+
             this.container = container;
         }
 
