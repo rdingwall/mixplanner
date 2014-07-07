@@ -39,7 +39,10 @@
                     sb.AppendFormat(" [{0}]", track.Label);
                 }
 
-                sb.AppendLine();
+                if (i < parameter.Count - 1)
+                {
+                    sb.AppendLine();
+                }
             }
 
             return sb.ToString();
