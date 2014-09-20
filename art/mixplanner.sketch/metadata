@@ -10,12 +10,15 @@
 	<string>b2079fe10151ad0eef6cc553b7369ec78d67b9b5</string>
 	<key>fonts</key>
 	<array>
-		<string>GillSans</string>
+		<string>Quicksand-Light</string>
+		<string>AvenirNext-Medium</string>
 		<string>Entypo</string>
+		<string>AvenirNext-Regular</string>
 		<string>GillSans-Light</string>
+		<string>GillSans</string>
 	</array>
 	<key>length</key>
-	<integer>493499</integer>
+	<integer>24882700</integer>
 	<key>version</key>
 	<integer>37</integer>
 </dict>
