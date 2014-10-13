@@ -1,62 +1,31 @@
 @import "bootstrap.less";
 @import "bootswatch.less";
 
-html {
-	padding-top: 80px;
-}
-
-.jumbotron {
+div.mx-jumbotron {
 	height: 350px;
+	margin-top: 30px;
 }
 
-.lead {
-	text-align: center;
+span.mx-heart {
+	color: #E23047;
 }
 
-.mx-component {
-	.make-lg-column-offset(2);
-	.make-lg-column(8);
-	margin-top: 20px;
-	margin-bottom: 20px;
-	font-size: 150%;
+div.row {
+	margin-top: 30px;
+	margin-bottom: 30px;
 }
 
-.mx-feature-list {
-	
-	.mx-feature-list-item {
-		.mx-component;
-		
-		.mx-feature-list-item-img {
-			
-			.make-lg-column(2);
-			text-align: center;
-			padding-top: 30px;
-			
-			img {
-				height: 100px;
-				width: 100px;
-			}
-		}
-		
-		.mx-feature-list-item-content {
-			
-		}
+div.mx-features {
+	p {
+		font-size: 120%;
 	}
-	
-	.row:nth-child(even) {
-		p,
-		h1 {
-			text-align: right;
-		}
-		
-		.mx-feature-list-item-img {
-			.make-lg-column-push(10);
-			//text-align: left;
-		}
-		
-		.mx-feature-list-item-content {
-			.make-lg-column(10);
-			.make-lg-column-pull(2);
-		}
-	}
+}
+
+a.mx-btn-download {
+	text-shadow: 1px 1px #666666;
+}
+
+a.mx-screenshot {
+	margin-left: 10px;
+	margin-right: 10px;
 }
