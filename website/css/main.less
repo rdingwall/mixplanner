@@ -1,13 +1,45 @@
 @import "bootstrap.less";
 @import "bootswatch.less";
 
+@link-color: @gray;
+@hotpink: #E23047;
+@font-size-base: 16px;
+@input-color-placeholder: #CCCCCC;
+
+body {
+  background-color: @gray-darker;
+}
+
 div.mx-jumbotron {
-	height: 350px;
-	margin-top: 30px;
+
+  background-image: url('../images/desk-sm.jpg');
+  background-size: cover;
+  background-position: bottom;
+  color: white;
+
+  h1 {
+	font-size: 48px;
+  }
+}
+
+div.mx-jumbotron-index {
+
+	background-image: url('../images/desk-sm.jpg');
+	background-size: cover;
+	background-position: bottom;
+  color: white;
+	
+	h1 {
+		font-size: 48px;
+	}
+
+  	p {
+	  font-size: 28px;
+	}
 }
 
 span.mx-heart {
-	color: #E23047;
+	color: @hotpink;
 }
 
 div.row {
@@ -15,17 +47,46 @@ div.row {
 	margin-bottom: 30px;
 }
 
-div.mx-features {
-	p {
-		font-size: 120%;
-	}
+div.mx-footer {
+  background-color: @gray-darker;
 }
 
 a.mx-btn-download {
 	text-shadow: 1px 1px #666666;
 }
 
-a.mx-screenshot {
+div.mx-feature {
+  .text-center;
+}
+
+div.mx-main {
+	background-color: white;
+}
+
+@media (min-width: @screen-md-min) {
+
+  a.mx-screenshot {
 	margin-left: 10px;
 	margin-right: 10px;
+  }
+
+  div.mx-jumbotron {
+
+	background-image: url('../images/desk.jpg');
+
+	h1 {
+	  font-size: 96pt;
+	}
+  }
+
+  div.mx-jumbotron-index {
+
+	height: 500px;
+	background-image: url('../images/desk.jpg');
+
+	h1 {
+	  font-size: 96pt;
+	}
+  }
+
 }
